@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/prices.schema.json",
+  "title": "Era Price List",
+  "type": "object",
+  "properties": {
+    "source": { "type": "string" },
+    "url": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "priceText": { "type": "string" },
+          "priceCents": { "type": ["integer", "null"], "minimum": 0 },
+          "source": { "type": "string" },
+          "url": { "type": "string" }
+        },
+        "required": ["section", "name"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["source", "items"],
+  "additionalProperties": false
+}
+

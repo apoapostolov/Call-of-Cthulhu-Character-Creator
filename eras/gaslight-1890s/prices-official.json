@@ -1,0 +1,1069 @@
+{
+  "source": "official",
+  "items": [
+    {
+      "section": "Transportation",
+      "name": "Sea Voyage to US/England (First Class, One Way)",
+      "priceText": "£12–£35",
+      "description": "First class ocean passage, one way between US and England",
+      "pricePence": 2880
+    },
+    {
+      "section": "Transportation",
+      "name": "Sea Voyage to US/England (First Class, Return)",
+      "priceText": "£22–£63",
+      "description": "First class ocean passage, return trip between US and England",
+      "pricePence": 5280
+    },
+    {
+      "section": "Transportation",
+      "name": "Sea Voyage to US/England (Third Class)",
+      "priceText": "£5–£7",
+      "description": "Third class ocean passage between US and England",
+      "pricePence": 1200
+    },
+    {
+      "section": "Transportation",
+      "name": "Channel Crossing (1st Class)",
+      "priceText": "£2/6s",
+      "description": "London-Calais train, first class",
+      "pricePence": 552
+    },
+    {
+      "section": "Transportation",
+      "name": "Channel Crossing (2nd Class)",
+      "priceText": "£3/1s",
+      "description": "London-Calais train, second class",
+      "pricePence": 732
+    },
+    {
+      "section": "Transportation",
+      "name": "Channel Crossing (3rd Class)",
+      "priceText": "10s",
+      "description": "London-Calais train, third class",
+      "pricePence": 120
+    },
+    {
+      "section": "Transportation",
+      "name": "River Steamer Fare",
+      "priceText": "1d–6d",
+      "description": "Public river steamer passage",
+      "pricePence": 1
+    },
+    {
+      "section": "Transportation",
+      "name": "Rowboat",
+      "priceText": "£10",
+      "description": "Purchase of a rowboat",
+      "pricePence": 2400
+    },
+    {
+      "section": "Transportation",
+      "name": "Steamer Rental (Daily)",
+      "priceText": "£6–£35",
+      "description": "Daily rental of a river steamer",
+      "pricePence": 1440
+    },
+    {
+      "section": "Transportation",
+      "name": "Cab Fare (Base Rate)",
+      "priceText": "1s",
+      "description": "1 person, up to 2 miles (3 km)",
+      "pricePence": 12
+    },
+    {
+      "section": "Transportation",
+      "name": "Cab Fare (Additional Mile)",
+      "priceText": "6d",
+      "description": "Per additional mile (1.6 km)",
+      "pricePence": 6
+    },
+    {
+      "section": "Transportation",
+      "name": "Cab Fare (Additional Person)",
+      "priceText": "6d",
+      "description": "Per additional passenger",
+      "pricePence": 6
+    },
+    {
+      "section": "Transportation",
+      "name": "Cab Fare (Luggage)",
+      "priceText": "2d",
+      "description": "Per piece of luggage",
+      "pricePence": 2
+    },
+    {
+      "section": "Transportation",
+      "name": "Cab Fare (Wait Time)",
+      "priceText": "6d–8d",
+      "description": "Per 15 minutes waiting time",
+      "pricePence": 6
+    },
+    {
+      "section": "Transportation",
+      "name": "London Omnibus",
+      "priceText": "1d–6d",
+      "description": "London omnibus fare",
+      "pricePence": 1
+    },
+    {
+      "section": "Transportation",
+      "name": "London Tram",
+      "priceText": "¼d–4d",
+      "description": "London tram fare",
+      "pricePence": 0
+    },
+    {
+      "section": "Transportation",
+      "name": "London Underground (3rd Class)",
+      "priceText": "2d",
+      "description": "London Underground third class",
+      "pricePence": 2
+    },
+    {
+      "section": "Transportation",
+      "name": "London Underground (2nd Class)",
+      "priceText": "4d",
+      "description": "London Underground second class",
+      "pricePence": 4
+    },
+    {
+      "section": "Transportation",
+      "name": "London Underground (1st Class)",
+      "priceText": "6d",
+      "description": "London Underground first class",
+      "pricePence": 6
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse (Carriage or Hunter)",
+      "priceText": "£100",
+      "description": "Fine carriage horse or hunter",
+      "pricePence": 24000
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse (Draft)",
+      "priceText": "£14+",
+      "description": "Working draft horse",
+      "pricePence": 3360
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse (Riding)",
+      "priceText": "£25–£40+",
+      "description": "Quality riding horse",
+      "pricePence": 6000
+    },
+    {
+      "section": "Transportation",
+      "name": "Wagon (Delivery)",
+      "priceText": "£6/12s",
+      "description": "Simple delivery wagon",
+      "pricePence": 1584
+    },
+    {
+      "section": "Transportation",
+      "name": "Wagon (Four-Seat)",
+      "priceText": "£20–£200",
+      "description": "Four-seat passenger wagon",
+      "pricePence": 4800
+    },
+    {
+      "section": "Transportation",
+      "name": "Wagon (Two-Seat)",
+      "priceText": "£17",
+      "description": "Two-seat passenger wagon",
+      "pricePence": 4080
+    },
+    {
+      "section": "Transportation",
+      "name": "Train Fare (London to Dover)",
+      "priceText": "8s–10s",
+      "description": "Railway fare from London to Dover",
+      "pricePence": 96
+    },
+    {
+      "section": "Transportation",
+      "name": "Train Fare (London to Liverpool)",
+      "priceText": "16s/6d–29s",
+      "description": "Railway fare from London to Liverpool",
+      "pricePence": 198
+    },
+    {
+      "section": "Transportation",
+      "name": "Train Fare (London to Paris, Return)",
+      "priceText": "£3/17s–£4/17s",
+      "description": "Return railway fare from London to Paris",
+      "pricePence": 924
+    },
+    {
+      "section": "Transportation",
+      "name": "Bicycle",
+      "priceText": "£15",
+      "description": "Standard bicycle",
+      "pricePence": 3600
+    },
+    {
+      "section": "Transportation",
+      "name": "Tricycle",
+      "priceText": "£21",
+      "description": "Three-wheeled tricycle",
+      "pricePence": 5040
+    },
+    {
+      "section": "Transportation",
+      "name": "Gas Airship (Small and Basic)",
+      "priceText": "£450",
+      "description": "Small basic gas-powered airship",
+      "pricePence": 108000
+    },
+    {
+      "section": "Transportation",
+      "name": "Gas Balloon",
+      "priceText": "£300",
+      "description": "Hot air or gas balloon",
+      "pricePence": 72000
+    },
+    {
+      "section": "Communications",
+      "name": "Telegram (12 Words)",
+      "priceText": "6d",
+      "description": "Basic telegram up to 12 words",
+      "pricePence": 6
+    },
+    {
+      "section": "Communications",
+      "name": "Telegram (Additional Word)",
+      "priceText": "½d",
+      "description": "Each additional word beyond 12",
+      "pricePence": 1
+    },
+    {
+      "section": "Communications",
+      "name": "International Telegram (Per Word)",
+      "priceText": "4s",
+      "description": "International telegram, per word",
+      "pricePence": 48
+    },
+    {
+      "section": "Communications",
+      "name": "Messenger (Per Hour)",
+      "priceText": "6d",
+      "description": "Messenger service, hourly rate",
+      "pricePence": 6
+    },
+    {
+      "section": "Communications",
+      "name": "Messenger (Per Mile)",
+      "priceText": "3d",
+      "description": "Messenger service, per mile",
+      "pricePence": 3
+    },
+    {
+      "section": "Communications",
+      "name": "Phone Call (3 Minutes)",
+      "priceText": "2d",
+      "description": "Three-minute telephone call",
+      "pricePence": 2
+    },
+    {
+      "section": "Lodging",
+      "name": "Townhouse (Kensington, Weekly)",
+      "priceText": "5 guineas (£5/5s)",
+      "description": "Kensington townhouse, per week",
+      "pricePence": 1260
+    },
+    {
+      "section": "Lodging",
+      "name": "Nice Flat (Westminster, Weekly)",
+      "priceText": "£2/10/0",
+      "description": "Nice flat in Westminster, per week",
+      "pricePence": 480
+    },
+    {
+      "section": "Lodging",
+      "name": "Hotel (West End, Nightly)",
+      "priceText": "15s/6d–25s",
+      "description": "West End hotel, per night",
+      "pricePence": 186
+    },
+    {
+      "section": "Lodging",
+      "name": "Private Room (London, Weekly)",
+      "priceText": "15s–21s",
+      "description": "Private room in London, per week",
+      "pricePence": 180
+    },
+    {
+      "section": "Lodging",
+      "name": "Hotel (Middle Class, Nightly)",
+      "priceText": "6s–8s",
+      "description": "Middle class hotel, per night",
+      "pricePence": 72
+    },
+    {
+      "section": "Lodging",
+      "name": "Hotel (Weekly with Service, 2 Meals)",
+      "priceText": "£1/15s",
+      "description": "Weekly hotel stay with service and 2 meals",
+      "pricePence": 420
+    },
+    {
+      "section": "Lodging",
+      "name": "Flat (Provinces, Weekly)",
+      "priceText": "8s–15s+",
+      "description": "Flat in the provinces, per week",
+      "pricePence": 96
+    },
+    {
+      "section": "Lodging",
+      "name": "Boarding House Room (Weekly)",
+      "priceText": "5s",
+      "description": "Room in boarding house, per week",
+      "pricePence": 60
+    },
+    {
+      "section": "Lodging",
+      "name": "Small House (Weekly)",
+      "priceText": "10s+",
+      "description": "Small house rental, per week",
+      "pricePence": 120
+    },
+    {
+      "section": "Lodging",
+      "name": "House (Yearly)",
+      "priceText": "£25+",
+      "description": "House rental, per year",
+      "pricePence": 6000
+    },
+    {
+      "section": "Lodging",
+      "name": "Country Cottage (Weekly)",
+      "priceText": "2s",
+      "description": "Rural country cottage, per week",
+      "pricePence": 24
+    },
+    {
+      "section": "Lodging",
+      "name": "Slum Room (Weekly)",
+      "priceText": "3s–5s",
+      "description": "Slum room, per week",
+      "pricePence": 36
+    },
+    {
+      "section": "Lodging",
+      "name": "Shared Bed (Nightly)",
+      "priceText": "2d",
+      "description": "Bed shared with a stranger, per night",
+      "pricePence": 2
+    },
+    {
+      "section": "Lodging",
+      "name": "Public Toilet (Per Visit)",
+      "priceText": "1d",
+      "description": "Use of public toilet facilities",
+      "pricePence": 1
+    },
+    {
+      "section": "Lodging",
+      "name": "Rope Lean-To (Nightly)",
+      "priceText": "1d",
+      "description": "Rope lean-to sleeping arrangement, per night",
+      "pricePence": 1
+    },
+    {
+      "section": "Entertainment",
+      "name": "Club Entry Fee (Exclusive)",
+      "priceText": "5–40 guineas (£5/5s–£42)",
+      "description": "One-time entry fee for exclusive club",
+      "pricePence": 1260
+    },
+    {
+      "section": "Entertainment",
+      "name": "Club Subscription (Annual)",
+      "priceText": "5–10 guineas (£5/5s–£10/10s)",
+      "description": "Annual subscription for exclusive club",
+      "pricePence": 1260
+    },
+    {
+      "section": "Entertainment",
+      "name": "Magic Lantern (+ 30 Slides)",
+      "priceText": "£3/3s/3d",
+      "description": "Magic lantern with 30 slides",
+      "pricePence": 759
+    },
+    {
+      "section": "Entertainment",
+      "name": "Music Hall",
+      "priceText": "4d–10s",
+      "description": "Music hall entertainment",
+      "pricePence": 4
+    },
+    {
+      "section": "Entertainment",
+      "name": "West End Theater (Box)",
+      "priceText": "1½–6 guineas (£1/11s–£6/6s)",
+      "description": "West End theater box seat",
+      "pricePence": 378
+    },
+    {
+      "section": "Entertainment",
+      "name": "West End Theater (Seated)",
+      "priceText": "10s/6d–15s",
+      "description": "West End theater regular seating",
+      "pricePence": 126
+    },
+    {
+      "section": "Entertainment",
+      "name": "West End Theater (Standing)",
+      "priceText": "2s/6d",
+      "description": "West End theater standing room",
+      "pricePence": 30
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Alcohol (Half Gallon)",
+      "priceText": "7d",
+      "description": "Medical alcohol, half gallon",
+      "pricePence": 7
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Ammonia (Pint)",
+      "priceText": "3s/3d",
+      "description": "Ammonia solution, one pint",
+      "pricePence": 39
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Amyl Nitrate (8 Ampoules)",
+      "priceText": "£6/2s",
+      "description": "Eight ampoules of amyl nitrate",
+      "pricePence": 1464
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Artificial Limb",
+      "priceText": "£12",
+      "description": "Prosthetic artificial limb",
+      "pricePence": 2880
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Camphor (4 Ounces)",
+      "priceText": "8d",
+      "description": "Camphor, four ounces",
+      "pricePence": 8
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Carbolic Acid (Gallon)",
+      "priceText": "4s",
+      "description": "Carbolic acid disinfectant, one gallon",
+      "pricePence": 48
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Chloroform (Bottle)",
+      "priceText": "7d",
+      "description": "Bottle of chloroform anesthetic",
+      "pricePence": 7
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Kerosene (Half Gallon)",
+      "priceText": "6d",
+      "description": "Kerosene fuel, half gallon",
+      "pricePence": 6
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Laudanum (4 Doses)",
+      "priceText": "4d",
+      "description": "Laudanum opiate, four doses",
+      "pricePence": 4
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Medical Case",
+      "priceText": "£4/5s",
+      "description": "Professional medical case",
+      "pricePence": 1020
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Medicine Chest (Full of Remedies)",
+      "priceText": "£1/10s",
+      "description": "Complete medicine chest with remedies",
+      "pricePence": 360
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Peruvian Wine of Coca (8-Ounce Bottle)",
+      "priceText": "3s/11d",
+      "description": "Peruvian wine of coca, eight-ounce bottle",
+      "pricePence": 47
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Sulfur (Pound)",
+      "priceText": "3d",
+      "description": "Sulfur powder, one pound",
+      "pricePence": 3
+    },
+    {
+      "section": "Medical Gear",
+      "name": "Surgical Saw Set",
+      "priceText": "8s",
+      "description": "Complete surgical saw set",
+      "pricePence": 96
+    },
+    {
+      "section": "Medical Gear",
+      "name": "White Arsenic (1 Ounce)",
+      "priceText": "1d",
+      "description": "White arsenic powder, one ounce",
+      "pricePence": 1
+    },
+    {
+      "section": "Tools",
+      "name": "Axe",
+      "priceText": "3s/2d",
+      "description": "Standard woodsman's axe",
+      "pricePence": 38
+    },
+    {
+      "section": "Tools",
+      "name": "Bolt Cutter",
+      "priceText": "18s/6d",
+      "description": "Heavy-duty bolt cutting tool",
+      "pricePence": 222
+    },
+    {
+      "section": "Tools",
+      "name": "Chain (Per Foot)",
+      "priceText": "4d",
+      "description": "Heavy chain, per foot",
+      "pricePence": 4
+    },
+    {
+      "section": "Tools",
+      "name": "Crowbar",
+      "priceText": "2s",
+      "description": "Iron crowbar",
+      "pricePence": 24
+    },
+    {
+      "section": "Tools",
+      "name": "Drill (Hand)",
+      "priceText": "8s/10d",
+      "description": "Hand-operated drill",
+      "pricePence": 106
+    },
+    {
+      "section": "Tools",
+      "name": "File",
+      "priceText": "4s",
+      "description": "Metal file",
+      "pricePence": 48
+    },
+    {
+      "section": "Tools",
+      "name": "Gaff Hook",
+      "priceText": "2s",
+      "description": "Sailor's gaff hook",
+      "pricePence": 24
+    },
+    {
+      "section": "Tools",
+      "name": "Glass Cutter",
+      "priceText": "4d",
+      "description": "Diamond glass cutting tool",
+      "pricePence": 4
+    },
+    {
+      "section": "Tools",
+      "name": "Hacksaw",
+      "priceText": "2s",
+      "description": "Metal-cutting hacksaw",
+      "pricePence": 24
+    },
+    {
+      "section": "Tools",
+      "name": "Hammer",
+      "priceText": "1s/5d",
+      "description": "Standard claw hammer",
+      "pricePence": 17
+    },
+    {
+      "section": "Tools",
+      "name": "Padlock",
+      "priceText": "10d",
+      "description": "Security padlock",
+      "pricePence": 10
+    },
+    {
+      "section": "Tools",
+      "name": "Pick",
+      "priceText": "3s",
+      "description": "Miner's or ice pick",
+      "pricePence": 36
+    },
+    {
+      "section": "Tools",
+      "name": "Rope (50 Feet)",
+      "priceText": "4s",
+      "description": "Hemp rope, fifty feet",
+      "pricePence": 48
+    },
+    {
+      "section": "Tools",
+      "name": "Saw",
+      "priceText": "2s",
+      "description": "Wood-cutting saw",
+      "pricePence": 24
+    },
+    {
+      "section": "Tools",
+      "name": "Scissors",
+      "priceText": "1s/5d",
+      "description": "Sharp cutting scissors",
+      "pricePence": 17
+    },
+    {
+      "section": "Tools",
+      "name": "Screwdriver",
+      "priceText": "1s/4d",
+      "description": "Flat-blade screwdriver",
+      "pricePence": 16
+    },
+    {
+      "section": "Tools",
+      "name": "Shovel",
+      "priceText": "2s/5d",
+      "description": "Digging shovel",
+      "pricePence": 29
+    },
+    {
+      "section": "Tools",
+      "name": "Sledgehammer",
+      "priceText": "3s/6d",
+      "description": "Heavy sledgehammer",
+      "pricePence": 42
+    },
+    {
+      "section": "Tools",
+      "name": "Sporting Knife (Multi-Tool)",
+      "priceText": "£1",
+      "description": "Multi-purpose sporting knife",
+      "pricePence": 240
+    },
+    {
+      "section": "Tools",
+      "name": "Tool Chest (33 Tools)",
+      "priceText": "£2/3s",
+      "description": "Complete tool chest with 33 tools",
+      "pricePence": 516
+    },
+    {
+      "section": "Tools",
+      "name": "Wire Cutters",
+      "priceText": "3s",
+      "description": "Wire cutting pliers",
+      "pricePence": 36
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun Ammunition (.22/.32/.762mm/.765mm/8mm, 100 rounds)",
+      "priceText": "3s/6d",
+      "description": "Small caliber handgun ammunition, 100 rounds",
+      "pricePence": 42
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun Ammunition (.38/.41/.410 Ball, 100 rounds)",
+      "priceText": "4s/6d",
+      "description": "Medium caliber handgun ammunition, 100 rounds",
+      "pricePence": 54
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun Ammunition (.44/.45/.455, 100 rounds)",
+      "priceText": "5s/6d",
+      "description": "Large caliber handgun ammunition, 100 rounds",
+      "pricePence": 66
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun Ammunition (.476, 100 rounds)",
+      "priceText": "6s/6d",
+      "description": ".476 caliber handgun ammunition, 100 rounds",
+      "pricePence": 78
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun Ammunition (.577, 100 rounds)",
+      "priceText": "8s/9d",
+      "description": ".577 caliber handgun ammunition, 100 rounds",
+      "pricePence": 105
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (Air Rifle Balls, 100 rounds)",
+      "priceText": "3d",
+      "description": "Air rifle balls, 100 rounds",
+      "pricePence": 3
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (Air Rifle Darts, 100 rounds)",
+      "priceText": "1s/11d",
+      "description": "Air rifle darts, 100 rounds",
+      "pricePence": 23
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (.22/.30/.300, 100 rounds)",
+      "priceText": "5s",
+      "description": "Small rifle ammunition, 100 rounds",
+      "pricePence": 60
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (.500 Express, 100 rounds)",
+      "priceText": "£1/3s",
+      "description": ".500 Express rifle ammunition, 100 rounds",
+      "pricePence": 276
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (.577/.450 Martini, 100 rounds)",
+      "priceText": "19s",
+      "description": ".577/.450 Martini rifle ammunition, 100 rounds",
+      "pricePence": 228
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Ammunition (8mm/.303, 100 rounds)",
+      "priceText": "15s",
+      "description": "8mm/.303 rifle ammunition, 100 rounds",
+      "pricePence": 180
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Shotgun Ammunition (.410 Shot, 100 rounds)",
+      "priceText": "6s/6d",
+      "description": ".410 shotgun shells, 100 rounds",
+      "pricePence": 78
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Shotgun Ammunition (20-Bore, 100 rounds)",
+      "priceText": "8s/6d",
+      "description": "20-bore shotgun shells, 100 rounds",
+      "pricePence": 102
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Shotgun Ammunition (16-Bore, 100 rounds)",
+      "priceText": "9s",
+      "description": "16-bore shotgun shells, 100 rounds",
+      "pricePence": 108
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Shotgun Ammunition (12-Bore, 100 rounds)",
+      "priceText": "9s/6d",
+      "description": "12-bore shotgun shells, 100 rounds",
+      "pricePence": 114
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Shotgun Ammunition (10-Bore, 100 rounds)",
+      "priceText": "10s",
+      "description": "10-bore shotgun shells, 100 rounds",
+      "pricePence": 120
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Arrows (12)",
+      "priceText": "4s/6d",
+      "description": "Twelve hunting arrows",
+      "pricePence": 54
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Cartridge Bag (100 Rounds)",
+      "priceText": "19s",
+      "description": "Leather cartridge bag for 100 rounds",
+      "pricePence": 228
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Cartridge Belt (40 Rounds)",
+      "priceText": "7s/6d",
+      "description": "Cartridge belt for 40 rounds",
+      "pricePence": 90
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Dynamite (2 Sticks)",
+      "priceText": "10d",
+      "description": "Two sticks of dynamite",
+      "pricePence": 10
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Handgun License",
+      "priceText": "10s",
+      "description": "Official handgun license",
+      "pricePence": 120
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Holster",
+      "priceText": "4s/9d",
+      "description": "Leather gun holster",
+      "pricePence": 57
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Pistol Case",
+      "priceText": "15s",
+      "description": "Wooden pistol case",
+      "pricePence": 180
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Rifle Case",
+      "priceText": "£1/2s",
+      "description": "Wooden rifle case",
+      "pricePence": 264
+    },
+    {
+      "section": "Weapon Accessories",
+      "name": "Telescopic Sight (4x Magnification)",
+      "priceText": "£4",
+      "description": "4x magnification telescopic rifle sight",
+      "pricePence": 960
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Aneroid Barometer (Pocket)",
+      "priceText": "£2",
+      "description": "Pocket aneroid barometer",
+      "pricePence": 480
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Animal Trap (Small)",
+      "priceText": "2s/2d",
+      "description": "Small animal trap",
+      "pricePence": 26
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Binoculars (8x Magnification)",
+      "priceText": "£1",
+      "description": "8x magnification binoculars",
+      "pricePence": 240
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Camera (Kodak, After 1888)",
+      "priceText": "£5/6s",
+      "description": "Kodak camera (post-1888 model)",
+      "pricePence": 1272
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Camping Basket (Inc. Stove & Cutlery for 6)",
+      "priceText": "£2/8s",
+      "description": "Complete camping basket with stove and cutlery for six",
+      "pricePence": 576
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Candles (Box of 24)",
+      "priceText": "1s/8d",
+      "description": "Box of twenty-four candles",
+      "pricePence": 20
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Compass (Pocket)",
+      "priceText": "3s",
+      "description": "Pocket compass",
+      "pricePence": 36
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Cricket Bat",
+      "priceText": "4s/6d",
+      "description": "Standard cricket bat",
+      "pricePence": 54
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Crucifix (Silver)",
+      "priceText": "9s/9d",
+      "description": "Silver crucifix",
+      "pricePence": 117
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Fake Mustache & Beard",
+      "priceText": "4s",
+      "description": "Disguise mustache and beard set",
+      "pricePence": 48
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Field Glasses (12x Magnification)",
+      "priceText": "£1/12s",
+      "description": "12x magnification field glasses",
+      "pricePence": 384
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Grease Paints (Box)",
+      "priceText": "10s",
+      "description": "Box of theatrical grease paints",
+      "pricePence": 120
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Handcuffs",
+      "priceText": "5s",
+      "description": "Police handcuffs",
+      "pricePence": 60
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Leg Irons",
+      "priceText": "10s",
+      "description": "Heavy leg irons",
+      "pricePence": 120
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Lantern (Wind Resistant)",
+      "priceText": "3s/6d",
+      "description": "Wind-resistant lantern",
+      "pricePence": 42
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Lighter (Automatic)",
+      "priceText": "1s/5d",
+      "description": "Automatic lighter",
+      "pricePence": 17
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Magnifying Glass",
+      "priceText": "2s/9d",
+      "description": "Detective's magnifying glass",
+      "pricePence": 33
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Make-Up Kit",
+      "priceText": "10s",
+      "description": "Complete theatrical make-up kit",
+      "pricePence": 120
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Microscope (200x Magnification)",
+      "priceText": "£4/15s",
+      "description": "200x magnification microscope",
+      "pricePence": 1140
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Opera Glasses (3x Magnification)",
+      "priceText": "£1/2s",
+      "description": "3x magnification opera glasses",
+      "pricePence": 264
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Photographic Plates (12)",
+      "priceText": "£5/5s",
+      "description": "Twelve photographic plates",
+      "pricePence": 1260
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Rations (Emergency, Per Day)",
+      "priceText": "14s",
+      "description": "Emergency rations for one day",
+      "pricePence": 168
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Rations (Meat, Canned)",
+      "priceText": "9d",
+      "description": "Canned meat rations",
+      "pricePence": 9
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Spyglass (15x Magnification)",
+      "priceText": "£1",
+      "description": "15x magnification spyglass",
+      "pricePence": 240
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Telescope (12x Magnification)",
+      "priceText": "£3/15s",
+      "description": "12x magnification telescope",
+      "pricePence": 900
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Tent (Two-Man)",
+      "priceText": "£3/18s",
+      "description": "Two-man camping tent",
+      "pricePence": 936
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Tinder Box (Brass, Inc. Flint & Steel)",
+      "priceText": "1s/8d",
+      "description": "Brass tinder box with flint and steel",
+      "pricePence": 20
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Typewriter",
+      "priceText": "£5",
+      "description": "Manual typewriter",
+      "pricePence": 1200
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Walking Cane",
+      "priceText": "2s",
+      "description": "Gentleman's walking cane",
+      "pricePence": 24
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Wig",
+      "priceText": "£3",
+      "description": "Quality wig for disguise",
+      "pricePence": 720
+    },
+    {
+      "section": "Miscellaneous Equipment",
+      "name": "Writing Case (Inc. Paper, Envelopes, Pen)",
+      "priceText": "8s/9d",
+      "description": "Complete writing case with supplies",
+      "pricePence": 105
+    }
+  ]
+}

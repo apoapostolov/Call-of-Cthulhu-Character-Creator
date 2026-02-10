@@ -1,0 +1,2573 @@
+{
+  "source": "official",
+  "items": [
+    {
+      "section": "Men's Clothing",
+      "name": "Worsted Wool Dress Suit",
+      "description": "",
+      "priceText": "$17.95",
+      "priceCents": 1795,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Cashmere Dress Suit",
+      "description": "",
+      "priceText": "$18.50",
+      "priceCents": 1850,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Suit, mohair",
+      "description": "",
+      "priceText": "$13.85",
+      "priceCents": 1385,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Union suit, Forest Mills",
+      "description": "",
+      "priceText": "69¢",
+      "priceCents": 69,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Outdoor coat",
+      "description": "",
+      "priceText": "$9.95-$35.00",
+      "priceCents": 995,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Chesterfield Overcoat",
+      "description": "",
+      "priceText": "$19.95",
+      "priceCents": 1995,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Oxford Dress Shoes",
+      "description": "",
+      "priceText": "$6.95",
+      "priceCents": 695,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Work Shoes",
+      "description": "",
+      "priceText": "$4.95",
+      "priceCents": 495,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Slacks, white flannel",
+      "description": "",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Shirt, percale",
+      "description": "",
+      "priceText": "79¢-$1.25",
+      "priceCents": 79,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Broadcloth Dress Shirt",
+      "description": "",
+      "priceText": "$1.95",
+      "priceCents": 195,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Shaker Sweater",
+      "description": "",
+      "priceText": "$7.69",
+      "priceCents": 769,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Felt Fedora",
+      "description": "",
+      "priceText": "$4.95",
+      "priceCents": 495,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Golf Cap",
+      "description": "",
+      "priceText": "79¢",
+      "priceCents": 79,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Straw Hat",
+      "description": "",
+      "priceText": "$1.95",
+      "priceCents": 195,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Football Helmet",
+      "description": "",
+      "priceText": "$3.65",
+      "priceCents": 365,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Sweatshirt",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Necktie, silk",
+      "description": "",
+      "priceText": "50¢",
+      "priceCents": 50,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Batwing Bow Tie",
+      "description": "",
+      "priceText": "55¢",
+      "priceCents": 55,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Sock Garters",
+      "description": "",
+      "priceText": "39¢",
+      "priceCents": 39,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Cuff Links",
+      "description": "",
+      "priceText": "40¢",
+      "priceCents": 40,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Belt",
+      "description": "",
+      "priceText": "$1.35",
+      "priceCents": 135,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Suspenders",
+      "description": "",
+      "priceText": "79¢",
+      "priceCents": 79,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Hiking Boots",
+      "description": "",
+      "priceText": "$7.25",
+      "priceCents": 725,
+      "source": "official"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Bathing Suit",
+      "description": "",
+      "priceText": "$3.45",
+      "priceCents": 345,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Chic Designer Dress",
+      "description": "",
+      "priceText": "$90.00+",
+      "priceCents": 9000,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Taffeta Frock",
+      "description": "",
+      "priceText": "$10.95",
+      "priceCents": 1095,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Satin Charmeuse",
+      "description": "",
+      "priceText": "$10.95",
+      "priceCents": 1095,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Gingham Dress",
+      "description": "",
+      "priceText": "$2.59",
+      "priceCents": 259,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Pleated Skirt, Silk",
+      "description": "",
+      "priceText": "$7.95",
+      "priceCents": 795,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Blouse, Cotton",
+      "description": "",
+      "priceText": "$1.98",
+      "priceCents": 198,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Worsted Wool Sweater",
+      "description": "",
+      "priceText": "$9.48",
+      "priceCents": 948,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Crepe Negligee",
+      "description": "",
+      "priceText": "88¢",
+      "priceCents": 88,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Spike-heeled Parisian Shoes",
+      "description": "",
+      "priceText": "$4.45",
+      "priceCents": 445,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather One-Strap Slippers",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Snug Velour Hat",
+      "description": "",
+      "priceText": "$4.44",
+      "priceCents": 444,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Satin Turban-style Hat",
+      "description": "",
+      "priceText": "$3.69",
+      "priceCents": 369,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Rayon Elastic Corset",
+      "description": "",
+      "priceText": "$2.59",
+      "priceCents": 259,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Embroidered Costume Slip",
+      "description": "",
+      "priceText": "$1.59",
+      "priceCents": 159,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Hose (3 pairs)",
+      "description": "",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Bloomers, Silk",
+      "description": "",
+      "priceText": "$3.98-$4.98",
+      "priceCents": 398,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Tweed Jacket, fully lined",
+      "description": "",
+      "priceText": "$3.95",
+      "priceCents": 395,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Velour Coat with Fur Trim",
+      "description": "",
+      "priceText": "$39.75",
+      "priceCents": 3975,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Brown Fox Fur Coat",
+      "description": "",
+      "priceText": "$198.00",
+      "priceCents": 19800,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Belted Rain Coat-Cotton",
+      "description": "",
+      "priceText": "$3.98",
+      "priceCents": 398,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Handbag",
+      "description": "",
+      "priceText": "$4.98",
+      "priceCents": 498,
+      "source": "official"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Dress Hair Comb",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Outdoor Shirt",
+      "description": "Khaki Jean Material",
+      "priceText": "$1.79",
+      "priceCents": 179,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Outdoor Shirt",
+      "description": "All Wool Tweed or Linen",
+      "priceText": "$2.98",
+      "priceCents": 298,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Outdoor Knee-Length Knickers",
+      "description": "Khaki Jean Material",
+      "priceText": "$1.79",
+      "priceCents": 179,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Outdoor Knee-Length Knickers",
+      "description": "White Linen",
+      "priceText": "$2.98",
+      "priceCents": 298,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Khaki Leggings",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Outdoor Boots",
+      "description": "",
+      "priceText": "$2.59",
+      "priceCents": 259,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Bathing Suit",
+      "description": "",
+      "priceText": "$4.95",
+      "priceCents": 495,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Bathing Cap",
+      "description": "",
+      "priceText": "40¢",
+      "priceCents": 40,
+      "source": "official"
+    },
+    {
+      "section": "Women's Outdoor Clothing",
+      "name": "Shoes, Pumps",
+      "description": "",
+      "priceText": "$1.29",
+      "priceCents": 129,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Chicken Dinner",
+      "description": "",
+      "priceText": "$2.50/person",
+      "priceCents": 250,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Breakfast",
+      "description": "",
+      "priceText": "45¢",
+      "priceCents": 45,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Lunch",
+      "description": "",
+      "priceText": "65¢",
+      "priceCents": 65,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Dinner",
+      "description": "",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Rotgut Gin (Shot)",
+      "description": "",
+      "priceText": "10¢",
+      "priceCents": 10,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Cocktail",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Wine (Glass)",
+      "description": "",
+      "priceText": "75¢",
+      "priceCents": 75,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Beer (Glass)",
+      "description": "",
+      "priceText": "20¢",
+      "priceCents": 20,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Whiskey (Glass)",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Meals & Dining",
+      "name": "Coca-Cola (12 oz.)",
+      "description": "",
+      "priceText": "5¢",
+      "priceCents": 5,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Average Hotel (per Night)",
+      "description": "",
+      "priceText": "$4.50",
+      "priceCents": 450,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Average Hotel (with service, per week)",
+      "description": "",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Fleabag Hotel (per Night)",
+      "description": "",
+      "priceText": "75¢",
+      "priceCents": 75,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Good Hotel (per Night)",
+      "description": "",
+      "priceText": "$9.00",
+      "priceCents": 900,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Good Hotel (with service, per week)",
+      "description": "",
+      "priceText": "$24.00",
+      "priceCents": 2400,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Luxury Hotel (per Night)",
+      "description": "",
+      "priceText": "$30.00+",
+      "priceCents": 3000,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "YMCA, Furnished Room",
+      "description": "",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "House Rental (per year)",
+      "description": "",
+      "priceText": "$1,000.00",
+      "priceCents": 100000,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "House Rental (per month)",
+      "description": "",
+      "priceText": "$55.00",
+      "priceCents": 5500,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Summer House Rental (per season)",
+      "description": "",
+      "priceText": "$350.00",
+      "priceCents": 35000,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Flat Rental (per week)",
+      "description": "",
+      "priceText": "$12.50",
+      "priceCents": 1250,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Average Apartment Rental (per week)",
+      "description": "",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "official"
+    },
+    {
+      "section": "Lodging",
+      "name": "Good Apartment Rental (per week)",
+      "description": "",
+      "priceText": "$40.00",
+      "priceCents": 4000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Country House",
+      "description": "",
+      "priceText": "$20,000.00+",
+      "priceCents": 2000000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Large House",
+      "description": "",
+      "priceText": "$7,000.00+",
+      "priceCents": 700000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Town House",
+      "description": "",
+      "priceText": "$4,000.00-$8,142.00",
+      "priceCents": 400000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Average House",
+      "description": "",
+      "priceText": "$2,900.00+",
+      "priceCents": 290000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Bungalow",
+      "description": "",
+      "priceText": "$3,100.00",
+      "priceCents": 310000,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Pre-Fabricated House (Small, 6 Rooms)",
+      "description": "",
+      "priceText": "$1,175.00",
+      "priceCents": 117500,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Pre-Fabricated House (Mid, 8 Rooms)",
+      "description": "",
+      "priceText": "$2,135.00",
+      "priceCents": 213500,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Pre-Fabricated House (Large, 9 Rooms)",
+      "description": "",
+      "priceText": "$3,278.00",
+      "priceCents": 327800,
+      "source": "official"
+    },
+    {
+      "section": "Real Estate",
+      "name": "Pre-Fabricated House (Massive, 24 Apt Rooms)",
+      "description": "",
+      "priceText": "$4,492.00",
+      "priceCents": 449200,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Aspirin (12 pills)",
+      "description": "",
+      "priceText": "10¢",
+      "priceCents": 10,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Epsom Salts",
+      "description": "",
+      "priceText": "9¢/lb.",
+      "priceCents": 9,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Indigestion Medicine",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Laxative, Nature's Remedy",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Case",
+      "description": "",
+      "priceText": "$10.45",
+      "priceCents": 1045,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Forceps",
+      "description": "",
+      "priceText": "$3.59",
+      "priceCents": 359,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Scalpel Set",
+      "description": "",
+      "priceText": "$1.39",
+      "priceCents": 139,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Hypodermic Syringes",
+      "description": "",
+      "priceText": "$12.50",
+      "priceCents": 1250,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Atomizer",
+      "description": "",
+      "priceText": "$1.39",
+      "priceCents": 139,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Gauze Bandages (5 Yards)",
+      "description": "",
+      "priceText": "69¢",
+      "priceCents": 69,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Clinical Thermometer",
+      "description": "",
+      "priceText": "69¢",
+      "priceCents": 69,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Alcohol (half gallon)",
+      "description": "",
+      "priceText": "20¢",
+      "priceCents": 20,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Hard Rubber Syringe",
+      "description": "",
+      "priceText": "69¢",
+      "priceCents": 69,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Bed Pan",
+      "description": "",
+      "priceText": "$1.79",
+      "priceCents": 179,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Wheel Chair",
+      "description": "",
+      "priceText": "$39.95",
+      "priceCents": 3995,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Maple Crutches",
+      "description": "",
+      "priceText": "$1.59",
+      "priceCents": 159,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Adhesive Plaster",
+      "description": "",
+      "priceText": "29¢",
+      "priceCents": 29,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Metal Arch Supports",
+      "description": "",
+      "priceText": "$1.98",
+      "priceCents": 198,
+      "source": "official"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Leather Ankle Supports",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Cooking Kit",
+      "description": "",
+      "priceText": "$8.98",
+      "priceCents": 898,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Camp Stove",
+      "description": "",
+      "priceText": "$6.10",
+      "priceCents": 610,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Vacuum bottle",
+      "description": "",
+      "priceText": "89¢",
+      "priceCents": 89,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Folding Bathtub",
+      "description": "",
+      "priceText": "$6.79",
+      "priceCents": 679,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Waterproof Blanket",
+      "description": "",
+      "priceText": "$5.06",
+      "priceCents": 506,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Folding Camp Bed",
+      "description": "",
+      "priceText": "$3.65",
+      "priceCents": 365,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Carbide Lamp",
+      "description": "",
+      "priceText": "$2.35",
+      "priceCents": 235,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Can of Carbide (2 lbs.)",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Searchlight",
+      "description": "",
+      "priceText": "$5.95",
+      "priceCents": 595,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Gasoline Lantern",
+      "description": "",
+      "priceText": "$6.40",
+      "priceCents": 640,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Kerosene Lantern",
+      "description": "",
+      "priceText": "$1.30",
+      "priceCents": 130,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Dark Lantern",
+      "description": "",
+      "priceText": "$1.68",
+      "priceCents": 168,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Electric Torch",
+      "description": "",
+      "priceText": "$2.40",
+      "priceCents": 240,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Batteries",
+      "description": "",
+      "priceText": "60¢",
+      "priceCents": 60,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Pen Light",
+      "description": "",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Flare (Disposable)",
+      "description": "",
+      "priceText": "27¢",
+      "priceCents": 27,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Telescope",
+      "description": "",
+      "priceText": "$3.45",
+      "priceCents": 345,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Field Glasses (3x to 6x)",
+      "description": "",
+      "priceText": "$8.50-$23.00",
+      "priceCents": 850,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Binoculars",
+      "description": "",
+      "priceText": "$28.50",
+      "priceCents": 2850,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Jeweled Compass",
+      "description": "",
+      "priceText": "$3.25",
+      "priceCents": 325,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Compass with Lid",
+      "description": "",
+      "priceText": "$2.85",
+      "priceCents": 285,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Hunting Knife",
+      "description": "",
+      "priceText": "$2.35",
+      "priceCents": 235,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "2-Blade Pocket Knife",
+      "description": "",
+      "priceText": "$1.20",
+      "priceCents": 120,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Hand Axe",
+      "description": "",
+      "priceText": "98¢",
+      "priceCents": 98,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Small Live Animal Trap",
+      "description": "",
+      "priceText": "$2.48",
+      "priceCents": 248,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Coil Spring Animal Trap",
+      "description": "",
+      "priceText": "$5.98",
+      "priceCents": 598,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Bear Trap",
+      "description": "",
+      "priceText": "$11.43",
+      "priceCents": 1143,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Fishing Rod and Tackle",
+      "description": "",
+      "priceText": "$9.35",
+      "priceCents": 935,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Hemp Twine",
+      "description": "",
+      "priceText": "27¢",
+      "priceCents": 27,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Pedometer",
+      "description": "",
+      "priceText": "$1.70",
+      "priceCents": 170,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Heavy Canvas Shoulder Bag",
+      "description": "",
+      "priceText": "$3.45",
+      "priceCents": 345,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Fifteen Hour Candles (12)",
+      "description": "",
+      "priceText": "62¢",
+      "priceCents": 62,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Waterproof Match Case",
+      "description": "",
+      "priceText": "48¢",
+      "priceCents": 48,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Steel Row Boat (seats 4)",
+      "description": "",
+      "priceText": "$35.20",
+      "priceCents": 3520,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "2 HP Motor for Row Boats",
+      "description": "",
+      "priceText": "$79.95",
+      "priceCents": 7995,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Canvas and Wood Canoe",
+      "description": "",
+      "priceText": "$75.00",
+      "priceCents": 7500,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Tent (7 x 7 foot)",
+      "description": "",
+      "priceText": "$11.48",
+      "priceCents": 1148,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Tent (12 x 16 foot)",
+      "description": "",
+      "priceText": "$28.15",
+      "priceCents": 2815,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Tent (16 x 24 foot)",
+      "description": "",
+      "priceText": "$53.48",
+      "priceCents": 5348,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Tarpaulin (24 x 36 foot)",
+      "description": "",
+      "priceText": "$39.35",
+      "priceCents": 3935,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Car Tent (7 x 7 foot)",
+      "description": "",
+      "priceText": "$12.80",
+      "priceCents": 1280,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Iron Tent Stakes (12)",
+      "description": "",
+      "priceText": "$1.15",
+      "priceCents": 115,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Auto Bed",
+      "description": "",
+      "priceText": "$8.95",
+      "priceCents": 895,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Canteen (1 quart)",
+      "description": "",
+      "priceText": "$1.69",
+      "priceCents": 169,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Insulated Tank (5 gallons)",
+      "description": "",
+      "priceText": "$3.98",
+      "priceCents": 398,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Water Bag (1 gallon)",
+      "description": "",
+      "priceText": "80¢",
+      "priceCents": 80,
+      "source": "official"
+    },
+    {
+      "section": "Outdoor & Travel Gear",
+      "name": "Water Bag (5 gallons)",
+      "description": "",
+      "priceText": "$2.06",
+      "priceCents": 206,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Tool Outfit (20 tools)",
+      "description": "",
+      "priceText": "$14.90",
+      "priceCents": 1490,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Hand Drill (plus 8 bits)",
+      "description": "",
+      "priceText": "$6.15",
+      "priceCents": 615,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Large Steel Pulley",
+      "description": "",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Padlock",
+      "description": "",
+      "priceText": "95¢",
+      "priceCents": 95,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Rope (50 feet)",
+      "description": "",
+      "priceText": "$8.60",
+      "priceCents": 860,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Light Chain (per foot)",
+      "description": "",
+      "priceText": "10¢",
+      "priceCents": 10,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Watchmaker's Tool Kit",
+      "description": "",
+      "priceText": "$7.74",
+      "priceCents": 774,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Crowbar",
+      "description": "",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Hand Saw",
+      "description": "",
+      "priceText": "$1.65",
+      "priceCents": 165,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Gasoline Blowtorch",
+      "description": "",
+      "priceText": "$4.45",
+      "priceCents": 445,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Electricians Gloves",
+      "description": "",
+      "priceText": "$1.98",
+      "priceCents": 198,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Tool Belt & Safety Strap",
+      "description": "",
+      "priceText": "$3.33",
+      "priceCents": 333,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Lineman's Climbers",
+      "description": "",
+      "priceText": "$2.52",
+      "priceCents": 252,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Jewelers 48 Piece Tool Set",
+      "description": "",
+      "priceText": "$15.98",
+      "priceCents": 1598,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Rotary Tool Grinder",
+      "description": "",
+      "priceText": "$6.90",
+      "priceCents": 690,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Shovel",
+      "description": "",
+      "priceText": "95¢",
+      "priceCents": 95,
+      "source": "official"
+    },
+    {
+      "section": "Tools",
+      "name": "Home Tool Set in Box",
+      "description": "",
+      "priceText": "$14.90",
+      "priceCents": 1490,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Handcuffs",
+      "description": "",
+      "priceText": "$3.35",
+      "priceCents": 335,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Extra Handcuff Key",
+      "description": "",
+      "priceText": "28¢",
+      "priceCents": 28,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Police Whistle",
+      "description": "",
+      "priceText": "30¢",
+      "priceCents": 30,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Dictaphone",
+      "description": "",
+      "priceText": "$39.95",
+      "priceCents": 3995,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Wire Recorder",
+      "description": "",
+      "priceText": "$129.95",
+      "priceCents": 12995,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Wrist Watch",
+      "description": "",
+      "priceText": "$5.95",
+      "priceCents": 595,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Gold Pocket Watch",
+      "description": "",
+      "priceText": "$35.10",
+      "priceCents": 3510,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Self-filling Fountain Pen",
+      "description": "",
+      "priceText": "$1.80",
+      "priceCents": 180,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Mechanical Pencil",
+      "description": "",
+      "priceText": "85¢",
+      "priceCents": 85,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Writing Tablet",
+      "description": "",
+      "priceText": "20¢",
+      "priceCents": 20,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Straightjacket",
+      "description": "",
+      "priceText": "$9.50",
+      "priceCents": 950,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Sketch Pad",
+      "description": "",
+      "priceText": "25¢",
+      "priceCents": 25,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Complete Diving Suit",
+      "description": "",
+      "priceText": "$1,200.00",
+      "priceCents": 120000,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Remington Typewriter",
+      "description": "",
+      "priceText": "$40.00",
+      "priceCents": 4000,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Harris Typewriter",
+      "description": "",
+      "priceText": "$66.75",
+      "priceCents": 6675,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Pocket Microscope",
+      "description": "",
+      "priceText": "58¢",
+      "priceCents": 58,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "110x Desk Microscope",
+      "description": "",
+      "priceText": "$17.50",
+      "priceCents": 1750,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Floor Safe (950 lbs.)",
+      "description": "",
+      "priceText": "$62.50",
+      "priceCents": 6250,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Umbrella",
+      "description": "",
+      "priceText": "$1.79",
+      "priceCents": 179,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Turkish Water Pipe",
+      "description": "",
+      "priceText": "99¢",
+      "priceCents": 99,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Cigarettes (per pack)",
+      "description": "",
+      "priceText": "10¢",
+      "priceCents": 10,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Box of Cigars",
+      "description": "",
+      "priceText": "$2.29",
+      "priceCents": 229,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Four Candles",
+      "description": "",
+      "priceText": "38¢",
+      "priceCents": 38,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Unabridged Dictionary",
+      "description": "",
+      "priceText": "$6.75",
+      "priceCents": 675,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "10-volume Encyclopedia",
+      "description": "",
+      "priceText": "$49.00",
+      "priceCents": 4900,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Wet Sponge Respirator",
+      "description": "",
+      "priceText": "$1.95",
+      "priceCents": 195,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Pocket Magnifying Glass",
+      "description": "",
+      "priceText": "$1.68",
+      "priceCents": 168,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Bible",
+      "description": "",
+      "priceText": "$3.98",
+      "priceCents": 398,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Briefcase",
+      "description": "",
+      "priceText": "$1.48",
+      "priceCents": 148,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Globe on Stand",
+      "description": "",
+      "priceText": "$9.95",
+      "priceCents": 995,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Folding Writing Desk",
+      "description": "",
+      "priceText": "$16.65",
+      "priceCents": 1665,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Glass-Door Oak Bookcase",
+      "description": "",
+      "priceText": "$24.65",
+      "priceCents": 2465,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Baby Buggy",
+      "description": "",
+      "priceText": "$34.45",
+      "priceCents": 3445,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Chemical Fire Extinguisher",
+      "description": "",
+      "priceText": "$13.85",
+      "priceCents": 1385,
+      "source": "official"
+    },
+    {
+      "section": "Investigator Tools",
+      "name": "Watchmaker's Eye Glass",
+      "description": "",
+      "priceText": "45¢",
+      "priceCents": 45,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Norton Motorcycle",
+      "description": "",
+      "priceText": "$95.00",
+      "priceCents": 9500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Buick Model D-45",
+      "description": "",
+      "priceText": "$1,020.00",
+      "priceCents": 102000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Cadillac Type 55",
+      "description": "",
+      "priceText": "$2,240.00",
+      "priceCents": 224000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Chevrolet Capitol",
+      "description": "",
+      "priceText": "$695.00",
+      "priceCents": 69500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Chevrolet Roadster",
+      "description": "",
+      "priceText": "$570.00",
+      "priceCents": 57000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Chrysler Model F-58",
+      "description": "",
+      "priceText": "$1,045.00",
+      "priceCents": 104500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Dodge Model S/1",
+      "description": "",
+      "priceText": "$985.00",
+      "priceCents": 98500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Duesenberg J",
+      "description": "",
+      "priceText": "$20,000",
+      "priceCents": 2000000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Ford Model T",
+      "description": "",
+      "priceText": "$360.00",
+      "priceCents": 36000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Ford Model A",
+      "description": "",
+      "priceText": "$450.00",
+      "priceCents": 45000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Hudson Coach (seat 8)",
+      "description": "",
+      "priceText": "$1,450.00",
+      "priceCents": 145000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Hudson Super Six Series J",
+      "description": "",
+      "priceText": "$1,750.00",
+      "priceCents": 175000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Oldsmobile 43-AT",
+      "description": "",
+      "priceText": "$1,345.00",
+      "priceCents": 134500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Packard Twin Six Touring",
+      "description": "",
+      "priceText": "$2,950.00",
+      "priceCents": 295000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Pierce-Arrow",
+      "description": "",
+      "priceText": "$6,000.00",
+      "priceCents": 600000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Pontiac 6-28 Sedan",
+      "description": "",
+      "priceText": "$745.00",
+      "priceCents": 74500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Studebaker Standard/Dictator",
+      "description": "",
+      "priceText": "$1,165.00",
+      "priceCents": 116500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Studebaker Touring (seats 5)",
+      "description": "",
+      "priceText": "$995.00",
+      "priceCents": 99500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Chevrolet F.B. Coupe (used)",
+      "description": "",
+      "priceText": "$300.00",
+      "priceCents": 30000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "1917 Buick (Used)",
+      "description": "",
+      "priceText": "$75.00",
+      "priceCents": 7500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Chevrolet Pickup Truck",
+      "description": "",
+      "priceText": "$545.00",
+      "priceCents": 54500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Dodge 1/2 Ton Truck",
+      "description": "",
+      "priceText": "$1,085",
+      "priceCents": 108500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Ford Model TT Truck",
+      "description": "",
+      "priceText": "$490",
+      "priceCents": 49000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Bentley 3-Litre",
+      "description": "England",
+      "priceText": "$9,000.00",
+      "priceCents": 900000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "BMW Dixi",
+      "description": "Germany",
+      "priceText": "$1,225.00",
+      "priceCents": 122500,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Citroen C3",
+      "description": "France",
+      "priceText": "$800.00",
+      "priceCents": 80000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Hispano-Suiza Alfonso",
+      "description": "Spain",
+      "priceText": "$4,000.00",
+      "priceCents": 400000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Lancia Lambda 214",
+      "description": "Italy",
+      "priceText": "$4,050.00",
+      "priceCents": 405000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Mercedes-Benz SS",
+      "description": "Germany",
+      "priceText": "$7,750.00",
+      "priceCents": 775000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Renault AX",
+      "description": "France",
+      "priceText": "$500.00",
+      "priceCents": 50000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Rolls-Royce Silver Ghost",
+      "description": "England",
+      "priceText": "$6,750.00",
+      "priceCents": 675000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Rolls-Royce Phantom I",
+      "description": "England",
+      "priceText": "$10,800.00",
+      "priceCents": 1080000,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Tire",
+      "description": "",
+      "priceText": "$10.95",
+      "priceCents": 1095,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Tire Repair Kit",
+      "description": "",
+      "priceText": "32¢",
+      "priceCents": 32,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Tire Snow Chains",
+      "description": "",
+      "priceText": "$4.95",
+      "priceCents": 495,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Jack",
+      "description": "",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Auto Battery",
+      "description": "",
+      "priceText": "$14.15",
+      "priceCents": 1415,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Radiator",
+      "description": "",
+      "priceText": "$8.69",
+      "priceCents": 869,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Replacement Headlamp",
+      "description": "",
+      "priceText": "30¢",
+      "priceCents": 30,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Portable Air Pump",
+      "description": "",
+      "priceText": "$3.25",
+      "priceCents": 325,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Auto Spot Light",
+      "description": "",
+      "priceText": "$2.95",
+      "priceCents": 295,
+      "source": "official"
+    },
+    {
+      "section": "Transport",
+      "name": "Auto Luggage Carrier",
+      "description": "",
+      "priceText": "$1.35",
+      "priceCents": 135,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Air Travel Ticket (per 10 miles)",
+      "description": "",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "International Air Ticket (per 100 miles)",
+      "description": "",
+      "priceText": "$18.00",
+      "priceCents": 1800,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Surplus Trainer Biplane",
+      "description": "",
+      "priceText": "$300.00",
+      "priceCents": 30000,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Travel Air 2000 Biplane",
+      "description": "",
+      "priceText": "$3,000.00",
+      "priceCents": 300000,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "4-Man Hot Air Balloon",
+      "description": "",
+      "priceText": "$1,800.00+",
+      "priceCents": 180000,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Train Fare (50 Miles)",
+      "description": "",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Train Fare (100 Miles)",
+      "description": "",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Train Fare (500 Miles)",
+      "description": "",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "First Class Sea Voyage (One Way)",
+      "description": "",
+      "priceText": "$120.00",
+      "priceCents": 12000,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "First Class Sea Voyage (Round Trip)",
+      "description": "",
+      "priceText": "$200.00",
+      "priceCents": 20000,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Steerage Sea Voyage",
+      "description": "",
+      "priceText": "$35.00",
+      "priceCents": 3500,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Streetcar Fare",
+      "description": "",
+      "priceText": "10¢",
+      "priceCents": 10,
+      "source": "official"
+    },
+    {
+      "section": "Travel & Fares",
+      "name": "Bus Fare",
+      "description": "",
+      "priceText": "2¢",
+      "priceCents": 2,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Telegram (12 Words)",
+      "description": "",
+      "priceText": "5¢",
+      "priceCents": 5,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Telegram (per additional word)",
+      "description": "",
+      "priceText": "2¢",
+      "priceCents": 2,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "International Telegram (per Word)",
+      "description": "",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Postage, per Ounce",
+      "description": "",
+      "priceText": "5¢",
+      "priceCents": 5,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Post card",
+      "description": "",
+      "priceText": "2¢",
+      "priceCents": 2,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Console Radio Receiver",
+      "description": "",
+      "priceText": "$49.95",
+      "priceCents": 4995,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Desk Phone (Bridging Type)",
+      "description": "",
+      "priceText": "$15.75",
+      "priceCents": 1575,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Telegraph Outfit",
+      "description": "",
+      "priceText": "$4.25",
+      "priceCents": 425,
+      "source": "official"
+    },
+    {
+      "section": "Communications",
+      "name": "Newspaper",
+      "description": "",
+      "priceText": "5¢",
+      "priceCents": 5,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Movie Ticket, Seated",
+      "description": "",
+      "priceText": "15¢",
+      "priceCents": 15,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Movie Ticket, Nickelodeon",
+      "description": "",
+      "priceText": "5¢",
+      "priceCents": 5,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Professional Baseball Ticket",
+      "description": "",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Concert Hall, Public Seating",
+      "description": "",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Concert Hall, Box",
+      "description": "",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "4-string Jazz Banjo",
+      "description": "",
+      "priceText": "$7.45",
+      "priceCents": 745,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Brass Saxophone",
+      "description": "",
+      "priceText": "$69.75",
+      "priceCents": 6975,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Cabinet Phonograph",
+      "description": "",
+      "priceText": "$98.00",
+      "priceCents": 9800,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Phonograph Records",
+      "description": "",
+      "priceText": "75¢",
+      "priceCents": 75,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Accordion",
+      "description": "",
+      "priceText": "$8.95",
+      "priceCents": 895,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Ukulele (Kit)",
+      "description": "",
+      "priceText": "$2.75",
+      "priceCents": 275,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Guitar (Kit)",
+      "description": "",
+      "priceText": "$9.95",
+      "priceCents": 995,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Violin (Kit)",
+      "description": "",
+      "priceText": "$14.95",
+      "priceCents": 1495,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Army Bugle",
+      "description": "",
+      "priceText": "$3.45",
+      "priceCents": 345,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Parlor Organ",
+      "description": "",
+      "priceText": "$127.00",
+      "priceCents": 12700,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Player Piano",
+      "description": "",
+      "priceText": "$447.00",
+      "priceCents": 44700,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Box Brownie Camera",
+      "description": "",
+      "priceText": "$3.15",
+      "priceCents": 315,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Film, 24 Exposures",
+      "description": "",
+      "priceText": "38¢",
+      "priceCents": 38,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Film Developing Kit",
+      "description": "",
+      "priceText": "$4.95",
+      "priceCents": 495,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Kodak Folding No.1 Camera",
+      "description": "",
+      "priceText": "$4.29",
+      "priceCents": 429,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Eastman Commercial Camera",
+      "description": "",
+      "priceText": "$140.00",
+      "priceCents": 14000,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "16mm Movie Camera & Projector",
+      "description": "",
+      "priceText": "$335.00",
+      "priceCents": 33500,
+      "source": "official"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Portable Radio Receiver",
+      "description": "",
+      "priceText": "$65.00",
+      "priceCents": 6500,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".22 Long Rifle (100)",
+      "description": "",
+      "priceText": "54¢",
+      "priceCents": 54,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".22 Hollow Point (100)",
+      "description": "",
+      "priceText": "53¢",
+      "priceCents": 53,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".25 Rim Fire (100)",
+      "description": "",
+      "priceText": "$1.34",
+      "priceCents": 134,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".30-06 Gov't (100)",
+      "description": "",
+      "priceText": "$7.63",
+      "priceCents": 763,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".32 Special (100)",
+      "description": "",
+      "priceText": "$5.95",
+      "priceCents": 595,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".32-20 Repeater (100)",
+      "description": "",
+      "priceText": "$2.97",
+      "priceCents": 297,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".38 Short Round (100)",
+      "description": "",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".38-55 Repeater (100)",
+      "description": "",
+      "priceText": "$6.60",
+      "priceCents": 660,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".44 Hi-Power (100)",
+      "description": "",
+      "priceText": "$4.49",
+      "priceCents": 449,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": ".45 Automatic (100)",
+      "description": "",
+      "priceText": "$4.43",
+      "priceCents": 443,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "10-Gauge Shell (25)",
+      "description": "",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "10-Gauge Shell (100)",
+      "description": "",
+      "priceText": "$3.91",
+      "priceCents": 391,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "12-Gauge Shell (25)",
+      "description": "",
+      "priceText": "93¢",
+      "priceCents": 93,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "12-Gauge Shell (100)",
+      "description": "",
+      "priceText": "$3.63",
+      "priceCents": 363,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "16-Gauge Shell (25)",
+      "description": "",
+      "priceText": "86¢",
+      "priceCents": 86,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "16-Gauge Shell (100)",
+      "description": "",
+      "priceText": "$3.34",
+      "priceCents": 334,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "20-Gauge Shell (25)",
+      "description": "",
+      "priceText": "85¢",
+      "priceCents": 85,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "20-Gauge Shell (100)",
+      "description": "",
+      "priceText": "$3.30",
+      "priceCents": 330,
+      "source": "official"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Extra Magazine",
+      "description": "",
+      "priceText": "$1.90",
+      "priceCents": 190,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Rapier",
+      "description": "",
+      "priceText": "$12.50",
+      "priceCents": 1250,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Bayonet",
+      "description": "",
+      "priceText": "$3.75",
+      "priceCents": 375,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Dagger",
+      "description": "",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Straight Razor",
+      "description": "",
+      "priceText": "65¢ to $5.25",
+      "priceCents": 65,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Brass Knuckles",
+      "description": "",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Billy Club (12-inch)",
+      "description": "",
+      "priceText": "$1.98",
+      "priceCents": 198,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Horsewhip",
+      "description": "",
+      "priceText": "60¢",
+      "priceCents": 60,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "4-Pound Wood Axe",
+      "description": "",
+      "priceText": "$1.95",
+      "priceCents": 195,
+      "source": "official"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "16-foot Bullwhip",
+      "description": "",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "official"
+    }
+  ]
+}

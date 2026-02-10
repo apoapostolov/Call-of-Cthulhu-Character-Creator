@@ -1,0 +1,165 @@
+import type { SkillPackage } from './types';
+
+export const SKILL_PACKAGES: SkillPackage[] = [
+  {
+    name: 'Artist, Actor, or Musician',
+    descriptor: 'an artist, actor, or musician',
+    skills: ['Alertness', 'Disguise', 'Persuade', 'HUMINT', 'Art', 'Art', 'Art', 'Craft'],
+    choices: 'Requires specialization for Art (x3) and Craft (x1).',
+  },
+  {
+    name: 'Athlete',
+    descriptor: 'an accomplished athlete',
+    skills: ['Alertness', 'Athletics', 'Dodge', 'First Aid', 'HUMINT', 'Persuade', 'Swim', 'Unarmed Combat'],
+  },
+  {
+    name: 'Author, Editor, or Journalist',
+    descriptor: 'an author, editor, or journalist',
+    skills: ['Anthropology', 'Art', 'Bureaucracy', 'History', 'Law', 'Occult', 'Persuade', 'HUMINT'],
+    choices: 'Requires specialization for Art (e.g., Creative Writing).',
+  },
+  {
+    name: '"Black Bag" Training',
+    descriptor: "an individual with 'black bag' training",
+    skills: ['Alertness', 'Athletics', 'Craft', 'Craft', 'Criminology', 'Disguise', 'Search', 'Stealth'],
+    choices: 'Requires specialization for Craft (Electrician & Locksmithing suggested).',
+  },
+  {
+    name: 'Blue-collar Worker',
+    descriptor: 'a blue-collar worker',
+    skills: ['Alertness', 'Craft', 'Craft', 'Drive', 'First Aid', 'Heavy Machinery', 'Navigate', 'Search'],
+    choices: 'Requires specialization for Craft (x2).',
+  },
+  {
+    name: 'Bureaucrat',
+    descriptor: 'a career bureaucrat',
+    skills: ['Accounting', 'Bureaucracy', 'Computer Science', 'Criminology', 'HUMINT', 'Law', 'Persuade'],
+    choices: 'Choose one other skill as a personal specialty.',
+  },
+  {
+    name: 'Clergy',
+    descriptor: 'a member of the clergy',
+    skills: ['Foreign Language', 'Foreign Language', 'Foreign Language', 'History', 'HUMINT', 'Occult', 'Persuade', 'Psychotherapy'],
+    choices: 'Requires specialization for Foreign Language (x3).',
+  },
+  {
+    name: 'Criminalist',
+    descriptor: 'a trained criminalist',
+    skills: ['Accounting', 'Bureaucracy', 'Computer Science', 'Criminology', 'Forensics', 'Law', 'Pharmacy', 'Search'],
+  },
+  {
+    name: 'Firefighter',
+    descriptor: 'a former firefighter',
+    skills: ['Alertness', 'Demolitions', 'Drive', 'First Aid', 'Forensics', 'Heavy Machinery', 'Navigate', 'Search'],
+  },
+  {
+    name: 'Gangster or Deep Cover',
+    descriptor: 'a gangster or deep cover operative',
+    skills: ['Alertness', 'Criminology', 'Dodge', 'Drive', 'Persuade', 'Stealth'],
+    choices: 'Choose two from: Athletics, Foreign Language, Firearms, HUMINT, Melee Weapons, Pharmacy, Unarmed Combat.',
+  },
+  {
+    name: 'Interrogator',
+    descriptor: 'a trained interrogator',
+    skills: ['Criminology', 'Foreign Language', 'Foreign Language', 'HUMINT', 'Law', 'Persuade', 'Pharmacy', 'Search'],
+    choices: 'Requires specialization for Foreign Language (x2).',
+  },
+  {
+    name: 'Liberal Arts Degree',
+    descriptor: 'a liberal arts graduate',
+    skills: ['Anthropology', 'Art', 'Foreign Language', 'History', 'Persuade'],
+    choices: 'Choose one from Anthropology or Archeology. Requires specialization for Art and Foreign Language. Choose any three other skills as personal specialties.',
+  },
+  {
+    name: 'Military Officer',
+    descriptor: 'a former military officer',
+    skills: ['Bureaucracy', 'Firearms', 'History', 'Military Science', 'Navigate', 'Persuade', 'Unarmed Combat'],
+    choices: 'Requires specialization for Military Science. Choose one from: Artillery, Heavy Machinery, Heavy Weapons, HUMINT, Pilot, SIGINT.',
+  },
+  {
+    name: 'MBA',
+    descriptor: 'an MBA graduate',
+    skills: ['Accounting', 'Bureaucracy', 'HUMINT', 'Law', 'Persuade'],
+    choices: 'Choose any three other skills as personal specialties.',
+  },
+  {
+    name: 'Nurse, Paramedic, or Pre-med',
+    descriptor: 'a nurse, paramedic, or pre-med student',
+    skills: ['Alertness', 'First Aid', 'Medicine', 'Persuade', 'Pharmacy', 'Psychotherapy', 'Science', 'Search'],
+    choices: 'Requires specialization for Science (Biology suggested).',
+  },
+  {
+    name: 'Combat Veteran',
+    descriptor: 'a combat veteran',
+    skills: ['Alertness', 'Dodge', 'Firearms', 'First Aid', 'Heavy Weapons', 'Melee Weapons', 'Stealth', 'Unarmed Combat'],
+  },
+  {
+    name: 'Computer Enthusiast or Hacker',
+    descriptor: 'a computer enthusiast or hacker',
+    skills: ['Computer Science', 'Craft', 'Science', 'SIGINT'],
+    choices: 'Requires specialization for Craft (Microelectronics) and Science (Mathematics). Choose any four other skills as personal specialties.',
+  },
+  {
+    name: 'Counselor',
+    descriptor: 'a trained counselor',
+    skills: ['Bureaucracy', 'First Aid', 'Foreign Language', 'HUMINT', 'Law', 'Persuade', 'Psychotherapy', 'Search'],
+    choices: 'Requires specialization for Foreign Language.',
+  },
+  {
+    name: 'Occult Investigator or Conspiracy Theorist',
+    descriptor: 'an occult investigator or conspiracy theorist',
+    skills: ['Anthropology', 'Archeology', 'Computer Science', 'Criminology', 'History', 'Occult', 'Persuade', 'Search'],
+  },
+  {
+    name: 'Outdoorsman',
+    descriptor: 'an experienced outdoorsman',
+    skills: ['Alertness', 'Athletics', 'Firearms', 'Navigate', 'Ride', 'Search', 'Stealth', 'Survival'],
+  },
+  {
+    name: 'Photographer',
+    descriptor: 'a professional photographer',
+    skills: ['Alertness', 'Art', 'Computer Science', 'Persuade', 'Search', 'Stealth'],
+    choices: 'Requires specialization for Art (Photography). Choose any two other skills as personal specialties.',
+  },
+  {
+    name: 'Pilot or Sailor',
+    descriptor: 'a former pilot or sailor',
+    skills: ['Alertness', 'Craft', 'First Aid', 'Foreign Language', 'Navigate', 'Pilot', 'Survival', 'Swim'],
+    choices: 'Requires specialization for Craft (Mechanic), Foreign Language, and Pilot.',
+  },
+  {
+    name: 'Police Officer',
+    descriptor: 'a former police officer',
+    skills: ['Alertness', 'Criminology', 'Drive', 'Firearms', 'HUMINT', 'Law', 'Melee Weapons', 'Unarmed Combat'],
+  },
+  {
+    name: 'Science Grad Student',
+    descriptor: 'a science graduate student',
+    skills: ['Bureaucracy', 'Computer Science', 'Craft', 'Foreign Language', 'Science', 'Science', 'Science'],
+    choices: 'Requires specialization for Craft, Foreign Language, and Science (x3). Choose one from: Accounting, Forensics, Law, or Pharmacy.',
+  },
+  {
+    name: 'Social Worker or Criminal Justice Degree',
+    descriptor: 'a social worker or criminal justice graduate',
+    skills: ['Bureaucracy', 'Criminology', 'Forensics', 'Foreign Language', 'HUMINT', 'Law', 'Persuade', 'Search'],
+    choices: 'Requires specialization for Foreign Language.',
+  },
+  {
+    name: 'Soldier or Marine',
+    descriptor: 'a former soldier or marine',
+    skills: ['Alertness', 'Artillery', 'Athletics', 'Drive', 'Firearms', 'Heavy Weapons', 'Military Science', 'Unarmed Combat'],
+    choices: 'Requires specialization for Military Science (Land).',
+  },
+  {
+    name: 'Translator',
+    descriptor: 'a professional translator',
+    skills: ['Anthropology', 'Foreign Language', 'Foreign Language', 'Foreign Language', 'History', 'HUMINT', 'Persuade'],
+    choices: 'Requires specialization for Foreign Language (x3). Choose any one other skill as a personal specialty.',
+  },
+  {
+    name: 'Urban Explorer',
+    descriptor: 'an urban explorer',
+    skills: ['Alertness', 'Athletics', 'Craft', 'Law', 'Navigate', 'Persuade', 'Search', 'Stealth'],
+    choices: 'Requires specialization for Craft.',
+  },
+];

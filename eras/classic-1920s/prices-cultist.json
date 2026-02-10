@@ -1,0 +1,6206 @@
+{
+  "source": "cultistarmoury",
+  "url": "https://cultistarmoury.org/1920s-price-list/",
+  "items": [
+    {
+      "section": "Men's Clothing",
+      "name": "Bandana",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Bow Tie",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Boxers",
+      "priceText": "$0.35",
+      "priceCents": 35,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Denim Overalls",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Denim Work Jacket",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Dress Shirt",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Felt Fedora Hat",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Flannel Work Shirt",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Handkerchief",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Knit Beanie",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Knit Sweater",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Belt",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Boots",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Briefcase",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Dress Shoes",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Driving Gloves",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Gloves",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Oxford Shoes",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Wallet",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Leather Watch Strap",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Linen Handkerchief",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Linen Shirt",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Linen Summer Suit",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Linen Trousers",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Long Johns",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Pajamas",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Silk Dress Shirt",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Silk Pocket Square",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Silk Tie",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Socks",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Spats",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Straw Boater Hat",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Suspenders",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Tweed Flat Cap",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Undershirt",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Waistcoat",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "White Dress Shirt",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Cardigan",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Knit Tie",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Newsboy Cap",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Overcoat",
+      "priceText": "$35.00",
+      "priceCents": 3500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Peacoat",
+      "priceText": "$28.00",
+      "priceCents": 2800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Socks",
+      "priceText": "$0.40",
+      "priceCents": 40,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Suit",
+      "priceText": "$30.00",
+      "priceCents": 3000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Trousers",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Vest",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Wool Waistcoat",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Woolen Scarf",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Work Boots",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Men's Clothing",
+      "name": "Work Pants",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Blouse",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Boots",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Coat",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Dress",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Gloves",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Hat",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Kimono",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Pajamas",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Skirt",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Stockings",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Sweater",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Cotton Underwear",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Belt",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Boots",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Gloves",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Handbag",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Hat",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Scarf",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Shoes",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Shoes",
+      "priceText": "$6.50",
+      "priceCents": 650,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Stockings",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Sweater",
+      "priceText": "$9.00",
+      "priceCents": 900,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Leather Trousers",
+      "priceText": "$8.50",
+      "priceCents": 850,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Blouse",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Boots",
+      "priceText": "$9.00",
+      "priceCents": 900,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Coat",
+      "priceText": "$12.00",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Dress",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Gloves",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Hat",
+      "priceText": "$4.50",
+      "priceCents": 450,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Kimono",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Nightgown",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Scarf",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Shawl",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Skirt",
+      "priceText": "$6.50",
+      "priceCents": 650,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Stockings",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Sweater",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Silk Trousers",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Blouse",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Coat",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Dress",
+      "priceText": "$9.00",
+      "priceCents": 900,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Gloves",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Hat",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Kimono",
+      "priceText": "$8.50",
+      "priceCents": 850,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Scarf",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Scarf",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Shoes",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Skirt",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Stockings",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Sweater",
+      "priceText": "$4.50",
+      "priceCents": 450,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Women's Clothing",
+      "name": "Wool Trousers",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Brass Whistle",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Camp Axe",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Camp Coffee Pot",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Camp Lantern",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Campfire Tripod",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Camping Stove",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canteen",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Backpack",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Bedroll",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Duffel Bag",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Folding Cot",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Gaiters",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Haversack",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Hiking Hat",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Raincoat",
+      "priceText": "$12.00",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Rucksack",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Tent",
+      "priceText": "$30.00",
+      "priceCents": 3000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Water Bag",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Canvas Water Bucket",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Enamel Mug",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Folding Camp Chair",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Folding Pocket Knife",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Groundsheet",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Hiking Boots",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Hiking Staff",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Leather Belt",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Leather Gloves",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Mosquito Netting",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Pocket Compass",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Tin Canister Set",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Tin Cup",
+      "priceText": "$0.35",
+      "priceCents": 35,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Tin Lunch Box",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Tin Plate Set",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Waterproof Matches",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Waterproof Tarpaulin",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Blanket",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Cap",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Pants",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Scarf",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Shirt",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Wool Socks",
+      "priceText": "$0.40",
+      "priceCents": 40,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Balaclava",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Gloves",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Long Johns",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Neck Warmer",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Scarf",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Socks",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Sweater",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Sweater Vest",
+      "priceText": "$4.50",
+      "priceCents": 450,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Expedition Gear",
+      "name": "Woolen Thermal Pants",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Ammo Belt",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Ammo Pouch",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Backpack",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Bandolier",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Bayonet",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Belt",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Binoculars",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Box",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Camouflage Face Paint",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Camouflage Netting",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Canteen",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Canteen Cup",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Canvas Pouch",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Canvas Tent",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Cartridge Belt",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Compass",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Duffel Bag",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Entrenching Tool Cover",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Knife",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Message Notebook",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Rations",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Repair Kit",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Sanitation Soap",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Wire Cutters",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Field Wire Spool",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "First Aid Kit",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Folding Camp Stool",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Folding Shovel",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Gaiters",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Gas Mask",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Gas Mask Bag",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Grenade Vest",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Haversack",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Hygiene Kit",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Insect Repellent",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Leather Belt",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Leather Gloves",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Leggings",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Magazine Pouch",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Map Case",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Meat Can",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Medical Pouch",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Mess Kit",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Mess Tin Stove",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Morse Code Signal Set",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Musette Bag",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Pack Carrier",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Pistol Holster",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Pistol Magazine Pouch",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Revolver Ammo Belt",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Revolver Ammo Pouch",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Revolver Holster",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Rifle Sling",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Rucksack",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Sewing Kit",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Shaving Kit",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Signal Flares",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Signal Whistle",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Sleeping Mat",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Sling",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Sling",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Springfield Rifle Cover",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Steel Helmet",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "T-Handle Shovel",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Tool Roll",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Trench Boots",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Trench Knife",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Trench Mortar Sight",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Trench Periscope",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Trench Shovel Carrier",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Utility Belt",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Water Bottle Cover",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Waterproof Groundsheet",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Waterproof Matches",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Waterproof Poncho",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Waterproof Tarp",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Wool Balaclava",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Wool Blanket",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Military Supplies",
+      "name": "Wool Socks",
+      "priceText": "$0.40",
+      "priceCents": 40,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Ace Bandage",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Adhesive Plaster",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Adhesive Tape",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Alcohol Swabs",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Antiseptic Solution",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Band-Aids",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Cast Padding",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Dental Floss",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Disposable Syringe",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Ear Syringe",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Elastic Bandage",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Eye Drops",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Eye Patch",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Eye Wash Cup",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Fingernail Clippers",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Foot Arch Support",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Gauze Dressing",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Heat Pad",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Hemostat",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Hot Water Bottle",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Ice Bag",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Inhalant for Steam",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Inhaler",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Alcohol",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Face Shield",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Gloves",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Goggles",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Safety Pins",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Scissors",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Splint",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Splinter Kit",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Swabs",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Tapes",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medical Tweezers",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medicated Ointment",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medicinal Charcoal",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Medicine Dropper",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Splint",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Sterile Dressing",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Stethoscope",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Surgical Gloves",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Surgical Mask",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Suture Kit",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Syringe",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Thermometer",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Tongue Depressor",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Medical Equipment",
+      "name": "Vaseline",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Adjustable Wrench",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Awl",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Block Plane",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Carpenter's Square",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Carpet Stretcher",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Caulk Smoothing Tool",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Caulking Gun",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "C-Clamp Set",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Chisel Set",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Claw Hammer",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Coping Saw",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Grease Gun",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Grout Float",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Hacksaw",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Hammerset",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Hand Drill",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Hand Drill Bit Set",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Hand Saw",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Level",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Mallet",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Miter Box",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Nail Set",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Paint Scraper",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Pipe Cutter",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Pipe Wrench",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Pliers",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Plumb Bob",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Pruning Shears",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Putty Knife",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Putty Spatula",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Rivet Gun",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Safety Goggles",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Screwdriver Set",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Sledgehammer",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Soldering Iron",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Staple Gun",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Suction Cup",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Tape Measure",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Tin Snips",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Trowel",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Utility Knife",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Vice Grips",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Window Scraper",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Wire Brush",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Wire Cutters",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Wire Stripper",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "General Tools",
+      "name": "Wood Plane",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Amateur Radio Kit",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Art Exhibition Tickets",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Ballet Performance Tickets",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Bicycle",
+      "priceText": "$20.00 to $50.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Board Games",
+      "priceText": "$2.00 to $5.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Boxing Match Tickets",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Cabaret Show Tickets",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Chess Set",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Costume Party Mask",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Croquet Set",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Dance Hall Admission",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Dance Lessons",
+      "priceText": "$2.50 per class",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Film Development Kit",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Film Projector",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Football",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Gramophone Records",
+      "priceText": "$1.00 each",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Harmonica",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Jazz Record Albums",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Magazine Subscription",
+      "priceText": "$1.50 per year",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Magic Show Tickets",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Magic Trick Set",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Model Airplane Kit",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Movie Camera",
+      "priceText": "$100.00",
+      "priceCents": 10000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Musical Instrument",
+      "priceText": "$10.00 to $50.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Novel",
+      "priceText": "$1.00 to $2.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Opera Performance Tickets",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Opera Record Albums",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Orchestra Concert Tickets",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Paint Set",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Phonograph",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Photography Camera",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Piano Player Rolls",
+      "priceText": "$0.75 each",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Playing Cards",
+      "priceText": "$0.25 per deck",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Radio Receiver",
+      "priceText": "$75.00",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Roller Skates",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Sewing Machine",
+      "priceText": "$75.00 to $100.00",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Sheet Music",
+      "priceText": "$0.50 per sheet",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Silent Film Tickets",
+      "priceText": "$0.25 each",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Sketchbook",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Song Book",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Stuffed Animal Toy",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Swing Music Record Albums",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Theater Binoculars",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Theater Play Tickets",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Theatre Masks",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Theatre Play Scripts",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Entertainment",
+      "name": "Vaudeville Show Tickets",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "Tent Camping (per night)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "Cabin Rental (per night)",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "Cheap Hotel Room (per night)",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "Average Hotel Room (per night)",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "Good Hotel Room (per night)",
+      "priceText": "$9.00",
+      "priceCents": 900,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "1 Bedroom Apartment Rental (month)",
+      "priceText": "$13.00",
+      "priceCents": 1300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "2 Bedroom Apartment Rental (month)",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "3 Bedroom Apartment Rental (month)",
+      "priceText": "$30.00",
+      "priceCents": 3000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "1 Bedroom House Rental (month)",
+      "priceText": "$45.00",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "2 Bedroom House Rental (month)",
+      "priceText": "$70.00",
+      "priceCents": 7000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "3 Bedroom House Rental (month)",
+      "priceText": "$105.00",
+      "priceCents": 10500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "1 Bedroom House Buying",
+      "priceText": "$3,000",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "2 Bedroom House Buying",
+      "priceText": "$4,500",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Lodging",
+      "name": "3 Bedroom House Buying",
+      "priceText": "$6,000",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Astra 400",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Browning Hi-Power",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Colt 1911 Auto",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Colt M1903 Pocket Hammerless",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Colt New Service Revolver",
+      "priceText": "$18.00",
+      "priceCents": 1800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Colt New Service Target Revolver",
+      "priceText": "$21.00",
+      "priceCents": 2100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Colt Police Positive",
+      "priceText": "$21.50",
+      "priceCents": 2150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "CZ Model 27",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "FN Browning Model 1922",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Luger P08",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Mauser C-96 “Broomhandle”",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Nagant M1895 Revolver",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W .38 Hand Ejector",
+      "priceText": "$16.50",
+      "priceCents": 1650,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W .38 Safety Hammerless",
+      "priceText": "$17.00",
+      "priceCents": 1700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W .44 Double Action",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W .45 Hand Ejector",
+      "priceText": "$22.50",
+      "priceCents": 2250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W .357 Magnum",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "S&W Safety Hammerless",
+      "priceText": "$17.00",
+      "priceCents": 1700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Savage .32 Automatic",
+      "priceText": "$17.00",
+      "priceCents": 1700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Smith & Wesson .32 Hand Ejector",
+      "priceText": "$17.50",
+      "priceCents": 1750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Walther PPK",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Webley Mark IV",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Webley Mark VI",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Handguns",
+      "name": "Webley-Fosbery Automatic Revolver",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Colt Model 1877 pump-action rifle",
+      "priceText": "$40",
+      "priceCents": 4000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Colt Model 1895 pump-action rifle",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Marlin Model 1893 lever-action rifle",
+      "priceText": "$60",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Marlin Model 1894 lever-action rifle",
+      "priceText": "$40",
+      "priceCents": 4000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Marlin Model 1895 lever-action rifle",
+      "priceText": "$65",
+      "priceCents": 6500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Mauser Model 1871 bolt-action rifle",
+      "priceText": "$60",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Mauser Model 1898 bolt-action rifle",
+      "priceText": "$75",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Remington Model 8 semi-automatic",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Remington Model 12 pump-action rifle",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Remington Model 14 pump-action rifle",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Remington Model 17 pump-action rifle",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Remington Model 24 semi-automatic",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Savage Model 99 lever-action rifle",
+      "priceText": "$40",
+      "priceCents": 4000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Savage Model 99F lever-action rifle",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Springfield Model 1903 bolt-action",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Stevens Model 15 bolt-action rifle",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Stevens Model 24 bolt-action rifle",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Stevens Model 44 pump-action rifle",
+      "priceText": "$45",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Stevens Model 44½ pump-action",
+      "priceText": "$50",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1873 lever-action",
+      "priceText": "$90",
+      "priceCents": 9000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1886 lever-action",
+      "priceText": "$90",
+      "priceCents": 9000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1892 lever-action",
+      "priceText": "$75",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1894 lever-action",
+      "priceText": "$75",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1895 lever-action",
+      "priceText": "$60",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Rifles",
+      "name": "Winchester Model 1897 pump-action",
+      "priceText": "$60",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Browning Auto-5 Shotgun",
+      "priceText": "$90.00",
+      "priceCents": 9000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Fox Model B Shotgun",
+      "priceText": "$55.00",
+      "priceCents": 5500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Ithaca Model 37 Shotgun",
+      "priceText": "$48.00",
+      "priceCents": 4800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "L.C. Smith Field Grade Shotgun",
+      "priceText": "$60.00",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "LC Smith Ideal Grade Shotgun",
+      "priceText": "$125.00",
+      "priceCents": 12500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Marlin Model 24 Shotgun",
+      "priceText": "$58.00",
+      "priceCents": 5800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Parker Brothers Hammerless",
+      "priceText": "$105.00",
+      "priceCents": 10500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Remington Model 11 Shotgun",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Remington Model 31 Shotgun",
+      "priceText": "$60.00",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Remington Model 870 Shotgun",
+      "priceText": "$37.00",
+      "priceCents": 3700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Savage Model 720 Shotgun",
+      "priceText": "$90.00",
+      "priceCents": 9000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Stevens Model 520 Shotgun",
+      "priceText": "$38.00",
+      "priceCents": 3800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Winchester Model 12 Shotgun",
+      "priceText": "$49.00",
+      "priceCents": 4900,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Winchester Model 21 Shotgun",
+      "priceText": "$125.00",
+      "priceCents": 12500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Shotguns",
+      "name": "Winchester Model 24 Shotgun",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Beretta M1918 Submachine Gun",
+      "priceText": "$200",
+      "priceCents": 20000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Beretta Model 1918 Submachine Gun",
+      "priceText": "$175",
+      "priceCents": 17500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Bergmann MP18 Submachine Gun",
+      "priceText": "$200",
+      "priceCents": 20000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Chauchat M1915 Submachine Gun",
+      "priceText": "$100",
+      "priceCents": 10000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Colt M1921AC",
+      "priceText": "$175",
+      "priceCents": 17500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Erma EMP Submachine Gun",
+      "priceText": "$150",
+      "priceCents": 15000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Lewis Gun",
+      "priceText": "$200",
+      "priceCents": 20000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "M1917 Browning Automatic Rifle",
+      "priceText": "$150",
+      "priceCents": 15000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "M1917 Enfield Submachine Gun",
+      "priceText": "$100",
+      "priceCents": 10000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Madsen M1902 Submachine Gun",
+      "priceText": "$125",
+      "priceCents": 12500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "MP28 Submachine Gun",
+      "priceText": "$150",
+      "priceCents": 15000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "MP34 Submachine Gun",
+      "priceText": "$175",
+      "priceCents": 17500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Thompson M1921 Submachine Gun",
+      "priceText": "$225",
+      "priceCents": 22500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Villar Perosa M1915 Submachine Gun",
+      "priceText": "$225",
+      "priceCents": 22500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Submachine Guns",
+      "name": "Vollmer M1921 Submachine Gun",
+      "priceText": "$225",
+      "priceCents": 22500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "7mm Mauser Bullets (50 rounds)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "8mm Mauser Bullets (50 rounds)",
+      "priceText": "$2.75",
+      "priceCents": 275,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "9mm Bullets (50 rounds)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "22 Hornet Bullets (50 rounds)",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "22 Long Rifle Bullets (50 rounds",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "22 Magnum Bullets (50 rounds)",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "22-Caliber Bullets (50 rounds)",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "25 ACP Bullets (50 rounds)",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "30 Carbine Bullets (50 rounds)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "30-06 Bullets (50 rounds)",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "30-Caliber Bullets (50 rounds)",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "32-Caliber Bullets (50 rounds)",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "38-Caliber Bullets (50 rounds)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "41 Magnum Bullets (50 rounds)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "44 Magnum Bullets (50 rounds)",
+      "priceText": "$2.75",
+      "priceCents": 275,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "44-40 Bullets (50 rounds)",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "45 ACP Bullets (50 rounds)",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "45-70 Bullets (50 rounds)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "45-Caliber Bullets (50 rounds)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "50-70 Bullets (50 rounds)",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "50-Caliber Bullets (50 rounds)",
+      "priceText": "$2.75",
+      "priceCents": 275,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "223 Bullets (50 rounds)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "270 Bullets (50 rounds)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "303 British Bullets (50 rounds)",
+      "priceText": "$2.75",
+      "priceCents": 275,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "357 Magnum Bullets (50 rounds)",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Handgun Bullets (50 rounds)",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Rifle Cartridges (50 rounds)",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Rifle Pellets (100 rounds)",
+      "priceText": "$2.25",
+      "priceCents": 225,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Shotgun Pellets (50 rounds)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Ammunition",
+      "name": "Shotgun Shells (25 rounds)",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Bat",
+      "priceText": "$6",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Bowie Knife",
+      "priceText": "$5",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Brass Knuckles",
+      "priceText": "$2",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Cane Sword",
+      "priceText": "$18",
+      "priceCents": 1800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Katana",
+      "priceText": "$25",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Knuckle Dusters",
+      "priceText": "$2",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Nunchucks",
+      "priceText": "$8",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Throwing Stars",
+      "priceText": "$4",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Melee Weapons",
+      "name": "Tomahawk",
+      "priceText": "$12",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Cafeteria Drink",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Cafeteria Meal",
+      "priceText": "$0.45",
+      "priceCents": 45,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Canned Meat",
+      "priceText": "$0.45",
+      "priceCents": 45,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Diner Drink",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Diner Meal",
+      "priceText": "$0.35",
+      "priceCents": 35,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Dried Meat (pack)",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Fast Food Drink",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Fast Food Meal",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Grocery Store Drink",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Grocery Store Meal:",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Home Cooked Drink",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Home Cooked Meal",
+      "priceText": "$0.20",
+      "priceCents": 20,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Restaurant Drink",
+      "priceText": "$0.20",
+      "priceCents": 20,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Restaurant Meal",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Street Vendor Drink",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Dining",
+      "name": "Street Vendor Meal",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Airship Advertising (per flight)",
+      "priceText": "$75.00",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Airship Ride (short trip)",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Airship Sightseeing Tour (2 hours)",
+      "priceText": "$40.00",
+      "priceCents": 4000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Auto Rickshaw Advertising (per month)",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Auto Rickshaw Rental (per day)",
+      "priceText": "$12.00",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Auto Rickshaw Rental (per week)",
+      "priceText": "$60.00",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Auto Rickshaw Ride (per mile)",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Bicycle Delivery Service (per package)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Bicycle Messenger Service (per delivery)",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Bicycle Rental (per hour)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Bicycle Rickshaw Ride (per block)",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Cable Car Fare",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Canoe Rental (per hour)",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Ferry Ride (per crossing)",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse Carriage Ride (per hour)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse-drawn Carriage Rental (per hour)",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse-drawn Hearse Rental (per trip)",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Horse-drawn Omnibus Ride",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Hot Air Balloon Ride (1 hour)",
+      "priceText": "$30.00",
+      "priceCents": 3000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Motorboat Fishing Trip (half-day)",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Motorboat Rental (per hour)",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Motorcycle Taxi Ride (per mile)",
+      "priceText": "$0.20",
+      "priceCents": 20,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Motorized Parachute Advertising (per flight)",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Motorized Parachute Ride (15 minutes)",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Pack Mule Rental (per day)",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Paddleboat Cruise (evening)",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Pedicab Ride (per block)",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Rickshaw Ride (per mile)",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Stagecoach Express Delivery (per package)",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Stagecoach Postal Service (per letter)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Stagecoach Rental (per day)",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Stagecoach Ticket (per mile)",
+      "priceText": "$0.20",
+      "priceCents": 20,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steam Locomotive Rental (per day)",
+      "priceText": "$100.00",
+      "priceCents": 10000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steam Train Excursion (full day)",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steam Train Freight Service (per ton)",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steam Train Sleeper Car",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steamboat Cargo Service (per ton)",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steamboat Dinner Cruise",
+      "priceText": "$12.00",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steamboat Excursion (half-day)",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Steamship Ticket (one-way)",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Streetcar Fare",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Submarine Expedition (full day)",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Submarine Tour (30 minutes)",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Taxi Ride (per mile)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Train Ticket (per mile)",
+      "priceText": "$0.05",
+      "priceCents": 5,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Zeppelin Air Tour (hour-long)",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Transportation",
+      "name": "Zeppelin Airship Advertising (per flight)",
+      "priceText": "$100.00",
+      "priceCents": 10000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Buick Standard Six",
+      "priceText": "$1,250.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Cadillac Type 61",
+      "priceText": "$2,400.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Chandler Six",
+      "priceText": "$1,525.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Chevrolet Series 490",
+      "priceText": "$490.00",
+      "priceCents": 49000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Chrysler Model 52",
+      "priceText": "$1,565.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Cole Aero Eight",
+      "priceText": "$2,500.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Cole Aero-Eight Sedan",
+      "priceText": "$3,150.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Columbia Six",
+      "priceText": "$1,950.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Cunningham V4",
+      "priceText": "$2,000.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Davis Model 61",
+      "priceText": "$1,095.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Dodge Brothers Touring Car",
+      "priceText": "$850.00",
+      "priceCents": 85000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Duesenberg Model A",
+      "priceText": "$6,500.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Elcar Model G",
+      "priceText": "$1,650.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Essex Super Six",
+      "priceText": "$1,495.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Ford Model T",
+      "priceText": "$300.00",
+      "priceCents": 30000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Franklin Series 10A",
+      "priceText": "$1,450.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Gardner Model 7",
+      "priceText": "$1,750.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Haynes Series 60",
+      "priceText": "$1,850.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Heine-Velox Model 30",
+      "priceText": "$2,000.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Hudson Super Six",
+      "priceText": "$1,500.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Hupmobile Model 20",
+      "priceText": "$650.00",
+      "priceCents": 65000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Hupmobile Series R",
+      "priceText": "$1,195.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Jordan Playboy",
+      "priceText": "$1,750.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Kissel Model 6-55 Speedster",
+      "priceText": "$2,350.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Lincoln Model L",
+      "priceText": "$5,200.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Locomobile Model 48",
+      "priceText": "$5,250.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Marmon Model 34",
+      "priceText": "$2,700.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Marquette Model 35",
+      "priceText": "$995.00",
+      "priceCents": 99500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Maxwell Model 25",
+      "priceText": "$645.00",
+      "priceCents": 64500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "McFarlan Model 155",
+      "priceText": "$6,000.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Mercer Series 5 Raceabout",
+      "priceText": "$2,250.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Moon Model 6-40",
+      "priceText": "$1,650.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Nash Advanced Six",
+      "priceText": "$1,500.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Oakland Sensible Six",
+      "priceText": "$1,350.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Oldsmobile Model 30",
+      "priceText": "$1,200.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Overland 4",
+      "priceText": "$625.00",
+      "priceCents": 62500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Packard Single Six",
+      "priceText": "$2,600.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Paige 6-66 Daytona",
+      "priceText": "$1,575.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Peerless Model 56",
+      "priceText": "$3,000.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Pierce-Arrow Model 33",
+      "priceText": "$3,750.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "REO Flying Cloud",
+      "priceText": "$1,195.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "ReVere Model 55",
+      "priceText": "$2,100.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Roamer Model 6-72",
+      "priceText": "$1,725.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Simplex Crane Model 5",
+      "priceText": "$5,500.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Stearns-Knight Model G",
+      "priceText": "$4,000.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Studebaker Big Six",
+      "priceText": "$1,600.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Stutz Series K",
+      "priceText": "$2,900.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Viking Model 38",
+      "priceText": "$1,400.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Willys-Knight Model 70",
+      "priceText": "$1,500.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Automobiles",
+      "name": "Winton Six",
+      "priceText": "$2,400.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Airmail stamp",
+      "priceText": "$0.03",
+      "priceCents": 3,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "C.O.D. (Cash on Delivery)",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Certified Mail",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Delivery Confirmation",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Domestic Telegraph Service ( per word)",
+      "priceText": "$0.17",
+      "priceCents": 17,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Express Mail",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Insured Mail",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "International Reply Coupon",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "International Telegraph Service (per word)",
+      "priceText": "$0.25",
+      "priceCents": 25,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Money Order",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Package Delivery",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Parcel Post (per pound)",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Post Office Box rental (per year)",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Postage stamp",
+      "priceText": "$0.02",
+      "priceCents": 2,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Postcard stamp",
+      "priceText": "$0.02",
+      "priceCents": 2,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Registered Mail stamp",
+      "priceText": "$0.08",
+      "priceCents": 8,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Return Receipt Requested",
+      "priceText": "$0.30",
+      "priceCents": 30,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Return Receipt Stamp",
+      "priceText": "$0.15",
+      "priceCents": 15,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Special Delivery Stamp",
+      "priceText": "$0.10",
+      "priceCents": 10,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Communication & Postage",
+      "name": "Special Handling",
+      "priceText": "$0.20",
+      "priceCents": 20,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Antique Diving Helmet",
+      "priceText": "$60.00",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Antique Map",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Artist Paint Set",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Bar Set",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Barometer",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Bicycle",
+      "priceText": "$50.00",
+      "priceCents": 5000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Binoculars",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Brass Candlestick Holder",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Brass Compass",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Brass Oil Lamp",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Cigarette Case",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Coin Bank",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Compass",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Crystal Decanter Set",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Crystal Radio Set",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Desk Fan",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Film Camera",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Film Projector",
+      "priceText": "$45.00",
+      "priceCents": 4500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Folding Chair",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Folding Table",
+      "priceText": "$12.00",
+      "priceCents": 1200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Fountain Pen",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Globe",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Gramophone",
+      "priceText": "$55.00",
+      "priceCents": 5500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Harmonica",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Lantern",
+      "priceText": "$7.50",
+      "priceCents": 750,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Leather Bound Journal",
+      "priceText": "$4.00",
+      "priceCents": 400,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Magic Lantern",
+      "priceText": "$30.00",
+      "priceCents": 3000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Magic Trick Set",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Music Box",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Oil Lamp",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Old Phonograph Records",
+      "priceText": "$0.75 each",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Phonograph",
+      "priceText": "$75.00",
+      "priceCents": 7500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Picnic Basket",
+      "priceText": "$5.00",
+      "priceCents": 500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Playing Cards",
+      "priceText": "$0.50",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Porcelain Figurine",
+      "priceText": "$6.00",
+      "priceCents": 600,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Portable Typewriter",
+      "priceText": "$35.00",
+      "priceCents": 3500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Radio",
+      "priceText": "$35.00",
+      "priceCents": 3500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Sewing Box",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Sewing Machine",
+      "priceText": "$40.00",
+      "priceCents": 4000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Silver Pocket Watch",
+      "priceText": "$20.00",
+      "priceCents": 2000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Smoking Pipe",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Tea Infuser",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Tea Set",
+      "priceText": "$15.00",
+      "priceCents": 1500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Telescope",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Travel Writing Set",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Umbrella",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Violin",
+      "priceText": "$25.00",
+      "priceCents": 2500,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Writing Desk",
+      "priceText": "$60.00",
+      "priceCents": 6000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Writing Desk",
+      "priceText": "$80.00",
+      "priceCents": 8000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Writing Ink Set",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Writing Portfolio",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Miscellaneous",
+      "name": "Writing Set",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Alchemy Set",
+      "priceText": "$7.00",
+      "priceCents": 700,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Amulet Bracelet",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Astrological Gemstone Set",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Astrology Birth Chart",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Astrology Chart",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Aura Reading Guidebook",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Crystal Ball",
+      "priceText": "$10.00",
+      "priceCents": 1000,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Crystal Healing Guidebook",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Crystal Pendulum",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Divination Cloth",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Divination Pendulum",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Dream Interpretation Guide",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Fortune Telling Cards",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Herbology Guidebook",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Hypnosis Guidebook",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Incantation Book",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Incense Burner",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Incense Variety Pack",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Moon Phase Calendar",
+      "priceText": "$0.75",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Numerology Guidebook",
+      "priceText": "$1.25",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Occult Symbol Necklace",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Oracle Cards",
+      "priceText": "$1.00",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Ouija Board",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Palmistry Guidebook",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Pendulum Board",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Pendulum Bracelet",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Potion Bottles Set",
+      "priceText": "$3.50",
+      "priceCents": 350,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Ritual Candles",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Rune Reading Guidebook",
+      "priceText": "$1.75",
+      "priceCents": 175,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Rune Stones",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Scrying Mirror",
+      "priceText": "$8.00",
+      "priceCents": 800,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Smudging Kit",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Spirit Board",
+      "priceText": "$3.00",
+      "priceCents": 300,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Talisman Pendant",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Tarot Deck",
+      "priceText": "$1.50",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Wand",
+      "priceText": "$2.00",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Wax Sealing Kit",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Occult Items",
+      "name": "Wiccan Altar Cloth",
+      "priceText": "$2.50",
+      "priceCents": 250,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Absinthe",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Aviation",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Beer",
+      "priceText": "$0.35 per bottle",
+      "priceCents": 35,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Bee's Knees",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Bellini",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Bloody Mary",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Bourbon",
+      "priceText": "$0.80 per shot",
+      "priceCents": 80,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Brandy",
+      "priceText": "$0.80 per shot",
+      "priceCents": 80,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Champagne",
+      "priceText": "$2.00 per glass",
+      "priceCents": 200,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Cider",
+      "priceText": "$0.40 per glass",
+      "priceCents": 40,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Cocktails (Various)",
+      "priceText": "$1.00 to $1.50 per glass",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Cognac",
+      "priceText": "$1.00 per shot",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Corpse Reviver",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Daiquiri",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "French 75",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "French Martini",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Gimlet",
+      "priceText": "$1.00 per glass",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Gin",
+      "priceText": "$0.50 per shot",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Hot Toddy",
+      "priceText": "$1.00 per glass",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Irish Coffee",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Manhattan",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Margarita",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Martini",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Mojito",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Mojito",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Moonshine",
+      "priceText": "$1.00 per shot",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Moscow Mule",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Negroni",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Old Fashioned",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Paloma",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Pina Colada",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Port",
+      "priceText": "$0.70 per glass",
+      "priceCents": 70,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Punch",
+      "priceText": "$0.60 per glass",
+      "priceCents": 60,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Rum",
+      "priceText": "$0.60 per shot",
+      "priceCents": 60,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Rusty Nail",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Sake",
+      "priceText": "$0.70 per glass",
+      "priceCents": 70,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Sazerac",
+      "priceText": "$1.50 per glass",
+      "priceCents": 150,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Sherry",
+      "priceText": "$0.60 per glass",
+      "priceCents": 60,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Sidecar",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Singapore Sling",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Tequila",
+      "priceText": "$0.90 per shot",
+      "priceCents": 90,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Tom Collins",
+      "priceText": "$1.00 per glass",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Vermouth",
+      "priceText": "$0.50 per glass",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Vermouth",
+      "priceText": "$0.50 per glass",
+      "priceCents": 50,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Vodka",
+      "priceText": "$0.70 per shot",
+      "priceCents": 70,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Whiskey",
+      "priceText": "$0.75 per shot",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Whiskey Smash",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Whiskey Sour",
+      "priceText": "$1.00 per glass",
+      "priceCents": 100,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "White Russian",
+      "priceText": "$1.25 per glass",
+      "priceCents": 125,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    },
+    {
+      "section": "Speakeasy Prices",
+      "name": "Wine",
+      "priceText": "$0.75 per glass",
+      "priceCents": 75,
+      "source": "cultistarmoury",
+      "url": "https://cultistarmoury.org/1920s-price-list/"
+    }
+  ]
+}

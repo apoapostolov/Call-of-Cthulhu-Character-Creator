@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call of Cthulhu AI-Powered Investigator Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'lora': ['Lora', 'serif'],
+              'lato': ['Lato', 'sans-serif'],
+            },
+            colors: {
+              background: 'var(--color-background)',
+              foreground: 'var(--color-foreground)',
+              card: 'var(--color-card)',
+              'card-foreground': 'var(--color-card-foreground)',
+              popover: 'var(--color-popover)',
+              'popover-foreground': 'var(--color-popover-foreground)',
+              primary: {
+                DEFAULT: 'var(--color-primary)',
+                foreground: 'var(--color-primary-foreground)',
+              },
+              secondary: {
+                DEFAULT: 'var(--color-secondary)',
+                foreground: 'var(--color-secondary-foreground)',
+              },
+              muted: {
+                DEFAULT: 'var(--color-muted)',
+                foreground: 'var(--color-muted-foreground)'
+              },
+              accent: {
+                DEFAULT: 'var(--color-accent)',
+                foreground: 'var(--color-accent-foreground)',
+              },
+              destructive: {
+                DEFAULT: 'var(--color-destructive)',
+                foreground: 'var(--color-destructive-foreground)',
+              },
+              border: 'var(--color-border)',
+              input: 'var(--color-input)',
+              ring: 'var(--color-ring)',
+              // Dhole template state colors
+              info: { DEFAULT: '#31708F', 50: '#F3F8FB', 100: '#E6F0F7', 200: '#CDE2EE', 300: '#B3D3E5', 400: '#87B7D3', 500: '#31708F', 600: '#245269', 700: '#1E4559', 800: '#183947', 900: '#122C36' },
+              success: { DEFAULT: '#3C763D', 50: '#F2F8F3', 100: '#E4F1E6', 200: '#CBE4D0', 300: '#B1D6B9', 400: '#86BE94', 500: '#3C763D', 600: '#2B542C', 700: '#234524', 800: '#1B361C', 900: '#142A15' },
+              warning: { DEFAULT: '#8A6D3B', 50: '#FDFBF2', 100: '#FBF6E3', 200: '#F6ECC5', 300: '#F0E3A8', 400: '#E3CF7A', 500: '#8A6D3B', 600: '#66512C', 700: '#574525', 800: '#47381F', 900: '#392C19' },
+              danger: { DEFAULT: '#A94442', 50: '#FBF4F4', 100: '#F7E9E9', 200: '#EFCFCF', 300: '#E7B6B6', 400: '#D78686', 500: '#A94442', 600: '#843534', 700: '#6F2C2C', 800: '#592323', 900: '#451A1A' },
+              cream: {
+                DEFAULT: '#F7F6D0',
+                50: '#FFFFF6',
+                100: '#FCFBEA',
+                200: '#FAF7DD',
+                300: '#F7F3D1',
+                400: '#F5EEC4',
+                500: '#F7F6D0',
+                600: '#EAE4B1',
+                700: '#DBDABD',
+                800: '#CFCFA3',
+                900: '#B9B886'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root {
+        --color-background: #F7F6D0;
+        --color-foreground: #1D2119;
+        --color-card: #FFFFFF;
+        --color-card-foreground: #1D2119;
+        --color-popover: #FFFCF2;
+        --color-popover-foreground: #1D2119;
+        --color-primary: #3B4434;
+        --color-primary-foreground: #FFFFFF;
+        --color-secondary: #ACB190;
+        --color-secondary-foreground: #1D2119;
+        --color-muted: #F5F5F5;
+        --color-muted-foreground: #5B624C;
+        --color-accent: #8E9375;
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #A94442;
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D2CFBD;
+        --color-input: #D2CFBD;
+        --color-ring: #8E9375;
+        /* Surfaces */
+        --surface-muted: #FCFBEA; /* cream-100 */
+        /* State surfaces (optional) */
+        --surface-warning: #FCF8E3;
+        --surface-success: #DFF0D8;
+        --surface-info: #D9EDF7;
+        --surface-danger: #F2DEDE;
+        /* Hint user agent to render native controls in light appearance */
+        color-scheme: light;
+      }
+      /* Gaslight 1890s: Victorian Gothic—cool neutrals, aubergine shadow, gaslight amber accents */
+      body[data-era="gaslight-1890s"] {
+        --color-background: #EDE7DF;            /* cool aged paper */
+        --color-foreground: #242122;            /* ink brown-black */
+        --color-card: #FAF7F2;
+        --color-card-foreground: #242122;
+        --color-popover: #FBF8F3;
+        --color-popover-foreground: #242122;
+        --color-primary: #3F2A56;               /* aubergine/royal purple */
+        --color-primary-foreground: #FEFDFB;
+        --color-secondary: #C9B79A;             /* faded gilt */
+        --color-secondary-foreground: #241F17;
+        --color-muted: #EFEAE1;                 /* soft grey-beige */
+        --color-muted-foreground: #4D4542;
+        --color-accent: #D4A017;                 /* gaslight amber */
+        --color-accent-foreground: #1E1A12;      /* readable on amber */
+        --color-destructive: #8C2F2F;            /* period red */
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D7C9B7;                 /* frame moulding */
+        --color-input: #D7C9B7;
+        --color-ring: #D4A017;                   /* warm amber glow */
+        --surface-muted: #F5EFE6;
+        --surface-warning: #F6E4BA;
+        --surface-success: #E3F1E6;
+        --surface-info: #E6EEF6;
+        --surface-danger: #F4DDDD;
+      }
+      /* Classic 1920s: sepia-olive academic palette (explicitly set to ensure contrast with 1930s) */
+      body[data-era="classic-1920s"] {
+        --color-background: #F7F6D0;  /* warm cream */
+        --color-foreground: #1D2119;
+        --color-card: #FFFFFF;
+        --color-card-foreground: #1D2119;
+        --color-popover: #FFFCF2;
+        --color-popover-foreground: #1D2119;
+        --color-primary: #3B4434; /* olive green */
+        --color-primary-foreground: #FFFFFF;
+        --color-secondary: #ACB190; /* dusty olive */
+        --color-secondary-foreground: #1D2119;
+        --color-muted: #F5F5F5;
+        --color-muted-foreground: #5B624C;
+        --color-accent: #8E9375; /* moss */
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #A94442;
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D2CFBD;
+        --color-input: #D2CFBD;
+        --color-ring: #8E9375;
+      }
+      /* Pulp 1930s: bolder pulp-cover palette—crimson + gold accents with cool navy ring */
+      body[data-era="pulp-1930s"] {
+        --color-background: #F3EEE2;  /* slightly cooler parchment */
+        --color-foreground: #201A1A;
+        --color-card: #FFFDF8;
+        --color-card-foreground: #201A1A;
+        --color-popover: #FFFAF0;
+        --color-popover-foreground: #201A1A;
+        --color-primary: #7A1E1E; /* deep crimson */
+        --color-primary-foreground: #FFFFFF;
+        --color-secondary: #C9A227; /* golden accent */
+        --color-secondary-foreground: #1E1A12;
+        --color-muted: #F5F1E8;
+        --color-muted-foreground: #5A4D45;
+        --color-accent: #2D557A; /* pulp navy */
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #A94442;
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D8CBB4;
+        --color-input: #D8CBB4;
+        --color-ring: #2D557A; /* stronger focus ring to feel snappier */
+      }
+      /* Dark Ages 1000s: grim vellum, moss green primaries, iron and oak accents */
+      body[data-era="dark-ages-1000s"] {
+        --color-background: #EDEBE6;            /* vellum grey */
+        --color-foreground: #1F2320;            /* dark ink */
+        --color-card: #FBFAF7;
+        --color-card-foreground: #1F2320;
+        --color-popover: #F8F6F1;
+        --color-popover-foreground: #1F2320;
+        --color-primary: #355E3B;               /* moss green */
+        --color-primary-foreground: #F6FFF8;
+        --color-secondary: #B8AA91;             /* aged brass */
+        --color-secondary-foreground: #1F2320;
+        --color-muted: #F1EEE8;
+        --color-muted-foreground: #4B4A45;
+        --color-accent: #6B4E2E;                /* oak/wood */
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #7A1F1F;           /* dried blood */
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #CEC7B5;                /* parchment edge */
+        --color-input: #CEC7B5;
+        --color-ring: #6F8F3C;                  /* olive ring */
+        --surface-muted: #F6F2EB;
+        --surface-warning: #F0E0B8;
+        --surface-success: #E1F0E1;
+        --surface-info: #E3EBF3;
+        --surface-danger: #F4E1E1;
+      }
+      /* Western 1870s: sunbaked parchment, saddle brown primaries, rusty accents */
+      body[data-era="western-1880s"] {
+        --color-background: #F2EAD7;            /* dusty parchment */
+        --color-foreground: #2B241A;            /* dark umber */
+        --color-card: #FFFDF7;                  /* sun-bleached paper */
+        --color-card-foreground: #2B241A;
+        --color-popover: #FFF9EF;
+        --color-popover-foreground: #2B241A;
+        --color-primary: #8B5E3C;               /* saddle brown */
+        --color-primary-foreground: #FFF8F0;
+        --color-secondary: #C1AA7E;             /* dry grass/khaki */
+        --color-secondary-foreground: #2B241A;
+        --color-muted: #F6F0E2;                 /* weathered panel */
+        --color-muted-foreground: #5F4D3B;
+        --color-accent: #9A3B2E;                /* rusty red */
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #8C2F2F;           /* brick danger */
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D6C8AD;                /* rope/twine tan */
+        --color-input: #D6C8AD;
+        --color-ring: #A66E3F;                  /* copper ring */
+        /* Surfaces tuned for western grit */
+        --surface-muted: #FAF3E4;
+        --surface-warning: #F9E7C6;             /* sandstorm warning */
+        --surface-success: #E7F2E7;             /* sage hint */
+        --surface-info: #E9F1F7;                /* pale sky */
+        --surface-danger: #F7DEDE;              /* dusted red */
+      }
+      body[data-era="modern-2000s"] {
+        /* Cool, contemporary palette with subtle unease (urban, fluorescent accent) */
+        --color-background: #EEF2F6;            /* cool, airy grey */
+        --color-foreground: #111827;            /* slate-900 */
+        --color-card: #FFFFFF;
+        --color-card-foreground: #111827;
+        --color-popover: #FFFFFF;
+        --color-popover-foreground: #111827;
+        --color-primary: #0F766E;               /* deep teal (modern, clinical) */
+        --color-primary-foreground: #FFFFFF;
+        --color-secondary: #E5E7EB;             /* neutral secondary surface */
+        --color-secondary-foreground: #111827;
+        --color-muted: #F3F4F6;                 /* muted panels */
+        --color-muted-foreground: #4B5563;      /* readable on muted */
+        --color-accent: #0EA5E9;                /* neon/cyan hint for links/focus */
+        --color-accent-foreground: #FFFFFF;
+        --color-destructive: #B91C1C;           /* stronger danger */
+        --color-destructive-foreground: #FFFFFF;
+        --color-border: #D1D5DB;                /* precise, modern borders */
+        --color-input: #CBD5E1;                 /* inputs slightly darker than borders */
+        --color-ring: #0EA5E9;                  /* crisp cyan focus ring */
+        /* Surfaces tuned for modern */
+        --surface-muted: #F5F7FA;
+        --surface-warning: #FEF3C7;
+        --surface-success: #DCFCE7;
+        --surface-info: #E0F2FE;
+        --surface-danger: #FEE2E2;
+      }
+
+      body {
+        background-color: var(--color-background);
+        font-family: 'Lato', sans-serif;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        color-scheme: light;
+      }
+      select, option {
+        background-color: var(--color-card);
+        color: var(--color-foreground);
+        color-scheme: light; /* ensure light dropdown palette even on dark OS */
+      }
+      input[type="date"] {
+        background-color: var(--color-card);
+        color: var(--color-foreground);
+        border-color: var(--color-border);
+        color-scheme: light; /* light calendar popover */
+        accent-color: var(--color-primary);
+      }
+      input[type="date"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-ring);
+        border-color: var(--color-primary);
+      }
+      input[type="date"]:hover {
+        border-color: var(--color-primary);
+      }
+      select:focus {
+        outline-offset: 2px;
+      }
+      /* Improve dropdown option readability on hover/selection */
+      option:hover,
+      option:checked,
+      option:focus {
+        background-color: var(--surface-muted);
+        color: var(--color-foreground);
+      }
+      @keyframes item-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-item-fade-in {
+        animation: item-fade-in 0.5s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "pdf-lib": "https://esm.sh/pdf-lib@1.17.1",
+    "@google/genai": "https://esm.sh/@google/genai"
+  }
+}
+</script>
+
+</head>
+  <body>
+    <div id="root"></div>
+    <div id="tooltip-portal"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
+
