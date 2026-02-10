@@ -39,7 +39,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                     <section>
                         <h3 className="text-lg font-bold text-foreground mb-3">Character Sheet Source</h3>
                         <div className="space-y-4 bg-cream-200 p-4 rounded-lg border border-border">
-                            <RadioOption id="source-internal" label="Internal Development" description="Use sheet files in the local /public/sheet/ folder. (For developers)" value="internal" currentValue={sourceType} onChange={setSourceType} />
+                            <RadioOption id="source-internal" label="Internal Development" description="Use sheet files in the local /public/sheets/ folder. (For developers)" value="internal" currentValue={sourceType} onChange={setSourceType} />
                             <RadioOption id="source-external" label="Default External URLs" description="Use official, externally hosted PDFs via CDN for best compatibility." value="external" currentValue={sourceType} onChange={setSourceType} />
                             <RadioOption id="source-self-hosted" label="Self-Hosted" description="Provide a base URL to a folder where you are hosting the PDF files." value="self-hosted" currentValue={sourceType} onChange={setSourceType} />
                         </div>

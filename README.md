@@ -54,7 +54,7 @@ npm run preview
 
 ## Character Sheet
 
-This repo includes the Classic 1920s sheet at `public/sheet/coc1920s.pdf`. Production builds copy it to `dist/sheet/coc1920s.pdf`.
+This repo includes the Classic 1920s sheet at `public/sheets/coc1920s.pdf`. Production builds copy it to `dist/sheets/coc1920s.pdf`.
 
 You can switch between internal, external, and self-hosted PDF sources in the in-app Settings menu.
 
