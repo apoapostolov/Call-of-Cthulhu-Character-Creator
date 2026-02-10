@@ -15,20 +15,71 @@ This is an unofficial fan project, not affiliated with Chaosium Inc. All tradema
 
 ## Features
 
-- PDF fill for Classic 1920s sheet, including multi-line text alignment and correct field appearances
-- Specialized skills supported and mapped to dedicated PDF fields:
-  - Art/Craft (top 2), Language (Other) (up to 3), Science (up to 3), Pilot (1), Survival (1)
-  - Fighting specializations (2) excluding Brawl
-  - Firearms: Handguns, Rifles/Shotguns, plus one extra specialization slot
-- Gear/Possessions columns rendered into editable fields with controlled line spacing
-- Identity integration:
-  - Gender feeds the Pronouns field as "Male", "Female", or empty
-  - Occupation and Age (calculated from Date of Birth) populate the corresponding PDF fields
-  - Age bracket selection can auto-generate a plausible Date of Birth for the chosen era
-- Cash and Assets totals printed to `Cash` and `Assets1`
-- Portrait embedding via PDF button field with explicit priority:
-  - Explicitly selected image > headshot crop > full-body portrait > none
-- Optional AI-assisted details (name, traits, portrait, backstory) via Google Gemini
+### 1) Choose Your Era
+
+Switch between supported eras (Classic 1920s, Pulp 1930s, Modern Day, Gaslight 1890s, Western 1870s, Dark Ages 1000s). Each era adjusts the available occupations, gear, theme, and sheet expectations.
+
+<p align="center">
+  <img src="images/SCREENSHOT_01.png" width="32%" />
+</p>
+
+### 2) Roll Characteristics
+
+Roll your investigator's characteristics and derived stats, then pick an age bracket (with era-aware date-of-birth support).
+
+<p align="center">
+  <img src="images/SCREENSHOT_02.png" width="32%" />
+</p>
+
+### 3) Pick An Occupation
+
+Choose an occupation with clear context about skill point formulas, credit rating, and recommended equipment kits.
+
+<p align="center">
+  <img src="images/SCREENSHOT_03.png" width="32%" />
+  <img src="images/SCREENSHOT_04.png" width="32%" />
+</p>
+
+### 4) Choose Occupational Skill Picks
+
+Some occupations require you to pick specific occupational skills before you can allocate points.
+
+<p align="center">
+  <img src="images/SCREENSHOT_05.png" width="32%" />
+</p>
+
+### 5) Allocate Skill Points
+
+Spend occupation and personal points with fast controls, optional grouping, and specialization handling (Art/Craft, Languages, Science, etc.).
+
+<p align="center">
+  <img src="images/SCREENSHOT_06.png" width="32%" />
+  <img src="images/SCREENSHOT_07.png" width="32%" />
+</p>
+
+### 6) Gear Up
+
+Browse and filter equipment, apply a kit in one click, manage cash and assets, and build an investigator inventory that prints cleanly onto the sheet.
+
+<p align="center">
+  <img src="images/SCREENSHOT_08.png" width="32%" />
+</p>
+
+### 7) AI-Assisted Custom Gear (Optional)
+
+Generate custom items with AI and accept them into your inventory (optional).
+
+<p align="center">
+  <img src="images/SCREENSHOT_09.png" width="32%" />
+</p>
+
+### 8) Bio, Portrait, And PDF Export
+
+Finalize identity details, optionally generate a portrait, then use PRINT to export a filled, print-ready character sheet PDF (including skills, gear, cash/assets, and portrait).
+
+<p align="center">
+  <img src="images/SCREENSHOT_10.png" width="32%" />
+</p>
 
 ## Getting Started
 
