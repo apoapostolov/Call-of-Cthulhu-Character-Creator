@@ -207,6 +207,5 @@ secrets/
 debug/
 output/
 downloads/
-images/
 data/
 .cache/
