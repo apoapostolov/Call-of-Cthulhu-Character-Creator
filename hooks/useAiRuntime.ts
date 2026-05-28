@@ -2,6 +2,10 @@ import { useCallback } from 'react';
 import { GoogleGenAI, Modality } from '@google/genai';
 import { useAiSettings } from '../context/AiSettingsContext';
 import { fetchOpenRouterChatCompletion } from '../lib/ai/openrouter';
+import { fetchOpenAiCompatibleChatCompletion } from '../lib/ai/openai-compatible';
+
+const OPENCODE_GO_API_BASE = 'https://opencode.ai/zen/go/v1';
+const DEEPSEEK_API_BASE = 'https://api.deepseek.com';
 
 const getBuildTimeGeminiApiKey = () => String(
     process.env.API_KEY
@@ -51,6 +55,7 @@ export const useAiRuntime = () => {
         providerImageModelId,
     } = useAiSettings();
     const geminiApiKey = providerApiKey || getBuildTimeGeminiApiKey();
+    const isOpenAiCompatibleProvider = provider === 'opencode-go' || provider === 'deepseek';
 
     const generateText = useCallback(async (params: {
         prompt: string;
@@ -63,29 +68,52 @@ export const useAiRuntime = () => {
         purpose?: 'simple' | 'creative';
     }) => {
         const selectedTextModelId = params.purpose === 'simple' ? providerSimpleModelId : providerTextModelId;
+        const messages: Array<{
+            role: 'system' | 'user' | 'assistant';
+            content: string | Array<{ type: 'text'; text: string } | { type: 'image_url'; image_url: { url: string } }>;
+        }> = [];
+        if (params.systemPrompt) {
+            messages.push({ role: 'system', content: params.systemPrompt });
+        }
+        if (params.imageDataUrl) {
+            messages.push({
+                role: 'user',
+                content: [
+                    { type: 'text', text: params.prompt },
+                    { type: 'image_url', image_url: { url: params.imageDataUrl } },
+                ],
+            });
+        } else {
+            messages.push({ role: 'user', content: params.prompt });
+        }
         if (provider === 'openrouter') {
             if (!providerApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
-            }
-            const messages = [];
-            if (params.systemPrompt) {
-                messages.push({ role: 'system' as const, content: params.systemPrompt });
-            }
-            if (params.imageDataUrl) {
-                messages.push({
-                    role: 'user' as const,
-                    content: [
-                        { type: 'text' as const, text: params.prompt },
-                        { type: 'image_url' as const, image_url: { url: params.imageDataUrl } },
-                    ],
-                });
-            } else {
-                messages.push({ role: 'user' as const, content: params.prompt });
             }
 
             const result = await fetchOpenRouterChatCompletion({
                 apiKey: providerApiKey,
                 model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
+                messages,
+                responseFormat: params.json ? { type: 'json_object' } : undefined,
+                temperature: params.temperature,
+                maxTokens: params.maxTokens,
+            });
+            return result.content;
+        }
+
+        if (provider === 'opencode-go' || provider === 'deepseek') {
+            if (!providerApiKey) {
+                throw new Error(`Add a ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} API key in Settings.`);
+            }
+            if (params.imageDataUrl) {
+                throw new Error(`Vision prompts are not available with the ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} provider.`);
+            }
+
+            const result = await fetchOpenAiCompatibleChatCompletion({
+                baseUrl: provider === 'opencode-go' ? OPENCODE_GO_API_BASE : DEEPSEEK_API_BASE,
+                apiKey: providerApiKey,
+                model: params.modelOverride || selectedTextModelId,
                 messages,
                 responseFormat: params.json ? { type: 'json_object' } : undefined,
                 temperature: params.temperature,
@@ -148,6 +176,10 @@ export const useAiRuntime = () => {
             return image;
         }
 
+        if (isOpenAiCompatibleProvider) {
+            throw new Error(`Image generation is not available with the ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} provider.`);
+        }
+
         const ai = getGeminiClient(geminiApiKey);
         if (params.referenceImageDataUrl) {
             const response = await ai.models.generateContent({
@@ -180,7 +212,7 @@ export const useAiRuntime = () => {
         }
 
         return `data:image/png;base64,${response.generatedImages[0].image.imageBytes}`;
-    }, [geminiApiKey, provider, providerApiKey, providerImageModelId]);
+    }, [geminiApiKey, provider, providerApiKey, providerImageModelId, isOpenAiCompatibleProvider]);
 
     const analyzeImage = useCallback(async (params: {
         prompt: string;
@@ -210,6 +242,10 @@ export const useAiRuntime = () => {
             return result.content;
         }
 
+        if (isOpenAiCompatibleProvider) {
+            throw new Error(`Image analysis is not available with the ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} provider.`);
+        }
+
         const ai = getGeminiClient(geminiApiKey);
         const base64ImageData = params.imageDataUrl.split(',')[1];
         const mimeType = params.imageDataUrl.match(/data:(.*);/)?.[1] || 'image/png';
@@ -220,7 +256,7 @@ export const useAiRuntime = () => {
         });
 
         return extractText(response);
-    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId]);
+    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId, isOpenAiCompatibleProvider]);
 
     return {
         provider,

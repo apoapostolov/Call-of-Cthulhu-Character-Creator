@@ -7,8 +7,15 @@ import { useAIGeneration } from './useAIGeneration';
 import { useAiRuntime } from './useAiRuntime';
 import { parseSkillPointFormula } from '../utils';
 import { AGE_CATEGORIES } from '../config/age.config';
-import { buildSkillDistributionPrompt, normalizeSkillDistributionResponse, responseToSkillPointAssignments } from '../lib/ai/skill-distribution';
-import type { SkillDistributionPayload } from '../lib/ai/skill-distribution';
+import {
+    buildEraContext,
+    buildSkillDistributionAnalysisPrompt,
+    buildSkillDistributionPrompt,
+    normalizeSkillDistributionAnalysis,
+    normalizeSkillDistributionResponse,
+    responseToSkillPointAssignments,
+} from '../lib/ai/skill-distribution';
+import type { SkillDistributionAnalysis, SkillDistributionPayload, SkillDistributionSkillSummary } from '../lib/ai/skill-distribution';
 
 const roll3d6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
 const roll2d6plus6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + 6;
@@ -789,6 +796,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 name: aggregatedData.DECADES?.[0]?.name || selectedEra,
                 displayName: aggregatedData.DECADES?.[0]?.displayName || selectedEra,
             },
+            eraContext: buildEraContext(aggregatedData.DECADES, aggregatedData.DECADES?.[0]?.name || selectedEra),
             occupation: {
                 name: selectedOccupation.name,
                 description: selectedOccupation.description,
@@ -802,6 +810,28 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 selectedChoices: occupationSkillChoices,
             },
             description,
+            distribution: {
+                signatureSkillTarget: '1-2 core skills around 50-70%',
+                secondarySkillTarget: '2-4 supporting skills around 20-40%',
+                supportSkillTarget: 'several 5-10 point adjacent skills where the concept supports them',
+                supportPointBand: { min: 5, max: 10 },
+                maxHighSkillCount: 2,
+                utilitySkills: [
+                    'Spot Hidden',
+                    'Listen',
+                    'First Aid',
+                    'Library Use',
+                    'Psychology',
+                    'Stealth',
+                    'Dodge',
+                    'Climb',
+                    'Jump',
+                    'Throw',
+                    'Credit Rating',
+                    'Fighting',
+                    'Firearms',
+                ],
+            },
             rules: {
                 untrainedMax: 19,
                 trainedMin: 20,
@@ -814,6 +844,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 experience: experiencePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
                 archetype: archetypePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
             },
+            specializations: aggregatedData.SKILL_SPECIALIZATIONS,
             skills: allSkillsWithCalculatedBases.map(skill => {
                 const baseName = skill.name.split(' (')[0];
                 const assignment = skillPointAssignments[skill.name] || { occupational: 0, personal: 0, experience: 0, archetype: 0 };
@@ -833,17 +864,85 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
         setIsAiDistributionRunning(true);
         try {
-            const prompt = buildSkillDistributionPrompt(payload);
+            const analysisPrompt = buildSkillDistributionAnalysisPrompt(payload);
+            const rawAnalysisResponse = await generateText({ prompt: analysisPrompt, json: true, purpose: 'creative' });
+            const analysis = normalizeSkillDistributionAnalysis(rawAnalysisResponse);
+            const analyzedPayload: SkillDistributionPayload = { ...payload, analysis };
+
+            const prompt = buildSkillDistributionPrompt(analyzedPayload);
             const rawResponse = await generateText({ prompt, json: true, purpose: 'creative' });
             const normalizedResponse = normalizeSkillDistributionResponse(rawResponse);
+            const skillSummaries: SkillDistributionSkillSummary[] = [...analyzedPayload.skills];
+            const existingSkillNames = new Set(skillSummaries.map(skill => skill.name));
+            const createdSpecializations: Skill[] = [];
+            const addMissingSpecialization = (skillName: string) => {
+                if (existingSkillNames.has(skillName)) return;
+                const match = skillName.match(/^(.*) \((.+)\)$/);
+                if (!match) return;
+                const [, baseName, subType] = match;
+                const parentSkill = allSkillsWithCalculatedBases.find(s => s.name === skillName || s.name === baseName || s.stub === baseName)
+                    || aggregatedData.SKILLS.find(s => s.specialty && (s.name === baseName || s.stub === baseName));
+                if (!parentSkill) return;
+                const parentBaseName = parentSkill.name.split(' (')[0];
+                const summary: SkillDistributionSkillSummary = {
+                    name: skillName,
+                    base: parentSkill.base,
+                    current: parentSkill.base,
+                    occupationalEligible: effectiveOccupationalSkills.has(skillName) || effectiveOccupationalSkills.has(parentBaseName) || selectedOccupation.occupationalSkills.includes(parentBaseName),
+                    personalEligible: parentBaseName !== 'Cthulhu Mythos' && skillName !== 'Cthulhu Mythos',
+                    experienceEligible: experienceEligibleSkills.has(skillName) || experienceEligibleSkills.has(parentBaseName),
+                    archetypeEligible: archetypeEligibleSkills.has(skillName) || archetypeEligibleSkills.has(parentBaseName),
+                    description: parentSkill.description,
+                };
+                skillSummaries.push(summary);
+                existingSkillNames.add(skillName);
+                createdSpecializations.push({
+                    name: skillName,
+                    base: parentSkill.base,
+                    specialty: false,
+                    shortName: subType,
+                    description: parentSkill.description,
+                });
+            };
+            [
+                ...normalizedResponse.occupational,
+                ...normalizedResponse.personal,
+                ...normalizedResponse.experience,
+                ...normalizedResponse.archetype,
+            ].forEach(entry => addMissingSpecialization(entry.skill));
+            if (createdSpecializations.length > 0) {
+                setUserCreatedSkills(prev => {
+                    const existing = new Set(prev.map(skill => skill.name));
+                    return [...prev, ...createdSpecializations.filter(skill => !existing.has(skill.name))];
+                });
+            }
             const assignments = responseToSkillPointAssignments(
                 normalizedResponse,
-                allSkillsWithCalculatedBases.map(skill => skill.name),
+                skillSummaries,
                 {
                     occupational: occupationalSkillPoints.total,
                     personal: personalSkillPoints.total,
                     experience: experiencePoints?.total ?? 0,
                     archetype: archetypePoints?.total ?? 0,
+                },
+                {
+                    skillCap: selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75),
+                    occupationalSkillNames: selectedOccupation?.occupationalSkills || [],
+                    utilitySkills: [
+                        'Spot Hidden',
+                        'Listen',
+                        'First Aid',
+                        'Library Use',
+                        'Psychology',
+                        'Stealth',
+                        'Dodge',
+                        'Climb',
+                        'Jump',
+                        'Throw',
+                        'Credit Rating',
+                        'Fighting',
+                        'Firearms',
+                    ],
                 },
             );
             setSkillPointAssignments(assignments);

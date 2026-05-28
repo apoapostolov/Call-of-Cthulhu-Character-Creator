@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { buildSkillDistributionPrompt, normalizeSkillDistributionResponse, responseToSkillPointAssignments } from '../lib/ai/skill-distribution';
+import {
+    buildEraContext,
+    buildSkillDistributionAnalysisPrompt,
+    buildSkillDistributionPrompt,
+    normalizeSkillDistributionAnalysis,
+    normalizeSkillDistributionResponse,
+    responseToSkillPointAssignments,
+} from '../lib/ai/skill-distribution';
 
 describe('skill distribution helpers', () => {
     const payload = {
@@ -8,6 +15,20 @@ describe('skill distribution helpers', () => {
             name: 'Modern',
             displayName: 'Modern Era',
         },
+        eraContext: buildEraContext([
+            {
+                name: '2000s',
+                displayName: 'The 2000s',
+                prompt: {
+                    artStyle: 'Digital grit',
+                    fashion: 'Cargo pants and tactical layers',
+                    looks: 'Practical, early-2000s style',
+                    mannerisms: 'Direct and security-conscious',
+                    politicsAndMood: 'Post-9/11 vigilance and surveillance',
+                    technology: 'Internet, smartphones, broadband, flip phones',
+                },
+            },
+        ], '2000s'),
         occupation: {
             name: 'Detective',
             description: 'A hard-boiled investigator.',
@@ -20,6 +41,14 @@ describe('skill distribution helpers', () => {
             selectedChoices: {},
         },
         description: 'Former boxer turned private eye who likes reading and tinkering with locks.',
+        distribution: {
+            signatureSkillTarget: '1-2 core skills around 50-70%',
+            secondarySkillTarget: '2-4 supporting skills around 20-40%',
+            supportSkillTarget: 'several 5-10 point adjacent skills where the concept supports them',
+            supportPointBand: { min: 5, max: 10 },
+            maxHighSkillCount: 2,
+            utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Library Use', 'Psychology'],
+        },
         rules: {
             untrainedMax: 19,
             trainedMin: 20,
@@ -56,6 +85,11 @@ describe('skill distribution helpers', () => {
                 calculation: '',
             },
         },
+        specializations: {
+            Fighting: ['Brawl', 'Sword'],
+            Firearms: ['Handgun', 'Rifle/Shotgun'],
+            Language: ['French', 'German'],
+        },
         skills: [
             {
                 name: 'Persuade',
@@ -80,12 +114,38 @@ describe('skill distribution helpers', () => {
         ],
     } satisfies Parameters<typeof buildSkillDistributionPrompt>[0];
 
+    it('builds an analysis prompt that asks for exact specialization interpretation', () => {
+        const prompt = buildSkillDistributionAnalysisPrompt(payload);
+
+        expect(prompt).toContain('Analyze the brief deeply');
+        expect(prompt).toContain('Era: The 2000s (2000s)');
+        expect(prompt).toContain('Fighting (Brawl)');
+        expect(prompt).toContain('Firearms (Handgun)');
+        expect(prompt).toContain('Read the prose for profession, hobbies, training');
+    });
+
     it('includes Call of Cthulhu guidance in the prompt', () => {
         const prompt = buildSkillDistributionPrompt(payload);
 
+        expect(prompt).toContain('Era: The 2000s (2000s)');
+        expect(prompt).toContain('Technology: Internet, smartphones, broadband, flip phones');
         expect(prompt).toContain('0-19% is untrained');
         expect(prompt).toContain('20-49% is trained');
         expect(prompt).toContain('50%+ is professional');
+        expect(prompt).toContain('Build a believable investigator first');
+        expect(prompt).toContain('Distribution policy');
+        expect(prompt).toContain('Support point band: 5-10 points');
+        expect(prompt).toContain('Prefer a broad spread of competence');
+        expect(prompt).toContain('Do not dump most of a pool into one or two skills');
+        expect(prompt).toContain('Treat 70% as a practical ceiling');
+        expect(prompt).toContain('Use 5-10 point nudges on adjacent skills');
+        expect(prompt).toContain('Avoid bad investments unless the concept truly calls for them');
+        expect(prompt).toContain('Never spend points on Language (Own)');
+        expect(prompt).toContain('Specialized skills are written as Base (Specialization)');
+        expect(prompt).toContain('Most investigators should have at least one combat-capable skill');
+        expect(prompt).toContain('Common adventurer workhorse skills');
+        expect(prompt).toContain('Spot Hidden, Listen, First Aid, Library Use, Psychology');
+        expect(prompt).toContain('Fighting: Brawl, Sword');
         expect(prompt).toContain('Former boxer turned private eye');
         expect(prompt).toContain('Spend exactly the points available in each pool');
     });
@@ -106,6 +166,25 @@ describe('skill distribution helpers', () => {
         expect(response.archetype).toEqual([{ skill: 'Unknown', points: 12 }]);
     });
 
+    it('normalizes the analysis response', () => {
+        const analysis = normalizeSkillDistributionAnalysis(JSON.stringify({
+            summary: 'A tough private investigator.',
+            themes: ['investigation', 'streetwise'],
+            likelyCoreSkills: ['Fighting (Brawl)'],
+            likelySupportSkills: ['Library Use'],
+            likelySpecializations: ['Firearms (Handgun)'],
+            combatProfile: 'combat_ready',
+            literacyNotes: 'Well educated.',
+            cautions: ['Do not overinvest in Language (Own)'],
+        }));
+
+        expect(analysis.summary).toBe('A tough private investigator.');
+        expect(analysis.themes).toEqual(['investigation', 'streetwise']);
+        expect(analysis.likelyCoreSkills).toEqual(['Fighting (Brawl)']);
+        expect(analysis.likelySpecializations).toEqual(['Firearms (Handgun)']);
+        expect(analysis.cautions).toEqual(['Do not overinvest in Language (Own)']);
+    });
+
     it('scales allocations down to available pool totals', () => {
         const assignments = responseToSkillPointAssignments(
             {
@@ -117,12 +196,36 @@ describe('skill distribution helpers', () => {
                 experience: [],
                 archetype: [],
             },
-            ['Persuade', 'Library Use'],
+            [
+                {
+                    name: 'Persuade',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Library Use',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
             {
                 occupational: 120,
                 personal: 0,
                 experience: 0,
                 archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Persuade', 'Library Use'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
             },
         );
 
@@ -131,7 +234,7 @@ describe('skill distribution helpers', () => {
         expect(assignments['Library Use'].occupational).toBeGreaterThan(0);
     });
 
-    it('ignores skills that are not allowed in the current sheet', () => {
+    it('ignores skills that are not allowed in the current sheet when no eligible fallback exists', () => {
         const assignments = responseToSkillPointAssignments(
             {
                 occupational: [{ skill: 'Forbidden Skill', points: 20 }],
@@ -139,15 +242,75 @@ describe('skill distribution helpers', () => {
                 experience: [],
                 archetype: [],
             },
-            ['Persuade'],
+            [
+                {
+                    name: 'Persuade',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: false,
+                    personalEligible: false,
+                    experienceEligible: false,
+                    archetypeEligible: false,
+                },
+            ],
             {
                 occupational: 20,
                 personal: 0,
                 experience: 0,
                 archetype: 0,
             },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Persuade'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+            },
         );
 
         expect(assignments).toEqual({});
+    });
+
+    it('fills a pool shortfall using eligible skills', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [{ skill: 'Persuade', points: 10 }],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Persuade',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Library Use',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 30,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Persuade', 'Library Use'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+            },
+        );
+
+        const totalOccupational = (assignments.Persuade?.occupational || 0) + (assignments['Library Use']?.occupational || 0);
+        expect(totalOccupational).toBe(30);
     });
 });

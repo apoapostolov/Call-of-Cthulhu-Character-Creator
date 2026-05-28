@@ -66,10 +66,6 @@ export const AiDistributionModal: React.FC<AiDistributionModalProps> = ({ open, 
                 </div>
 
                 <div className="p-4 space-y-4">
-                    <div className="rounded-lg border border-border bg-cream-200 p-3 text-sm text-muted-foreground">
-                        The AI will see the era, occupation, available skills, pool totals, and these rules:
-                        0-19% is untrained, 20-49% is trained, and 50%+ is professional.
-                    </div>
                     <label className="block">
                         <span className="block text-sm font-medium text-muted-foreground mb-2">Character description</span>
                         <textarea

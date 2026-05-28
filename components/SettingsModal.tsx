@@ -300,10 +300,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                     <SelectInput
                                         label="Provider"
                                         value={provider}
-                                        onChange={(value) => setProvider(value as 'openrouter' | 'gemini')}
+                                        onChange={(value) => setProvider(value as 'openrouter' | 'gemini' | 'opencode-go' | 'deepseek')}
                                         options={[
                                             { value: 'openrouter', label: 'OpenRouter' },
                                             { value: 'gemini', label: 'Google Gemini' },
+                                            { value: 'opencode-go', label: 'OpenCode Go' },
+                                            { value: 'deepseek', label: 'DeepSeek' },
                                         ]}
                                     />
                                     <UrlInput
@@ -345,20 +347,32 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                         onChange={setProviderTextModelId}
                                         options={creativeModelOptions}
                                     />
-                                    <SearchableSelect
-                                        key={`${provider}-vision`}
-                                        label="Vision Analysis"
-                                        value={providerVisionModelId}
-                                        onChange={setProviderVisionModelId}
-                                        options={visionModelOptions}
-                                    />
-                                    <SearchableSelect
-                                        key={`${provider}-image`}
-                                        label="Image Generation"
-                                        value={providerImageModelId}
-                                        onChange={setProviderImageModelId}
-                                        options={imageModelOptions}
-                                    />
+                                    {visionModelOptions.length > 0 ? (
+                                        <SearchableSelect
+                                            key={`${provider}-vision`}
+                                            label="Vision Analysis"
+                                            value={providerVisionModelId}
+                                            onChange={setProviderVisionModelId}
+                                            options={visionModelOptions}
+                                        />
+                                    ) : (
+                                        <div className="mt-2 rounded-md border border-dashed border-border bg-cream-100 p-3 text-sm text-muted-foreground">
+                                            No vision-capable models are available for this provider.
+                                        </div>
+                                    )}
+                                    {imageModelOptions.length > 0 ? (
+                                        <SearchableSelect
+                                            key={`${provider}-image`}
+                                            label="Image Generation"
+                                            value={providerImageModelId}
+                                            onChange={setProviderImageModelId}
+                                            options={imageModelOptions}
+                                        />
+                                    ) : (
+                                        <div className="mt-2 rounded-md border border-dashed border-border bg-cream-100 p-3 text-sm text-muted-foreground">
+                                            No image-generation models are available for this provider.
+                                        </div>
+                                    )}
                                     <div className="text-sm text-muted-foreground">
                                         Status: {providerModelCatalogState}
                                         {providerModelCatalogError ? ` - ${providerModelCatalogError}` : ''}
