@@ -1,4 +1,3 @@
-// skill-specializations-data.ts
 export const SKILL_SPECIALIZATIONS: Record<string, string[]> = {
     'Art and Craft': [
         'Acting', 'Barber', 'Calligraphy', 'Carpenter', 'Chef', 'Dancer', 'Fine Art', 'Forgery', 

@@ -1,5 +1,4 @@
-// occupation-data.ts
-import type { Occupation, OccupationGroup } from './types';
+import type { Occupation, OccupationGroup } from '../types';
 
 // NOTE: This data is adapted from Delta Green professions as a placeholder.
 // The skill points formulas and credit ratings are examples and should be

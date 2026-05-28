@@ -1,4 +1,4 @@
-import type { Nationality } from './types';
+import type { Nationality } from '../types';
 
 // This file is repurposed to hold a list of nationalities for character creation.
 export const NATIONALITIES: Nationality[] = [

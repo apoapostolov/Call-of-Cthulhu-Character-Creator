@@ -1,4 +1,4 @@
-import type { SpecialTraining } from './types';
+import type { SpecialTraining } from '../types';
 
 export const SPECIAL_TRAININGS: SpecialTraining[] = [
     { name: 'Parachuting', basedOn: 'Athletics', description: 'Safe static-line and freefall parachute jumps from an aircraft.' },

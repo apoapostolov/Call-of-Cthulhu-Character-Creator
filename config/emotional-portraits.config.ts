@@ -1,5 +1,5 @@
 // FIX: Removed local Emotion interface and imported from types.ts
-import type { Emotion } from './types';
+import type { Emotion } from '../types';
 
 export const EMOTIONS_CONFIG: Emotion[] = [
   {

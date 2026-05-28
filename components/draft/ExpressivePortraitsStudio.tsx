@@ -1,7 +1,7 @@
 import React from 'react';
 import { SpinnerIcon } from '../icons/SpinnerIcon';
 import { PortraitDisplay } from './PortraitDisplay';
-import { EMOTIONS_CONFIG } from '../../emotional-portraits.config';
+import { EMOTIONS_CONFIG } from '../../config/emotional-portraits.config';
 import type { Emotion } from '../../types';
 
 // Helper function to handle image downloads

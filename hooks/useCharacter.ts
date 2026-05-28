@@ -5,7 +5,7 @@ import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, Age
 import type { AggregatedData } from './useAggregatedData';
 import { useAIGeneration } from './useAIGeneration';
 import { parseSkillPointFormula } from '../utils';
-import { AGE_CATEGORIES } from '../age.config';
+import { AGE_CATEGORIES } from '../config/age.config';
 
 const roll3d6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
 const roll2d6plus6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + 6;

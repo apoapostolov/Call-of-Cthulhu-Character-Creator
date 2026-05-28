@@ -1,5 +1,4 @@
-// nationality-data.ts
-import type { WeightedNationality } from './types';
+import type { WeightedNationality } from '../types';
 
 // Weights are based on the approximate demographic and ancestry distribution of the United States circa 2020.
 // This provides a more representative random selection for a US-based Delta Green setting.

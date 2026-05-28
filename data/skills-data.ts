@@ -1,4 +1,4 @@
-import type { Skill } from './types';
+import type { Skill } from '../types';
 
 // This file is repurposed to hold the master list of Skills for Delta Green.
 export const SKILLS: Skill[] = [

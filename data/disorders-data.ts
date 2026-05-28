@@ -1,5 +1,4 @@
-// disorders-data.ts
-import type { Disorder } from './types';
+import type { Disorder } from '../types';
 
 export const DISORDERS: Disorder[] = [
     // --- From Violence ---

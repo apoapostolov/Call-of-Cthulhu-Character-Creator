@@ -1,4 +1,4 @@
-import type { DGItem } from './types';
+import type { DGItem } from '../types';
 
 export interface EquipmentKit {
     name: string;

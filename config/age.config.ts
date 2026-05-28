@@ -1,5 +1,4 @@
-// age.config.ts
-import type { AgeCategory, Attribute } from './types';
+import type { AgeCategory, Attribute } from '../types';
 
 export interface AgeCategoryConfig {
     label: AgeCategory;

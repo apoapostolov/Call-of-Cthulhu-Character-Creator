@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import type { Occupation, Skill, ThemeConfig, EraID, Nationality, WeightedNationality, DecadeConfig, DGItem, EquipmentKit, EraWealthData, ExperiencePackage, Talent, Archetype, LifeEvent } from '../types';
 import { thirdPartyData } from '../eras/manifest';
 import { getWeaponsForEra } from '../weapons/to-dgitems';
-import { SKILL_SPECIALIZATIONS } from '../skill-specializations-data';
+import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
 
 export interface AggregatedData {
     OCCUPATIONS: Occupation[];

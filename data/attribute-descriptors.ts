@@ -1,5 +1,4 @@
-// attribute-descriptors.ts
-import { Attribute } from './types';
+import { Attribute } from '../types';
 
 export interface AttributeScoreDescriptor {
   min: number;

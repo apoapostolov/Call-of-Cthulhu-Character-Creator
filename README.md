@@ -1,5 +1,7 @@
 # Call of Cthulhu Character Creator (The New Dhole's House)
 
+<!-- markdownlint-disable MD013 MD033 MD045 -->
+
 An interactive, React-based tool that fills the Call of Cthulhu 7e Classic 1920s character sheet PDF. It supports AI-assisted identity and portrait generation, specialized skill mapping, gear blocks, and one-click PDF export with correct field layouts.
 
 This is an unofficial fan project, not affiliated with Chaosium Inc. All trademarks and copyrights are their own.
@@ -111,16 +113,32 @@ You can switch between internal, external, and self-hosted PDF sources in the in
 
 ## Environment Variables
 
-AI features require a Google Gemini API key (optional).
+AI features can use either Google Gemini or OpenRouter.
 
 - Copy `.env.example` to `.env`
-- Set `VITE_GEMINI_API_KEY` (or `GEMINI_API_KEY`) to your key
+- Set `VITE_GEMINI_API_KEY` or `GEMINI_API_KEY` for the Gemini provider
+- Set `VITE_OPENROUTER_API_KEY` or `OPENROUTER_API_KEY` for OpenRouter
 
 ```bash
 cp .env.example .env
 ```
 
-If you do not set a key, the app will still work; AI features will be disabled.
+If you do not set a key, the app will still work; AI features will be disabled
+until you add one in Settings or provide it through the environment.
+
+## Development Docs
+
+This repo now includes a local defaults-style operating set for future work:
+
+- `AGENTS.md` - project operating contract
+- `TODO.md` - active work queue
+- `DEVELOPMENT_PLAN.md` - forward-looking plan
+- `DEVELOPMENT_LOG.md` - dated engineering log
+- `RELEASE_CHECKLIST.md` - publish and sync checklist
+- `SECURITY.md` - repository security defaults
+- `GITHUB_MANAGEMENT.md` - branch, review, and release workflow guidance
+- `HARD_PROBLEMS.md` - recurring blocker memory
+- `SELF_REVIEW.md` - mistakes and durable lessons
 
 ## Scripts
 
@@ -128,6 +146,7 @@ If you do not set a key, the app will still work; AI features will be disabled.
 - `npm run build` - production build
 - `npm run preview` - preview the production build
 - `npm test` - run tests
+- `npm run test:watch` - run Vitest in watch mode
 
 ## Legal
 

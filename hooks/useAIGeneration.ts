@@ -4,8 +4,8 @@ import type { AggregatedData } from './useAggregatedData';
 import { useNameGeneration } from './ai/useNameGeneration';
 import { usePortraitGeneration } from './ai/usePortraitGeneration';
 import { getYearFromDecade } from '../utils/date';
-import { getPortraitPrompt } from '../prompt-data';
-import { THEMES } from '../theme-data';
+import { getPortraitPrompt } from '../prompts/prompt-data';
+import { THEMES } from '../data/theme-data';
 
 export const useAIGeneration = (
     characterConcept: string,

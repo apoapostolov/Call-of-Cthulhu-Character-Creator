@@ -1,18 +1,18 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { useCharacterContext } from './context/CharacterContext';
-import type { DGItem } from './types';
-import { EquipmentList } from './components/gear/EquipmentList';
-import { InvestigatorInventory } from './components/gear/InvestigatorInventory';
-import { ToolsOfTheTrade } from './components/gear/ToolsOfTheTrade';
-import { ItemDetailModal } from './components/gear/ItemDetailModal';
-import { WealthDisplay } from './components/gear/WealthDisplay';
-import { CustomItemCreator } from './components/gear/CustomItemCreator';
-import { PromptInfoModal } from './components/PromptInfoModal';
-import { GoogleGenAI, Type } from '@google/genai';
-import { AssignPriceModal } from './components/gear/AssignPriceModal';
-import { useEraContext } from './context/SourceContext';
-import { getWeaponsForEra } from './weapons/to-dgitems';
-import { thirdPartyData } from './eras/manifest';
+import { useCharacterContext } from '../../context/CharacterContext';
+import type { DGItem } from '../../types';
+import { EquipmentList } from './EquipmentList';
+import { InvestigatorInventory } from './InvestigatorInventory';
+import { ToolsOfTheTrade } from './ToolsOfTheTrade';
+import { ItemDetailModal } from './ItemDetailModal';
+import { WealthDisplay } from './WealthDisplay';
+import { CustomItemCreator } from './CustomItemCreator';
+import { PromptInfoModal } from '../PromptInfoModal';
+import { AssignPriceModal } from './AssignPriceModal';
+import { useEraContext } from '../../context/SourceContext';
+import { getWeaponsForEra } from '../../weapons/to-dgitems';
+import { thirdPartyData } from '../../eras/manifest';
+import { useAiRuntime } from '../../hooks/useAiRuntime';
 
 interface GearTabProps {
     kitInventory: DGItem[];
@@ -75,6 +75,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
     const [isGenerating, setIsGenerating] = useState(false);
     const [generationPhase, setGenerationPhase] = useState<string | null>(null);
     const [generatedItem, setGeneratedItem] = useState<DGItem | null>(null);
+    const { generateText } = useAiRuntime();
 
     const decadeDisplayName = useMemo(() => aggregatedData.DECADES?.[0]?.displayName || 'Selected Era', [aggregatedData.DECADES]);
 
@@ -103,40 +104,18 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
         return `You are a historical pricing expert. Determine a plausible ${eraName} price for the requested item.\nUse contemporary mail-order catalogs, general goods lists, and period context. If no exact match, pick the closest analogous good.\nReturn a JSON object:\n{\n  "name": string,\n  "description": string,\n  "section": "${section}",\n  "price": string\n}\nReturn only JSON.`;
     }, [decadeDisplayName]);
 
-    const ai = useMemo(() => new GoogleGenAI({ apiKey: (process.env.API_KEY as any) }), []);
-
     const handleGenerateCustom = useCallback(async (mode: 'equipment' | 'prices') => {
         setIsGenerating(true);
         setGeneratedItem(null);
         setGenerationPhase('Analyzing concept');
         try {
-            const r1 = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
-                contents: buildPhase1Prompt(mode),
-                config: {
-                    responseMimeType: 'application/json',
-                    responseSchema: {
-                        type: Type.OBJECT,
-                        properties: {
-                            section: { type: Type.STRING },
-                            analysisKeywords: { type: Type.ARRAY, items: { type: Type.STRING } },
-                        },
-                        required: ['section'],
-                    },
-                },
-            });
-            const t1 = r1.text?.trim?.() || '{}';
-            const phase1 = JSON.parse(t1);
+            const phase1 = JSON.parse(await generateText({ prompt: buildPhase1Prompt(mode), json: true }));
             const section = String(phase1.section || 'Miscellaneous');
             setGenerationPhase('Generating item');
-            const r2 = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
-                contents: buildPhase2Prompt(mode, section),
-                config: { responseMimeType: 'application/json' },
-            });
-            const t2 = r2.text?.trim?.() || '{}';
             let obj: any = {};
-            try { obj = JSON.parse(t2); } catch {}
+            try {
+                obj = JSON.parse(await generateText({ prompt: buildPhase2Prompt(mode, section), json: true }));
+            } catch {}
             const normalized: DGItem = {
                 section,
                 name: obj.name || customItemName,
@@ -159,7 +138,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
             setGenerationPhase(null);
             setIsGenerating(false);
         }
-    }, [ai, customItemName, customItemDescription, buildPhase1Prompt, buildPhase2Prompt]);
+    }, [generateText, customItemName, customItemDescription, buildPhase1Prompt, buildPhase2Prompt]);
 
     const handleAcceptGenerated = useCallback(() => {
         if (!generatedItem) return;

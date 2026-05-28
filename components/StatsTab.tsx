@@ -6,7 +6,7 @@ import { OccupationCard } from './OccupationCard';
 import { RollHistoryCard } from './RollHistoryCard';
 import { Tooltip } from './Tooltip';
 import { parseSkillPointFormula } from '../utils';
-import { AGE_CATEGORIES } from '../age.config';
+import { AGE_CATEGORIES } from '../config/age.config';
 import { AgeSelector } from './AgeSelector';
 import { ExperiencePackageInfoModal } from './ExperiencePackageInfoModal';
 import { QuestionIcon } from './icons/QuestionIcon';

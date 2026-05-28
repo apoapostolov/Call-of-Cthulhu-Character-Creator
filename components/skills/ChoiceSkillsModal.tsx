@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import type { Occupation, Skill } from '../../types';
-import { SKILL_SPECIALIZATIONS } from '../../skill-specializations-data';
+import { SKILL_SPECIALIZATIONS } from '../../data/skill-specializations-data';
 import { useCharacterContext } from '../../context/CharacterContext';
 
 interface ChoiceSkillsModalProps {

@@ -1,4 +1,4 @@
-import type { DecadeConfig } from './types';
+import type { DecadeConfig } from '../types';
 
 export const DECADES: DecadeConfig[] = [
     {

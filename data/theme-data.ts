@@ -1,4 +1,4 @@
-import type { ThemeConfig } from './types';
+import type { ThemeConfig } from '../types';
 
 // Single theme definition used by AI prompts; keyed as 'delta-green' for compatibility
 // but configured for Call of Cthulhu investigative cosmic horror across eras.

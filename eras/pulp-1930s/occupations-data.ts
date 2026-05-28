@@ -1,5 +1,5 @@
 import type { Occupation } from '../../types';
-import { SKILL_SPECIALIZATIONS } from '../../skill-specializations-data';
+import { SKILL_SPECIALIZATIONS } from '../../data/skill-specializations-data';
 
 // NOTE: Pulp inherits Classic 1920s occupations via manifest resolveOccs.
 // Any entries here overwrite by name or add NEW ones. Include suggestedContacts for Dossier notes.

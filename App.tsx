@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { AiSettingsProvider } from './context/AiSettingsContext';
 import { EraProvider, useEraContext } from './context/SourceContext';
 import { CharacterProvider } from './context/CharacterContext';
 import { SheetProvider } from './context/SheetContext';
@@ -8,7 +9,7 @@ import { useAggregatedData } from './hooks/useAggregatedData';
 import { usePdfPrinting } from './hooks/usePdfPrinting';
 import { Toast } from './components/Toast';
 import { DossierTab } from './components/DossierTab';
-import { GearTab } from './GearTab';
+import { GearTab } from './components/gear/GearTab';
 import { StatsTab } from './components/StatsTab';
 import { SkillsTab } from './components/SkillsTab';
 import { PromptInfoModal } from './components/PromptInfoModal';
@@ -213,11 +214,13 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => (
-    <SheetProvider>
-        <EraProvider>
-            <AppContent />
-        </EraProvider>
-    </SheetProvider>
+    <AiSettingsProvider>
+        <SheetProvider>
+            <EraProvider>
+                <AppContent />
+            </EraProvider>
+        </SheetProvider>
+    </AiSettingsProvider>
 );
 
 export default App;

@@ -1,5 +1,4 @@
-// utils.ts
-import type { AttributeSet, Attribute } from './types';
+import type { AttributeSet, Attribute } from '../types';
 
 export function parseSkillPointFormula(formula: string, attributes: AttributeSet): { total: number, calculation: string } {
     if (!formula || !attributes) return { total: 0, calculation: '' };

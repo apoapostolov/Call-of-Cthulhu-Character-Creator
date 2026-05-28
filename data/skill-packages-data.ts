@@ -1,4 +1,4 @@
-import type { SkillPackage } from './types';
+import type { SkillPackage } from '../types';
 
 export const SKILL_PACKAGES: SkillPackage[] = [
   {

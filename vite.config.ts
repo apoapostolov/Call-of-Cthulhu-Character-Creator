@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, __dirname, '');
     const geminiApiKey = env.VITE_GEMINI_API_KEY || env.GEMINI_API_KEY || '';
+    const openRouterApiKey = env.VITE_OPENROUTER_API_KEY || env.OPENROUTER_API_KEY || '';
     return {
       server: {
         port: 3000,
@@ -16,6 +17,8 @@ export default defineConfig(({ mode }) => {
         'process.env.API_KEY': JSON.stringify(geminiApiKey),
         'process.env.GEMINI_API_KEY': JSON.stringify(geminiApiKey),
         'process.env.VITE_GEMINI_API_KEY': JSON.stringify(geminiApiKey),
+        'process.env.OPENROUTER_API_KEY': JSON.stringify(openRouterApiKey),
+        'process.env.VITE_OPENROUTER_API_KEY': JSON.stringify(openRouterApiKey),
       },
       resolve: {
         alias: {

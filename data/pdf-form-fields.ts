@@ -1,4 +1,3 @@
-// pdf-form-fields.ts
 export const PDF_FIELD_MAP = {
     // Basic Info
     characterName: '1 LAST NAME FIRST NAME MIDDLE INITIAL',

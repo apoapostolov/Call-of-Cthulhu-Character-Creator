@@ -1,5 +1,5 @@
 import React from 'react';
-import { AGE_CATEGORIES } from '../age.config';
+import { AGE_CATEGORIES } from '../config/age.config';
 import type { AgeCategory } from '../types';
 import { Tooltip } from './Tooltip';
 

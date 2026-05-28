@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
-import { GoogleGenAI, Type } from '@google/genai';
 import type { Nationality, DecadeConfig, ToastType } from '../../types';
-import { getNameAndCodenamePrompt, getNamePrompt, getCodenamePrompt } from '../../prompt-data';
+import { getNameAndCodenamePrompt, getNamePrompt, getCodenamePrompt } from '../../prompts/prompt-data';
 import type { AggregatedData } from '../useAggregatedData';
+import { useAiRuntime } from '../useAiRuntime';
 
 export const useNameGeneration = (
     showToast: (msg: string, type?: ToastType) => void,
@@ -12,6 +12,7 @@ export const useNameGeneration = (
     const [isGeneratingName, setIsGeneratingName] = useState(false);
     const [codename, setCodename] = useState('');
     const [isGeneratingCodename, setIsGeneratingCodename] = useState(false);
+    const { generateText } = useAiRuntime();
 
     const generateBothLogic = async (
         gender: 'male' | 'female' | null,
@@ -19,7 +20,6 @@ export const useNameGeneration = (
         nationality: Nationality,
         decadeConfig: DecadeConfig | undefined
     ) => {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const selectedGender = gender ?? (Math.random() > 0.5 ? 'male' : 'female');
         
         let finalNationality = nationality;
@@ -28,23 +28,7 @@ export const useNameGeneration = (
         }
 
         const prompt = getNameAndCodenamePrompt(selectedGender, characterConcept, finalNationality, decadeConfig);
-
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: {
-                    type: Type.OBJECT,
-                    properties: {
-                        name: { type: Type.STRING },
-                        codename: { type: Type.STRING },
-                    },
-                    required: ["name", "codename"],
-                },
-            },
-        });
-        return JSON.parse(response.text.trim());
+        return JSON.parse(await generateText({ prompt, json: true }));
     };
 
     const generateBoth = useCallback(async (
@@ -111,7 +95,6 @@ export const useNameGeneration = (
         }
         setIsGeneratingName(true);
         try {
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
             const selectedGender = gender ?? (Math.random() > 0.5 ? 'male' : 'female');
 
             let finalNationality = nationality;
@@ -120,20 +103,7 @@ export const useNameGeneration = (
             }
 
             const prompt = getNamePrompt(selectedGender, characterConcept, finalNationality);
-    
-            const response = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
-                contents: prompt,
-                config: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: Type.OBJECT,
-                        properties: { name: { type: Type.STRING } },
-                        required: ["name"],
-                    },
-                },
-            });
-            const result = JSON.parse(response.text.trim());
+            const result = JSON.parse(await generateText({ prompt, json: true }));
             setCharacterName(result.name);
         } catch (e) {
             console.error("Name generation failed:", e);
@@ -153,22 +123,8 @@ export const useNameGeneration = (
         }
         setIsGeneratingCodename(true);
         try {
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
             const prompt = getCodenamePrompt(characterConcept, decadeConfig);
-    
-            const response = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
-                contents: prompt,
-                config: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: Type.OBJECT,
-                        properties: { codename: { type: Type.STRING } },
-                        required: ["codename"],
-                    },
-                },
-            });
-            const result = JSON.parse(response.text.trim());
+            const result = JSON.parse(await generateText({ prompt, json: true }));
             setCodename(result.codename);
         } catch (e) {
             console.error("Codename generation failed:", e);

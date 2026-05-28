@@ -1,5 +1,5 @@
 import type { Occupation } from '../../types';
-import { SKILL_SPECIALIZATIONS } from '../../skill-specializations-data';
+import { SKILL_SPECIALIZATIONS } from '../../data/skill-specializations-data';
 
 export const OCCUPATIONS: Occupation[] = [
   // Confidence Trickster
