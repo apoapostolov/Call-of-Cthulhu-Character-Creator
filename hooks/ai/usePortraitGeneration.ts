@@ -3,6 +3,7 @@ import type { ThemeConfig, Emotion, DecadeConfig, ToastType, DistinguishingFeatu
 import { cropImage } from '../../utils/image';
 import { getHeadshotPrompt, getEmotionalPortraitPrompt, getPhysicalDescriptionPrompt, getDistinguishingFeaturesPrompt } from '../../prompts/prompt-data';
 import { useAiRuntime } from '../useAiRuntime';
+import { parseJsonLike } from '../../lib/ai/json';
 
 export const usePortraitGeneration = (
     showToast: (msg: string, type?: ToastType) => void,
@@ -31,7 +32,7 @@ export const usePortraitGeneration = (
             setPhysicalDescription(descriptionText);
 
             const featuresPrompt = getDistinguishingFeaturesPrompt(descriptionText);
-            const featuresArray: { feature: string; attribute: string }[] = JSON.parse(
+            const featuresArray: { feature: string; attribute: string }[] = parseJsonLike(
                 await analyzeImage({ prompt: featuresPrompt, imageDataUrl: portraitBase64, json: true }),
             );
             const validAttributes = new Set(['STR', 'CON', 'DEX', 'INT', 'POW', 'APP']);
@@ -93,7 +94,7 @@ export const usePortraitGeneration = (
         setPortraitError(null);
         try {
             const prompt = getHeadshotPrompt();
-            const box = JSON.parse(await analyzeImage({ prompt, imageDataUrl: portrait, json: true }));
+            const box = parseJsonLike(await analyzeImage({ prompt, imageDataUrl: portrait, json: true }));
             const croppedImageBase64 = await cropImage(portrait, box);
             setHeadshot(croppedImageBase64);
             setPdfPortraitSrc(croppedImageBase64);

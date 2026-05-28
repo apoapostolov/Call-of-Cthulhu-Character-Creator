@@ -3,6 +3,7 @@ import type { Nationality, DecadeConfig, ToastType } from '../../types';
 import { getNameAndCodenamePrompt, getNamePrompt, getCodenamePrompt } from '../../prompts/prompt-data';
 import type { AggregatedData } from '../useAggregatedData';
 import { useAiRuntime } from '../useAiRuntime';
+import { parseJsonLike } from '../../lib/ai/json';
 
 export const useNameGeneration = (
     showToast: (msg: string, type?: ToastType) => void,
@@ -28,7 +29,7 @@ export const useNameGeneration = (
         }
 
         const prompt = getNameAndCodenamePrompt(selectedGender, characterConcept, finalNationality, decadeConfig);
-        return JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
+        return parseJsonLike(await generateText({ prompt, json: true, purpose: 'simple' }));
     };
 
     const generateBoth = useCallback(async (
@@ -103,7 +104,7 @@ export const useNameGeneration = (
             }
 
             const prompt = getNamePrompt(selectedGender, characterConcept, finalNationality);
-            const result = JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
+            const result = parseJsonLike(await generateText({ prompt, json: true, purpose: 'simple' }));
             setCharacterName(result.name);
         } catch (e) {
             console.error("Name generation failed:", e);
@@ -124,7 +125,7 @@ export const useNameGeneration = (
         setIsGeneratingCodename(true);
         try {
             const prompt = getCodenamePrompt(characterConcept, decadeConfig);
-            const result = JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
+            const result = parseJsonLike(await generateText({ prompt, json: true, purpose: 'simple' }));
             setCodename(result.codename);
         } catch (e) {
             console.error("Codename generation failed:", e);

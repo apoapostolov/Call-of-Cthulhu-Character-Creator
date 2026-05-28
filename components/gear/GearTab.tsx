@@ -13,6 +13,7 @@ import { useEraContext } from '../../context/SourceContext';
 import { getWeaponsForEra } from '../../weapons/to-dgitems';
 import { thirdPartyData } from '../../eras/manifest';
 import { useAiRuntime } from '../../hooks/useAiRuntime';
+import { parseJsonLike } from '../../lib/ai/json';
 
 interface GearTabProps {
     kitInventory: DGItem[];
@@ -109,12 +110,12 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
         setGeneratedItem(null);
         setGenerationPhase('Analyzing concept');
         try {
-            const phase1 = JSON.parse(await generateText({ prompt: buildPhase1Prompt(mode), json: true }));
+            const phase1 = parseJsonLike(await generateText({ prompt: buildPhase1Prompt(mode), json: true }));
             const section = String(phase1.section || 'Miscellaneous');
             setGenerationPhase('Generating item');
             let obj: any = {};
             try {
-                obj = JSON.parse(await generateText({ prompt: buildPhase2Prompt(mode, section), json: true }));
+                obj = parseJsonLike(await generateText({ prompt: buildPhase2Prompt(mode, section), json: true }));
             } catch {}
             const normalized: DGItem = {
                 section,

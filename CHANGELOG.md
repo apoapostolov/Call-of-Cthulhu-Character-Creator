@@ -5,12 +5,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-05-28
+
 ### Added
 
-- OpenRouter AI provider support with browser-persisted API key settings and
-  model refresh controls.
-- Separate OpenRouter defaults for creative writing and image generation in
-  the Settings modal.
+- Provider-aware AI settings with separate API keys and model lists for
+  OpenRouter, Gemini, OpenCode Go, and DeepSeek.
+- Searchable model dropdowns with refresh support and provider-specific
+  defaults for writing, vision, and image generation.
+- AI Distribution for skill point allocation from a freeform character description.
+
+### Changed
+
+- Skill distribution now favors specialization entries over parent skills and
+  spreads points more evenly across useful adventurer skills.
+- AI key handling now prefers browser-saved keys and user-managed environment
+  keys instead of hardcoded defaults.
 
 ## [1.0.0] - 2026-02-10
 

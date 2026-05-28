@@ -313,4 +313,94 @@ describe('skill distribution helpers', () => {
         const totalOccupational = (assignments.Persuade?.occupational || 0) + (assignments['Library Use']?.occupational || 0);
         expect(totalOccupational).toBe(30);
     });
+
+    it('rewrites parent skill allocations to a specialization when one exists on the sheet', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [{ skill: 'Fighting', points: 10 }],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Fighting',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Fighting (Brawl)',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 10,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Fighting'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+            },
+        );
+
+        expect(assignments.Fighting?.occupational || 0).toBe(0);
+        expect(assignments['Fighting (Brawl)']?.occupational || 0).toBe(10);
+    });
+
+    it('never fills a specialization family parent when a child specialization exists', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Fighting',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Fighting (Brawl)',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 5,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Fighting'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+            },
+        );
+
+        expect(assignments.Fighting?.occupational || 0).toBe(0);
+        expect(assignments['Fighting (Brawl)']?.occupational || 0).toBe(5);
+    });
 });

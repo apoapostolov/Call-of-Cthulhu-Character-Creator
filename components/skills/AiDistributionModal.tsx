@@ -5,18 +5,18 @@ import { AiStarsIcon } from '../icons/AiStarsIcon';
 interface AiDistributionModalProps {
     open: boolean;
     occupationName: string;
+    description: string;
+    onDescriptionChange: (description: string) => void;
     onClose: () => void;
     onSubmit: (description: string) => Promise<void>;
 }
 
-export const AiDistributionModal: React.FC<AiDistributionModalProps> = ({ open, occupationName, onClose, onSubmit }) => {
-    const [description, setDescription] = useState('');
+export const AiDistributionModal: React.FC<AiDistributionModalProps> = ({ open, occupationName, description, onDescriptionChange, onClose, onSubmit }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!open) {
-            setDescription('');
             setError(null);
             setIsSubmitting(false);
         }
@@ -70,7 +70,7 @@ export const AiDistributionModal: React.FC<AiDistributionModalProps> = ({ open, 
                         <span className="block text-sm font-medium text-muted-foreground mb-2">Character description</span>
                         <textarea
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => onDescriptionChange(e.target.value)}
                             placeholder="Describe the character's abilities, profession, hobbies, trainings, life history, achievements, and anything else that should influence the skill spread."
                             className="w-full min-h-48 rounded-md border border-border bg-cream-100 p-3 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
                         />

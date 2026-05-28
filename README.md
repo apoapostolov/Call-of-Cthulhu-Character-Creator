@@ -9,7 +9,7 @@ This is an unofficial fan project, not affiliated with Chaosium Inc. All tradema
 ## Badges
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![Node](https://img.shields.io/badge/node-18%2B-339933)
 ![Vite](https://img.shields.io/badge/vite-6.x-646CFF)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-3178C6)

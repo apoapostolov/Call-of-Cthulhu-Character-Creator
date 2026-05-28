@@ -3,6 +3,7 @@ import { GoogleGenAI, Modality } from '@google/genai';
 import { useAiSettings } from '../context/AiSettingsContext';
 import { fetchOpenRouterChatCompletion } from '../lib/ai/openrouter';
 import { fetchOpenAiCompatibleChatCompletion } from '../lib/ai/openai-compatible';
+import { getBuildTimeApiKeyForProvider } from '../lib/ai/provider-keys';
 
 const OPENCODE_GO_API_BASE = 'https://opencode.ai/zen/go/v1';
 const DEEPSEEK_API_BASE = 'https://api.deepseek.com';
@@ -54,7 +55,8 @@ export const useAiRuntime = () => {
         providerVisionModelId,
         providerImageModelId,
     } = useAiSettings();
-    const geminiApiKey = providerApiKey || getBuildTimeGeminiApiKey();
+    const resolvedProviderApiKey = providerApiKey || getBuildTimeApiKeyForProvider(provider);
+    const geminiApiKey = resolvedProviderApiKey || getBuildTimeGeminiApiKey();
     const isOpenAiCompatibleProvider = provider === 'opencode-go' || provider === 'deepseek';
 
     const generateText = useCallback(async (params: {
@@ -87,12 +89,12 @@ export const useAiRuntime = () => {
             messages.push({ role: 'user', content: params.prompt });
         }
         if (provider === 'openrouter') {
-            if (!providerApiKey) {
+            if (!resolvedProviderApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: providerApiKey,
+                apiKey: resolvedProviderApiKey,
                 model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
                 messages,
                 responseFormat: params.json ? { type: 'json_object' } : undefined,
@@ -103,7 +105,7 @@ export const useAiRuntime = () => {
         }
 
         if (provider === 'opencode-go' || provider === 'deepseek') {
-            if (!providerApiKey) {
+            if (!resolvedProviderApiKey) {
                 throw new Error(`Add a ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} API key in Settings.`);
             }
             if (params.imageDataUrl) {
@@ -112,7 +114,7 @@ export const useAiRuntime = () => {
 
             const result = await fetchOpenAiCompatibleChatCompletion({
                 baseUrl: provider === 'opencode-go' ? OPENCODE_GO_API_BASE : DEEPSEEK_API_BASE,
-                apiKey: providerApiKey,
+                apiKey: resolvedProviderApiKey,
                 model: params.modelOverride || selectedTextModelId,
                 messages,
                 responseFormat: params.json ? { type: 'json_object' } : undefined,
@@ -138,7 +140,7 @@ export const useAiRuntime = () => {
         });
 
         return extractText(response);
-    }, [geminiApiKey, provider, providerApiKey, providerSimpleModelId, providerTextModelId, providerVisionModelId]);
+    }, [geminiApiKey, provider, providerApiKey, providerSimpleModelId, providerTextModelId, providerVisionModelId, resolvedProviderApiKey]);
 
     const generateImage = useCallback(async (params: {
         prompt: string;
@@ -147,7 +149,7 @@ export const useAiRuntime = () => {
         modelOverride?: string;
     }) => {
         if (provider === 'openrouter') {
-            if (!providerApiKey) {
+            if (!resolvedProviderApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
 
@@ -162,7 +164,7 @@ export const useAiRuntime = () => {
                 : [{ role: 'user' as const, content: params.prompt }];
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: providerApiKey,
+                apiKey: resolvedProviderApiKey,
                 model: params.modelOverride || providerImageModelId,
                 messages,
                 modalities: ['image', 'text'],
@@ -212,7 +214,7 @@ export const useAiRuntime = () => {
         }
 
         return `data:image/png;base64,${response.generatedImages[0].image.imageBytes}`;
-    }, [geminiApiKey, provider, providerApiKey, providerImageModelId, isOpenAiCompatibleProvider]);
+    }, [geminiApiKey, provider, providerImageModelId, isOpenAiCompatibleProvider, providerApiKey, resolvedProviderApiKey]);
 
     const analyzeImage = useCallback(async (params: {
         prompt: string;
@@ -221,12 +223,12 @@ export const useAiRuntime = () => {
         modelOverride?: string;
     }) => {
         if (provider === 'openrouter') {
-            if (!providerApiKey) {
+            if (!resolvedProviderApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: providerApiKey,
+                apiKey: resolvedProviderApiKey,
                 model: params.modelOverride || providerVisionModelId,
                 messages: [
                     {
@@ -256,7 +258,7 @@ export const useAiRuntime = () => {
         });
 
         return extractText(response);
-    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId, isOpenAiCompatibleProvider]);
+    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId, isOpenAiCompatibleProvider, resolvedProviderApiKey]);
 
     return {
         provider,
@@ -268,5 +270,6 @@ export const useAiRuntime = () => {
         providerVisionModelId,
         providerImageModelId,
         providerApiKey,
+        resolvedProviderApiKey,
     };
 };

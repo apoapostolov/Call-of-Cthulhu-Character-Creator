@@ -44,6 +44,7 @@ export const SkillsTab: React.FC = () => {
     const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
     const [activeChoiceGroupIndex, setActiveChoiceGroupIndex] = useState<number | null>(null);
     const [isAiDistributionOpen, setIsAiDistributionOpen] = useState(false);
+    const [aiDistributionDescription, setAiDistributionDescription] = useState('');
 
     const allSkills = useMemo(() => {
         return allSkillsWithCalculatedBases.sort((a,b) => a.name.localeCompare(b.name));
@@ -235,6 +236,8 @@ export const SkillsTab: React.FC = () => {
              <AiDistributionModal
                 open={isAiDistributionOpen}
                 occupationName={selectedOccupation?.name || 'Investigator'}
+                description={aiDistributionDescription}
+                onDescriptionChange={setAiDistributionDescription}
                 onClose={() => setIsAiDistributionOpen(false)}
                 onSubmit={handleAiSkillDistribution}
              />

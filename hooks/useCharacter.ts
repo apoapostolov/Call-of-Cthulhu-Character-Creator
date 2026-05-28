@@ -790,6 +790,18 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             throw new Error('Complete the occupation skill choices before asking AI to distribute points.');
         }
 
+        const freshPoolSummary = (pool: { total: number; spent: number; remaining: number; formula: string; calculation: string }) => ({
+            ...pool,
+            spent: 0,
+            remaining: pool.total,
+        });
+        const freshPools = {
+            occupational: freshPoolSummary(occupationalSkillPoints),
+            personal: freshPoolSummary(personalSkillPoints),
+            experience: freshPoolSummary(experiencePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' }),
+            archetype: freshPoolSummary(archetypePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' }),
+        };
+
         const payload: SkillDistributionPayload = {
             era: {
                 id: selectedEra,
@@ -839,20 +851,18 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 expertMin: 70,
             },
             pools: {
-                occupational: occupationalSkillPoints,
-                personal: personalSkillPoints,
-                experience: experiencePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
-                archetype: archetypePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
+                occupational: freshPools.occupational,
+                personal: freshPools.personal,
+                experience: freshPools.experience,
+                archetype: freshPools.archetype,
             },
             specializations: aggregatedData.SKILL_SPECIALIZATIONS,
             skills: allSkillsWithCalculatedBases.map(skill => {
                 const baseName = skill.name.split(' (')[0];
-                const assignment = skillPointAssignments[skill.name] || { occupational: 0, personal: 0, experience: 0, archetype: 0 };
-                const current = skill.base + assignment.occupational + assignment.personal + (assignment.experience || 0) + (assignment.archetype || 0);
                 return {
                     name: skill.name,
                     base: skill.base,
-                    current,
+                    current: skill.base,
                     occupationalEligible: effectiveOccupationalSkills.has(skill.name) || effectiveOccupationalSkills.has(baseName),
                     personalEligible: baseName !== 'Cthulhu Mythos' && skill.name !== 'Cthulhu Mythos',
                     experienceEligible: experienceEligibleSkills.has(skill.name) || experienceEligibleSkills.has(baseName),
@@ -920,10 +930,10 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 normalizedResponse,
                 skillSummaries,
                 {
-                    occupational: occupationalSkillPoints.total,
-                    personal: personalSkillPoints.total,
-                    experience: experiencePoints?.total ?? 0,
-                    archetype: archetypePoints?.total ?? 0,
+                    occupational: freshPools.occupational.total,
+                    personal: freshPools.personal.total,
+                    experience: freshPools.experience.total,
+                    archetype: freshPools.archetype.total,
                 },
                 {
                     skillCap: selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75),
@@ -949,6 +959,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             setActiveSkillPool('occupational');
             setToastMessage('AI skill distribution applied.', 'success');
         } catch (error) {
+            console.error('AI skill distribution failed:', error);
             throw new Error(error instanceof Error ? error.message : 'Failed to apply AI skill distribution.');
         } finally {
             setIsAiDistributionRunning(false);
@@ -970,7 +981,6 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         selectedEra,
         selectedOccupation,
         setToastMessage,
-        skillPointAssignments,
     ]);
 
     const handleAddSpecialization = useCallback((displayName: string, specializationBase: string, subType: string) => {

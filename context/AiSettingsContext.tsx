@@ -3,6 +3,7 @@ import { ensureModelPresent, fetchOpenRouterModels, sortOpenRouterModels, splitM
 import { fetchGeminiModels, getGeminiModelCacheSummaries, splitGeminiModelsByPromptType, sortGeminiModels } from '../lib/ai/gemini';
 import { fetchOpenCodeGoModels, getOpenCodeGoModelCacheSummaries, splitOpenCodeGoModelsByPromptType } from '../lib/ai/opencode-go';
 import { fetchDeepSeekModels, getDeepSeekModelCacheSummaries, splitDeepSeekModelsByPromptType } from '../lib/ai/deepseek';
+import { getBuildTimeApiKeyForProvider } from '../lib/ai/provider-keys';
 import { OPENROUTER_MODEL_CACHE } from '../data/openrouter-model-cache';
 import { GEMINI_MODEL_CACHE } from '../data/gemini-model-cache';
 
@@ -271,16 +272,14 @@ const writeStorage = (storage: Storage | undefined, key: string, value: string |
 
 const getBuildTimeOpenRouterApiKey = () => String(process.env.OPENROUTER_API_KEY || process.env.VITE_OPENROUTER_API_KEY || '');
 const getBuildTimeGeminiApiKey = () => String(process.env.API_KEY || process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || '');
-const getBuildTimeOpenCodeGoApiKey = () => String(process.env.OPENCODE_GO_API_KEY || process.env.VITE_OPENCODE_GO_API_KEY || '');
-const getBuildTimeDeepSeekApiKey = () => String(process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY || '');
 
 const getInitialProvider = (): AiProviderId => {
     const stored = typeof window !== 'undefined' ? readStorage(window.localStorage, STORAGE_KEYS.provider) : null;
     if (stored === 'openrouter' || stored === 'gemini' || stored === 'opencode-go' || stored === 'deepseek') return stored;
     if (getBuildTimeOpenRouterApiKey()) return 'openrouter';
     if (getBuildTimeGeminiApiKey()) return 'gemini';
-    if (getBuildTimeOpenCodeGoApiKey()) return 'opencode-go';
-    if (getBuildTimeDeepSeekApiKey()) return 'deepseek';
+    if (getBuildTimeApiKeyForProvider('opencode-go')) return 'opencode-go';
+    if (getBuildTimeApiKeyForProvider('deepseek')) return 'deepseek';
     return 'openrouter';
 };
 
@@ -397,26 +396,26 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (typeof window === 'undefined') return getBuildTimeOpenRouterApiKey();
         const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.openRouterApiKey);
         const localKey = readStorage(window.localStorage, STORAGE_KEYS.openRouterApiKey);
-        return sessionKey || localKey || getBuildTimeOpenRouterApiKey();
+        return sessionKey || localKey || '';
     });
 
     const [geminiApiKey, setGeminiApiKeyState] = useState<string>(() => {
         if (typeof window === 'undefined') return getBuildTimeGeminiApiKey();
         const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.geminiApiKey);
         const localKey = readStorage(window.localStorage, STORAGE_KEYS.geminiApiKey);
-        return sessionKey || localKey || getBuildTimeGeminiApiKey();
+        return sessionKey || localKey || '';
     });
     const [openCodeGoApiKey, setOpenCodeGoApiKeyState] = useState<string>(() => {
-        if (typeof window === 'undefined') return getBuildTimeOpenCodeGoApiKey();
+        if (typeof window === 'undefined') return getBuildTimeApiKeyForProvider('opencode-go');
         const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.openCodeGoApiKey);
         const localKey = readStorage(window.localStorage, STORAGE_KEYS.openCodeGoApiKey);
-        return sessionKey || localKey || getBuildTimeOpenCodeGoApiKey();
+        return sessionKey || localKey || '';
     });
     const [deepSeekApiKey, setDeepSeekApiKeyState] = useState<string>(() => {
-        if (typeof window === 'undefined') return getBuildTimeDeepSeekApiKey();
+        if (typeof window === 'undefined') return getBuildTimeApiKeyForProvider('deepseek');
         const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.deepSeekApiKey);
         const localKey = readStorage(window.localStorage, STORAGE_KEYS.deepSeekApiKey);
-        return sessionKey || localKey || getBuildTimeDeepSeekApiKey();
+        return sessionKey || localKey || '';
     });
 
     const [openRouterModels, setOpenRouterModels] = useState<OpenRouterModelSummary[]>(getInitialOpenRouterModels);
@@ -523,6 +522,7 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             : provider === 'opencode-go'
                 ? openCodeGoApiKey
                 : deepSeekApiKey;
+    const providerResolvedApiKey = providerApiKey || getBuildTimeApiKeyForProvider(provider);
     const providerModelCatalogState = provider === 'openrouter'
         ? openRouterModelCatalogState
         : provider === 'gemini'
@@ -788,14 +788,14 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     }, [provider]);
 
     const refreshProviderModels = useCallback(async () => {
-        if (!providerApiKey) {
+        if (!providerResolvedApiKey) {
             throw new Error(`Add a ${provider === 'openrouter' ? 'OpenRouter' : provider === 'gemini' ? 'Gemini' : provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} API key before refreshing models.`);
         }
         try {
             if (provider === 'openrouter') {
                 setOpenRouterModelCatalogState('loading');
                 setOpenRouterModelCatalogError(null);
-                const models = await fetchOpenRouterModels(providerApiKey, 'all');
+                const models = await fetchOpenRouterModels(providerResolvedApiKey, 'all');
                 const normalized = sortOpenRouterModels(ensureModelPresent(ensureModelPresent(models, FALLBACK_OPENROUTER_TEXT_MODEL), FALLBACK_OPENROUTER_IMAGE_MODEL));
                 setOpenRouterModels(normalized);
                 if (!normalized.some(model => model.id === openRouterSimpleModelId)) {
@@ -808,7 +808,7 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             if (provider === 'gemini') {
                 setGeminiModelCatalogState('loading');
                 setGeminiModelCatalogError(null);
-                const models = await fetchGeminiModels(providerApiKey);
+                const models = await fetchGeminiModels(providerResolvedApiKey);
                 setGeminiModels(models.length > 0 ? models : DEFAULT_GEMINI_MODELS);
                 const refreshedModels = models.length > 0 ? models : DEFAULT_GEMINI_MODELS;
                 if (!refreshedModels.some(model => model.id === geminiSimpleModelId)) {
@@ -824,7 +824,7 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             if (provider === 'opencode-go') {
                 setOpenCodeGoModelCatalogState('loading');
                 setOpenCodeGoModelCatalogError(null);
-                const models = await fetchOpenCodeGoModels(providerApiKey);
+                const models = await fetchOpenCodeGoModels(providerResolvedApiKey);
                 const refreshedModels = models.length > 0 ? models : DEFAULT_OPENCODE_GO_MODELS;
                 setOpenCodeGoModels(refreshedModels);
                 if (!refreshedModels.some(model => model.id === openCodeGoSimpleModelId)) {
@@ -839,7 +839,7 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
             setDeepSeekModelCatalogState('loading');
             setDeepSeekModelCatalogError(null);
-            const models = await fetchDeepSeekModels(providerApiKey);
+            const models = await fetchDeepSeekModels(providerResolvedApiKey);
             const refreshedModels = models.length > 0 ? models : DEFAULT_DEEPSEEK_MODELS;
             setDeepSeekModels(refreshedModels);
             if (!refreshedModels.some(model => model.id === deepSeekSimpleModelId)) {
@@ -878,7 +878,7 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         openRouterTextModelId,
         openRouterVisionModelId,
         provider,
-        providerApiKey,
+        providerResolvedApiKey,
         geminiSimpleModelId,
         geminiTextModelId,
     ]);
