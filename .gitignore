@@ -209,3 +209,4 @@ output/
 downloads/
 data/
 .cache/
+CHANGELOG_TEMPLATE.md
