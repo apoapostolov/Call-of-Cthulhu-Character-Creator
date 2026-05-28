@@ -190,12 +190,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
         setProvider,
         providerApiKey,
         setProviderApiKey,
+        providerSimpleModels,
         providerCreativeModels,
         providerVisionModels,
         providerImageModels,
         providerModelCatalogState,
         providerModelCatalogError,
         refreshProviderModels,
+        providerSimpleModelId,
+        setProviderSimpleModelId,
         providerTextModelId,
         setProviderTextModelId,
         providerVisionModelId,
@@ -204,6 +207,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
         setProviderImageModelId,
     } = useAiSettings();
     const [activeTab, setActiveTab] = useState<'sheet' | 'ai'>('sheet');
+    const simpleModelOptions = useMemo(() => providerSimpleModels.map(model => ({
+        value: model.id,
+        label: formatModelOptionLabel(model),
+    })), [providerSimpleModels]);
+
     const creativeModelOptions = useMemo(() => providerCreativeModels.map(model => ({
         value: model.id,
         label: formatModelOptionLabel(model),
@@ -323,6 +331,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                     </button>
                                 </div>
                                 <div className="space-y-4 bg-cream-200 p-4 rounded-lg border border-border">
+                                    <SearchableSelect
+                                        key={`${provider}-simple`}
+                                        label="Simple Writing"
+                                        value={providerSimpleModelId}
+                                        onChange={setProviderSimpleModelId}
+                                        options={simpleModelOptions}
+                                    />
                                     <SearchableSelect
                                         key={`${provider}-creative`}
                                         label="Creative Writing"

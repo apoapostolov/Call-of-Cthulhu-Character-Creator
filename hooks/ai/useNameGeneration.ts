@@ -28,7 +28,7 @@ export const useNameGeneration = (
         }
 
         const prompt = getNameAndCodenamePrompt(selectedGender, characterConcept, finalNationality, decadeConfig);
-        return JSON.parse(await generateText({ prompt, json: true }));
+        return JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
     };
 
     const generateBoth = useCallback(async (
@@ -103,7 +103,7 @@ export const useNameGeneration = (
             }
 
             const prompt = getNamePrompt(selectedGender, characterConcept, finalNationality);
-            const result = JSON.parse(await generateText({ prompt, json: true }));
+            const result = JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
             setCharacterName(result.name);
         } catch (e) {
             console.error("Name generation failed:", e);
@@ -124,7 +124,7 @@ export const useNameGeneration = (
         setIsGeneratingCodename(true);
         try {
             const prompt = getCodenamePrompt(characterConcept, decadeConfig);
-            const result = JSON.parse(await generateText({ prompt, json: true }));
+            const result = JSON.parse(await generateText({ prompt, json: true, purpose: 'simple' }));
             setCodename(result.codename);
         } catch (e) {
             console.error("Codename generation failed:", e);

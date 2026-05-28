@@ -45,6 +45,7 @@ export const useAiRuntime = () => {
     const {
         provider,
         providerApiKey,
+        providerSimpleModelId,
         providerTextModelId,
         providerVisionModelId,
         providerImageModelId,
@@ -59,7 +60,9 @@ export const useAiRuntime = () => {
         maxTokens?: number;
         systemPrompt?: string;
         modelOverride?: string;
+        purpose?: 'simple' | 'creative';
     }) => {
+        const selectedTextModelId = params.purpose === 'simple' ? providerSimpleModelId : providerTextModelId;
         if (provider === 'openrouter') {
             if (!providerApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
@@ -82,7 +85,7 @@ export const useAiRuntime = () => {
 
             const result = await fetchOpenRouterChatCompletion({
                 apiKey: providerApiKey,
-                model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : providerTextModelId),
+                model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
                 messages,
                 responseFormat: params.json ? { type: 'json_object' } : undefined,
                 temperature: params.temperature,
@@ -101,13 +104,13 @@ export const useAiRuntime = () => {
             : params.prompt;
 
         const response = await ai.models.generateContent({
-            model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : providerTextModelId),
+            model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
             contents,
             config,
         });
 
         return extractText(response);
-    }, [geminiApiKey, provider, providerApiKey, providerTextModelId, providerVisionModelId]);
+    }, [geminiApiKey, provider, providerApiKey, providerSimpleModelId, providerTextModelId, providerVisionModelId]);
 
     const generateImage = useCallback(async (params: {
         prompt: string;
@@ -225,6 +228,7 @@ export const useAiRuntime = () => {
         generateImage,
         analyzeImage,
         providerTextModelId,
+        providerSimpleModelId,
         providerVisionModelId,
         providerImageModelId,
         providerApiKey,

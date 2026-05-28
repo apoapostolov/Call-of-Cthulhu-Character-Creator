@@ -11,12 +11,15 @@ export interface AiSettingsContextType {
     setProvider: (provider: AiProviderId) => void;
     providerApiKey: string;
     setProviderApiKey: (apiKey: string) => void;
+    providerSimpleModels: OpenRouterModelSummary[];
     providerCreativeModels: OpenRouterModelSummary[];
     providerVisionModels: OpenRouterModelSummary[];
     providerImageModels: OpenRouterModelSummary[];
     providerModelCatalogState: 'idle' | 'loading' | 'ready' | 'error';
     providerModelCatalogError: string | null;
     refreshProviderModels: () => Promise<void>;
+    providerSimpleModelId: string;
+    setProviderSimpleModelId: (modelId: string) => void;
     providerTextModelId: string;
     setProviderTextModelId: (modelId: string) => void;
     providerVisionModelId: string;
@@ -30,9 +33,11 @@ const STORAGE_KEYS = {
     openRouterApiKey: 'ai.openrouter.apiKey',
     geminiApiKey: 'ai.gemini.apiKey',
     openRouterTextModelId: 'ai.openrouter.textModelId',
+    openRouterSimpleModelId: 'ai.openrouter.simpleModelId',
     openRouterVisionModelId: 'ai.openrouter.visionModelId',
     openRouterImageModelId: 'ai.openrouter.imageModelId',
     geminiTextModelId: 'ai.gemini.textModelId',
+    geminiSimpleModelId: 'ai.gemini.simpleModelId',
     geminiVisionModelId: 'ai.gemini.visionModelId',
     geminiImageModelId: 'ai.gemini.imageModelId',
     openRouterModelCatalog: 'ai.openrouter.modelCatalog',
@@ -49,6 +54,8 @@ const FALLBACK_OPENROUTER_TEXT_MODEL: OpenRouterModelSummary = {
     mixedPricePerMillionUsd: 1.13,
     priceLabel: '$1.13',
 };
+
+const FALLBACK_OPENROUTER_SIMPLE_MODEL: OpenRouterModelSummary = FALLBACK_OPENROUTER_TEXT_MODEL;
 
 const FALLBACK_OPENROUTER_VISION_MODEL: OpenRouterModelSummary = {
     id: 'google/gemini-2.5-flash',
@@ -99,37 +106,48 @@ const DEFAULT_GEMINI_MODELS = getGeminiModelCacheSummaries().length > 0
         priceLabel: model.priceLabel,
     }));
 
+const FALLBACK_GEMINI_SIMPLE_MODEL: OpenRouterModelSummary = {
+    id: 'gemini-3.1-flash-live-preview',
+    baseName: 'Gemini 3.1 Flash Live Preview',
+    name: 'Gemini 3.1 Flash Live Preview',
+    description: 'Live preview model optimized for low-latency, interactive tasks and real-time experiences.',
+    outputModalities: ['text', 'audio'],
+    inputModalities: ['text', 'audio', 'video'],
+    mixedPricePerMillionUsd: 0,
+    priceLabel: '$0.00',
+};
+
 const FALLBACK_GEMINI_TEXT_MODEL: OpenRouterModelSummary = {
-    id: 'gemini-3-pro-preview',
-    baseName: 'Gemini 3 Pro',
-    name: 'Gemini 3 Pro',
-    description: 'Most capable multimodal Gemini model for complex reasoning, coding, and writing.',
+    id: 'gemini-3.1-pro-preview',
+    baseName: 'Gemini 3.1 Pro Preview',
+    name: 'Gemini 3.1 Pro Preview',
+    description: 'Preview model for high-capability multimodal reasoning, writing, and analysis.',
     outputModalities: ['text'],
     inputModalities: ['text', 'image', 'video', 'audio', 'pdf'],
-    mixedPricePerMillionUsd: 7.0,
-    priceLabel: '$7.00',
+    mixedPricePerMillionUsd: 0,
+    priceLabel: '$0.00',
 };
 
 const FALLBACK_GEMINI_VISION_MODEL: OpenRouterModelSummary = {
-    id: 'gemini-3-pro-preview',
-    baseName: 'Gemini 3 Pro',
-    name: 'Gemini 3 Pro',
-    description: 'Most capable multimodal Gemini model for complex reasoning, coding, and vision analysis.',
+    id: 'gemini-3.1-flash-live-preview',
+    baseName: 'Gemini 3.1 Flash Live Preview',
+    name: 'Gemini 3.1 Flash Live Preview',
+    description: 'Live preview model optimized for low-latency, interactive tasks and real-time experiences.',
     outputModalities: ['text'],
-    inputModalities: ['text', 'image', 'video', 'audio', 'pdf'],
-    mixedPricePerMillionUsd: 7.0,
-    priceLabel: '$7.00',
+    inputModalities: ['text', 'audio', 'video'],
+    mixedPricePerMillionUsd: 0,
+    priceLabel: '$0.00',
 };
 
 const FALLBACK_GEMINI_IMAGE_MODEL: OpenRouterModelSummary = {
-    id: 'gemini-3-pro-image-preview',
-    baseName: 'Gemini 3 Pro Image',
-    name: 'Gemini 3 Pro Image',
-    description: 'Native image generation with strong contextual understanding and editing.',
+    id: 'gemini-2.5-flash-image',
+    baseName: 'Gemini 2.5 Flash Image',
+    name: 'Gemini 2.5 Flash Image',
+    description: 'Native image generation model optimized for speed, flexibility, and contextual understanding.',
     outputModalities: ['text', 'image'],
     inputModalities: ['text', 'image'],
-    mixedPricePerMillionUsd: 7.0,
-    priceLabel: '$7.00',
+    mixedPricePerMillionUsd: 0.17,
+    priceLabel: '$0.17',
 };
 
 const DEFAULT_GEMINI_TEXT_MODELS = ensureModelPresent(
@@ -146,6 +164,18 @@ const DEFAULT_GEMINI_VISION_MODELS = ensureModelPresent(
     ensureModelPresent(DEFAULT_GEMINI_TEXT_MODELS.filter(model => model.inputModalities.includes('image')), FALLBACK_GEMINI_VISION_MODEL),
     FALLBACK_GEMINI_VISION_MODEL,
 );
+
+const sortModelsByPrice = (models: OpenRouterModelSummary[]) => (
+    [...models].sort((left, right) => {
+        const priceCompare = left.mixedPricePerMillionUsd - right.mixedPricePerMillionUsd;
+        if (priceCompare !== 0) return priceCompare;
+        const nameCompare = left.baseName.localeCompare(right.baseName, undefined, { numeric: true, sensitivity: 'base' });
+        if (nameCompare !== 0) return nameCompare;
+        return left.id.localeCompare(right.id, undefined, { numeric: true, sensitivity: 'base' });
+    })
+);
+
+const getCheapestModel = (models: OpenRouterModelSummary[], fallback: OpenRouterModelSummary) => sortModelsByPrice(ensureModelPresent(models, fallback))[0] || fallback;
 
 const readStorage = (storage: Storage | undefined, key: string) => {
     if (!storage) return null;
@@ -269,11 +299,16 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [openRouterModelCatalogError, setOpenRouterModelCatalogError] = useState<string | null>(null);
     const [geminiModelCatalogError, setGeminiModelCatalogError] = useState<string | null>(null);
 
+    const openRouterSimpleModels = useMemo(() => sortModelsByPrice(splitModelsByPromptType(openRouterModels).creativeModels), [openRouterModels]);
     const [openRouterTextModelId, setOpenRouterTextModelIdState] = useState<string>(() => {
         if (typeof window === 'undefined') return FALLBACK_OPENROUTER_TEXT_MODEL.id;
         return getStoredModelId(window.localStorage, STORAGE_KEYS.openRouterTextModelId, FALLBACK_OPENROUTER_TEXT_MODEL.id, [
             '~google/gemini-flash-latest',
         ]);
+    });
+    const [openRouterSimpleModelId, setOpenRouterSimpleModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_OPENROUTER_SIMPLE_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.openRouterSimpleModelId, FALLBACK_OPENROUTER_SIMPLE_MODEL.id);
     });
     const [openRouterVisionModelId, setOpenRouterVisionModelIdState] = useState<string>(() => {
         if (typeof window === 'undefined') return FALLBACK_OPENROUTER_VISION_MODEL.id;
@@ -292,6 +327,11 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (typeof window === 'undefined') return FALLBACK_GEMINI_TEXT_MODEL.id;
         return getStoredModelId(window.localStorage, STORAGE_KEYS.geminiTextModelId, FALLBACK_GEMINI_TEXT_MODEL.id);
     });
+    const [geminiSimpleModelId, setGeminiSimpleModelIdState] = useState<string>(() => {
+        const defaultId = FALLBACK_GEMINI_SIMPLE_MODEL.id;
+        if (typeof window === 'undefined') return defaultId;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.geminiSimpleModelId, defaultId);
+    });
     const [geminiVisionModelId, setGeminiVisionModelIdState] = useState<string>(() => {
         if (typeof window === 'undefined') return FALLBACK_GEMINI_VISION_MODEL.id;
         return getStoredModelId(window.localStorage, STORAGE_KEYS.geminiVisionModelId, FALLBACK_GEMINI_VISION_MODEL.id);
@@ -309,14 +349,18 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const openRouterVisionModels = useMemo(() => splitModelsByPromptType(openRouterModels).visionModels, [openRouterModels]);
     const openRouterImageModels = useMemo(() => splitModelsByPromptType(openRouterModels).imageModels, [openRouterModels]);
 
-    const geminiCreativeModels = useMemo(() => splitGeminiModelsByPromptType(geminiModels).creativeModels, [geminiModels]);
-    const geminiVisionModels = useMemo(() => splitGeminiModelsByPromptType(geminiModels).visionModels, [geminiModels]);
-    const geminiImageModels = useMemo(() => splitGeminiModelsByPromptType(geminiModels).imageModels, [geminiModels]);
+    const geminiPromptModelSets = useMemo(() => splitGeminiModelsByPromptType(geminiModels), [geminiModels]);
+    const geminiSimpleModels = useMemo(() => sortModelsByPrice(geminiPromptModelSets.creativeModels), [geminiPromptModelSets]);
+    const geminiCreativeModels = useMemo(() => geminiPromptModelSets.creativeModels, [geminiPromptModelSets]);
+    const geminiVisionModels = useMemo(() => geminiPromptModelSets.visionModels, [geminiPromptModelSets]);
+    const geminiImageModels = useMemo(() => geminiPromptModelSets.imageModels, [geminiPromptModelSets]);
 
+    const providerSimpleModels = provider === 'openrouter' ? openRouterSimpleModels : geminiSimpleModels;
     const providerCreativeModels = provider === 'openrouter' ? openRouterCreativeModels : geminiCreativeModels;
     const providerVisionModels = provider === 'openrouter' ? openRouterVisionModels : geminiVisionModels;
     const providerImageModels = provider === 'openrouter' ? openRouterImageModels : geminiImageModels;
 
+    const providerSimpleModelId = provider === 'openrouter' ? openRouterSimpleModelId : geminiSimpleModelId;
     const providerTextModelId = provider === 'openrouter' ? openRouterTextModelId : geminiTextModelId;
     const providerVisionModelId = provider === 'openrouter' ? openRouterVisionModelId : geminiVisionModelId;
     const providerImageModelId = provider === 'openrouter' ? openRouterImageModelId : geminiImageModelId;
@@ -345,6 +389,11 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openRouterSimpleModelId, openRouterSimpleModelId);
+    }, [openRouterSimpleModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
         writeStorage(window.localStorage, STORAGE_KEYS.openRouterVisionModelId, openRouterVisionModelId);
     }, [openRouterVisionModelId]);
 
@@ -357,6 +406,11 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (typeof window === 'undefined') return;
         writeStorage(window.localStorage, STORAGE_KEYS.geminiTextModelId, geminiTextModelId);
     }, [geminiTextModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.geminiSimpleModelId, geminiSimpleModelId);
+    }, [geminiSimpleModelId]);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -414,6 +468,14 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         }
     }, [provider]);
 
+    const setProviderSimpleModelId = useCallback((modelId: string) => {
+        if (provider === 'openrouter') {
+            setOpenRouterSimpleModelIdState(modelId);
+        } else {
+            setGeminiSimpleModelIdState(modelId);
+        }
+    }, [provider]);
+
     const refreshProviderModels = useCallback(async () => {
         if (!providerApiKey) {
             throw new Error(`Add a ${provider === 'openrouter' ? 'OpenRouter' : 'Gemini'} API key before refreshing models.`);
@@ -425,6 +487,9 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 const models = await fetchOpenRouterModels(providerApiKey, 'all');
                 const normalized = sortOpenRouterModels(ensureModelPresent(ensureModelPresent(models, FALLBACK_OPENROUTER_TEXT_MODEL), FALLBACK_OPENROUTER_IMAGE_MODEL));
                 setOpenRouterModels(normalized);
+                if (!normalized.some(model => model.id === openRouterSimpleModelId)) {
+                    setOpenRouterSimpleModelIdState(FALLBACK_OPENROUTER_SIMPLE_MODEL.id);
+                }
                 setOpenRouterModelCatalogState('ready');
                 return;
             }
@@ -433,6 +498,10 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             setGeminiModelCatalogError(null);
             const models = await fetchGeminiModels(providerApiKey);
             setGeminiModels(models.length > 0 ? models : DEFAULT_GEMINI_MODELS);
+            const refreshedModels = models.length > 0 ? models : DEFAULT_GEMINI_MODELS;
+            if (!refreshedModels.some(model => model.id === geminiSimpleModelId)) {
+                setGeminiSimpleModelIdState(FALLBACK_GEMINI_SIMPLE_MODEL.id);
+            }
             setGeminiModelCatalogState('ready');
         } catch (error) {
             if (provider === 'openrouter') {
@@ -450,12 +519,15 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setProvider,
         providerApiKey,
         setProviderApiKey,
+        providerSimpleModels,
         providerCreativeModels,
         providerVisionModels,
         providerImageModels,
         providerModelCatalogState,
         providerModelCatalogError,
         refreshProviderModels,
+        providerSimpleModelId,
+        setProviderSimpleModelId,
         providerTextModelId,
         setProviderTextModelId,
         providerVisionModelId,
@@ -467,12 +539,15 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setProvider,
         providerApiKey,
         setProviderApiKey,
+        providerSimpleModels,
         providerCreativeModels,
         providerVisionModels,
         providerImageModels,
         providerModelCatalogState,
         providerModelCatalogError,
         refreshProviderModels,
+        providerSimpleModelId,
+        setProviderSimpleModelId,
         providerTextModelId,
         setProviderTextModelId,
         providerVisionModelId,
