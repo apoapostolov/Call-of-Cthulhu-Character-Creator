@@ -7,6 +7,7 @@ import { SKILL_GROUPS } from './skills/skill-utils';
 import type { Skill } from '../types';
 import { ChoiceSkillsSelector } from './skills/ChoiceSkillsSelector';
 import { ChoiceSkillsModal } from './skills/ChoiceSkillsModal';
+import { AiDistributionModal } from './skills/AiDistributionModal';
 
 export const SkillsTab: React.FC = () => {
     const { selectedEra } = useEraContext();
@@ -22,6 +23,7 @@ export const SkillsTab: React.FC = () => {
         handleSkillsReset,
         handleAddSpecialization,
         handleDeleteSpecialization,
+        handleAiSkillDistribution,
         aggregatedData,
         activeSkillPool,
         setActiveSkillPool,
@@ -41,6 +43,7 @@ export const SkillsTab: React.FC = () => {
     const [groupSkills, setGroupSkills] = useState(false);
     const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
     const [activeChoiceGroupIndex, setActiveChoiceGroupIndex] = useState<number | null>(null);
+    const [isAiDistributionOpen, setIsAiDistributionOpen] = useState(false);
 
     const allSkills = useMemo(() => {
         return allSkillsWithCalculatedBases.sort((a,b) => a.name.localeCompare(b.name));
@@ -229,6 +232,12 @@ export const SkillsTab: React.FC = () => {
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto bg-card p-6 rounded-lg border border-border shadow-xl shadow-primary-900/15">
+             <AiDistributionModal
+                open={isAiDistributionOpen}
+                occupationName={selectedOccupation?.name || 'Investigator'}
+                onClose={() => setIsAiDistributionOpen(false)}
+                onSubmit={handleAiSkillDistribution}
+             />
              {isChoiceModalOpen && activeChoiceGroup && (
                 <ChoiceSkillsModal
                     group={activeChoiceGroup}
@@ -260,6 +269,7 @@ export const SkillsTab: React.FC = () => {
                     onGroupToggle={() => setGroupSkills(g => !g)}
                     activeSkillPool={activeSkillPool}
                     onSkillPoolToggle={setActiveSkillPool}
+                    onAiDistributionOpen={() => setIsAiDistributionOpen(true)}
                 />
             )}
 

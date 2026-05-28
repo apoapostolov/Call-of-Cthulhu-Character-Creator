@@ -4,8 +4,11 @@ import { parsePriceToCents } from '../utils/money';
 import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, AgeCategory, ExperiencePackage, ExperienceNote, Talent, Archetype } from '../types';
 import type { AggregatedData } from './useAggregatedData';
 import { useAIGeneration } from './useAIGeneration';
+import { useAiRuntime } from './useAiRuntime';
 import { parseSkillPointFormula } from '../utils';
 import { AGE_CATEGORIES } from '../config/age.config';
+import { buildSkillDistributionPrompt, normalizeSkillDistributionResponse, responseToSkillPointAssignments } from '../lib/ai/skill-distribution';
+import type { SkillDistributionPayload } from '../lib/ai/skill-distribution';
 
 const roll3d6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
 const roll2d6plus6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + 6;
@@ -554,6 +557,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         selectedOccupation, null, modifiedAttributes, setToastMessage, aggregatedData, 
         skills, null, null, null
     );
+    const { generateText } = useAiRuntime();
+    const [isAiDistributionRunning, setIsAiDistributionRunning] = useState(false);
 
     // When occupation changes, update occupation notes from any special and suggestedContacts
     useEffect(() => {
@@ -769,6 +774,105 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setOccupationSkillChoices({});
         setActiveSkillPool('occupational');
     }, []);
+
+    const handleAiSkillDistribution = useCallback(async (description: string) => {
+        if (!selectedOccupation || !modifiedAttributes) {
+            throw new Error('Select a profession and generate attributes before using AI Distribution.');
+        }
+        if (!allOccupationChoicesMade) {
+            throw new Error('Complete the occupation skill choices before asking AI to distribute points.');
+        }
+
+        const payload: SkillDistributionPayload = {
+            era: {
+                id: selectedEra,
+                name: aggregatedData.DECADES?.[0]?.name || selectedEra,
+                displayName: aggregatedData.DECADES?.[0]?.displayName || selectedEra,
+            },
+            occupation: {
+                name: selectedOccupation.name,
+                description: selectedOccupation.description,
+                group: selectedOccupation.group,
+                skillPoints: selectedOccupation.skillPoints,
+                special: selectedOccupation.special || null,
+                suggestedContacts: selectedOccupation.suggestedContacts || null,
+                archetypicalClothing: selectedOccupation.archetypicalClothing || null,
+                occupationalSkills: selectedOccupation.occupationalSkills,
+                choiceGroups: selectedOccupation.choiceGroups,
+                selectedChoices: occupationSkillChoices,
+            },
+            description,
+            rules: {
+                untrainedMax: 19,
+                trainedMin: 20,
+                professionalMin: 50,
+                expertMin: 70,
+            },
+            pools: {
+                occupational: occupationalSkillPoints,
+                personal: personalSkillPoints,
+                experience: experiencePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
+                archetype: archetypePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' },
+            },
+            skills: allSkillsWithCalculatedBases.map(skill => {
+                const baseName = skill.name.split(' (')[0];
+                const assignment = skillPointAssignments[skill.name] || { occupational: 0, personal: 0, experience: 0, archetype: 0 };
+                const current = skill.base + assignment.occupational + assignment.personal + (assignment.experience || 0) + (assignment.archetype || 0);
+                return {
+                    name: skill.name,
+                    base: skill.base,
+                    current,
+                    occupationalEligible: effectiveOccupationalSkills.has(skill.name) || effectiveOccupationalSkills.has(baseName),
+                    personalEligible: baseName !== 'Cthulhu Mythos' && skill.name !== 'Cthulhu Mythos',
+                    experienceEligible: experienceEligibleSkills.has(skill.name) || experienceEligibleSkills.has(baseName),
+                    archetypeEligible: archetypeEligibleSkills.has(skill.name) || archetypeEligibleSkills.has(baseName),
+                    description: skill.description,
+                };
+            }),
+        };
+
+        setIsAiDistributionRunning(true);
+        try {
+            const prompt = buildSkillDistributionPrompt(payload);
+            const rawResponse = await generateText({ prompt, json: true, purpose: 'creative' });
+            const normalizedResponse = normalizeSkillDistributionResponse(rawResponse);
+            const assignments = responseToSkillPointAssignments(
+                normalizedResponse,
+                allSkillsWithCalculatedBases.map(skill => skill.name),
+                {
+                    occupational: occupationalSkillPoints.total,
+                    personal: personalSkillPoints.total,
+                    experience: experiencePoints?.total ?? 0,
+                    archetype: archetypePoints?.total ?? 0,
+                },
+            );
+            setSkillPointAssignments(assignments);
+            setActiveSkillPool('occupational');
+            setToastMessage('AI skill distribution applied.', 'success');
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Failed to apply AI skill distribution.');
+        } finally {
+            setIsAiDistributionRunning(false);
+        }
+    }, [
+        aggregatedData.DECADES,
+        allOccupationChoicesMade,
+        allSkillsWithCalculatedBases,
+        archetypeEligibleSkills,
+        archetypePoints,
+        effectiveOccupationalSkills,
+        experienceEligibleSkills,
+        experiencePoints,
+        generateText,
+        modifiedAttributes,
+        occupationSkillChoices,
+        occupationalSkillPoints,
+        personalSkillPoints,
+        selectedEra,
+        selectedOccupation,
+        setToastMessage,
+        skillPointAssignments,
+    ]);
 
     const handleAddSpecialization = useCallback((displayName: string, specializationBase: string, subType: string) => {
         const name = `${specializationBase} (${subType})`;
@@ -1287,6 +1391,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         wealth, convertAssetsToCash,
         skills, occupationalSkillPoints, personalSkillPoints, skillPointAssignments, handleSkillPointChange,
         handleSkillsReset,
+        handleAiSkillDistribution,
+        isAiDistributionRunning,
     activeSkillPool, setActiveSkillPool,
         userCreatedSkills, handleAddSpecialization, handleDeleteSpecialization,
         allSkillsWithCalculatedBases,

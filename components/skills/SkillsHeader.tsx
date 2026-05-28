@@ -1,5 +1,6 @@
 import React from 'react';
 import { ResetIcon } from '../icons/ResetIcon';
+import { AiStarsIcon } from '../icons/AiStarsIcon';
 import { Tooltip } from '../Tooltip';
 
 type PointsPool = {
@@ -22,6 +23,7 @@ interface SkillsHeaderProps {
     onGroupToggle: () => void;
     activeSkillPool: 'archetype' | 'occupational' | 'personal' | 'experience';
     onSkillPoolToggle: (pool: 'archetype' | 'occupational' | 'personal' | 'experience') => void;
+    onAiDistributionOpen: () => void;
 }
 
 const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className: string; isActive: boolean; onClick: () => void; }> = ({ title, points, className, isActive, onClick }) => {
@@ -59,7 +61,7 @@ const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className:
     );
 };
 
-export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occupationalPoints, personalPoints, experiencePoints, onReset, pointStep, onPointStepToggle, groupSkills, onGroupToggle, activeSkillPool, onSkillPoolToggle }) => {
+export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occupationalPoints, personalPoints, experiencePoints, onReset, pointStep, onPointStepToggle, groupSkills, onGroupToggle, activeSkillPool, onSkillPoolToggle, onAiDistributionOpen }) => {
     const showExperience = !!(experiencePoints && experiencePoints.total > 0);
     const showArchetype = !!(archetypePoints && archetypePoints.total > 0);
     const gridColsClass = showArchetype && showExperience
@@ -119,6 +121,9 @@ export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occ
                 </div>
                 <button onClick={onReset} className="flex items-center justify-center gap-2 bg-secondary hover:bg-opacity-80 text-secondary-foreground font-bold py-2 px-3 rounded-lg text-sm transition-colors border-b-2 border-black/20">
                     <ResetIcon className="h-4 w-4" /> Reset All Points
+                </button>
+                <button onClick={onAiDistributionOpen} className="flex items-center justify-center gap-2 bg-primary hover:bg-opacity-90 text-primary-foreground font-bold py-2 px-3 rounded-lg text-sm transition-colors border-b-2 border-black/20">
+                    <AiStarsIcon className="h-4 w-4" /> AI Distribution
                 </button>
             </div>
         </div>
