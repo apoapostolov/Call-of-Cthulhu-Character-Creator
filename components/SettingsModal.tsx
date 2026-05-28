@@ -188,36 +188,36 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
     const {
         provider,
         setProvider,
-        openRouterApiKey,
-        setOpenRouterApiKey,
-        openRouterCreativeModels,
-        openRouterVisionModels,
-        openRouterImageModels,
-        openRouterModelCatalogState,
-        openRouterModelCatalogError,
-        refreshOpenRouterModels,
-        openRouterTextModelId,
-        setOpenRouterTextModelId,
-        openRouterVisionModelId,
-        setOpenRouterVisionModelId,
-        openRouterImageModelId,
-        setOpenRouterImageModelId,
+        providerApiKey,
+        setProviderApiKey,
+        providerCreativeModels,
+        providerVisionModels,
+        providerImageModels,
+        providerModelCatalogState,
+        providerModelCatalogError,
+        refreshProviderModels,
+        providerTextModelId,
+        setProviderTextModelId,
+        providerVisionModelId,
+        setProviderVisionModelId,
+        providerImageModelId,
+        setProviderImageModelId,
     } = useAiSettings();
     const [activeTab, setActiveTab] = useState<'sheet' | 'ai'>('sheet');
-    const creativeModelOptions = useMemo(() => openRouterCreativeModels.map(model => ({
+    const creativeModelOptions = useMemo(() => providerCreativeModels.map(model => ({
         value: model.id,
         label: formatModelOptionLabel(model),
-    })), [openRouterCreativeModels]);
+    })), [providerCreativeModels]);
 
-    const visionModelOptions = useMemo(() => openRouterVisionModels.map(model => ({
+    const visionModelOptions = useMemo(() => providerVisionModels.map(model => ({
         value: model.id,
         label: formatModelOptionLabel(model),
-    })), [openRouterVisionModels]);
+    })), [providerVisionModels]);
 
-    const imageModelOptions = useMemo(() => openRouterImageModels.map(model => ({
+    const imageModelOptions = useMemo(() => providerImageModels.map(model => ({
         value: model.id,
         label: formatModelOptionLabel(model),
-    })), [openRouterImageModels]);
+    })), [providerImageModels]);
 
     return (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
@@ -300,8 +300,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                     />
                                     <UrlInput
                                         label="Provider API Key"
-                                        value={openRouterApiKey}
-                                        onChange={setOpenRouterApiKey}
+                                        value={providerApiKey}
+                                        onChange={setProviderApiKey}
                                         type="password"
                                     />
                                 </div>
@@ -312,10 +312,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                     <h3 className="text-lg font-bold text-foreground">Prompting Models</h3>
                                     <button
                                         type="button"
-                                        onClick={() => void refreshOpenRouterModels()}
-                                        className="inline-flex items-center gap-2 rounded-md border border-border bg-cream-200 px-3 py-2 text-sm font-semibold text-foreground hover:bg-cream-100"
-                                        aria-label="Refresh OpenRouter model list"
+                                        onClick={() => void refreshProviderModels()}
+                                        className="inline-flex items-center gap-2 rounded-md border border-border bg-cream-200 px-3 py-2 text-sm font-semibold text-foreground hover:bg-cream-100 disabled:cursor-not-allowed disabled:opacity-60"
+                                        aria-label={`Refresh ${provider} model list`}
                                         title="Refresh model list"
+                                        disabled={providerModelCatalogState === 'loading'}
                                     >
                                         <RefreshIcon className="h-4 w-4" />
                                         Refresh
@@ -323,26 +324,29 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                 </div>
                                 <div className="space-y-4 bg-cream-200 p-4 rounded-lg border border-border">
                                     <SearchableSelect
+                                        key={`${provider}-creative`}
                                         label="Creative Writing"
-                                        value={openRouterTextModelId}
-                                        onChange={setOpenRouterTextModelId}
+                                        value={providerTextModelId}
+                                        onChange={setProviderTextModelId}
                                         options={creativeModelOptions}
                                     />
                                     <SearchableSelect
+                                        key={`${provider}-vision`}
                                         label="Vision Analysis"
-                                        value={openRouterVisionModelId}
-                                        onChange={setOpenRouterVisionModelId}
+                                        value={providerVisionModelId}
+                                        onChange={setProviderVisionModelId}
                                         options={visionModelOptions}
                                     />
                                     <SearchableSelect
+                                        key={`${provider}-image`}
                                         label="Image Generation"
-                                        value={openRouterImageModelId}
-                                        onChange={setOpenRouterImageModelId}
+                                        value={providerImageModelId}
+                                        onChange={setProviderImageModelId}
                                         options={imageModelOptions}
                                     />
                                     <div className="text-sm text-muted-foreground">
-                                        Status: {openRouterModelCatalogState}
-                                        {openRouterModelCatalogError ? ` - ${openRouterModelCatalogError}` : ''}
+                                        Status: {providerModelCatalogState}
+                                        {providerModelCatalogError ? ` - ${providerModelCatalogError}` : ''}
                                     </div>
                                 </div>
                             </section>

@@ -3,15 +3,14 @@ import { GoogleGenAI, Modality } from '@google/genai';
 import { useAiSettings } from '../context/AiSettingsContext';
 import { fetchOpenRouterChatCompletion } from '../lib/ai/openrouter';
 
-const getGeminiApiKey = () => String(
+const getBuildTimeGeminiApiKey = () => String(
     process.env.API_KEY
     || process.env.GEMINI_API_KEY
     || process.env.VITE_GEMINI_API_KEY
     || '',
 );
 
-const getGeminiClient = () => {
-    const apiKey = getGeminiApiKey();
+const getGeminiClient = (apiKey: string) => {
     if (!apiKey) {
         throw new Error('Add a Gemini API key to use the Gemini provider.');
     }
@@ -31,14 +30,26 @@ const imageDataUrlToParts = (imageDataUrl: string, prompt: string) => {
     };
 };
 
+const extractImageDataUrl = (response: any) => {
+    if (response?.candidates && response.candidates[0]?.content?.parts) {
+        for (const part of response.candidates[0].content.parts) {
+            if (part.inlineData) {
+                return `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
+            }
+        }
+    }
+    return null;
+};
+
 export const useAiRuntime = () => {
     const {
         provider,
-        effectiveOpenRouterApiKey,
-        openRouterTextModelId,
-        openRouterVisionModelId,
-        openRouterImageModelId,
+        providerApiKey,
+        providerTextModelId,
+        providerVisionModelId,
+        providerImageModelId,
     } = useAiSettings();
+    const geminiApiKey = providerApiKey || getBuildTimeGeminiApiKey();
 
     const generateText = useCallback(async (params: {
         prompt: string;
@@ -50,7 +61,7 @@ export const useAiRuntime = () => {
         modelOverride?: string;
     }) => {
         if (provider === 'openrouter') {
-            if (!effectiveOpenRouterApiKey) {
+            if (!providerApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
             const messages = [];
@@ -70,8 +81,8 @@ export const useAiRuntime = () => {
             }
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: effectiveOpenRouterApiKey,
-                model: params.modelOverride || (params.imageDataUrl ? openRouterVisionModelId : openRouterTextModelId),
+                apiKey: providerApiKey,
+                model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : providerTextModelId),
                 messages,
                 responseFormat: params.json ? { type: 'json_object' } : undefined,
                 temperature: params.temperature,
@@ -80,7 +91,7 @@ export const useAiRuntime = () => {
             return result.content;
         }
 
-        const ai = getGeminiClient();
+        const ai = getGeminiClient(geminiApiKey);
         const config = params.json
             ? { responseMimeType: 'application/json' as const }
             : undefined;
@@ -90,13 +101,13 @@ export const useAiRuntime = () => {
             : params.prompt;
 
         const response = await ai.models.generateContent({
-            model: params.modelOverride || 'gemini-2.5-flash',
+            model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : providerTextModelId),
             contents,
             config,
         });
 
         return extractText(response);
-    }, [effectiveOpenRouterApiKey, openRouterTextModelId, openRouterVisionModelId, provider]);
+    }, [geminiApiKey, provider, providerApiKey, providerTextModelId, providerVisionModelId]);
 
     const generateImage = useCallback(async (params: {
         prompt: string;
@@ -105,7 +116,7 @@ export const useAiRuntime = () => {
         modelOverride?: string;
     }) => {
         if (provider === 'openrouter') {
-            if (!effectiveOpenRouterApiKey) {
+            if (!providerApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
 
@@ -120,8 +131,8 @@ export const useAiRuntime = () => {
                 : [{ role: 'user' as const, content: params.prompt }];
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: effectiveOpenRouterApiKey,
-                model: params.modelOverride || openRouterImageModelId,
+                apiKey: providerApiKey,
+                model: params.modelOverride || providerImageModelId,
                 messages,
                 modalities: ['image', 'text'],
                 imageConfig: params.aspectRatio ? { aspect_ratio: params.aspectRatio } : undefined,
@@ -134,30 +145,25 @@ export const useAiRuntime = () => {
             return image;
         }
 
-        const ai = getGeminiClient();
+        const ai = getGeminiClient(geminiApiKey);
         if (params.referenceImageDataUrl) {
-            const base64ImageData = params.referenceImageDataUrl.split(',')[1];
-            const mimeType = params.referenceImageDataUrl.match(/data:(.*);/)?.[1] || 'image/png';
             const response = await ai.models.generateContent({
-                model: params.modelOverride || 'gemini-2.5-flash-image-preview',
-                contents: { parts: [{ inlineData: { data: base64ImageData, mimeType } }, { text: params.prompt }] },
+                model: params.modelOverride || providerImageModelId,
+                contents: imageDataUrlToParts(params.referenceImageDataUrl, params.prompt),
                 config: {
                     responseModalities: [Modality.IMAGE, Modality.TEXT],
                 },
             });
 
-            if (response.candidates && response.candidates[0].content.parts) {
-                for (const part of response.candidates[0].content.parts) {
-                    if (part.inlineData) {
-                        return `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
-                    }
-                }
+            const image = extractImageDataUrl(response);
+            if (!image) {
+                throw new Error('The AI did not return an image.');
             }
-            throw new Error('The AI did not return an image.');
+            return image;
         }
 
         const response = await ai.models.generateImages({
-            model: params.modelOverride || 'imagen-4.0-generate-001',
+            model: params.modelOverride || providerImageModelId,
             prompt: params.prompt,
             config: {
                 numberOfImages: 1,
@@ -171,7 +177,7 @@ export const useAiRuntime = () => {
         }
 
         return `data:image/png;base64,${response.generatedImages[0].image.imageBytes}`;
-    }, [effectiveOpenRouterApiKey, openRouterImageModelId, provider]);
+    }, [geminiApiKey, provider, providerApiKey, providerImageModelId]);
 
     const analyzeImage = useCallback(async (params: {
         prompt: string;
@@ -180,13 +186,13 @@ export const useAiRuntime = () => {
         modelOverride?: string;
     }) => {
         if (provider === 'openrouter') {
-            if (!effectiveOpenRouterApiKey) {
+            if (!providerApiKey) {
                 throw new Error('Add an OpenRouter API key in Settings.');
             }
 
             const result = await fetchOpenRouterChatCompletion({
-                apiKey: effectiveOpenRouterApiKey,
-                model: params.modelOverride || openRouterVisionModelId,
+                apiKey: providerApiKey,
+                model: params.modelOverride || providerVisionModelId,
                 messages: [
                     {
                         role: 'user',
@@ -201,26 +207,26 @@ export const useAiRuntime = () => {
             return result.content;
         }
 
-        const ai = getGeminiClient();
+        const ai = getGeminiClient(geminiApiKey);
         const base64ImageData = params.imageDataUrl.split(',')[1];
         const mimeType = params.imageDataUrl.match(/data:(.*);/)?.[1] || 'image/png';
         const response = await ai.models.generateContent({
-            model: params.modelOverride || 'gemini-2.5-flash',
+            model: params.modelOverride || providerVisionModelId,
             contents: { parts: [{ inlineData: { data: base64ImageData, mimeType } }, { text: params.prompt }] },
             config: params.json ? { responseMimeType: 'application/json' } : undefined,
         });
 
         return extractText(response);
-    }, [effectiveOpenRouterApiKey, openRouterVisionModelId, provider]);
+    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId]);
 
     return {
         provider,
         generateText,
         generateImage,
         analyzeImage,
-        openRouterTextModelId,
-        openRouterVisionModelId,
-        openRouterImageModelId,
-        openRouterApiKey: effectiveOpenRouterApiKey,
+        providerTextModelId,
+        providerVisionModelId,
+        providerImageModelId,
+        providerApiKey,
     };
 };
