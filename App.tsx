@@ -14,7 +14,7 @@ import { GearTab } from './components/gear/GearTab';
 import { StatsTab } from './components/StatsTab';
 import { SkillsTab } from './components/SkillsTab';
 import { PromptInfoModal } from './components/PromptInfoModal';
-import { getYearFromDecade } from './utils/date';
+import { getEraReferenceYear } from './utils/date';
 import { ErasModal } from './components/SourcesModal';
 import { SettingsModal } from './components/SettingsModal';
 import { OccupationInfoModal } from './components/OccupationInfoModal';
@@ -47,15 +47,14 @@ const AppContent: React.FC = () => {
         }
     }, [selectedEra, uiState]);
 
-    // Generate a plausible DOB when an age bracket is selected
+    // Generate a plausible DOB when an age bracket or scout rank is selected.
     useEffect(() => {
         const bracket = character.selectedAgeCategory; // e.g., '20-39'
         if (!bracket) return;
-        // Only set if no DOB yet
-        if (ai.dob) return;
+        if (ai.dobManuallyEdited || ai.dobOverwrittenByCareer) return;
         try {
             const decadeName = aggregatedData.DECADES?.[0]?.name;
-            const currentYear = decadeName ? getYearFromDecade(decadeName) : new Date().getFullYear();
+            const currentYear = getEraReferenceYear(selectedEra, decadeName);
             const m = String(bracket).match(/^(\d+)\s*-\s*(\d+)$/);
             if (!m) return;
             const min = parseInt(m[1], 10);
@@ -65,9 +64,9 @@ const AppContent: React.FC = () => {
             const month = Math.floor(Math.random() * 12) + 1;
             const day = Math.floor(Math.random() * 28) + 1;
             const dob = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-            ai.setDob(dob);
+            ai.setDobFromAgeCategory(dob);
         } catch {}
-    }, [character.selectedAgeCategory, aggregatedData.DECADES, ai.dob, ai.setDob]);
+    }, [character.selectedAgeCategory, aggregatedData.DECADES, selectedEra, ai.dobManuallyEdited, ai.dobOverwrittenByCareer, ai.setDobFromAgeCategory]);
 
     useEffect(() => {
         const newCompleted = new Set(uiState.completedTabs);

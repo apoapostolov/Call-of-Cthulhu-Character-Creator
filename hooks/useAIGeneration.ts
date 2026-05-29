@@ -1,9 +1,10 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import type { Profession, Theme, DecadeConfig, AttributeSet, Nationality, ExperienceLevel, Department, SkillPackage, ToastType, DamagedVeteranOption, Disorder, DistinguishingFeatures } from '../types';
 import type { AggregatedData } from './useAggregatedData';
 import { useNameGeneration } from './ai/useNameGeneration';
 import { usePortraitGeneration } from './ai/usePortraitGeneration';
-import { getYearFromDecade } from '../utils/date';
+import { getEraReferenceYear } from '../utils/date';
+import { getAgeAtReferenceYear } from '../utils/campfire-sheet';
 import { getPortraitPrompt } from '../prompts/prompt-data';
 import { THEMES } from '../data/theme-data';
 
@@ -17,7 +18,8 @@ export const useAIGeneration = (
     baseSkills: Record<string, number>,
     skillPackage: SkillPackage | null,
     damagedVeteranOption: DamagedVeteranOption | null,
-    assignedDisorder: Disorder | null
+    assignedDisorder: Disorder | null,
+    selectedEra: string
 ) => {
     // Basic character details state
     const [gender, setGender] = useState<'male' | 'female' | null>(null);
@@ -26,9 +28,11 @@ export const useAIGeneration = (
     const [experienceLevel, setExperienceLevel] = useState<ExperienceLevel>('Experienced');
     const [dob, _setDob] = useState<string>('');
     const [dobOverwrittenByCareer, setDobOverwrittenByCareer] = useState(false);
+    const [dobManuallyEdited, setDobManuallyEdited] = useState(false);
     const [education, setEducation] = useState<string>('');
     const [physicalDescription, setPhysicalDescription] = useState<string | null>(null);
     const [distinguishingFeatures, setDistinguishingFeatures] = useState<DistinguishingFeatures | null>(null);
+    const previousEraRef = useRef(selectedEra);
 
     const decadeConfig = useMemo(() => aggregatedData.DECADES?.[0], [aggregatedData.DECADES]);
 
@@ -42,35 +46,41 @@ export const useAIGeneration = (
 
     const setDob = useCallback((newDob: string) => {
         _setDob(newDob);
+        setDobManuallyEdited(true);
         setDobOverwrittenByCareer(false); // Manual change resets the flag
     }, []);
 
     // Allow system rules (e.g., experience packages) to set DOB and mark it as career-adjusted
     const setDobFromCareer = useCallback((newDob: string) => {
         _setDob(newDob);
+        setDobManuallyEdited(false);
         setDobOverwrittenByCareer(true);
     }, []);
 
+    const setDobFromAgeCategory = useCallback((newDob: string) => {
+        _setDob(newDob);
+        setDobManuallyEdited(false);
+        setDobOverwrittenByCareer(false);
+    }, []);
+
      useEffect(() => {
-        // Set a default DOB when the decade changes and no DOB is present yet
-        if (decadeConfig && !dob) {
-            const startYear = getYearFromDecade(decadeConfig.name);
+        if (!decadeConfig) return;
+        const eraChanged = previousEraRef.current !== selectedEra;
+        previousEraRef.current = selectedEra;
+
+        // Set or rebase automatic DOBs when the era changes, but preserve user edits.
+        if (!dob || (eraChanged && !dobManuallyEdited && !dobOverwrittenByCareer)) {
+            const startYear = getEraReferenceYear(selectedEra, decadeConfig.name);
             const birthYear = startYear - 25; // Assume a 25-year-old starting investigator
             _setDob(`${birthYear}-07-01`);
+            setDobManuallyEdited(false);
             setDobOverwrittenByCareer(false);
         }
-    }, [decadeConfig, dob]);
+    }, [decadeConfig, dob, dobManuallyEdited, dobOverwrittenByCareer, selectedEra]);
 
-    const currentYear = useMemo(() => decadeConfig ? getYearFromDecade(decadeConfig.name) : 2023, [decadeConfig]);
+    const currentYear = useMemo(() => getEraReferenceYear(selectedEra, decadeConfig?.name), [decadeConfig, selectedEra]);
     const age = useMemo(() => {
-        if (!dob) return null;
-        try {
-            const birthYear = new Date(dob).getFullYear();
-            if (isNaN(birthYear) || birthYear < 1900) return null;
-            return currentYear - birthYear;
-        } catch (e) {
-            return null;
-        }
+        return getAgeAtReferenceYear(dob, currentYear);
     }, [dob, currentYear]);
 
     const onGenerateRandomNationality = useCallback(() => {
@@ -133,6 +143,7 @@ export const useAIGeneration = (
         experienceLevel, setExperienceLevel,
         dob, setDob,
         dobOverwrittenByCareer,
+        dobManuallyEdited,
         education,
         physicalDescription,
         distinguishingFeatures,
@@ -149,6 +160,7 @@ export const useAIGeneration = (
         // No dossier/career in CoC app
         reset,
         setDobFromCareer,
+        setDobFromAgeCategory,
         
     };
 };

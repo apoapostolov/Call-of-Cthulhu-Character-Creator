@@ -12,6 +12,13 @@ import {
   rollDiceExpression,
 } from '../eras/campfire-tales/scout-rules';
 import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
+import {
+  CAMPFIRE_NOTES_TEXT_LIMIT,
+  CAMPFIRE_SHEET_TEXT_LIMIT,
+  getAgeAtReferenceYear,
+  getCampfireCustomSkillEntries,
+  limitCampfireSheetText,
+} from '../utils/campfire-sheet';
 
 describe('Campfire Tales era', () => {
   it('is registered and resolves through the era manifest', () => {
@@ -167,5 +174,42 @@ describe('Campfire Tales era', () => {
         expect(itemNames.has(itemName), `${kit.name} references missing item ${itemName}`).toBe(true);
       }
     }
+  });
+
+  it('calculates Scout Sheet age against the era year instead of the real current year', () => {
+    expect(getAgeAtReferenceYear('1911-07-01', 1925)).toBe(14);
+    expect(getAgeAtReferenceYear('1914-02-12', 1925)).toBe(11);
+  });
+
+  it('keeps Campfire Sheet generated text within strict field limits', () => {
+    expect(CAMPFIRE_NOTES_TEXT_LIMIT).toBe(CAMPFIRE_SHEET_TEXT_LIMIT * 3);
+    expect(limitCampfireSheetText('x'.repeat(250))).toHaveLength(CAMPFIRE_SHEET_TEXT_LIMIT);
+    expect(limitCampfireSheetText('x'.repeat(600), CAMPFIRE_NOTES_TEXT_LIMIT)).toHaveLength(CAMPFIRE_NOTES_TEXT_LIMIT);
+  });
+
+  it('does not duplicate fixed or parent specialization skills in Campfire PDF custom slots', () => {
+    const entries = getCampfireCustomSkillEntries(
+      {
+        Fighting: 25,
+        'Fighting (Brawl)': 45,
+        'Fighting Brawl': 45,
+        Firearms: 10,
+        'Firearms (Handgun)': 35,
+        Science: 1,
+        'Science (Chemistry)': 40,
+        Accounting: 55,
+      },
+      ['Fighting (Brawl)'],
+      thirdPartyData['campfire-tales'].skills,
+    ).map(([name]) => name);
+
+    expect(entries).not.toContain('Fighting');
+    expect(entries).not.toContain('Fighting (Brawl)');
+    expect(entries).not.toContain('Fighting Brawl');
+    expect(entries).not.toContain('Firearms');
+    expect(entries).not.toContain('Science');
+    expect(entries).toContain('Firearms (Handgun)');
+    expect(entries).toContain('Science (Chemistry)');
+    expect(entries).toContain('Accounting');
   });
 });

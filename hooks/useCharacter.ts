@@ -838,7 +838,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     const ai = useAIGeneration(
         selectedOccupation?.name || 'Investigator',
         selectedOccupation, null, modifiedAttributes, setToastMessage, aggregatedData, 
-        skills, null, null, null
+        skills, null, null, null, selectedEra
     );
     const { generateText } = useAiRuntime();
     const [isAiDistributionRunning, setIsAiDistributionRunning] = useState(false);

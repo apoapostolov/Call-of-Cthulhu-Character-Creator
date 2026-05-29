@@ -1,5 +1,43 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - Bio birthdate and Campfire Scout Sheet AI polish
+
+- Context: apply Bio feedback for era-aware birthdates, Campfire scout portrait
+  ages, and per-field Scout Sheet generation.
+- Files changed: `App.tsx`, `components/DossierTab.tsx`,
+  `hooks/useAIGeneration.ts`, `hooks/useCharacter.ts`,
+  `hooks/usePdfPrinting.ts`, `utils/date.ts`, `CHANGELOG.md`, and
+  `DEVELOPMENT_LOG.md`.
+- Changes: added a shared era reference-year helper, made automatic DOBs
+  source-aware so selected age brackets and Scout Ranks can update DOB without
+  overwriting manual edits, removed the 1900 lower bound from AI age
+  derivation, passed Campfire scout ages into portrait prompts through DOB, and
+  added inline AI-star generate buttons for Scout Sheet backstory fields.
+- Decision: Classic 1920s and Campfire Tales use 1925 as the reference year,
+  aligned with Chaosium's 1925 Masks of Nyarlathotep campaign anchor.
+- Validation: `npx tsc --noEmit` passed in WSL; `cmd.exe /c npm test`
+  passed with 54 tests; `cmd.exe /c npm run build` passed with the existing
+  Vite large chunk warning.
+
+## 2026-05-29 - Campfire Scout Sheet limits and PDF bug fixes
+
+- Context: fix Bio feedback that Scout Sheet generated descriptions were too
+  long, Campfire PDF age could show real-world age, and specialization parents
+  could appear as duplicate custom skills.
+- Files changed: `components/DossierTab.tsx`, `hooks/useAIGeneration.ts`,
+  `hooks/usePdfPrinting.ts`, `prompts/prompt-data.ts`,
+  `tests/campfire.test.ts`, `utils/campfire-sheet.ts`, `CHANGELOG.md`, and
+  `DEVELOPMENT_LOG.md`.
+- Changes: added tested Campfire sheet helpers for strict text truncation,
+  era-relative age calculation, and custom skill filtering; capped short
+  Scout Sheet/PDF background fields at 170 characters; capped Campfire Notes
+  at 510 characters; changed physical-description prompt to 170 characters;
+  and excluded fixed sheet skills plus specialization parent skills from
+  Campfire custom PDF skill slots.
+- Validation: `npx tsc --noEmit` passed in WSL; `cmd.exe /c npm test` passed
+  with 57 tests; `cmd.exe /c npm run build` passed with the existing Vite
+  large chunk warning.
+
 ## 2026-05-29 - Campfire Tales rank, skill pool, AI, and PDF audit
 
 - Context: apply Scout Rank, Skills, Badges, and Character Sheet feedback for

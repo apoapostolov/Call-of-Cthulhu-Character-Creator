@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file.
 - Campfire Tales scout support for selectable ability badges, editable scout
   backstory notes, and AI Distribution context for badges, Family Credit, and
   scout home life.
+- Inline AI generation buttons for Campfire Tales Scout Sheet text fields,
+  including hobby-aware home, trusted adult, obligations, fears, and campfire
+  tale prompts.
 - Campfire Tales scout and badge equipment in inherited 1920s equipment lists
   and quick kits.
 - A Campfire-only Badges tab with rank badges, all ability badges, starting
@@ -39,6 +42,13 @@ All notable changes to this project will be documented in this file.
   earned badges, and corrected kid-scale derived stat mappings.
 - Campfire Tales Gear now separates Scout Equipment, All Equipment, and Prices
   so the inherited 1920s equipment and price catalogs are distinct.
+- Character birthdates now use era-appropriate reference years and selected
+  age/rank brackets, so Campfire portrait generation sees scout ages instead
+  of generic adult defaults.
+- Campfire Tales Scout Sheet generation and PDF export now strictly cap short
+  background fields at 170 characters, allow Campfire Notes up to 510
+  characters, calculate scout age against the era year, and avoid duplicating
+  specialization parent skills in custom PDF skill slots.
 
 ## [1.0.1] - 2026-05-28
 

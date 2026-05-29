@@ -96,7 +96,7 @@ Provide a plausible educational background and a realistic starting age for this
 
 // --- Portrait & Description Generation ---
 export const getPhysicalDescriptionPrompt = (): string => {
-    return `Analyze the provided full-body portrait of a character. Provide a brief, evocative physical description focusing on their build, posture, clothing, and overall demeanor. The description must be a single paragraph and no more than 250 characters.`;
+    return `Analyze the provided full-body portrait of a character. Provide a brief, evocative physical description focusing on their build, posture, clothing, and overall demeanor. The description must be a single paragraph and no more than 170 characters.`;
 };
 
 export const getDistinguishingFeaturesPrompt = (description: string): string => {

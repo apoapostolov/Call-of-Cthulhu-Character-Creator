@@ -5,7 +5,14 @@ import { useSheetContext } from '../context/SheetContext';
 import { SHEET_CONFIG } from '../eras/sheet-config';
 import type { ToastType, Skill, AttributeSet, DGItem } from '../types';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
-import { getYearFromDecade } from '../utils/date';
+import { getEraReferenceYear } from '../utils/date';
+import {
+  CAMPFIRE_NOTES_TEXT_LIMIT,
+  CAMPFIRE_SHEET_TEXT_LIMIT,
+  getAgeAtReferenceYear,
+  getCampfireCustomSkillEntries,
+  limitCampfireSheetText,
+} from '../utils/campfire-sheet';
 
 function getBaseSkillName(name: string): string {
   const m = name.match(/^(.*?)(?:\s*\(|$)/);
@@ -62,6 +69,8 @@ async function fillCampfirePdf(
     adversityBoxes?: Record<string, boolean>;
     traits?: string | null;
     personalDescription?: string | null;
+    referenceYear: number;
+    allSkills: Skill[];
   },
 ) {
   const setText = (id: string, val: string | number | null | undefined) => {
@@ -77,17 +86,8 @@ async function fillCampfirePdf(
   setText('investigator_name', data.characterName);
   setText('investigator_hobby', data.occupationName);
 
-  // Age from DOB
-  if (data.dob) {
-    try {
-      const yr = new Date(data.dob).getFullYear();
-      if (isFinite(yr)) {
-        const cur = new Date().getFullYear();
-        const age = cur - yr;
-        if (age >= 0 && age < 200) setText('investigator_age', String(age));
-      }
-    } catch {}
-  }
+  const age = getAgeAtReferenceYear(data.dob, data.referenceYear);
+  if (age !== null) setText('investigator_age', String(age));
 
   // ── Characteristics ──
   const attrs = data.attributes;
@@ -219,12 +219,7 @@ async function fillCampfirePdf(
 
   // Custom skills — find skills not in the standard field map and fill into custom slots
   const knownSkillNames = new Set(Object.keys(skillFieldMap));
-  const customEntries = Object.entries(data.skills)
-    .filter(([k, v]) => typeof v === 'number')
-    .filter(([k]) => !knownSkillNames.has(k))
-    .filter(([k]) => !/^language\s*\(/i.test(k)) // Languages handled above
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 6);
+  const customEntries = getCampfireCustomSkillEntries(data.skills, knownSkillNames, data.allSkills);
 
   for (let i = 0; i < customEntries.length; i++) {
     const idx = i + 1;
@@ -305,13 +300,15 @@ async function fillCampfirePdf(
   });
 
   // ── Background ──
-  setText('background_personal_description', data.personalDescription);
-  setText('background_traits', data.traits);
-  setText('background_trusted_adult', data.scoutBackstory?.trustedAdult);
-  setText('background_home', data.scoutBackstory?.home);
-  setText('background_obligations', data.scoutBackstory?.obligations);
-  setText('background_fears', data.scoutBackstory?.fears);
-  setText('background_campfire_notes_1', data.scoutBackstory?.notes);
+  setText('background_personal_description', limitCampfireSheetText(data.personalDescription, CAMPFIRE_SHEET_TEXT_LIMIT));
+  setText('background_traits', limitCampfireSheetText(data.traits, CAMPFIRE_SHEET_TEXT_LIMIT));
+  setText('background_trusted_adult', limitCampfireSheetText(data.scoutBackstory?.trustedAdult, CAMPFIRE_SHEET_TEXT_LIMIT));
+  setText('background_home', limitCampfireSheetText(data.scoutBackstory?.home, CAMPFIRE_SHEET_TEXT_LIMIT));
+  setText('background_obligations', limitCampfireSheetText(data.scoutBackstory?.obligations, CAMPFIRE_SHEET_TEXT_LIMIT));
+  setText('background_fears', limitCampfireSheetText(data.scoutBackstory?.fears, CAMPFIRE_SHEET_TEXT_LIMIT));
+  const campfireNotes = limitCampfireSheetText(data.scoutBackstory?.notes, CAMPFIRE_NOTES_TEXT_LIMIT);
+  setText('background_campfire_notes_1', campfireNotes.slice(0, Math.ceil(CAMPFIRE_NOTES_TEXT_LIMIT / 2)).trimEnd());
+  setText('background_campfire_notes_2', campfireNotes.slice(Math.ceil(CAMPFIRE_NOTES_TEXT_LIMIT / 2)).trim());
 
   // ── Distress, Adversity, and Badges ──
   const conditionFields: Record<string, string> = {
@@ -477,7 +474,7 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
       const yr = new Date(dob).getFullYear();
       if (!isFinite(yr)) return null;
       const cur = (() => {
-        try { const dec = (aggregated as any)?.DECADES?.[0]?.name; if (dec) return getYearFromDecade(dec); } catch {}
+        try { return getEraReferenceYear(selectedEra, (aggregated as any)?.DECADES?.[0]?.name); } catch {}
         return new Date().getFullYear();
       })();
       const age = cur - yr;
@@ -594,6 +591,8 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
           adversityBoxes: data.adversityBoxes,
           traits: data.traits,
           personalDescription: data.personalDescription,
+          referenceYear: getEraReferenceYear(selectedEra, (aggregated as any)?.DECADES?.[0]?.name),
+          allSkills: aggregated.SKILLS,
         });
       } else {
         // ── Original 1920s-style filling ──
