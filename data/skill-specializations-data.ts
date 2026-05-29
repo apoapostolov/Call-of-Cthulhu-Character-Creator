@@ -40,6 +40,9 @@ export const SKILL_SPECIALIZATIONS: Record<string, string[]> = {
     'Pilot': [
         'Aircraft (Fixed Wing)', 'Aircraft (Jet)', 'Airship', 'Boat', 'Helicopter', 'Balloon'
     ],
+    'Ride': [
+        'Horse'
+    ],
     'Science': [
         'Astronomy', 'Biology', 'Botany', 'Chemistry', 'Cryptography', 'Engineering', 'Forensics',
         'Geology', 'Mathematics', 'Meteorology', 'Pharmacy', 'Physics', 'Zoology'

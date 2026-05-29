@@ -177,6 +177,7 @@ ${stringifyEraSpecificGuidance(payload.distribution.eraSpecificGuidance)}
 Skill guidance:
 - Treat exact specialized skills as real skills, not just the parent. For example: use Fighting (Brawl) for martial arts, Firearms (Handgun) for handgun training, and Firearms (Rifle/Shotgun) for long guns.
 - Prefer exact specialized entries when the concept points there.
+- Ride is a special case: Ride (Bicycle) is a flat skill and should stay separate from horsemanship, while Ride (Horse) is the specialization for horse riding.
 - Read the prose for profession, hobbies, training, social class, education, combat comfort, technical knowledge, and literacy.
 - Identify which skills should be treated as core, supporting, and incidental.
 
@@ -354,6 +355,7 @@ Call of Cthulhu rules guidance:
 - 50%+ is professional. At this level the character can plausibly practice this skill as part of their job.
 - 70%+ is highly competent or expert.
 - 90%+ is exceptional mastery.
+- For Campfire Tales, no skill should exceed 80%.
 - Build a believable investigator first, not an optimized character build.
 - Keep skills aligned with the character's profession, hobbies, trainings, life history, achievements, and the era.
 - Prefer a broad spread of competence: many supporting skills should land in the 20-40 range, with core occupational skills around 40-60.
@@ -372,6 +374,8 @@ Call of Cthulhu rules guidance:
 - Before spending on niche skills, make sure the character already has strong investigation, social, and practical coverage.
 - Specialized skills are written as Base (Specialization).
 - If a specialized entry exists in the skill list, prefer that exact entry over the unspecialized parent.
+- Ride (Bicycle) is a flat skill in Campfire Tales, not a specialization of Ride.
+- Ride (Horse) is the specialization for horsemanship; never confuse it with Ride (Bicycle).
 - Never allocate points to the unspecialized parent of a skill family if specializations exist in the skill list or catalog. Always choose a specialization instead.
 - Treat Language (Other), Pilot, Science, and Survival the same way: always resolve them to a concrete specialization, never leave the parent as the target skill.
 - Use specializations to fit the concept when they make the character more precise, especially for combat, technical work, languages, and arts/crafts.
@@ -513,6 +517,7 @@ const applyPoolAllocations = (
     allocations: SkillDistributionAllocation[],
     skillSummaries: SkillDistributionSkillSummary[],
     poolTotal: number,
+    skillCap: number,
 ) => {
     const allowedSkills = new Set(
         skillSummaries
@@ -550,10 +555,16 @@ const applyPoolAllocations = (
         })();
 
     for (const entry of normalizedAllocations) {
+        const summary = skillSummaries.find(skill => skill.name === entry.skill);
+        if (!summary) continue;
+        const currentTotal = getSkillCurrentTotal(summary, assignments);
+        const remainingRoom = Math.max(0, skillCap - currentTotal);
+        const pointsToAdd = Math.min(entry.points, remainingRoom);
+        if (pointsToAdd <= 0) continue;
         if (!assignments[entry.skill]) {
             assignments[entry.skill] = { occupational: 0, personal: 0, experience: 0, archetype: 0 };
         }
-        assignments[entry.skill][pool] += entry.points;
+        assignments[entry.skill][pool] += pointsToAdd;
     }
 };
 
@@ -737,10 +748,10 @@ export const responseToSkillPointAssignments = (
         archetype: response.archetype.map(entry => ({ ...entry, skill: resolveSpecializationTarget(entry.skill) })),
     };
 
-    applyPoolAllocations(assignments, 'occupational', transformedResponse.occupational, expandedSkillSummaries, poolTotals.occupational);
-    applyPoolAllocations(assignments, 'personal', transformedResponse.personal, expandedSkillSummaries, poolTotals.personal);
-    applyPoolAllocations(assignments, 'experience', transformedResponse.experience, expandedSkillSummaries, poolTotals.experience);
-    applyPoolAllocations(assignments, 'archetype', transformedResponse.archetype, expandedSkillSummaries, poolTotals.archetype);
+    applyPoolAllocations(assignments, 'occupational', transformedResponse.occupational, expandedSkillSummaries, poolTotals.occupational, options.skillCap);
+    applyPoolAllocations(assignments, 'personal', transformedResponse.personal, expandedSkillSummaries, poolTotals.personal, options.skillCap);
+    applyPoolAllocations(assignments, 'experience', transformedResponse.experience, expandedSkillSummaries, poolTotals.experience, options.skillCap);
+    applyPoolAllocations(assignments, 'archetype', transformedResponse.archetype, expandedSkillSummaries, poolTotals.archetype, options.skillCap);
 
     fillPoolShortfall(assignments, 'occupational', expandedSkillSummaries, poolTotals.occupational, options.skillCap, occupationalSkillNames, utilitySkills);
     fillPoolShortfall(assignments, 'personal', expandedSkillSummaries, poolTotals.personal, options.skillCap, occupationalSkillNames, utilitySkills);

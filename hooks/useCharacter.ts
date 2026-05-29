@@ -12,6 +12,7 @@ import {
     CAMPFIRE_ADVERSITY_BOXES,
     CAMPFIRE_DISTRESS_BOXES,
     CAMPFIRE_ERA_ID,
+    CAMPFIRE_SKILL_CAP,
     CAMPFIRE_RANK_BADGES,
     SCOUT_RANKS,
     buildCampfireAttributesFromRolls,
@@ -1029,7 +1030,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             const isPulpEra = (selectedEra === 'pulp-1930s');
             const isGaslightEra = (selectedEra === 'gaslight-1890s');
             const traditionalCap = (pulpRulesEnabled || isPulpEra || isGaslightEra) ? 95 : 75;
-            const cap = isCampfireEra ? 99 : ((occupationMaxCR > 0) ? occupationMaxCR : traditionalCap);
+            const cap = isCampfireEra ? CAMPFIRE_SKILL_CAP : ((occupationMaxCR > 0) ? occupationMaxCR : traditionalCap);
 
             if (amount > 0) {
                 const maxAddable = cap - (baseSkillValue + newOccupational + newPersonal + newExperience + newArchetype);
@@ -1296,7 +1297,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 },
                 skillSummaries,
                 transformedResponse,
-                skillCap: isCampfireEra ? 99 : (selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75)),
+                skillCap: isCampfireEra ? CAMPFIRE_SKILL_CAP : (selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75)),
                 occupationalSkillNames,
                 utilitySkills,
                 specializationsCatalog: aggregatedData.SKILL_SPECIALIZATIONS,

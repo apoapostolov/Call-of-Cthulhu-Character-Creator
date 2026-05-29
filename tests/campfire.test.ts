@@ -3,6 +3,7 @@ import { ERAS, thirdPartyData } from '../eras/manifest';
 import {
   CAMPFIRE_ABILITY_BADGES,
   CAMPFIRE_RANK_BADGES,
+  CAMPFIRE_SKILL_CAP,
   buildCampfireAttributesFromRolls,
   getFamilyCreditStatus,
   getScoutAdditionalAbilityBadgeAllowance,
@@ -12,6 +13,7 @@ import {
   rollDiceExpression,
 } from '../eras/campfire-tales/scout-rules';
 import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
+import { responseToSkillPointAssignments } from '../lib/ai/skill-distribution';
 import {
   CAMPFIRE_NOTES_TEXT_LIMIT,
   CAMPFIRE_SHEET_TEXT_LIMIT,
@@ -211,5 +213,40 @@ describe('Campfire Tales era', () => {
     expect(entries).toContain('Firearms (Handgun)');
     expect(entries).toContain('Science (Chemistry)');
     expect(entries).toContain('Accounting');
+  });
+
+  it('caps Campfire skill totals at 80 percent', () => {
+    const assignments = responseToSkillPointAssignments(
+      {
+        occupational: [{ skill: 'Library Use', points: 120 }],
+        personal: [],
+        experience: [],
+        archetype: [],
+      },
+      [
+        {
+          name: 'Library Use',
+          base: 20,
+          current: 20,
+          occupationalEligible: true,
+          personalEligible: false,
+          experienceEligible: false,
+          archetypeEligible: false,
+        },
+      ],
+      {
+        occupational: 120,
+        personal: 0,
+        experience: 0,
+        archetype: 0,
+      },
+      {
+        skillCap: CAMPFIRE_SKILL_CAP,
+        occupationalSkillNames: ['Library Use'],
+        utilitySkills: ['Library Use'],
+      },
+    );
+
+    expect((assignments['Library Use']?.occupational || 0) + 20).toBe(80);
   });
 });

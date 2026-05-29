@@ -27,12 +27,13 @@ export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupati
     const { aggregatedData, allSkillsWithCalculatedBases, effectiveOccupationalSkills } = useCharacterContext();
     const [isSpecializing, setIsSpecializing] = useState(false);
     const [selectedSubType, setSelectedSubType] = useState('');
+    const flatParentheticalSkills = new Set(['Language (Own)', 'Language (Signals)', 'Ride (Bicycle)']);
 
     // Only apply life event modifier if it's non-zero (which means it's Dark Ages era)
     const totalValue = baseValue + assignedPoints.occupational + assignedPoints.personal + (assignedPoints.experience || 0) + (assignedPoints.archetype || 0) + ((lifeEventChange && lifeEventChange !== 0) ? lifeEventChange : 0);
 
     const isParentSpecializationSkill = skill.specialty === true;
-    const isSpecialization = !skill.specialty && skill.name.includes('(');
+    const isSpecialization = !skill.specialty && skill.name.includes('(') && !flatParentheticalSkills.has(skill.name);
     const baseNameForSpec = isSpecialization ? skill.name.split(' (')[0] : '';
     const parentSpecialtyExists = isSpecialization
         ? aggregatedData.SKILLS.some(s => s.specialty && (s.name === baseNameForSpec || s.stub === baseNameForSpec))
@@ -90,11 +91,11 @@ export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupati
                             Add Specialization...
                         </button>
                     ) : (
-                        <div className="flex items-center gap-2 bg-cream-200 p-2 rounded-md border border-secondary-400">
+                        <div className="flex items-center gap-2 bg-cream-200 p-2 rounded-md border border-secondary-400 w-full">
                             <select
                                 value={selectedSubType}
                                 onChange={(e) => setSelectedSubType(e.target.value)}
-                                className="bg-card border border-border rounded-md p-1.5 text-sm text-foreground focus:ring-1 focus:ring-ring focus:border-primary hover:border-primary max-w-[280px] truncate"
+                                className="flex-1 min-w-0 w-full bg-card border border-border rounded-md p-1.5 text-sm text-foreground focus:ring-1 focus:ring-ring focus:border-primary hover:border-primary truncate"
                                 title={selectedSubType || 'Select specialization'}
                             >
                                 <option value="">Select...</option>

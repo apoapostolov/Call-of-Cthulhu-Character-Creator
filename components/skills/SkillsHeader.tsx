@@ -71,14 +71,15 @@ export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occ
     const gridColsClass = visiblePoolCount >= 4
         ? 'grid-cols-4'
         : visiblePoolCount === 3 ? 'grid-cols-3' : 'grid-cols-2';
-    const occupationalCenterClass = !showPersonalPoints && !showArchetype && !showExperience
-        ? 'col-span-2 w-[calc(50%-0.5rem)] justify-self-center'
-        : '';
+    const showCampfireCenteredOccupational = !showPersonalPoints && !showArchetype && !showExperience;
+    const poolGridClass = showCampfireCenteredOccupational
+        ? 'grid-cols-1 md:grid-cols-[1fr_minmax(0,1.533fr)_1fr]'
+        : gridColsClass;
     return (
         <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">
             <div className="flex-grow">
                 <h2 className="text-3xl font-bold font-lora text-primary-800">Skill Allocation</h2>
-                <div className={`grid ${gridColsClass} gap-4 mt-4 items-stretch`}>
+                <div className={`grid ${poolGridClass} gap-4 mt-4 items-stretch`}>
                     {showArchetype && (
                         <PointPoolDisplay
                             title="Archetype Points"
@@ -88,14 +89,28 @@ export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occ
                             onClick={() => onSkillPoolToggle('archetype')}
                         />
                     )}
-                    <PointPoolDisplay
-                        title={showPersonalPoints ? 'Occupation Points' : 'Hobby Points'}
-                        points={occupationalPoints}
-                        className="bg-success-100/70 border-success-300 text-success-800"
-                        isActive={activeSkillPool === 'occupational'}
-                        onClick={() => onSkillPoolToggle('occupational')}
-                        containerClassName={occupationalCenterClass}
-                    />
+                    {showCampfireCenteredOccupational ? (
+                        <div className="col-span-2 md:col-span-1 md:col-start-2">
+                            <div className="w-full">
+                                <PointPoolDisplay
+                                    title="Hobby Points"
+                                    points={occupationalPoints}
+                                    className="bg-success-100/70 border-success-300 text-success-800"
+                                    isActive={activeSkillPool === 'occupational'}
+                                    onClick={() => onSkillPoolToggle('occupational')}
+                                    containerClassName="w-full"
+                                />
+                            </div>
+                        </div>
+                    ) : (
+                        <PointPoolDisplay
+                            title="Occupation Points"
+                            points={occupationalPoints}
+                            className="bg-success-100/70 border-success-300 text-success-800"
+                            isActive={activeSkillPool === 'occupational'}
+                            onClick={() => onSkillPoolToggle('occupational')}
+                        />
+                    )}
                     {showPersonalPoints && (
                         <PointPoolDisplay
                             title="Personal Points"

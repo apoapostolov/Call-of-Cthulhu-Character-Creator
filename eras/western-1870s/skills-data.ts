@@ -31,7 +31,8 @@ export const SKILLS: Skill[] = [
   {
     name: 'Ride',
     base: 15,
-    description: 'Use and control of horses. Mount, maneuver, and perform riding tasks common to the era; difficult stunts require Hard or Extreme rolls.',
+    specialty: true,
+    description: 'Use and control of horses. Choose Horse as the riding specialization for mounts, maneuvering, and riding tasks common to the era.',
   },
 
   // New skills

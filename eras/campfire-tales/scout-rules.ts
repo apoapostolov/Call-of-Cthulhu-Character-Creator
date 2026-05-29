@@ -2,6 +2,7 @@ import type { AttributeSet, AgeCategory } from '../../types';
 
 export type ScoutRankId = '11-12' | '13-14' | '15-16' | '17-18';
 export type FamilyCreditStatus = 'Penniless' | 'Poor' | 'Average' | 'Wealthy' | 'Rich';
+export const CAMPFIRE_SKILL_CAP = 80;
 
 export interface ScoutRankConfig {
   id: ScoutRankId;

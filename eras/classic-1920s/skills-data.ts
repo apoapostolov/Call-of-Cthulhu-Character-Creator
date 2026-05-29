@@ -37,7 +37,7 @@ export const SKILLS: Skill[] = [
   { name: 'Pilot', base: 1, specialty: true, description: "Operate a specific type of complex vehicle, such as an airplane or boat." },
   { name: 'Psychology', base: 10, description: "Understand the motivations and mental state of another person through observation and interaction." },
   { name: 'Psychoanalysis', base: 1, description: "A long-term therapy to help someone recover from mental trauma and lost Sanity." },
-  { name: 'Ride', base: 5, description: "Ride and control a mount, such as a horse or camel." },
+  { name: 'Ride', base: 5, specialty: true, description: "Ride and control a horse or other mount. Choose a specific mount type such as Horse." },
   { name: 'Science', base: 1, specialty: true, description: "Knowledge in a specific field of science, such as chemistry, physics, or biology." },
   { name: 'Sleight of Hand', base: 10, description: "Perform feats of manual dexterity, such as pickpocketing or palming an object." },
   { name: 'Spot Hidden', base: 25, description: "Notice things that are concealed, overlooked, or out of the ordinary." },

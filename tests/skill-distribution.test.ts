@@ -7,6 +7,8 @@ import {
     normalizeSkillDistributionResponse,
     responseToSkillPointAssignments,
 } from '../lib/ai/skill-distribution';
+import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
+import { thirdPartyData } from '../eras/manifest';
 
 describe('skill distribution helpers', () => {
     const payload = {
@@ -122,6 +124,13 @@ describe('skill distribution helpers', () => {
         expect(prompt).toContain('Fighting (Brawl)');
         expect(prompt).toContain('Firearms (Handgun)');
         expect(prompt).toContain('Read the prose for profession, hobbies, training');
+    });
+
+    it('explains the Ride bicycle and horse split in the prompt', () => {
+        const prompt = buildSkillDistributionPrompt(payload);
+
+        expect(prompt).toContain('Ride (Bicycle) is a flat skill');
+        expect(prompt).toContain('Ride (Horse) is the specialization');
     });
 
     it('includes Call of Cthulhu guidance in the prompt', () => {
@@ -251,7 +260,7 @@ describe('skill distribution helpers', () => {
             },
         );
 
-        expect(assignments.Persuade.occupational + assignments['Library Use'].occupational).toBe(120);
+        expect(assignments.Persuade.occupational + assignments['Library Use'].occupational).toBe(115);
         expect(assignments.Persuade.occupational).toBeGreaterThan(0);
         expect(assignments['Library Use'].occupational).toBeGreaterThan(0);
     });
@@ -693,5 +702,12 @@ describe('skill distribution helpers', () => {
 
         expect(assignments.Fighting?.occupational || 0).toBe(0);
         expect(assignments['Fighting (Brawl)']?.occupational || 0).toBe(5);
+    });
+
+    it('treats Ride as a horse specialization with one dropdown option', () => {
+        expect(SKILL_SPECIALIZATIONS.Ride).toEqual(['Horse']);
+        expect(thirdPartyData['classic-1920s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
+        expect(thirdPartyData['gaslight-1890s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
+        expect(thirdPartyData['western-1880s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
     });
 });
