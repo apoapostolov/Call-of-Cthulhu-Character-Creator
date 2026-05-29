@@ -2,19 +2,16 @@
 
 ## Current Focus
 
-- harden the Campfire Tales era into a complete V1 scout-investigator flow
-- canonical implementation areas: `eras/campfire-tales/`,
-  `hooks/useCharacter.ts`, `components/StatsTab.tsx`,
-  `components/SkillsTab.tsx`, `components/DossierTab.tsx`, and
-  `lib/ai/skill-distribution.ts`
+- ready the repository for the next epic and keep the forward plan aligned
+  with the current release state
+- canonical implementation areas will be defined by the next epic and should
+  be listed here before work begins
 
 ## Scope And Boundaries
 
-- what this pass owns: Campfire Tales era mechanics, scout sheet state,
-  badge/backstory support, AI Distribution context, and tests
-- what this pass does not own: a full combat tracker, a dedicated official
-  Campfire PDF mapping, or broader save-system redesign beyond serializing new
-  scout state
+- what this pass owns: the next defined epic once it is scoped in this file
+- what this pass does not own: unrelated feature work, release curation, or
+  broad workflow changes without an explicit plan
 
 ## Working Rules
 
@@ -31,11 +28,11 @@
 - 2026-05-29: treat Campfire Tales as a 1920s-adjacent scout era that reuses
   occupation-like hobby flow while adding rank-based points, Family Credit
   Rating, Cool, badges, Distress, Adversity, and scout backstory state.
+- 2026-05-29: reset the plan to a next-epic landing zone after Campfire Tales
+  1.0.2 shipped.
 
 ## Risks And Blockers
 
 - no active blockers
-- no Campfire-specific PDF form mapping is available yet, so printable/export
-  support still falls back to existing generic sheet behavior
-- full character load restoration remains broader than Campfire and should be
-  handled as its own save-system pass
+- the next epic has not yet been defined, so scope, owners, and validation
+  still need to be populated

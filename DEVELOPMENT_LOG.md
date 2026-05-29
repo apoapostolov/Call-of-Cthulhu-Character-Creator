@@ -1,5 +1,25 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - TODO template reset
+
+- Context: update the repository TODO file to match the shared defaults
+  template rather than a project-specific queue dump.
+- Files changed: `TODO.md` and `DEVELOPMENT_LOG.md`.
+- Changes: replaced the custom TODO contents with the shared template
+  structure from the defaults repo, keeping the format ready for the next
+  epic.
+- Validation: `npx -y markdownlint-cli2 --fix TODO.md` passed with 0 errors.
+
+## 2026-05-29 - Reset TODO and plan for next epic
+
+- Context: the Campfire Tales prompt queue is complete, and the repository is
+  ready to accept a new epic without carrying over stale implementation tasks.
+- Files changed: `TODO.md` and `DEVELOPMENT_PLAN.md`.
+- Changes: removed the finished Campfire prompt queue, replaced it with a
+  reusable next-epic TODO stub, and reset the development plan to a neutral
+  landing zone for the next scoped feature cycle.
+- Validation: documentation-only update; no runtime validation was run.
+
 ## 2026-05-29 - AI Distribution changelog separation
 
 - Context: the 1.0.2 changelog grouped AI Distribution with Campfire Tales,
