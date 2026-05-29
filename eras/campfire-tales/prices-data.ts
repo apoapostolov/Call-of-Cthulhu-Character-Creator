@@ -1,4 +1,4 @@
-import type { EraWealthData } from '../../types';
+import type { DGItem, EraWealthData } from '../../types';
 
 export const WEALTH_DATA: EraWealthData = {
   levels: [
@@ -50,3 +50,54 @@ export const WEALTH_DATA: EraWealthData = {
   ],
 };
 
+const scoutItem = (section: string, name: string, price: string, description: string): DGItem => ({
+  section,
+  name,
+  price,
+  description,
+  sourceType: 'homebrew',
+  sourceName: 'Campfire Tales scout equipment',
+  sourcePage: null,
+});
+
+export const SCOUT_PRICE_ITEMS: DGItem[] = [
+  scoutItem('Scout Uniforms & Packs', 'Wayfarer Scout Uniform', '$1.50', 'Khaki shirt, neckerchief, shorts or trousers, cap, and room for earned badges.'),
+  scoutItem('Scout Uniforms & Packs', 'Canvas Backpack', '$1.25', 'A sturdy kid-sized canvas pack for hikes, school books, and suspicious evidence.'),
+  scoutItem('Scout Uniforms & Packs', 'Sleeping Bag', '$2.50', 'Bedroll or simple sleeping bag suitable for weekend camps.'),
+  scoutItem('Scout Uniforms & Packs', 'Dry Clothes Bundle', '$0.75', 'Spare socks, shirt, and underclothes wrapped against rain.'),
+  scoutItem('Scout Uniforms & Packs', 'Rain Poncho', '$0.75', 'Oiled cloth poncho for wet woods and sudden lake weather.'),
+  scoutItem('Camping & Trail Gear', 'Canteen', '$0.50', 'Metal canteen with strap.'),
+  scoutItem('Camping & Trail Gear', 'Mess Kit', '$0.65', 'Tin plate, cup, utensils, and small cooking pan.'),
+  scoutItem('Camping & Trail Gear', 'Scout Rations', '$0.25', 'Simple trail food for one day: sandwiches, dried fruit, crackers, and candy.'),
+  scoutItem('Camping & Trail Gear', 'Compass', '$1.00', 'Pocket compass for orienteering and not getting too lost.'),
+  scoutItem('Camping & Trail Gear', 'Map Case', '$0.60', 'Oilskin or leatherette sleeve for maps, route cards, and clippings.'),
+  scoutItem('Camping & Trail Gear', 'Rope (50 feet)', '$0.75', 'Useful rope for climbing help, knots, hauling, and improvised rescues.'),
+  scoutItem('Camping & Trail Gear', 'Knot Practice Cord', '$0.10', 'Short cord carried by scouts practicing knots and signals.'),
+  scoutItem('Camping & Trail Gear', 'Folding Shovel', '$1.25', 'Small shovel for campsites, trail work, and digging up things best left buried.'),
+  scoutItem('Camping & Trail Gear', 'Fishing Tackle Tin', '$0.50', 'Hooks, line, bobbers, and small lures for badge work or dinner.'),
+  scoutItem('Camping & Trail Gear', 'Pocket First Aid Kit', '$0.75', 'Bandages, salve, iodine, safety pins, and clean cloth in a small tin.'),
+  scoutItem('Lights & Signals', 'Flashlight (handheld)', '$1.00', 'Battery flashlight for basements, woods, and midnight investigations.'),
+  scoutItem('Lights & Signals', 'Spare Flashlight Batteries', '$0.20', 'Fresh batteries for one flashlight.'),
+  scoutItem('Lights & Signals', 'Lantern', '$1.50', 'Camp lantern for tents, cabins, and group work after sundown.'),
+  scoutItem('Lights & Signals', 'Signal Flags', '$0.40', 'Pair of small semaphore flags.'),
+  scoutItem('Lights & Signals', 'Signal Whistle', '$0.15', 'Sharp whistle for emergencies, games, and squad signals.'),
+  scoutItem('Lights & Signals', 'Pocket Code Wheel', '$0.20', 'Simple cipher wheel or code card for Signals & Codes badge practice.'),
+  scoutItem('Tools & Repair', 'Folding Pocket Knife', '$0.75', 'Small scout knife. Useful tool, not a serious weapon.'),
+  scoutItem('Tools & Repair', 'Sewing Kit', '$0.20', 'Needle, thread, buttons, and patches for uniforms and gear.'),
+  scoutItem('Tools & Repair', 'Bicycle Repair Kit', '$0.50', 'Patch kit, tire levers, wrench, and oil rag.'),
+  scoutItem('Tools & Repair', 'Hand Lens', '$0.35', 'Small lens for plants, tracks, stamps, fibers, and clue inspection.'),
+  scoutItem('School & Investigation', 'Field Message Notebook', '$0.10', 'Pocket notebook for clues, names, sketches, and coded messages.'),
+  scoutItem('School & Investigation', 'Fountain Pen', '$0.25', 'School pen with enough dignity for witness statements.'),
+  scoutItem('School & Investigation', 'Pencil Stub Bundle', '$0.05', 'A few short pencils and a rubber band.'),
+  scoutItem('School & Investigation', 'Pocket Magnifying Glass', '$0.50', 'Classic junior detective tool for clues and tiny print.'),
+  scoutItem('School & Investigation', 'Library Card', '$0.00', 'Access to local shelves, reading rooms, and helpful librarians.'),
+  scoutItem('Badge Equipment', 'Box Camera', '$3.00', 'Simple camera for Photography badge work and questionable evidence.'),
+  scoutItem('Badge Equipment', 'Spare Film (5 rolls)', '$0.75', 'Enough film for one busy expedition.'),
+  scoutItem('Badge Equipment', 'Portable Crystal Radio Kit', '$2.00', 'Simple radio kit for listening practice and Radio badge projects.'),
+  scoutItem('Badge Equipment', 'Nature Specimen Tin', '$0.25', 'Small tin for leaves, feathers, stones, and evidence that should not wriggle.'),
+  scoutItem('Badge Equipment', 'Weather Notebook', '$0.10', 'Ruled notebook for pressure, wind, cloud, and rain observations.'),
+  scoutItem('Badge Equipment', 'Orienteering Route Card', '$0.05', 'Route card for compass bearings, landmarks, and hike timing.'),
+  scoutItem('Badge Equipment', 'Bicycle', '$18.00', 'Ordinary youth bicycle; common for Average or better families, borrowed otherwise.'),
+  scoutItem('Badge Equipment', 'Musical Instrument', '$5.00', 'Modest school or family instrument, price varies widely by type and quality.'),
+  scoutItem('Badge Equipment', 'Art Supplies Box', '$1.00', 'Pencils, charcoal, paper, glue, paint, and simple craft materials.'),
+];

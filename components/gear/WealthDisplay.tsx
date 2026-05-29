@@ -27,9 +27,11 @@ export const WealthDisplay: React.FC = () => {
     const { skills, aggregatedData, wealth, convertAssetsToCash } = useCharacterContext();
     const { selectedEra } = useEraContext();
     
-    // Dark Ages uses Status instead of Credit Rating
+    // Some eras rename the wealth/social standing skill.
     const isDarkAges = selectedEra === 'dark-ages-1000s';
-    const wealthSkill = isDarkAges ? (skills['Status'] || 0) : (skills['Credit Rating'] || 0);
+    const isCampfireTales = selectedEra === 'campfire-tales';
+    const wealthSkillName = isDarkAges ? 'Status' : isCampfireTales ? 'Family Credit Rating' : 'Credit Rating';
+    const wealthSkill = skills[wealthSkillName] || 0;
     
     const currencySymbol = selectedEra === 'gaslight-1890s' ? '£' : isDarkAges ? 'd' : '$';
     

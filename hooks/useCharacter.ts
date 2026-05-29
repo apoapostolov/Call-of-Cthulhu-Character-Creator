@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useEraContext } from '../context/SourceContext';
 import { parsePriceToCents } from '../utils/money';
-import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, AgeCategory, ExperiencePackage, ExperienceNote, Talent, Archetype } from '../types';
+import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, AgeCategory, ExperiencePackage, ExperienceNote, Talent, Archetype, ScoutBackstoryFields } from '../types';
 import type { AggregatedData } from './useAggregatedData';
 import { useAIGeneration } from './useAIGeneration';
 import { useAiRuntime } from './useAiRuntime';
@@ -13,13 +13,16 @@ import {
     CAMPFIRE_DISTRESS_BOXES,
     CAMPFIRE_ERA_ID,
     CAMPFIRE_RANK_BADGES,
+    SCOUT_RANKS,
+    buildCampfireAttributesFromRolls,
+    deriveCampfireRawRollsFromAttributes,
+    getScoutAbilityBadgeAllowance,
     getFamilyCreditStatus,
     getScoutRank,
     getScoutSkillPointTotal,
-    rollCampfireAttributes,
-    rollFamilyCreditStatus,
+    rollCampfireRawRolls,
 } from '../eras/campfire-tales/scout-rules';
-import type { FamilyCreditStatus } from '../eras/campfire-tales/scout-rules';
+import type { CampfireRawRolls, FamilyCreditStatus } from '../eras/campfire-tales/scout-rules';
 import {
     buildEraContext,
     buildSkillDistributionAnalysisPrompt,
@@ -66,6 +69,13 @@ const getCampfireDamageBonusAndBuild = (str: number, siz: number): { damageBonus
 type SkillPointAssignments = Record<string, { occupational: number; personal: number; experience?: number; archetype?: number }>;
 type AiDistributionStage = 'analyzing' | 'distributing' | null;
 type ScoutCheckState = Record<string, boolean>;
+const EMPTY_SCOUT_BACKSTORY: ScoutBackstoryFields = {
+    home: '',
+    trustedAdult: '',
+    obligations: '',
+    fears: '',
+    notes: '',
+};
 type AiDistributionPreview = {
     analysis: SkillDistributionAnalysis;
     rationale?: string;
@@ -83,6 +93,30 @@ type PendingAiDistribution = {
     utilitySkills: string[];
     specializationsCatalog: Record<string, string[]>;
     minimumCreditRating: number;
+};
+
+const resolveScoutBadges = (
+    rankBadge: string,
+    selectedAbilityBadges: string[] = [],
+) => {
+    const resolved = [
+        'Wayfarer Scout Badge',
+        rankBadge,
+        ...selectedAbilityBadges,
+    ];
+    return Array.from(new Set(resolved.filter(Boolean)));
+};
+
+const getDefaultScoutAbilityBadges = (occupation: Occupation | null | undefined, limit = 1) => (
+    occupation?.startingBadges
+        ?.filter(badgeName => badgeName !== 'Ability Badge of Choice')
+        .slice(0, Math.min(1, limit)) || []
+);
+
+const getEligibleScoutRankBadges = (rankId: AgeCategory | null | undefined) => {
+    const rank = getScoutRank(rankId);
+    const rankIndex = SCOUT_RANKS.findIndex(entry => entry.id === rank.id);
+    return SCOUT_RANKS.slice(0, rankIndex + 1).map(entry => entry.badge);
 };
 
 const deriveMinimumCreditRating = (
@@ -160,9 +194,12 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     const [userCreatedSkills, setUserCreatedSkills] = useState<Skill[]>([]);
     const [activeSkillPool, setActiveSkillPool] = useState<'archetype' | 'occupational' | 'personal' | 'experience'>('occupational');
     const [occupationSkillChoices, setOccupationSkillChoices] = useState<Record<number, string[]>>({});
-    const [familyCreditStatus, setFamilyCreditStatus] = useState<FamilyCreditStatus | null>(null);
+    const [familyCreditStatus, setFamilyCreditStatus] = useState<FamilyCreditStatus | null>('Average');
+    const [campfireRawRolls, setCampfireRawRolls] = useState<CampfireRawRolls | null>(null);
     const [earnedScoutBadges, setEarnedScoutBadges] = useState<string[]>([]);
-    const [usedScoutBadges, setUsedScoutBadges] = useState<ScoutCheckState>({});
+    const [selectedScoutAbilityBadges, setSelectedScoutAbilityBadges] = useState<string[]>([]);
+    const [selectedScoutRankBadge, setSelectedScoutRankBadge] = useState<string>('Wanderer Badge');
+    const [scoutBackstory, setScoutBackstory] = useState<ScoutBackstoryFields>(EMPTY_SCOUT_BACKSTORY);
     const [distressBoxes, setDistressBoxes] = useState<ScoutCheckState>({});
     const [adversityBoxes, setAdversityBoxes] = useState<ScoutCheckState>({});
 
@@ -765,14 +802,56 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     }, [selectedOccupation]);
 
     useEffect(() => {
+        if (!isCampfireEra) return;
+        const currentRankBadge = getScoutRank(selectedAgeCategory).badge;
+        setSelectedScoutRankBadge(currentRankBadge);
+        setSelectedScoutAbilityBadges(prev => prev.slice(0, getScoutAbilityBadgeAllowance(selectedAgeCategory)));
+    }, [isCampfireEra, selectedAgeCategory]);
+
+    useEffect(() => {
+        if (!isCampfireEra) return;
+        setEarnedScoutBadges(resolveScoutBadges(selectedScoutRankBadge, selectedScoutAbilityBadges));
+    }, [isCampfireEra, selectedScoutAbilityBadges, selectedScoutRankBadge]);
+
+    useEffect(() => {
         if (!isCampfireEra || !selectedOccupation) return;
-        const rankBadge = getScoutRank(selectedAgeCategory).badge;
-        setEarnedScoutBadges([
-            'Wayfarer Scout Badge',
-            rankBadge,
-            ...(selectedOccupation.startingBadges || []),
-        ]);
-    }, [isCampfireEra, selectedAgeCategory, selectedOccupation]);
+        const familyCredit = getFamilyCreditStatus(familyCreditStatus);
+        setScoutBackstory(prev => ({
+            home: prev.home || familyCredit.home,
+            trustedAdult: prev.trustedAdult || selectedOccupation.trustedAdult || '',
+            obligations: prev.obligations || selectedOccupation.obligations || '',
+            fears: prev.fears,
+            notes: prev.notes,
+        }));
+    }, [familyCreditStatus, isCampfireEra, selectedOccupation]);
+
+    const updateScoutBackstory = useCallback((field: keyof ScoutBackstoryFields, value: string) => {
+        setScoutBackstory(prev => ({ ...prev, [field]: value }));
+    }, []);
+
+    const handleScoutAbilityBadgeChoice = useCallback((index: number, badgeName: string) => {
+        setSelectedScoutAbilityBadges(prev => {
+            const next = [...prev];
+            next[index] = badgeName;
+            return Array.from(new Set(next.filter(Boolean))).slice(0, getScoutAbilityBadgeAllowance(selectedAgeCategory));
+        });
+    }, [selectedAgeCategory]);
+
+    const toggleScoutAbilityBadge = useCallback((badgeName: string) => {
+        setSelectedScoutAbilityBadges(prev => {
+            if (prev.includes(badgeName)) {
+                return prev.filter(name => name !== badgeName);
+            }
+            const allowance = getScoutAbilityBadgeAllowance(selectedAgeCategory);
+            if (prev.length >= allowance) return prev;
+            return [...prev, badgeName];
+        });
+    }, [selectedAgeCategory]);
+
+    const handleScoutRankBadgeChange = useCallback((badgeName: string) => {
+        if (!getEligibleScoutRankBadges(selectedAgeCategory).includes(badgeName)) return;
+        setSelectedScoutRankBadge(badgeName);
+    }, [selectedAgeCategory]);
     
     const handleOccupationSkillChoice = useCallback((groupIndex: number, skillName: string) => {
         setOccupationSkillChoices(prev => {
@@ -790,7 +869,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
         const isAdding = !((occupationSkillChoices[groupIndex] || []).includes(skillName));
         if (isAdding && skillName.includes('(')) {
-            const match = skillName.match(/(.+) \((\w+)\)$/);
+            const match = skillName.match(/(.+) \((.+)\)$/);
             if (match) {
                 const [, baseName, subType] = match;
                 if (allSkillsWithCalculatedBases.some(s => s.name === skillName)) return;
@@ -983,6 +1062,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 occupationalSkills: selectedOccupation.occupationalSkills,
                 choiceGroups: selectedOccupation.choiceGroups,
                 selectedChoices: occupationSkillChoices,
+                selectedAbilityBadges: selectedScoutAbilityBadges,
+                scoutBackstory,
             },
             description,
             distribution: {
@@ -991,7 +1072,21 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 supportSkillTarget: 'several 5-10 point adjacent skills where the concept supports them',
                 supportPointBand: { min: 5, max: 10 },
                 maxHighSkillCount: 2,
-                utilitySkills: [
+                utilitySkills: isCampfireEra ? [
+                    'Spot Hidden',
+                    'Listen',
+                    'First Aid',
+                    'Library Use',
+                    'Psychology',
+                    'Stealth',
+                    'Dodge',
+                    'Climb',
+                    'Jump',
+                    'Throw',
+                    'Family Credit Rating',
+                    'Reassure',
+                    'Fighting',
+                ] : [
                     'Spot Hidden',
                     'Listen',
                     'First Aid',
@@ -1168,6 +1263,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         occupationSkillChoices,
         occupationalSkillPoints,
         personalSkillPoints,
+        scoutBackstory,
+        selectedScoutAbilityBadges,
         isCampfireEra,
         selectedEra,
         selectedOccupation,
@@ -1185,13 +1282,14 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 utilitySkills: pendingAiDistribution.utilitySkills,
                 specializationsCatalog: pendingAiDistribution.specializationsCatalog,
                 minimumCreditRating: pendingAiDistribution.minimumCreditRating,
+                creditRatingSkillName: isCampfireEra ? 'Family Credit Rating' : 'Credit Rating',
             },
         );
         setSkillPointAssignments(assignments);
         setActiveSkillPool('occupational');
         setPendingAiDistribution(null);
         setToastMessage('AI skill distribution applied.', 'success');
-    }, [pendingAiDistribution, setToastMessage]);
+    }, [isCampfireEra, pendingAiDistribution, setToastMessage]);
 
     const clearPendingAiDistribution = useCallback(() => {
         setPendingAiDistribution(null);
@@ -1267,10 +1365,6 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         }
     }, [selectedOccupation, handleSkillsReset, setToastMessage]);
 
-    const toggleScoutBadgeUsed = useCallback((badgeName: string) => {
-        setUsedScoutBadges(prev => ({ ...prev, [badgeName]: !prev[badgeName] }));
-    }, []);
-
     const toggleDistressBox = useCallback((boxName: string) => {
         setDistressBoxes(prev => ({ ...prev, [boxName]: !prev[boxName] }));
     }, []);
@@ -1285,9 +1379,12 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setActiveKitName(null); setKitInventory([]); setInventory([]);
         setWealth(null); setPurchaseLedger({});
         handleSkillsReset();
-        setFamilyCreditStatus(null);
+        setFamilyCreditStatus('Average');
+        setCampfireRawRolls(null);
         setEarnedScoutBadges([]);
-        setUsedScoutBadges({});
+        setSelectedScoutAbilityBadges([]);
+        setSelectedScoutRankBadge('Wanderer Badge');
+        setScoutBackstory(EMPTY_SCOUT_BACKSTORY);
         setDistressBoxes({});
         setAdversityBoxes({});
         setSelectedTalents([]);
@@ -1323,7 +1420,9 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             setEduImprovementRolls([]);
             setYouthLuckApplied(false);
             if (category !== selectedAgeCategory) {
-                const nextAttributes = rollCampfireAttributes(category);
+                const rawRolls = campfireRawRolls || deriveCampfireRawRollsFromAttributes(baseAttributes, selectedAgeCategory);
+                if (!campfireRawRolls) setCampfireRawRolls(rawRolls);
+                const nextAttributes = buildCampfireAttributesFromRolls(rawRolls, category);
                 setBaseAttributes(nextAttributes);
                 setOriginalBaseLuck(nextAttributes.LUCK);
                 persistLuckForEra(selectedEra, nextAttributes.LUCK);
@@ -1377,16 +1476,17 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             persistLuckForEra(selectedEra, originalBaseLuck);
         }
 
-    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck, isCampfireEra, selectedAgeCategory, persistLuckForEra, selectedEra, handleSkillsReset]);
+    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck, isCampfireEra, selectedAgeCategory, persistLuckForEra, selectedEra, handleSkillsReset, campfireRawRolls]);
 
     const handleRoll = useCallback(() => {
         if (baseAttributes) setRollHistory(prev => [baseAttributes, ...prev].slice(0, 9));
         reset();
         if (isCampfireEra) {
             const rankId: AgeCategory = '11-12';
-            const newAttributes = rollCampfireAttributes(rankId);
-            const familyStatus = rollFamilyCreditStatus();
-            setFamilyCreditStatus(familyStatus);
+            const rawRolls = rollCampfireRawRolls();
+            const newAttributes = buildCampfireAttributesFromRolls(rawRolls, rankId);
+            setCampfireRawRolls(rawRolls);
+            setFamilyCreditStatus('Average');
             setBaseAttributes(newAttributes);
             setOriginalBaseLuck(newAttributes.LUCK);
             persistLuckForEra(selectedEra, newAttributes.LUCK);
@@ -1411,6 +1511,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
     const handleRestoreRoll = useCallback((rollToRestore: AttributeSet) => {
         reset();
+        const restoredCampfireRawRolls = isCampfireEra ? deriveCampfireRawRollsFromAttributes(rollToRestore, '11-12') : null;
+        if (restoredCampfireRawRolls) setCampfireRawRolls(restoredCampfireRawRolls);
         setBaseAttributes(rollToRestore);
         setOriginalBaseLuck(rollToRestore.LUCK);
         // Persist restored Luck for this era
@@ -1516,12 +1618,18 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setWealth(null); setPurchaseLedger({}); setInventory([]); setActiveKitName(null); setKitInventory([]);
         if (isCampfireEra && occupation) {
             const rankBadge = getScoutRank(selectedAgeCategory).badge;
-            setEarnedScoutBadges([
-                'Wayfarer Scout Badge',
-                rankBadge,
-                ...(occupation.startingBadges || []),
-            ]);
-            setUsedScoutBadges({});
+            const defaultAbilityBadges = getDefaultScoutAbilityBadges(occupation, getScoutAbilityBadgeAllowance(selectedAgeCategory));
+            setSelectedScoutRankBadge(rankBadge);
+            setSelectedScoutAbilityBadges(defaultAbilityBadges);
+            setEarnedScoutBadges(resolveScoutBadges(rankBadge, defaultAbilityBadges));
+            const familyCredit = getFamilyCreditStatus(familyCreditStatus);
+            setScoutBackstory(prev => ({
+                home: prev.home || familyCredit.home,
+                trustedAdult: occupation.trustedAdult || prev.trustedAdult,
+                obligations: occupation.obligations || prev.obligations,
+                fears: prev.fears,
+                notes: prev.notes,
+            }));
         }
 
         if (occupation) {
@@ -1810,9 +1918,15 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         isCampfireEra,
         familyCreditStatus,
         setFamilyCreditStatus: handleFamilyCreditStatusChange,
+        selectedScoutRankBadge,
+        setScoutRankBadge: handleScoutRankBadgeChange,
         earnedScoutBadges,
-        usedScoutBadges,
-        toggleScoutBadgeUsed,
+        selectedScoutAbilityBadges,
+        setScoutAbilityBadgeChoice: handleScoutAbilityBadgeChoice,
+        toggleScoutAbilityBadge,
+        scoutAbilityBadgeAllowance: getScoutAbilityBadgeAllowance(selectedAgeCategory),
+        scoutBackstory,
+        updateScoutBackstory,
         distressBoxes,
         adversityBoxes,
         toggleDistressBox,

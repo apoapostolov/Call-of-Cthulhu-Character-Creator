@@ -79,19 +79,19 @@ import { THEME as t_campfire } from './campfire-tales/theme';
 import { DECADES as d_campfire } from './campfire-tales/decades-data';
 import { PDF_FIELD_MAP as p_campfire } from './campfire-tales/pdf-form-fields';
 import { EQUIPMENT_KITS as ek_campfire } from './campfire-tales/equipment-kits';
-import { WEALTH_DATA as w_campfire } from './campfire-tales/prices-data';
+import { SCOUT_PRICE_ITEMS as ip_campfire_scout, WEALTH_DATA as w_campfire } from './campfire-tales/prices-data';
 
 
 // --- Single Source of Truth for available eras ---
 export const ERAS: Era[] = [
     { id: 'classic-1920s', name: 'Classic 1920s', isDefault: true, publisher: 'Chaosium', theme: 'Lovecraftian Horror', setting: 'Roaring Twenties' },
-    { id: 'campfire-tales', name: 'Campfire Tales', publisher: 'Chaosium', theme: 'Kid Scout Mystery Horror', setting: 'Westhaven Scout Adventures' },
     { id: 'pulp-1930s', name: 'Pulp 1930s', publisher: 'Chaosium', theme: 'Action-Adventure Horror', setting: 'Pulp Cthulhu' },
     { id: 'modern-2000s', name: 'Modern Day', publisher: 'Chaosium', theme: 'Modern Horror', setting: 'Present Day' },
     { id: 'gaslight-1890s', name: 'Gaslight 1890s', publisher: 'Chaosium', theme: 'Victorian Horror', setting: 'Cthulhu by Gaslight' },
     // Swap positions: Western 1870s appears before Dark Ages 1000s
     { id: 'western-1880s', name: 'Western 1870s', publisher: 'Chaosium', theme: 'Weird West Horror', setting: 'Down Darker Trails' },
     { id: 'dark-ages-1000s', name: 'Dark Ages 1000s', publisher: 'Chaosium', theme: 'Medieval Horror', setting: 'Cthulhu Dark Ages' },
+    { id: 'campfire-tales', name: 'Campfire Tales', publisher: 'Chaosium', theme: 'Kid Scout Mystery Horror', setting: 'Westhaven Scout Adventures' },
 ];
 
 export const ERA_IDS = ERAS.map(s => s.id) as EraID[];
@@ -314,7 +314,7 @@ export const thirdPartyData: Record<EraID, EraData> = {
         theme: t_campfire,
         nationalities: n_classic_1920s,
         decades: d_campfire,
-        items: resolvePriceItems('campfire-tales', { base: 'classic-1920s' }),
+        items: mergeUniqueByName(resolvePriceItems('campfire-tales', { base: 'classic-1920s' }), ip_campfire_scout),
         equipmentKits: ek_campfire,
         wealthData: w_campfire,
         pdfFieldMap: p_campfire,

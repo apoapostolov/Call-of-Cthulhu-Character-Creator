@@ -569,6 +569,65 @@ describe('skill distribution helpers', () => {
         expect((assignments['Library Use']?.occupational || 0) + (assignments.Persuade?.occupational || 0) + (assignments['Credit Rating']?.occupational || 0)).toBe(40);
     });
 
+    it('can raise Family Credit Rating for Campfire Tales lifestyle floors', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [
+                    { skill: 'Library Use', points: 20 },
+                    { skill: 'Reassure', points: 20 },
+                ],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Family Credit Rating',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: false,
+                    experienceEligible: false,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Library Use',
+                    base: 20,
+                    current: 20,
+                    occupationalEligible: true,
+                    personalEligible: false,
+                    experienceEligible: false,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Reassure',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: false,
+                    experienceEligible: false,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 40,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 99,
+                occupationalSkillNames: ['Family Credit Rating', 'Library Use', 'Reassure'],
+                utilitySkills: ['Family Credit Rating', 'Library Use', 'Reassure'],
+                minimumCreditRating: 40,
+                creditRatingSkillName: 'Family Credit Rating',
+            },
+        );
+
+        expect(assignments['Family Credit Rating']?.occupational || 0).toBe(15);
+        expect((assignments['Family Credit Rating']?.occupational || 0) + 25).toBeGreaterThanOrEqual(40);
+    });
+
     it('never fills a specialization family parent when a child specialization exists', () => {
         const assignments = responseToSkillPointAssignments(
             {

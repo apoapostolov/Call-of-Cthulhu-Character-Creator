@@ -9,6 +9,7 @@ import { useAggregatedData } from './hooks/useAggregatedData';
 import { usePdfPrinting } from './hooks/usePdfPrinting';
 import { Toast } from './components/Toast';
 import { DossierTab } from './components/DossierTab';
+import { BadgesTab } from './components/BadgesTab';
 import { GearTab } from './components/gear/GearTab';
 import { StatsTab } from './components/StatsTab';
 import { SkillsTab } from './components/SkillsTab';
@@ -39,6 +40,12 @@ const AppContent: React.FC = () => {
     useEffect(() => {
         document.body.dataset.era = selectedEra;
     }, [selectedEra]);
+
+    useEffect(() => {
+        if (selectedEra !== 'campfire-tales' && uiState.activeTab === 'badges') {
+            uiState.setActiveTab('gear');
+        }
+    }, [selectedEra, uiState]);
 
     // Generate a plausible DOB when an age bracket is selected
     useEffect(() => {
@@ -115,6 +122,7 @@ const AppContent: React.FC = () => {
 
     const shouldSkillsTabGlow = isStatsTabComplete && !isSkillsTabComplete && uiState.activeTab !== 'skills';
     const shouldGearTabGlow = isSkillsTabComplete && !uiState.completedTabs.has('gear') && uiState.activeTab !== 'gear';
+    const isCampfireEra = selectedEra === 'campfire-tales';
     
     return (
         <CharacterProvider character={character}>
@@ -140,8 +148,11 @@ const AppContent: React.FC = () => {
                         <nav className="flex justify-center" aria-label="Tabs">
                             <TabButton isActive={uiState.activeTab === 'stats'} isCompleted={uiState.completedTabs.has('stats')} onClick={() => uiState.setActiveTab('stats')} isDisabled={false}><span className="sm:hidden">1</span><span className="hidden sm:inline">1. Characteristics</span></TabButton>
                             <TabButton isActive={uiState.activeTab === 'skills'} isCompleted={uiState.completedTabs.has('skills')} onClick={() => uiState.setActiveTab('skills')} shouldGlow={shouldSkillsTabGlow} isDisabled={isDeceased}><span className="sm:hidden">2</span><span className="hidden sm:inline">2. Skills</span></TabButton>
-                            <TabButton isActive={uiState.activeTab === 'gear'} isCompleted={uiState.completedTabs.has('gear')} onClick={() => uiState.setActiveTab('gear')} shouldGlow={shouldGearTabGlow} isDisabled={isDeceased}><span className="sm:hidden">3</span><span className="hidden sm:inline">3. Gear</span></TabButton>
-                            <TabButton isActive={uiState.activeTab === 'dossier'} isCompleted={uiState.completedTabs.has('dossier')} onClick={() => uiState.setActiveTab('dossier')} isDisabled={isDeceased}><span className="sm:hidden">4</span><span className="hidden sm:inline">4. Bio</span></TabButton>
+                            {isCampfireEra && (
+                                <TabButton isActive={uiState.activeTab === 'badges'} isCompleted={uiState.completedTabs.has('badges')} onClick={() => uiState.setActiveTab('badges')} isDisabled={isDeceased}><span className="sm:hidden">3</span><span className="hidden sm:inline">3. Badges</span></TabButton>
+                            )}
+                            <TabButton isActive={uiState.activeTab === 'gear'} isCompleted={uiState.completedTabs.has('gear')} onClick={() => uiState.setActiveTab('gear')} shouldGlow={shouldGearTabGlow} isDisabled={isDeceased}><span className="sm:hidden">{isCampfireEra ? '4' : '3'}</span><span className="hidden sm:inline">{isCampfireEra ? '4. Gear' : '3. Gear'}</span></TabButton>
+                            <TabButton isActive={uiState.activeTab === 'dossier'} isCompleted={uiState.completedTabs.has('dossier')} onClick={() => uiState.setActiveTab('dossier')} isDisabled={isDeceased}><span className="sm:hidden">{isCampfireEra ? '5' : '4'}</span><span className="hidden sm:inline">{isCampfireEra ? '5. Bio' : '4. Bio'}</span></TabButton>
                         </nav>
                         <button onClick={handlePrint} disabled={isDeceased || isPrinting} className={`bg-primary hover:bg-opacity-80 disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed text-primary-foreground font-bold py-3 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-ring border-b-4 border-black/20`}>
                            <PrintIcon className="h-5 w-5" />
@@ -187,6 +198,9 @@ const AppContent: React.FC = () => {
                         )}
                         {uiState.activeTab === 'skills' && (
                            <SkillsTab />
+                        )}
+                        {uiState.activeTab === 'badges' && isCampfireEra && (
+                           <BadgesTab />
                         )}
                         {uiState.activeTab === 'gear' && <GearTab 
                             kitInventory={kitInventory}

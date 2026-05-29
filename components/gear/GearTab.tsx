@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useCharacterContext } from '../../context/CharacterContext';
 import type { DGItem } from '../../types';
 import { EquipmentList } from './EquipmentList';
@@ -26,7 +26,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
     const { attributes, setEquipmentKit, activeKitName, aggregatedData, derivedStats, handleAssignPrice } = useCharacterContext();
     const [filterText, setFilterText] = useState('');
     const { selectedEra } = useEraContext();
-    const [equipmentSubtab, setEquipmentSubtab] = useState<'equipment' | 'prices'>('equipment');
+    const [equipmentSubtab, setEquipmentSubtab] = useState<'equipment' | 'prices' | 'scout' | 'all'>('equipment');
     const [showItemStats, setShowItemStats] = useState(false);
     
     const [mobileTab, setMobileTab] = useState<'list' | 'inventory'>('list');
@@ -34,6 +34,11 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
     const [isPromptVisible, setIsPromptVisible] = useState(false);
     const [assignPriceTarget, setAssignPriceTarget] = useState<DGItem | null>(null);
     const [assignPriceItem, setAssignPriceItem] = useState<DGItem | null>(null);
+
+    useEffect(() => {
+        setEquipmentSubtab(selectedEra === 'campfire-tales' ? 'scout' : 'equipment');
+        setFilterText('');
+    }, [selectedEra]);
 
     const handleAddItemFromModal = useCallback((item: DGItem) => {
         const fakeEvent = {
@@ -47,17 +52,35 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
 
     const weaponItems = useMemo(() => getWeaponsForEra(selectedEra), [selectedEra]);
     const priceOnlyItems = useMemo(() => (thirdPartyData as any)[selectedEra]?.items ?? [], [selectedEra]);
+    const isCampfireEra = selectedEra === 'campfire-tales';
+    const classicItems = useMemo(() => (thirdPartyData as any)['classic-1920s']?.items ?? [], []);
+    const scoutItems = useMemo(() => {
+        const scoutSections = new Set([
+            'Scout Uniforms & Packs',
+            'Camping & Trail Gear',
+            'Lights & Signals',
+            'Tools & Repair',
+            'School & Investigation',
+            'Badge Equipment',
+        ]);
+        return (priceOnlyItems as DGItem[]).filter(item => scoutSections.has(item.section));
+    }, [priceOnlyItems]);
+    const equipmentItems = useMemo(() => {
+        if (!isCampfireEra) return weaponItems;
+        return equipmentSubtab === 'all' ? (classicItems as DGItem[]) : scoutItems;
+    }, [classicItems, equipmentSubtab, isCampfireEra, scoutItems, weaponItems]);
+    const customCreatorMode: 'equipment' | 'prices' = equipmentSubtab === 'equipment' ? 'equipment' : 'prices';
 
     const filteredWeapons = useMemo(() => {
         const unique = new Set<string>();
-        const list = weaponItems.filter(it => {
+        const list = equipmentItems.filter(it => {
             if (unique.has(it.name)) return false;
             unique.add(it.name);
             return true;
         });
         if (!filterText) return list;
         return list.filter(i => i.name.toLowerCase().includes(filterText.toLowerCase()));
-    }, [weaponItems, filterText]);
+    }, [equipmentItems, filterText]);
 
     const filteredPrices = useMemo(() => {
         const unique = new Set<string>();
@@ -82,9 +105,9 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
 
     const allSectionsEquipment = useMemo(() => {
         const s = new Set<string>();
-        weaponItems.forEach(i => s.add(i.section || 'Miscellaneous'));
+        equipmentItems.forEach(i => s.add(i.section || 'Miscellaneous'));
         return Array.from(s);
-    }, [weaponItems]);
+    }, [equipmentItems]);
 
     const allSectionsPrices = useMemo(() => {
         const s = new Set<string>();
@@ -158,7 +181,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
              {isPromptVisible && (
                <PromptInfoModal
                   title="AI Item Generation Prompts"
-                  prompt={`${buildPhase1Prompt(equipmentSubtab)}\n\n---\n\n${buildPhase2Prompt(equipmentSubtab, 'Selected Section')}`}
+                  prompt={`${buildPhase1Prompt(customCreatorMode)}\n\n---\n\n${buildPhase2Prompt(customCreatorMode, 'Selected Section')}`}
                   onClose={() => setIsPromptVisible(false)}
                />
              )}
@@ -182,21 +205,30 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
             <div className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                     <div className="flex justify-center border-b border-border mb-2">
-                        <button onClick={() => setEquipmentSubtab('equipment')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Equipment</button>
-                        <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
+                        {isCampfireEra ? (
+                            <>
+                                <button onClick={() => setEquipmentSubtab('scout')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'scout' || equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Scout Equipment</button>
+                                <button onClick={() => setEquipmentSubtab('all')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'all' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>All Equipment</button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={() => setEquipmentSubtab('equipment')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Equipment</button>
+                                <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
+                            </>
+                        )}
                     </div>
-                    {equipmentSubtab === 'equipment' ? (
+                    {equipmentSubtab === 'equipment' || equipmentSubtab === 'scout' || equipmentSubtab === 'all' ? (
                         <EquipmentList items={filteredWeapons} filterText={filterText} onFilterChange={setFilterText} height="auto" damageBonus={derivedStats?.DamageBonus ?? null} attributes={attributes} />
                     ) : (
                         <EquipmentList items={filteredPrices} filterText={filterText} onFilterChange={setFilterText} height="auto" attributes={attributes} />
                     )}
                     <CustomItemCreator
-                        mode={equipmentSubtab}
+                        mode={customCreatorMode}
                         itemName={customItemName}
                         onItemNameChange={setCustomItemName}
                         description={customItemDescription}
                         onDescriptionChange={setCustomItemDescription}
-                        onGenerate={() => handleGenerateCustom(equipmentSubtab)}
+                        onGenerate={() => handleGenerateCustom(customCreatorMode)}
                         isGenerating={isGenerating}
                         generationPhase={generationPhase}
                         generatedItem={generatedItem}
@@ -234,21 +266,30 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
                 {mobileTab === 'list' && (
                     <div className="space-y-4">
                         <div className="flex justify-center border-b border-border mb-2">
-                            <button onClick={() => setEquipmentSubtab('equipment')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Equipment</button>
-                            <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
+                            {isCampfireEra ? (
+                                <>
+                                    <button onClick={() => setEquipmentSubtab('scout')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'scout' || equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Scout Equipment</button>
+                                    <button onClick={() => setEquipmentSubtab('all')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'all' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>All Equipment</button>
+                                </>
+                            ) : (
+                                <>
+                                    <button onClick={() => setEquipmentSubtab('equipment')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Equipment</button>
+                                    <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
+                                </>
+                            )}
                         </div>
-                        {equipmentSubtab === 'equipment' ? (
+                        {equipmentSubtab === 'equipment' || equipmentSubtab === 'scout' || equipmentSubtab === 'all' ? (
                             <EquipmentList items={filteredWeapons} filterText={filterText} onFilterChange={setFilterText} onItemClick={setModalItem} damageBonus={derivedStats?.DamageBonus ?? null} attributes={attributes} />
                         ) : (
                             <EquipmentList items={filteredPrices} filterText={filterText} onFilterChange={setFilterText} onItemClick={setModalItem} attributes={attributes} />
                         )}
                         <CustomItemCreator
-                            mode={equipmentSubtab}
+                            mode={customCreatorMode}
                             itemName={customItemName}
                             onItemNameChange={setCustomItemName}
                             description={customItemDescription}
                             onDescriptionChange={setCustomItemDescription}
-                            onGenerate={() => handleGenerateCustom(equipmentSubtab)}
+                            onGenerate={() => handleGenerateCustom(customCreatorMode)}
                             isGenerating={isGenerating}
                             generationPhase={generationPhase}
                             generatedItem={generatedItem}

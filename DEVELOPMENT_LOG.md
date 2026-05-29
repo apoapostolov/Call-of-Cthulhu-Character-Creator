@@ -1,5 +1,93 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - Campfire Tales badge rule polish
+
+- Context: apply badge feedback for Campfire Tales and align the UI with the
+  starting scout badge rules.
+- Files changed: `components/BadgesTab.tsx`,
+  `eras/campfire-tales/scout-rules.ts`, `hooks/useCharacter.ts`,
+  `hooks/useSaveSystem.ts`, `tests/campfire.test.ts`, `types.ts`,
+  `CHANGELOG.md`, and `TODO.md`.
+- Changes: removed Used badge tracking, made rank badges a bounded selection
+  up to the scout's current rank, added rank-based ability badge allowances
+  from one to four badges, selected the hobby ability badge by default,
+  surfaced ability badge skill increases in the description text, and added a
+  regression guard for badge summary length.
+- Validation: `npm test`, `npx tsc --noEmit`, and `npm run build` passed.
+- Follow-up risk: full save load restoration is still broader save-system
+  work; badge-specific advancement timing remains Keeper-managed UI state.
+
+## 2026-05-29 - Campfire Tales badge page and equipment split
+
+- Context: continue Prompt 4 and start Prompt 5 polish by separating scout
+  badges from the Bio/Dossier page and making Campfire equipment clearer.
+- Files changed: `App.tsx`, `components/BadgesTab.tsx`,
+  `components/DossierTab.tsx`, `components/gear/GearTab.tsx`,
+  `eras/campfire-tales/equipment-kits.ts`, `hooks/useCharacter.ts`,
+  `hooks/useSaveSystem.ts`, `tests/campfire.test.ts`, `types.ts`, and
+  `TODO.md`.
+- Changes: added a Campfire-only Badges tab between Skills and Gear, moved
+  badge UI out of Bio, added a full rank/ability badge board, supported
+  optional earned ability badges after starting hobby badges, split Campfire
+  equipment into Scout Equipment and All Equipment, and rebuilt scout kits
+  around the Campfire item catalog.
+- Validation: `npm test` and `npx tsc --noEmit` passed.
+- Follow-up risk: badge-specific choice rules and print/export badge summaries
+  still need Prompt 5 polish.
+
+## 2026-05-29 - Campfire Tales Prompt 4 start
+
+- Context: continue Campfire Tales from sheet-depth work into visual polish,
+  badge clarity, and equipment support.
+- Files changed: `index.html`, `components/DossierTab.tsx`,
+  `components/gear/GearTab.tsx`, `eras/campfire-tales/prices-data.ts`,
+  `eras/campfire-tales/equipment-kits.ts`, `eras/manifest.ts`,
+  `tests/campfire.test.ts`, and `TODO.md`.
+- Changes: added a distinct scout-handbook Campfire color theme, organized
+  Distress and Adversity checkboxes into equal-width three-column rows,
+  clarified badge tracking with Earned and Used boxes, added scout and
+  badge-support equipment, surfaced Campfire scout gear in the Equipment tab,
+  and kept inherited Classic 1920s/investigator-armoury price data available.
+- Validation: focused `npm test -- tests/campfire.test.ts` and
+  `npm run build` passed.
+- Follow-up risk: badge rewards are currently starting-character state plus
+  used-state tracking; scenario-earned badge management and badge-specific
+  specialization choices still need a later Prompt 4/5 pass.
+
+## 2026-05-29 - Campfire Tales Prompt 2 completion
+
+- Context: close the remaining Campfire Tales V1 hardening items and start the
+  sheet-depth work for scout investigators.
+- Files changed: `components/DossierTab.tsx`, `hooks/useCharacter.ts`,
+  `hooks/useSaveSystem.ts`, `lib/ai/skill-distribution.ts`, `types.ts`,
+  `tests/campfire.test.ts`, `tests/skill-distribution.test.ts`, `TODO.md`,
+  and `DEVELOPMENT_PLAN.md`.
+- Changes: added selectable concrete ability badges for hobbies that grant
+  "Ability Badge of Choice", added editable scout backstory fields, serialized
+  scout badge/backstory state, included badges and backstory in AI
+  Distribution analysis/distribution payloads, and added regression coverage
+  for Campfire hobby choice integrity and Family Credit Rating floors.
+- Validation: focused `npm test -- tests/campfire.test.ts
+  tests/skill-distribution.test.ts` and `npx tsc --noEmit` passed.
+- Follow-up risk: full load restoration remains a broader save-system issue,
+  and Campfire-specific printable/export support still needs a future pass.
+
+## 2026-05-29 - Campfire Tales feedback hardening
+
+- Context: continue the Campfire Tales rollout after manual feedback from the
+  running app.
+- Files changed: `eras/manifest.ts`, `eras/campfire-tales/scout-rules.ts`,
+  `hooks/useCharacter.ts`, `components/gear/WealthDisplay.tsx`, and
+  `tests/campfire.test.ts`.
+- Changes: moved Campfire Tales to the bottom of the era picker order, changed
+  Scout Rank updates to reuse the existing 2D6 raw characteristic rolls, made
+  Family Credit Rating default to Average on roll/reset, and wired equipment
+  wealth display to Campfire's `Family Credit Rating` skill.
+- Validation: `npm test`, `npx tsc --noEmit`, and `npm run build` passed.
+- Follow-up risk: Campfire equipment wealth now reads the correct skill, but
+  deeper kid-specific equipment assumptions and printable export support still
+  need later V1 hardening.
+
 ## 2026-05-28 - OpenRouter provider support
 
 - Context: add a real OpenRouter provider path so settings, model refresh, and

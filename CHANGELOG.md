@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Campfire Tales scout support for selectable ability badges, editable scout
+  backstory notes, and AI Distribution context for badges, Family Credit, and
+  scout home life.
+- Campfire Tales scout and badge equipment in inherited 1920s equipment lists
+  and quick kits.
+- A Campfire-only Badges tab with rank badges, all ability badges, starting
+  hobby badge defaults, rank-based ability badge allowances, and earned badge
+  tracking.
+
+### Changed
+
+- Campfire Tales rank changes now reuse the existing characteristic dice
+  instead of rerolling attributes, and equipment wealth now reads Family Credit
+  Rating.
+- Campfire Tales now has its own scout-handbook color theme, plus clearer
+  Distress, Adversity, and badge tracking layouts.
+- Campfire Tales navigation now inserts Badges as step 3, making Gear step 4
+  and Bio step 5, and its equipment list is split into Scout Equipment and All
+  Equipment.
+- Campfire Tales badge cards now include skill increases in the description
+  text, remove used-state tracking, and keep summaries visually balanced.
+
 ## [1.0.1] - 2026-05-28
 
 ### Added

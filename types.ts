@@ -67,7 +67,7 @@ export interface DecadeConfig {
   prompt: DecadePromptConfig;
 }
 
-export type Tab = 'stats' | 'skills' | 'gear' | 'dossier';
+export type Tab = 'stats' | 'skills' | 'badges' | 'gear' | 'dossier';
 
 // FIX: Added missing types to resolve compilation errors across multiple files.
 export interface SkillValue {
@@ -384,8 +384,10 @@ export interface CharacterSaveData {
   pulpRulesEnabled: boolean;
   selectedTalents: string[];
   familyCreditStatus?: string | null;
+  selectedScoutRankBadge?: string | null;
   earnedScoutBadges?: string[];
-  usedScoutBadges?: Record<string, boolean>;
+  selectedScoutAbilityBadges?: string[];
+  scoutBackstory?: ScoutBackstoryFields | null;
   distressBoxes?: Record<string, boolean>;
   adversityBoxes?: Record<string, boolean>;
   
@@ -420,6 +422,14 @@ export interface SaveSlot {
   era: string;
   timestamp: number;
   data: CharacterSaveData;
+}
+
+export interface ScoutBackstoryFields {
+  home: string;
+  trustedAdult: string;
+  obligations: string;
+  fears: string;
+  notes: string;
 }
 
 // FIX: Added placeholder types to resolve compilation errors in utility files.

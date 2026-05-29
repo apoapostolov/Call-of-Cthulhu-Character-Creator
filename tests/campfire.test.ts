@@ -1,11 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { ERAS, thirdPartyData } from '../eras/manifest';
 import {
+  CAMPFIRE_ABILITY_BADGES,
+  CAMPFIRE_RANK_BADGES,
+  buildCampfireAttributesFromRolls,
   getFamilyCreditStatus,
+  getScoutAbilityBadgeAllowance,
   getScoutSkillPointTotal,
   rollCampfireAttributes,
   rollDiceExpression,
 } from '../eras/campfire-tales/scout-rules';
+import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
 
 describe('Campfire Tales era', () => {
   it('is registered and resolves through the era manifest', () => {
@@ -32,6 +37,13 @@ describe('Campfire Tales era', () => {
     expect(getScoutSkillPointTotal('17-18', 'Rich')).toBe(300);
   });
 
+  it('uses rank-based ability badge allowances', () => {
+    expect(getScoutAbilityBadgeAllowance('11-12')).toBe(1);
+    expect(getScoutAbilityBadgeAllowance('13-14')).toBe(2);
+    expect(getScoutAbilityBadgeAllowance('15-16')).toBe(3);
+    expect(getScoutAbilityBadgeAllowance('17-18')).toBe(4);
+  });
+
   it('rolls Campfire characteristics from the documented formulas', () => {
     const low = () => 0;
     const high = () => 0.999;
@@ -55,6 +67,30 @@ describe('Campfire Tales era', () => {
     expect(wardenHigh.LUCK).toBe(90);
   });
 
+  it('reuses the same Campfire dice results when rank formulas change', () => {
+    const rawRolls = {
+      STR: 7,
+      SIZ: 7,
+      EDU: 7,
+      CON: 7,
+      DEX: 7,
+      APP: 7,
+      INT: 7,
+      POW: 7,
+      LUCK: 7,
+    };
+
+    const wanderer = buildCampfireAttributesFromRolls(rawRolls, '11-12');
+    const warden = buildCampfireAttributesFromRolls(rawRolls, '17-18');
+
+    expect(wanderer.STR).toBe(20);
+    expect(warden.STR).toBe(55);
+    expect(wanderer.CON).toBe(60);
+    expect(warden.CON).toBe(60);
+    expect(wanderer.LUCK).toBe(65);
+    expect(warden.LUCK).toBe(65);
+  });
+
   it('gates Upstate League behind Rich Family Credit Rating', () => {
     const upstateLeague = thirdPartyData['campfire-tales'].occupations.find(occupation => occupation.name === 'Upstate League');
 
@@ -62,5 +98,69 @@ describe('Campfire Tales era', () => {
     expect(upstateLeague?.familyCreditRequirement).toBe('Rich');
     expect(getFamilyCreditStatus('Rich').base).toBe(90);
   });
-});
 
+  it('keeps Campfire hobby choice groups resolvable to existing skills or specialization families', () => {
+    const campfireData = thirdPartyData['campfire-tales'];
+    const skillNames = new Set(campfireData.skills.map(skill => skill.name));
+    const specializationParents = new Set(Object.keys(SKILL_SPECIALIZATIONS));
+
+    for (const hobby of campfireData.occupations) {
+      for (const group of hobby.choiceGroups || []) {
+        for (const option of group.options) {
+          if (option === '*') continue;
+          const parentMatch = option.match(/^(.+) \((.+)\)$/);
+          if (parentMatch) {
+            const [, parent] = parentMatch;
+            expect(skillNames.has(option) || skillNames.has(parent) || specializationParents.has(parent)).toBe(true);
+            continue;
+          }
+          const parentForPlainSpecialization = Object.entries(SKILL_SPECIALIZATIONS).find(([, specializations]) => specializations.includes(option))?.[0];
+          expect(skillNames.has(option) || !!parentForPlainSpecialization).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('uses selectable concrete badges for Ability Badge of Choice hobbies', () => {
+    const badgeNames = new Set(CAMPFIRE_ABILITY_BADGES.map(badge => badge.name));
+    const abilityChoiceHobbies = thirdPartyData['campfire-tales'].occupations.filter(occupation => (
+      occupation.startingBadges || []
+    ).includes('Ability Badge of Choice'));
+
+    expect(abilityChoiceHobbies.length).toBeGreaterThan(0);
+    expect(badgeNames.has('Photography Badge')).toBe(true);
+    expect(badgeNames.has('Ability Badge of Choice')).toBe(false);
+  });
+
+  it('keeps badge summaries long enough for the badge grid', () => {
+    const minimumSummaryLength = 'Gain a bonus die on Mechanical Repair or another camping-related roll.'.length;
+    const allBadges = [...CAMPFIRE_RANK_BADGES, ...CAMPFIRE_ABILITY_BADGES];
+
+    for (const badge of allBadges) {
+      expect(badge.benefit.length, `${badge.name} summary is too short`).toBeGreaterThanOrEqual(minimumSummaryLength);
+    }
+  });
+
+  it('inherits Classic 1920s prices and adds scout badge equipment', () => {
+    const itemNames = thirdPartyData['campfire-tales'].items.map(item => item.name);
+    const kitNames = thirdPartyData['campfire-tales'].equipmentKits.map(kit => kit.name);
+
+    expect(itemNames).toContain('Bicycle');
+    expect(itemNames).toContain('Pocket First Aid Kit');
+    expect(itemNames).toContain('Signal Flags');
+    expect(itemNames).toContain('Box Camera');
+    expect(itemNames).toContain('Flashlight (handheld)');
+    expect(kitNames).toContain('BADGE FIELDWORK KIT');
+    expect(kitNames).toContain('NATURE & SURVIVAL KIT');
+  });
+
+  it('builds Campfire equipment kits only from available item names', () => {
+    const itemNames = new Set(thirdPartyData['campfire-tales'].items.map(item => item.name));
+
+    for (const kit of thirdPartyData['campfire-tales'].equipmentKits) {
+      for (const itemName of kit.items) {
+        expect(itemNames.has(itemName), `${kit.name} references missing item ${itemName}`).toBe(true);
+      }
+    }
+  });
+});

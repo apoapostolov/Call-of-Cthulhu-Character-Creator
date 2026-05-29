@@ -108,8 +108,10 @@ export const useSaveSystem = () => {
             pulpRulesEnabled: charData.pulpRulesEnabled,
             selectedTalents: charData.selectedTalents,
             familyCreditStatus: charData.familyCreditStatus || null,
+            selectedScoutRankBadge: charData.selectedScoutRankBadge || null,
             earnedScoutBadges: charData.earnedScoutBadges || [],
-            usedScoutBadges: charData.usedScoutBadges || {},
+            selectedScoutAbilityBadges: charData.selectedScoutAbilityBadges || [],
+            scoutBackstory: charData.scoutBackstory || null,
             distressBoxes: charData.distressBoxes || {},
             adversityBoxes: charData.adversityBoxes || {},
             

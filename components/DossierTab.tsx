@@ -22,15 +22,12 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
         selectedOccupation,
         isCampfireEra,
         familyCreditStatus,
-        earnedScoutBadges,
-        usedScoutBadges,
-        toggleScoutBadgeUsed,
+        scoutBackstory,
+        updateScoutBackstory,
         distressBoxes,
         adversityBoxes,
         toggleDistressBox,
         toggleAdversityBox,
-        campfireRankBadges,
-        campfireAbilityBadges,
         campfireDistressBoxes,
         campfireAdversityBoxes,
     } = useCharacterContext();
@@ -99,33 +96,41 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
                         <p className="text-sm text-muted-foreground">Family Credit Rating: <span className="font-semibold text-foreground">{familyCreditStatus || 'Average'}</span></p>
                     </div>
                     <div>
-                        <h4 className="font-bold text-primary mb-2">Badges</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            {(earnedScoutBadges || []).map((badgeName: string) => {
-                                const badge = [...campfireRankBadges, ...campfireAbilityBadges].find((entry: any) => entry.name === badgeName);
-                                return (
-                                    <label key={badgeName} className="flex items-start gap-2 rounded-md border border-border p-2 text-sm">
-                                        <input
-                                            type="checkbox"
-                                            checked={!!usedScoutBadges?.[badgeName]}
-                                            onChange={() => toggleScoutBadgeUsed(badgeName)}
-                                            className="mt-1"
-                                        />
-                                        <span>
-                                            <span className="font-semibold">{badgeName}</span>
-                                            {badge?.benefit && <span className="block text-muted-foreground">{badge.benefit}</span>}
-                                        </span>
-                                    </label>
-                                );
-                            })}
+                        <h4 className="font-bold text-primary mb-2">Scout Backstory</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {[
+                                ['home', 'Home & Family'],
+                                ['trustedAdult', 'Trusted Adult'],
+                                ['obligations', 'Obligations'],
+                                ['fears', 'Fears'],
+                            ].map(([field, label]) => (
+                                <label key={field} className="text-sm">
+                                    <span className="block font-semibold text-muted-foreground mb-1">{label}</span>
+                                    <textarea
+                                        value={(scoutBackstory as any)?.[field] || ''}
+                                        onChange={(event) => updateScoutBackstory(field as any, event.target.value)}
+                                        rows={2}
+                                        className="w-full bg-background border border-border rounded-md px-3 py-2"
+                                    />
+                                </label>
+                            ))}
+                            <label className="text-sm md:col-span-2">
+                                <span className="block font-semibold text-muted-foreground mb-1">Campfire Notes</span>
+                                <textarea
+                                    value={scoutBackstory?.notes || ''}
+                                    onChange={(event) => updateScoutBackstory('notes', event.target.value)}
+                                    rows={3}
+                                    className="w-full bg-background border border-border rounded-md px-3 py-2"
+                                />
+                            </label>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <h4 className="font-bold text-primary mb-2">Distress</h4>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="grid grid-cols-3 gap-2">
                                 {campfireDistressBoxes.map((boxName: string) => (
-                                    <label key={boxName} className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
+                                    <label key={boxName} className="flex min-h-10 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-center text-sm">
                                         <input type="checkbox" checked={!!distressBoxes?.[boxName]} onChange={() => toggleDistressBox(boxName)} />
                                         {boxName}
                                     </label>
@@ -135,9 +140,9 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
                         </div>
                         <div>
                             <h4 className="font-bold text-primary mb-2">Adversity</h4>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="grid grid-cols-3 gap-2">
                                 {campfireAdversityBoxes.map((boxName: string) => (
-                                    <label key={boxName} className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
+                                    <label key={boxName} className="flex min-h-10 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-center text-sm">
                                         <input type="checkbox" checked={!!adversityBoxes?.[boxName]} onChange={() => toggleAdversityBox(boxName)} />
                                         {boxName}
                                     </label>
