@@ -34,7 +34,7 @@ const AppContent: React.FC = () => {
     const [viewingOccupation, setViewingOccupation] = useState<Occupation | null>(null);
     const [selectedExperiencePackageName, setSelectedExperiencePackageName] = useState<string | null>(null);
     
-    const { handleRoll, modifiedAttributes, derivedStats, setOccupation, selectedOccupation, rollHistory, handleRestoreRoll, ai, isDeceased, kitInventory, inventory, handleDrop, handleDeleteItem, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, skills, wealth } = character;
+    const { handleRoll, modifiedAttributes, derivedStats, setOccupation, selectedOccupation, rollHistory, handleRestoreRoll, ai, isDeceased, kitInventory, inventory, handleDrop, handleDeleteItem, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, skills, wealth, scoutBackstory, earnedScoutBadges, distressBoxes, adversityBoxes } = character;
     const [shouldPrintButtonGlow, setShouldPrintButtonGlow] = useState(false);
 
     useEffect(() => {
@@ -114,7 +114,27 @@ const AppContent: React.FC = () => {
         const spendingLevel = wealth?.dailyCash != null ? `$${(wealth.dailyCash/100).toFixed(2)}` : null;
         const cash = wealth?.totalCash != null ? `$${(wealth.totalCash/100).toFixed(2)}` : null;
         const assets = wealth?.assets != null ? `$${(wealth.assets/100).toFixed(2)}` : null;
-        printSheet({ characterName: ai.characterName, attributes: modifiedAttributes, skills, inventory: inv, portraitDataUrl, damageBonus: derivedStats?.DamageBonus || null, spendingLevel, nationality: ai.nationality, cash, assets, gender: ai.gender, occupationName: selectedOccupation?.name || null, dob: ai.dob || null });
+        printSheet({
+            characterName: ai.characterName,
+            attributes: modifiedAttributes,
+            skills,
+            inventory: inv,
+            portraitDataUrl,
+            damageBonus: derivedStats?.DamageBonus || null,
+            spendingLevel,
+            nationality: ai.nationality,
+            cash,
+            assets,
+            gender: ai.gender,
+            occupationName: selectedOccupation?.name || null,
+            dob: ai.dob || null,
+            scoutBackstory,
+            earnedScoutBadges,
+            distressBoxes,
+            adversityBoxes,
+            traits: ai.distinguishingFeatures ? Object.values(ai.distinguishingFeatures).filter(Boolean).join(', ') : null,
+            personalDescription: ai.physicalDescription || null,
+        });
     };
 
     const isStatsTabComplete = uiState.completedTabs.has('stats');

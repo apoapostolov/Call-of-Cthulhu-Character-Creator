@@ -16,7 +16,7 @@ import {
     SCOUT_RANKS,
     buildCampfireAttributesFromRolls,
     deriveCampfireRawRollsFromAttributes,
-    getScoutAbilityBadgeAllowance,
+    getScoutAdditionalAbilityBadgeAllowance,
     getFamilyCreditStatus,
     getScoutRank,
     getScoutSkillPointTotal,
@@ -113,10 +113,112 @@ const getDefaultScoutAbilityBadges = (occupation: Occupation | null | undefined,
         .slice(0, Math.min(1, limit)) || []
 );
 
+const getScoutAbilityBadgeLimit = (occupation: Occupation | null | undefined, rankId: AgeCategory | null | undefined) => (
+    Math.max(1, getDefaultScoutAbilityBadges(occupation, 1).length) + getScoutAdditionalAbilityBadgeAllowance(rankId)
+);
+
+const trimScoutAbilityBadgesForRules = (
+    badges: string[],
+    occupation: Occupation | null | undefined,
+    rankId: AgeCategory | null | undefined,
+) => {
+    const hobbyBadges = getDefaultScoutAbilityBadges(occupation, 1);
+    const hobbyBadgeSet = new Set(hobbyBadges);
+    const extras = badges.filter(badge => !hobbyBadgeSet.has(badge));
+    return Array.from(new Set([
+        ...hobbyBadges,
+        ...extras.slice(0, getScoutAdditionalAbilityBadgeAllowance(rankId)),
+    ]));
+};
+
 const getEligibleScoutRankBadges = (rankId: AgeCategory | null | undefined) => {
     const rank = getScoutRank(rankId);
     const rankIndex = SCOUT_RANKS.findIndex(entry => entry.id === rank.id);
     return SCOUT_RANKS.slice(0, rankIndex + 1).map(entry => entry.badge);
+};
+
+const getEraSkillDistributionProfile = (eraId: string, isCampfireEra: boolean) => {
+    if (isCampfireEra) {
+        return {
+            activePools: ['occupational'] as Array<'occupational' | 'personal' | 'experience' | 'archetype'>,
+            utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Library Use', 'Psychology', 'Stealth', 'Dodge', 'Climb', 'Jump', 'Throw', 'Family Credit Rating', 'Reassure', 'Fighting'],
+            guidance: [
+                'There is no Personal Interest pool in Campfire Tales; spend only the scout hobby point pool.',
+                'Treat the investigator as a child scout: age-appropriate, teamwork-oriented, curious, outdoors-capable, and not an adult professional.',
+                'Family Credit Rating should reflect family lifestyle rather than personal income.',
+                'Cool replaces Sanity in the sheet language, and Reassure is a kid-scale emotional support skill.',
+            ],
+        };
+    }
+
+    const basePools: Array<'occupational' | 'personal' | 'experience' | 'archetype'> = ['occupational', 'personal'];
+    const commonUtility = ['Spot Hidden', 'Listen', 'First Aid', 'Library Use', 'Psychology', 'Stealth', 'Dodge', 'Climb', 'Jump', 'Throw', 'Credit Rating', 'Fighting', 'Firearms'];
+    const eraProfiles: Record<string, { activePools: Array<'occupational' | 'personal' | 'experience' | 'archetype'>; utilitySkills: string[]; guidance: string[] }> = {
+        'pulp-1930s': {
+            activePools: ['archetype', ...basePools],
+            utilitySkills: [...commonUtility, 'Intimidate', 'Fast Talk'],
+            guidance: [
+                'Pulp investigators may be broader, more action-capable, and a little more heroic than Classic investigators.',
+                'Use archetype points for cinematic strengths while keeping occupation and personal pools distinct.',
+                'Combat, chase, and daring physical skills are more acceptable here than in Classic play.',
+            ],
+        },
+        'gaslight-1890s': {
+            activePools: basePools,
+            utilitySkills: [...commonUtility, 'Ride', 'Natural World'],
+            guidance: [
+                'Account for Victorian social class, etiquette, empire, early forensic practice, and slower communications.',
+                'Credit Rating, social skills, languages, riding, and academic skills often carry more setting weight.',
+                'Avoid modern technical assumptions and prefer period-appropriate transport and research methods.',
+            ],
+        },
+        'dark-ages-1000s': {
+            activePools: ['occupational', 'personal', 'experience'],
+            utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Natural World', 'Track', 'Dodge', 'Climb', 'Jump', 'Throw', 'Fighting', 'Ride', 'Survival'],
+            guidance: [
+                'Use medieval literacy, status, oral culture, travel limits, religious life, and practical survival as major context.',
+                'Experience packages may represent life events and should stay distinct from occupation and personal points.',
+                'Favor period skills such as fighting, riding, natural world, track, survival, craft, and social standing where plausible.',
+            ],
+        },
+        'western-1870s': {
+            activePools: basePools,
+            utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Natural World', 'Track', 'Navigate', 'Ride', 'Dodge', 'Fighting', 'Firearms', 'Credit Rating', 'Fast Talk'],
+            guidance: [
+                'Favor frontier plausibility: riding, firearms, tracking, survival, social grit, and practical trades matter.',
+                'Keep technology, medicine, law, travel, and communications appropriate to the 1870s American West.',
+                'Credit Rating should reflect frontier status and available resources rather than modern wealth.',
+            ],
+        },
+        'modern-2020s': {
+            activePools: basePools,
+            utilitySkills: [...commonUtility, 'Computer Use', 'Drive Auto', 'Science'],
+            guidance: [
+                'Modern investigators can plausibly use digital research, contemporary professions, vehicles, phones, and modern medicine.',
+                'Balance online research and technical skills with practical field survival and social investigation.',
+                'Combat assumptions should reflect modern legality, training, and access.',
+            ],
+        },
+        'modern-2000s': {
+            activePools: basePools,
+            utilitySkills: [...commonUtility, 'Computer Use', 'Drive Auto', 'Science'],
+            guidance: [
+                'Modern investigators can plausibly use digital research, contemporary professions, vehicles, phones, and modern medicine.',
+                'Balance online research and technical skills with practical field survival and social investigation.',
+                'Combat assumptions should reflect modern legality, training, and access.',
+            ],
+        },
+    };
+
+    return eraProfiles[eraId] || {
+        activePools: basePools,
+        utilitySkills: commonUtility,
+        guidance: [
+            'Use Classic Call of Cthulhu 1920s assumptions: ordinary adult investigators, grounded competence, and period-appropriate limits.',
+            'Separate occupational expertise from personal interests, and keep Credit Rating plausible for the profession and lifestyle.',
+            'Favor investigation, social, practical, and survival coverage before obscure filler.',
+        ],
+    };
 };
 
 const deriveMinimumCreditRating = (
@@ -805,8 +907,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         if (!isCampfireEra) return;
         const currentRankBadge = getScoutRank(selectedAgeCategory).badge;
         setSelectedScoutRankBadge(currentRankBadge);
-        setSelectedScoutAbilityBadges(prev => prev.slice(0, getScoutAbilityBadgeAllowance(selectedAgeCategory)));
-    }, [isCampfireEra, selectedAgeCategory]);
+        setSelectedScoutAbilityBadges(prev => trimScoutAbilityBadgesForRules(prev, selectedOccupation, selectedAgeCategory));
+    }, [isCampfireEra, selectedAgeCategory, selectedOccupation]);
 
     useEffect(() => {
         if (!isCampfireEra) return;
@@ -833,20 +935,22 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setSelectedScoutAbilityBadges(prev => {
             const next = [...prev];
             next[index] = badgeName;
-            return Array.from(new Set(next.filter(Boolean))).slice(0, getScoutAbilityBadgeAllowance(selectedAgeCategory));
+            return trimScoutAbilityBadgesForRules(Array.from(new Set(next.filter(Boolean))), selectedOccupation, selectedAgeCategory);
         });
-    }, [selectedAgeCategory]);
+    }, [selectedAgeCategory, selectedOccupation]);
 
     const toggleScoutAbilityBadge = useCallback((badgeName: string) => {
         setSelectedScoutAbilityBadges(prev => {
+            const hobbyBadgeSet = new Set(getDefaultScoutAbilityBadges(selectedOccupation, 1));
+            if (hobbyBadgeSet.has(badgeName)) return prev;
             if (prev.includes(badgeName)) {
                 return prev.filter(name => name !== badgeName);
             }
-            const allowance = getScoutAbilityBadgeAllowance(selectedAgeCategory);
+            const allowance = getScoutAbilityBadgeLimit(selectedOccupation, selectedAgeCategory);
             if (prev.length >= allowance) return prev;
             return [...prev, badgeName];
         });
-    }, [selectedAgeCategory]);
+    }, [selectedAgeCategory, selectedOccupation]);
 
     const handleScoutRankBadgeChange = useCallback((badgeName: string) => {
         if (!getEligibleScoutRankBadges(selectedAgeCategory).includes(badgeName)) return;
@@ -1036,10 +1140,11 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         });
         const freshPools = {
             occupational: freshPoolSummary(occupationalSkillPoints),
-            personal: freshPoolSummary(personalSkillPoints),
+            ...(isCampfireEra ? {} : { personal: freshPoolSummary(personalSkillPoints) }),
             experience: freshPoolSummary(experiencePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' }),
             archetype: freshPoolSummary(archetypePoints || { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' }),
         };
+        const eraProfile = getEraSkillDistributionProfile(selectedEra, isCampfireEra);
 
         const payload: SkillDistributionPayload = {
             era: {
@@ -1072,35 +1177,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 supportSkillTarget: 'several 5-10 point adjacent skills where the concept supports them',
                 supportPointBand: { min: 5, max: 10 },
                 maxHighSkillCount: 2,
-                utilitySkills: isCampfireEra ? [
-                    'Spot Hidden',
-                    'Listen',
-                    'First Aid',
-                    'Library Use',
-                    'Psychology',
-                    'Stealth',
-                    'Dodge',
-                    'Climb',
-                    'Jump',
-                    'Throw',
-                    'Family Credit Rating',
-                    'Reassure',
-                    'Fighting',
-                ] : [
-                    'Spot Hidden',
-                    'Listen',
-                    'First Aid',
-                    'Library Use',
-                    'Psychology',
-                    'Stealth',
-                    'Dodge',
-                    'Climb',
-                    'Jump',
-                    'Throw',
-                    'Credit Rating',
-                    'Fighting',
-                    'Firearms',
-                ],
+                utilitySkills: eraProfile.utilitySkills,
+                eraSpecificGuidance: eraProfile.guidance,
             },
             rules: {
                 untrainedMax: 19,
@@ -1110,10 +1188,11 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             },
             pools: {
                 occupational: freshPools.occupational,
-                personal: freshPools.personal,
+                ...(isCampfireEra ? {} : { personal: freshPools.personal }),
                 experience: freshPools.experience,
                 archetype: freshPools.archetype,
             },
+            activePools: eraProfile.activePools.filter(pool => pool !== 'experience' || freshPools.experience.total > 0).filter(pool => pool !== 'archetype' || freshPools.archetype.total > 0),
             specializations: aggregatedData.SKILL_SPECIALIZATIONS,
             skills: allSkillsWithCalculatedBases.map(skill => {
                 const baseName = skill.name.split(' (')[0];
@@ -1122,7 +1201,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                     base: skill.base,
                     current: skill.base,
                     occupationalEligible: effectiveOccupationalSkills.has(skill.name) || effectiveOccupationalSkills.has(baseName),
-                    personalEligible: baseName !== 'Cthulhu Mythos' && skill.name !== 'Cthulhu Mythos',
+                    personalEligible: !isCampfireEra && baseName !== 'Cthulhu Mythos' && skill.name !== 'Cthulhu Mythos',
                     experienceEligible: experienceEligibleSkills.has(skill.name) || experienceEligibleSkills.has(baseName),
                     archetypeEligible: archetypeEligibleSkills.has(skill.name) || archetypeEligibleSkills.has(baseName),
                     description: skill.description,
@@ -1170,7 +1249,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                     base: parentSkill.base,
                     current: parentSkill.base,
                     occupationalEligible: effectiveOccupationalSkills.has(skillName) || effectiveOccupationalSkills.has(parentBaseName) || selectedOccupation.occupationalSkills.includes(parentBaseName),
-                    personalEligible: parentBaseName !== 'Cthulhu Mythos' && skillName !== 'Cthulhu Mythos',
+                    personalEligible: !isCampfireEra && parentBaseName !== 'Cthulhu Mythos' && skillName !== 'Cthulhu Mythos',
                     experienceEligible: experienceEligibleSkills.has(skillName) || experienceEligibleSkills.has(parentBaseName),
                     archetypeEligible: archetypeEligibleSkills.has(skillName) || archetypeEligibleSkills.has(parentBaseName),
                     description: parentSkill.description,
@@ -1205,21 +1284,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 archetype: rewrittenResponse.archetype,
             };
             const occupationalSkillNames = selectedOccupation?.occupationalSkills || [];
-            const utilitySkills = [
-                'Spot Hidden',
-                'Listen',
-                'First Aid',
-                'Library Use',
-                'Psychology',
-                'Stealth',
-                'Dodge',
-                'Climb',
-                'Jump',
-                'Throw',
-                'Credit Rating',
-                'Fighting',
-                'Firearms',
-            ];
+            const utilitySkills = eraProfile.utilitySkills;
             setPendingAiDistribution({
                 preview: {
                     analysis,
@@ -1237,7 +1302,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 minimumCreditRating,
                 poolTotals: {
                     occupational: freshPools.occupational.total,
-                    personal: freshPools.personal.total,
+                    personal: isCampfireEra ? 0 : (freshPools as any).personal.total,
                     experience: freshPools.experience.total,
                     archetype: freshPools.archetype.total,
                 },
@@ -1426,8 +1491,6 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 setBaseAttributes(nextAttributes);
                 setOriginalBaseLuck(nextAttributes.LUCK);
                 persistLuckForEra(selectedEra, nextAttributes.LUCK);
-                setSelectedOccupation(null);
-                handleSkillsReset();
             }
             return;
         }
@@ -1476,7 +1539,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             persistLuckForEra(selectedEra, originalBaseLuck);
         }
 
-    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck, isCampfireEra, selectedAgeCategory, persistLuckForEra, selectedEra, handleSkillsReset, campfireRawRolls]);
+    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck, isCampfireEra, selectedAgeCategory, persistLuckForEra, selectedEra, campfireRawRolls]);
 
     const handleRoll = useCallback(() => {
         if (baseAttributes) setRollHistory(prev => [baseAttributes, ...prev].slice(0, 9));
@@ -1618,7 +1681,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setWealth(null); setPurchaseLedger({}); setInventory([]); setActiveKitName(null); setKitInventory([]);
         if (isCampfireEra && occupation) {
             const rankBadge = getScoutRank(selectedAgeCategory).badge;
-            const defaultAbilityBadges = getDefaultScoutAbilityBadges(occupation, getScoutAbilityBadgeAllowance(selectedAgeCategory));
+            const defaultAbilityBadges = getDefaultScoutAbilityBadges(occupation, 1);
             setSelectedScoutRankBadge(rankBadge);
             setSelectedScoutAbilityBadges(defaultAbilityBadges);
             setEarnedScoutBadges(resolveScoutBadges(rankBadge, defaultAbilityBadges));
@@ -1924,7 +1987,9 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         selectedScoutAbilityBadges,
         setScoutAbilityBadgeChoice: handleScoutAbilityBadgeChoice,
         toggleScoutAbilityBadge,
-        scoutAbilityBadgeAllowance: getScoutAbilityBadgeAllowance(selectedAgeCategory),
+        scoutAbilityBadgeAllowance: getScoutAbilityBadgeLimit(selectedOccupation, selectedAgeCategory),
+        scoutAdditionalAbilityBadgeAllowance: getScoutAdditionalAbilityBadgeAllowance(selectedAgeCategory),
+        scoutHobbyAbilityBadges: getDefaultScoutAbilityBadges(selectedOccupation, 1),
         scoutBackstory,
         updateScoutBackstory,
         distressBoxes,

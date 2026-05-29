@@ -24,9 +24,10 @@ interface SkillsHeaderProps {
     activeSkillPool: 'archetype' | 'occupational' | 'personal' | 'experience';
     onSkillPoolToggle: (pool: 'archetype' | 'occupational' | 'personal' | 'experience') => void;
     onAiDistributionOpen: () => void;
+    showPersonalPoints?: boolean;
 }
 
-const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className: string; isActive: boolean; onClick: () => void; }> = ({ title, points, className, isActive, onClick }) => {
+const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className: string; isActive: boolean; onClick: () => void; containerClassName?: string; }> = ({ title, points, className, isActive, onClick, containerClassName = '' }) => {
     const hasFormula = !!points.formula;
     const hasCalc = !!points.calculation;
     const isExperience = title === 'Experience Points';
@@ -43,6 +44,7 @@ const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className:
 
     return (
         <Tooltip content={tooltipContent}>
+            <div className={containerClassName}>
             <button
                 onClick={onClick}
                 className={`h-full p-3 pt-4 rounded-lg border-2 border-t-4 text-center w-full transition-all duration-200 relative ${className} ${isActive ? 'ring-2 ring-primary/80 shadow-lg' : 'opacity-75 hover:opacity-100'}`}
@@ -57,16 +59,21 @@ const PointPoolDisplay: React.FC<{ title: string; points: PointsPool; className:
                 <div className={`font-mono transition-all ${isActive ? 'text-4xl font-extrabold' : 'text-3xl font-bold'}`}>{points.remaining}</div>
                 <div className="text-xs font-mono">of {points.total}</div>
             </button>
+            </div>
         </Tooltip>
     );
 };
 
-export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occupationalPoints, personalPoints, experiencePoints, onReset, pointStep, onPointStepToggle, groupSkills, onGroupToggle, activeSkillPool, onSkillPoolToggle, onAiDistributionOpen }) => {
+export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occupationalPoints, personalPoints, experiencePoints, onReset, pointStep, onPointStepToggle, groupSkills, onGroupToggle, activeSkillPool, onSkillPoolToggle, onAiDistributionOpen, showPersonalPoints = true }) => {
     const showExperience = !!(experiencePoints && experiencePoints.total > 0);
     const showArchetype = !!(archetypePoints && archetypePoints.total > 0);
-    const gridColsClass = showArchetype && showExperience
+    const visiblePoolCount = (showArchetype ? 1 : 0) + 1 + (showPersonalPoints ? 1 : 0) + (showExperience ? 1 : 0);
+    const gridColsClass = visiblePoolCount >= 4
         ? 'grid-cols-4'
-        : (showArchetype || showExperience) ? 'grid-cols-3' : 'grid-cols-2';
+        : visiblePoolCount === 3 ? 'grid-cols-3' : 'grid-cols-2';
+    const occupationalCenterClass = !showPersonalPoints && !showArchetype && !showExperience
+        ? 'col-span-2 w-1/2 justify-self-center'
+        : '';
     return (
         <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">
             <div className="flex-grow">
@@ -82,19 +89,22 @@ export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occ
                         />
                     )}
                     <PointPoolDisplay
-                        title="Occupation Points"
+                        title={showPersonalPoints ? 'Occupation Points' : 'Hobby Points'}
                         points={occupationalPoints}
                         className="bg-success-100/70 border-success-300 text-success-800"
                         isActive={activeSkillPool === 'occupational'}
                         onClick={() => onSkillPoolToggle('occupational')}
+                        containerClassName={occupationalCenterClass}
                     />
-                    <PointPoolDisplay
-                        title="Personal Points"
-                        points={personalPoints}
-                        className="bg-info-100/70 border-info-300 text-info-800"
-                        isActive={activeSkillPool === 'personal'}
-                        onClick={() => onSkillPoolToggle('personal')}
-                    />
+                    {showPersonalPoints && (
+                        <PointPoolDisplay
+                            title="Personal Points"
+                            points={personalPoints}
+                            className="bg-info-100/70 border-info-300 text-info-800"
+                            isActive={activeSkillPool === 'personal'}
+                            onClick={() => onSkillPoolToggle('personal')}
+                        />
+                    )}
                     {showExperience && (
                         <PointPoolDisplay
                             title={`Experience Points`}

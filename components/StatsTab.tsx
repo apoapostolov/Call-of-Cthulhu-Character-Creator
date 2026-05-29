@@ -19,7 +19,7 @@ import { ArchetypeInfoModal } from './ArchetypeInfoModal';
 import { ArchetypeCoreChoiceModal } from './ArchetypeCoreChoiceModal';
 import { LifeEventsDisplay } from './LifeEventsDisplay';
 import { ModifierPill } from './ModifierPill';
-import { CAMPFIRE_ERA_ID, CAMPFIRE_FAMILY_CREDIT, SCOUT_RANKS } from '../eras/campfire-tales/scout-rules';
+import { CAMPFIRE_ERA_ID, CAMPFIRE_FAMILY_CREDIT, SCOUT_RANKS, getFamilyCreditStatus, getScoutSkillPointTotal } from '../eras/campfire-tales/scout-rules';
 import type { FamilyCreditStatus } from '../eras/campfire-tales/scout-rules';
 
 const ATTRIBUTES: Attribute[] = ['STR', 'CON', 'SIZ', 'DEX', 'APP', 'INT', 'POW', 'EDU'];
@@ -141,7 +141,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
     handleEduImprovementCheck
 }) => {
     const { selectedEra } = useEraContext();
-    const { pulpRulesEnabled, setPulpRulesEnabled, aggregatedData, optionalRules, setOptionalRuleEnabled, selectedArchetype, handleSelectArchetype, archetypeCoreChoice, setArchetypeCoreChoice, coreCharacteristicInfo, rolledLifeEvents, handleRollLifeEvents, handleLifeEventSpecialization, lifeEventCount, lifeEventModifiers } = useCharacterContext();
+    const { pulpRulesEnabled, setPulpRulesEnabled, aggregatedData, optionalRules, setOptionalRuleEnabled, selectedArchetype, handleSelectArchetype, archetypeCoreChoice, setArchetypeCoreChoice, coreCharacteristicInfo, rolledLifeEvents, handleRollLifeEvents, handleLifeEventSpecialization, lifeEventCount, lifeEventModifiers, familyCreditStatus, occupationalSkillPoints } = useCharacterContext();
     const isPulpEra = selectedEra === 'pulp-1930s';
     const isWesternEra = (selectedEra === 'western-1870s' || selectedEra === 'western-1880s');
     const isGaslightEra = selectedEra === 'gaslight-1890s';
@@ -171,6 +171,12 @@ export const StatsTab: React.FC<StatsTabProps> = ({
     const [infoPkg, setInfoPkg] = React.useState<ExperiencePackage | null>(null);
     const [infoArchetype, setInfoArchetype] = React.useState<any | null>(null);
     const [justSelectedExperienceName, setJustSelectedExperienceName] = React.useState<string | 'NONE' | null>(null);
+    const [rankWarning, setRankWarning] = React.useState<{
+        rankId: AgeCategory;
+        rankName: string;
+        nextTotal: number;
+        spent: number;
+    } | null>(null);
     // Scroll to top of the Selection header between steps
     const selectionHeaderRef = React.useRef<HTMLHeadingElement>(null);
 
@@ -189,6 +195,23 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                 setActiveTab('skills');
             }
         }, 350);
+    };
+
+    const handleScoutRankSelect = (rankId: AgeCategory) => {
+        const rank = SCOUT_RANKS.find(entry => entry.id === rankId);
+        const familyCredit = getFamilyCreditStatus(familyCreditStatus as FamilyCreditStatus | null);
+        const nextTotal = getScoutSkillPointTotal(rankId, familyCredit.status);
+        const spent = occupationalSkillPoints?.spent || 0;
+        if (nextTotal < spent) {
+            setRankWarning({
+                rankId,
+                rankName: rank?.name || 'Scout',
+                nextTotal,
+                spent,
+            });
+            return;
+        }
+        handleSelectAgeCategory(rankId);
     };
 
     const handleSelectOccupation = (name: string) => {
@@ -331,7 +354,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                                         <button
                                             key={rank.id}
                                             type="button"
-                                            onClick={() => handleSelectAgeCategory(rank.id)}
+                                            onClick={() => handleScoutRankSelect(rank.id)}
                                             className={`text-left rounded-lg border-2 p-4 transition-colors ${selected ? 'border-primary bg-primary/10' : 'border-border bg-card hover:border-primary/60'}`}
                                             aria-pressed={selected}
                                         >
@@ -671,6 +694,36 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                     {rollHistory.map((roll, index) => (
                         <RollHistoryCard key={index} roll={roll} onRestore={() => onRestoreRoll(roll)} />
                     ))}
+                    </div>
+                </div>
+            )}
+            {rankWarning && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-labelledby="rank-warning-title">
+                    <div className="w-full max-w-lg rounded-xl border border-border bg-card p-6 shadow-2xl shadow-primary-900/20">
+                        <h2 id="rank-warning-title" className="mb-3 font-lora text-2xl font-bold text-primary">Skill Points Need Adjustment</h2>
+                        <p className="mb-4 text-sm text-muted-foreground">
+                            Changing to {rankWarning.rankName} gives this scout {rankWarning.nextTotal} hobby points, but the sheet currently has {rankWarning.spent} hobby points distributed.
+                            You can change rank, but you will need to reduce the skill distribution to match the lower total.
+                        </p>
+                        <div className="flex justify-end gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setRankWarning(null)}
+                                className="rounded-md border border-border bg-cream-200 px-4 py-2 text-sm font-semibold text-foreground hover:bg-cream-100"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    handleSelectAgeCategory(rankWarning.rankId);
+                                    setRankWarning(null);
+                                }}
+                                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                            >
+                                Change Rank
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

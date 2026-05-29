@@ -20,11 +20,15 @@ export const SCOUT_RANKS: ScoutRankConfig[] = [
   { id: '17-18', name: 'Warden', ages: '17-18', skillPoints: 350, badge: 'Warden Badge' },
 ];
 
-export const getScoutAbilityBadgeAllowance = (rankId: AgeCategory | null | undefined) => {
+export const getScoutAdditionalAbilityBadgeAllowance = (rankId: AgeCategory | null | undefined) => {
   const rank = getScoutRank(rankId);
   const index = SCOUT_RANKS.findIndex(entry => entry.id === rank.id);
-  return Math.max(1, index + 1);
+  return Math.max(0, index);
 };
+
+export const getScoutAbilityBadgeAllowance = (rankId: AgeCategory | null | undefined) => (
+  getScoutAdditionalAbilityBadgeAllowance(rankId) + 1
+);
 
 export const CAMPFIRE_FAMILY_CREDIT: Array<{
   status: FamilyCreditStatus;

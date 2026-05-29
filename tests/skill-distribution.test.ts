@@ -147,7 +147,29 @@ describe('skill distribution helpers', () => {
         expect(prompt).toContain('Spot Hidden, Listen, First Aid, Library Use, Psychology');
         expect(prompt).toContain('Fighting: Brawl, Sword');
         expect(prompt).toContain('Former boxer turned private eye');
-        expect(prompt).toContain('Spend exactly the points available in each pool');
+        expect(prompt).toContain('Spend exactly the points available in each active pool');
+    });
+
+    it('omits the Personal pool from Campfire Tales prompts when inactive', () => {
+        const campfirePayload = {
+            ...payload,
+            era: { id: 'campfire-tales', name: 'Campfire Tales', displayName: 'Campfire Tales' },
+            activePools: ['occupational'],
+            pools: {
+                occupational: payload.pools.occupational,
+            },
+            distribution: {
+                ...payload.distribution,
+                eraSpecificGuidance: ['There is no Personal Interest pool in Campfire Tales; spend only the scout hobby point pool.'],
+            },
+        } satisfies Parameters<typeof buildSkillDistributionPrompt>[0];
+
+        const prompt = buildSkillDistributionPrompt(campfirePayload);
+
+        expect(prompt).toContain('There is no Personal Interest pool in Campfire Tales');
+        expect(prompt).toContain('Occupational: total 120');
+        expect(prompt).not.toContain('Personal: total');
+        expect(prompt).toContain('"personal": []');
     });
 
     it('normalizes response values from common model shapes', () => {

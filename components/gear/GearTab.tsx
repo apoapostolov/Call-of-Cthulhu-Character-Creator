@@ -54,6 +54,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
     const priceOnlyItems = useMemo(() => (thirdPartyData as any)[selectedEra]?.items ?? [], [selectedEra]);
     const isCampfireEra = selectedEra === 'campfire-tales';
     const classicItems = useMemo(() => (thirdPartyData as any)['classic-1920s']?.items ?? [], []);
+    const classicEquipmentItems = useMemo(() => getWeaponsForEra('classic-1920s'), []);
     const scoutItems = useMemo(() => {
         const scoutSections = new Set([
             'Scout Uniforms & Packs',
@@ -67,9 +68,9 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
     }, [priceOnlyItems]);
     const equipmentItems = useMemo(() => {
         if (!isCampfireEra) return weaponItems;
-        return equipmentSubtab === 'all' ? (classicItems as DGItem[]) : scoutItems;
-    }, [classicItems, equipmentSubtab, isCampfireEra, scoutItems, weaponItems]);
-    const customCreatorMode: 'equipment' | 'prices' = equipmentSubtab === 'equipment' ? 'equipment' : 'prices';
+        return equipmentSubtab === 'all' ? classicEquipmentItems : scoutItems;
+    }, [classicEquipmentItems, equipmentSubtab, isCampfireEra, scoutItems, weaponItems]);
+    const customCreatorMode: 'equipment' | 'prices' = equipmentSubtab === 'equipment' || equipmentSubtab === 'all' ? 'equipment' : 'prices';
 
     const filteredWeapons = useMemo(() => {
         const unique = new Set<string>();
@@ -84,14 +85,15 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
 
     const filteredPrices = useMemo(() => {
         const unique = new Set<string>();
-        const list = priceOnlyItems.filter((it: DGItem) => {
+        const sourceItems = isCampfireEra ? classicItems : priceOnlyItems;
+        const list = sourceItems.filter((it: DGItem) => {
             if (unique.has(it.name)) return false;
             unique.add(it.name);
             return true;
         });
         if (!filterText) return list;
         return list.filter((i: DGItem) => i.name.toLowerCase().includes(filterText.toLowerCase()));
-    }, [priceOnlyItems, filterText]);
+    }, [classicItems, filterText, isCampfireEra, priceOnlyItems]);
 
     // ---- AI Custom Item Creator ----
     const [customItemName, setCustomItemName] = useState('');
@@ -111,9 +113,9 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
 
     const allSectionsPrices = useMemo(() => {
         const s = new Set<string>();
-        (priceOnlyItems as DGItem[]).forEach(i => s.add(i.section || 'Miscellaneous'));
+        ((isCampfireEra ? classicItems : priceOnlyItems) as DGItem[]).forEach(i => s.add(i.section || 'Miscellaneous'));
         return Array.from(s);
-    }, [priceOnlyItems]);
+    }, [classicItems, isCampfireEra, priceOnlyItems]);
 
     const buildPhase1Prompt = useCallback((mode: 'equipment' | 'prices') => {
         const sections = mode === 'equipment' ? allSectionsEquipment : allSectionsPrices;
@@ -209,6 +211,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
                             <>
                                 <button onClick={() => setEquipmentSubtab('scout')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'scout' || equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Scout Equipment</button>
                                 <button onClick={() => setEquipmentSubtab('all')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'all' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>All Equipment</button>
+                                <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
                             </>
                         ) : (
                             <>
@@ -270,6 +273,7 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
                                 <>
                                     <button onClick={() => setEquipmentSubtab('scout')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'scout' || equipmentSubtab === 'equipment' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Scout Equipment</button>
                                     <button onClick={() => setEquipmentSubtab('all')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'all' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>All Equipment</button>
+                                    <button onClick={() => setEquipmentSubtab('prices')} className={`py-2 px-6 font-bold text-lg ${equipmentSubtab === 'prices' ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground'}`}>Prices</button>
                                 </>
                             ) : (
                                 <>

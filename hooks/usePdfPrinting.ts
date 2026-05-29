@@ -56,6 +56,12 @@ async function fillCampfirePdf(
     gender?: string | null;
     occupationName?: string | null;
     dob?: string | null;
+    scoutBackstory?: { home: string; trustedAdult: string; obligations: string; fears: string; notes: string } | null;
+    earnedScoutBadges?: string[];
+    distressBoxes?: Record<string, boolean>;
+    adversityBoxes?: Record<string, boolean>;
+    traits?: string | null;
+    personalDescription?: string | null;
   },
 ) {
   const setText = (id: string, val: string | number | null | undefined) => {
@@ -108,15 +114,13 @@ async function fillCampfirePdf(
     const pow = attrs.POW;
     const dex = attrs.DEX;
     const str = attrs.STR;
-    const app = attrs.APP;
-
-    // HP = (SIZ + CON) / 10 rounded up
-    const maxHp = Math.ceil((siz + con) / 10);
+    // HP = (SIZ + CON) / 10, matching the app's derived stat.
+    const maxHp = Math.floor((siz + con) / 10);
     setText('attribute_hit_point_max', String(maxHp));
     setText('attribute_hit_point_current', String(maxHp));
 
     // MP = POW / 5
-    const maxMp = Math.ceil(pow / 5);
+    const maxMp = Math.floor(pow / 5);
     setText('attribute_magic_points_max', String(maxMp));
     setText('attribute_magic_points_current', String(maxMp));
 
@@ -127,17 +131,17 @@ async function fillCampfirePdf(
     setText('attribute_luck_starting', String(attrs.LUCK || 0));
     setText('attribute_luck_current', String(attrs.LUCK || 0));
 
-    // MOV = DEX (scouts use default formula)
-    const mov = Math.ceil(dex / 10);
+    let mov = 8;
+    if (dex < siz && str < siz) mov = 7;
+    else if (dex > siz && str > siz) mov = 9;
     setText('attribute_move', String(mov));
 
-    // Build = based on SIZ+DEX threshold for scouts
-    const sizDex = siz + dex;
+    // Campfire uses the kid-scale DB/Build table and caps at Build +1.
+    const strSiz = str + siz;
     let build = -2;
-    if (sizDex >= 65) build = -1;
-    if (sizDex >= 85) build = 0;
-    if (sizDex >= 105) build = 1;
-    if (sizDex >= 125) build = 2;
+    if (strSiz > 64) build = -1;
+    if (strSiz > 84) build = 0;
+    if (strSiz > 124) build = 1;
     setText('attribute_build', String(build));
 
     // Damage Bonus
@@ -301,9 +305,60 @@ async function fillCampfirePdf(
   });
 
   // ── Background ──
-  // Campfire sheet uses background_personal_description, background_trusted_adult,
-  // background_home, background_traits, background_obligations, background_fears.
-  // We don't have these from the standard print data, so leave them as-is (user can fill).
+  setText('background_personal_description', data.personalDescription);
+  setText('background_traits', data.traits);
+  setText('background_trusted_adult', data.scoutBackstory?.trustedAdult);
+  setText('background_home', data.scoutBackstory?.home);
+  setText('background_obligations', data.scoutBackstory?.obligations);
+  setText('background_fears', data.scoutBackstory?.fears);
+  setText('background_campfire_notes_1', data.scoutBackstory?.notes);
+
+  // ── Distress, Adversity, and Badges ──
+  const conditionFields: Record<string, string> = {
+    Stressed: 'attribute_stressed',
+    Jumpy: 'attribute_jumpy',
+    Upset: 'attribute_upset',
+    Cold: 'attribute_cold',
+    Hunger: 'attribute_hunger',
+    Lost: 'attribute_lost',
+    Overburdened: 'attribute_overburdened',
+    Sore: 'attribute_sore',
+  };
+  for (const [name, field] of Object.entries(conditionFields)) {
+    setCheck(field, Boolean(data.distressBoxes?.[name] || data.adversityBoxes?.[name]));
+  }
+
+  const badgeFields: Record<string, string> = {
+    'Wayfarer Scout Badge': 'badge_wayfarer_earned',
+    'Wanderer Badge': 'badge_wanderer_earned',
+    'Rover Badge': 'badge_rover_earned',
+    'Ranger Badge': 'badge_ranger_earned',
+    'Warden Badge': 'badge_warden_earned',
+    'Animal Friendship Badge': 'badge_animal_friendship_earned',
+    'Boating Badge': 'badge_boating_earned',
+    'Camping Badge': 'badge_camping_earned',
+    'Climbing Badge': 'badge_climbing_earned',
+    'Crafting Badge': 'badge_crafting_earned',
+    'Cycling Badge': 'badge_cycling_earned',
+    'First Aid Badge': 'badge_first_aid_earned',
+    'Fishing Badge': 'badge_fishing_earned',
+    'Hiking Badge': 'badge_hiking_earned',
+    'Knot-Tying Badge': 'badge_knot_tying_earned',
+    'Nature Badge': 'badge_nature_earned',
+    'Orienteering Badge': 'badge_orienteering_earned',
+    'Photography Badge': 'badge_photography_earned',
+    'Public Speaking Badge': 'badge_public_speaking_earned',
+    'Radio Badge': 'badge_radio_earned',
+    'Reading Badge': 'badge_reading_earned',
+    'Signals & Codes Badge': 'badge_signals_&_codes_earned',
+    'Swimming Badge': 'badge_swiming_earned',
+    'Weather Badge': 'badge_weather_earned',
+    'Wilderness Survival Badge': 'badge_wilderness_survival_earned',
+  };
+  const earnedBadgeSet = new Set(data.earnedScoutBadges || []);
+  for (const [badgeName, field] of Object.entries(badgeFields)) {
+    setCheck(field, earnedBadgeSet.has(badgeName));
+  }
 
   // ── Gear / Possessions ──
   try {
@@ -388,7 +443,27 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
   const { selectedEra } = useEraContext();
   const aggregated = useAggregatedData(selectedEra);
   const { getSheetPath } = useSheetContext();
-  type PrintData = { characterName: string | null; attributes: AttributeSet | null; skills: Record<string, number>; inventory: DGItem[]; portraitDataUrl?: string | null; damageBonus?: string | null; spendingLevel?: string | null; nationality?: string | null; cash?: string | null; assets?: string | null; gender?: string | null; occupationName?: string | null; dob?: string | null };
+  type PrintData = {
+    characterName: string | null;
+    attributes: AttributeSet | null;
+    skills: Record<string, number>;
+    inventory: DGItem[];
+    portraitDataUrl?: string | null;
+    damageBonus?: string | null;
+    spendingLevel?: string | null;
+    nationality?: string | null;
+    cash?: string | null;
+    assets?: string | null;
+    gender?: string | null;
+    occupationName?: string | null;
+    dob?: string | null;
+    scoutBackstory?: { home: string; trustedAdult: string; obligations: string; fears: string; notes: string } | null;
+    earnedScoutBadges?: string[];
+    distressBoxes?: Record<string, boolean>;
+    adversityBoxes?: Record<string, boolean>;
+    traits?: string | null;
+    personalDescription?: string | null;
+  };
   // Map gender to PDF Pronouns field using literal Gender label (not actual pronouns)
   const pronounForGender = (g: string | null | undefined): string => {
     const s = (g || '').toLowerCase().trim();
@@ -513,6 +588,12 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
           nationality: data.nationality,
           occupationName: data.occupationName,
           dob: data.dob,
+          scoutBackstory: data.scoutBackstory,
+          earnedScoutBadges: data.earnedScoutBadges,
+          distressBoxes: data.distressBoxes,
+          adversityBoxes: data.adversityBoxes,
+          traits: data.traits,
+          personalDescription: data.personalDescription,
         });
       } else {
         // ── Original 1920s-style filling ──

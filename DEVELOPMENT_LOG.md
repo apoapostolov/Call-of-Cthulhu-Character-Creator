@@ -1,5 +1,38 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - Campfire Tales rank, skill pool, AI, and PDF audit
+
+- Context: apply Scout Rank, Skills, Badges, and Character Sheet feedback for
+  the Campfire Tales rollout.
+- Files changed: `App.tsx`, `components/BadgesTab.tsx`,
+  `components/SkillsTab.tsx`, `components/StatsTab.tsx`,
+  `components/skills/SkillsHeader.tsx`, `eras/campfire-tales/scout-rules.ts`,
+  `hooks/useCharacter.ts`, `hooks/usePdfPrinting.ts`,
+  `lib/ai/skill-distribution.ts`, `tests/campfire.test.ts`, and
+  `tests/skill-distribution.test.ts`.
+- Changes: changed Scout Rank selection to preserve hobby/skill state, added a
+  warning modal before lowering below already-spent hobby points, removed the
+  Campfire Personal Points UI/prompt pool, added era-specific AI Distribution
+  payload guidance, locked hobby badges, added Keeper approval for lower rank
+  badge exceptions, and wired Campfire PDF export for backstory, conditions,
+  earned badges, and corrected derived stat formulas.
+- Validation: `npx tsc --noEmit` passed in WSL; `cmd.exe /c npm test` passed
+  with 54 tests; `cmd.exe /c npm run build` passed with the existing Vite
+  large chunk warning.
+- Follow-up risk: the Campfire PDF has Used badge fields, but the app now
+  tracks earned badges only, so those sheet fields intentionally remain blank.
+
+## 2026-05-29 - Campfire Tales Gear tab split fix
+
+- Context: correct Campfire Tales equipment tabs after feedback that All
+  Equipment was showing the price catalog.
+- Files changed: `components/gear/GearTab.tsx`, `CHANGELOG.md`, and
+  `DEVELOPMENT_LOG.md`.
+- Changes: Campfire Gear now has three subtabs: Scout Equipment, All
+  Equipment, and Prices. All Equipment uses the Classic 1920s equipment/weapon
+  list, while Prices uses the Classic 1920s price catalog.
+- Validation: `npx tsc --noEmit` and `cmd.exe /c npm run build` passed; build retains the existing Vite large chunk warning.
+
 ## 2026-05-29 - Campfire Tales badge rule polish
 
 - Context: apply badge feedback for Campfire Tales and align the UI with the

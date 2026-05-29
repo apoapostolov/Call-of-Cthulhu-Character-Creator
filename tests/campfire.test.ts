@@ -5,6 +5,7 @@ import {
   CAMPFIRE_RANK_BADGES,
   buildCampfireAttributesFromRolls,
   getFamilyCreditStatus,
+  getScoutAdditionalAbilityBadgeAllowance,
   getScoutAbilityBadgeAllowance,
   getScoutSkillPointTotal,
   rollCampfireAttributes,
@@ -38,6 +39,10 @@ describe('Campfire Tales era', () => {
   });
 
   it('uses rank-based ability badge allowances', () => {
+    expect(getScoutAdditionalAbilityBadgeAllowance('11-12')).toBe(0);
+    expect(getScoutAdditionalAbilityBadgeAllowance('13-14')).toBe(1);
+    expect(getScoutAdditionalAbilityBadgeAllowance('15-16')).toBe(2);
+    expect(getScoutAdditionalAbilityBadgeAllowance('17-18')).toBe(3);
     expect(getScoutAbilityBadgeAllowance('11-12')).toBe(1);
     expect(getScoutAbilityBadgeAllowance('13-14')).toBe(2);
     expect(getScoutAbilityBadgeAllowance('15-16')).toBe(3);

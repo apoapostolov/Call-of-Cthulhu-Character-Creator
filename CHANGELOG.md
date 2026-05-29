@@ -28,6 +28,17 @@ All notable changes to this project will be documented in this file.
   Equipment.
 - Campfire Tales badge cards now include skill increases in the description
   text, remove used-state tracking, and keep summaries visually balanced.
+- Campfire Tales rank changes now preserve selected hobbies and other tab
+  state, warn before lowering below already-spent hobby points, hide the
+  unavailable Personal Points pool, and use Campfire-specific AI Distribution
+  payloads without Personal points.
+- Campfire Tales badge advancement now locks the hobby badge, counts only
+  additional rank-granted ability badges, and asks for Keeper approval before
+  selecting a lower rank badge than the scout's current rank.
+- Campfire Tales PDF export now fills scout backstory, distress/adversity,
+  earned badges, and corrected kid-scale derived stat mappings.
+- Campfire Tales Gear now separates Scout Equipment, All Equipment, and Prices
+  so the inherited 1920s equipment and price catalogs are distinct.
 
 ## [1.0.1] - 2026-05-28
 

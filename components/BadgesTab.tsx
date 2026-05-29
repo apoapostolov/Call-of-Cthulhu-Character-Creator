@@ -53,16 +53,21 @@ export const BadgesTab: React.FC = () => {
         selectedScoutAbilityBadges,
         toggleScoutAbilityBadge,
         scoutAbilityBadgeAllowance,
+        scoutAdditionalAbilityBadgeAllowance,
+        scoutHobbyAbilityBadges,
         campfireRankBadges,
         campfireAbilityBadges,
     } = useCharacterContext();
+    const [permissionRankBadge, setPermissionRankBadge] = React.useState<Badge | null>(null);
 
     const currentRank = getScoutRank(selectedAgeCategory);
     const currentRankIndex = SCOUT_RANKS.findIndex(rank => rank.id === currentRank.id);
     const eligibleRankBadges = new Set(SCOUT_RANKS.slice(0, currentRankIndex + 1).map(rank => rank.badge));
-    const hobbyBadges = selectedOccupation?.startingBadges?.filter((badge: string) => badge !== 'Ability Badge of Choice') || [];
+    const hobbyBadges = scoutHobbyAbilityBadges || [];
     const selectedAbilityCount = selectedScoutAbilityBadges.length;
+    const selectedAdditionalAbilityCount = selectedScoutAbilityBadges.filter((badge: string) => !hobbyBadges.includes(badge)).length;
     const abilityLimitReached = selectedAbilityCount >= scoutAbilityBadgeAllowance;
+    const currentRankBadge = currentRank.badge;
 
     const getRankReason = (badgeName: string) => {
         if (badgeName === 'Wayfarer Scout Badge') return 'Always earned';
@@ -93,7 +98,7 @@ export const BadgesTab: React.FC = () => {
                 <h2 className="font-lora text-4xl font-bold text-primary">Scout Badges</h2>
                 <p className="mx-auto mt-2 max-w-3xl text-muted-foreground">
                     Every scout begins with the Wayfarer Scout Badge, a rank badge, and ability badges based on rank. Older scouts may
-                    replace Wanderer with a rank badge up to their current rank and select one additional ability badge per rank step.
+                    replace Wanderer with a rank badge up to their current rank with Keeper permission and select additional ability badges by rank.
                 </p>
             </div>
 
@@ -112,6 +117,8 @@ export const BadgesTab: React.FC = () => {
                         const isWayfarer = badge.name === 'Wayfarer Scout Badge';
                         const isEligible = isWayfarer || eligibleRankBadges.has(badge.name);
                         const earned = isWayfarer || selectedScoutRankBadge === badge.name || earnedScoutBadges.includes(badge.name);
+                        const rankBadgeIndex = SCOUT_RANKS.findIndex(rank => rank.badge === badge.name);
+                        const needsPermission = !isWayfarer && badge.name !== currentRankBadge && rankBadgeIndex >= 0 && rankBadgeIndex < currentRankIndex;
 
                         return (
                             <BadgeCard
@@ -121,7 +128,13 @@ export const BadgesTab: React.FC = () => {
                                 disabled={isWayfarer || !isEligible}
                                 reason={getRankReason(badge.name)}
                                 actionLabel={isWayfarer ? 'Earned' : 'Selected'}
-                                onToggle={() => setScoutRankBadge(badge.name)}
+                                onToggle={() => {
+                                    if (needsPermission && !earned) {
+                                        setPermissionRankBadge(badge);
+                                        return;
+                                    }
+                                    setScoutRankBadge(badge.name);
+                                }}
                             />
                         );
                     })}
@@ -132,16 +145,17 @@ export const BadgesTab: React.FC = () => {
                 <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
                     <div>
                         <h3 className="font-lora text-2xl font-bold text-primary">
-                            Ability Badges ({selectedAbilityCount} of {scoutAbilityBadgeAllowance} Badges Selected)
+                            Ability Badges ({selectedAdditionalAbilityCount} of {scoutAdditionalAbilityBadgeAllowance} Additional Badges Selected)
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                            The hobby badge is selected by default when it is specific. Toggle badges here to match Keeper-approved advancement.
+                            The hobby badge is selected by default and cannot be removed. Toggle additional badges here to match Keeper-approved advancement.
                         </p>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
                     {campfireAbilityBadges.map((badge: Badge) => {
                         const earned = selectedScoutAbilityBadges.includes(badge.name);
+                        const lockedHobbyBadge = hobbyBadges.includes(badge.name);
                         const disabled = !earned && abilityLimitReached;
 
                         return (
@@ -149,7 +163,7 @@ export const BadgesTab: React.FC = () => {
                                 key={badge.name}
                                 badge={badge}
                                 earned={earned}
-                                disabled={disabled}
+                                disabled={disabled || lockedHobbyBadge}
                                 reason={getAbilityReason(badge.name)}
                                 actionLabel="Earned"
                                 onToggle={() => toggleScoutAbilityBadge(badge.name)}
@@ -158,6 +172,36 @@ export const BadgesTab: React.FC = () => {
                     })}
                 </div>
             </section>
+            {permissionRankBadge && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-labelledby="rank-permission-title">
+                    <div className="w-full max-w-lg rounded-xl border border-border bg-card p-6 shadow-2xl shadow-primary-900/20">
+                        <h2 id="rank-permission-title" className="mb-3 font-lora text-2xl font-bold text-primary">Keeper Permission Recommended</h2>
+                        <p className="mb-4 text-sm text-muted-foreground">
+                            {currentRank.name} scouts normally use the {currentRank.badge}. Selecting {permissionRankBadge.name} means this scout is using a lower rank badge than their current age bracket.
+                            Please confirm the Keeper has approved this exception.
+                        </p>
+                        <div className="flex justify-end gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setPermissionRankBadge(null)}
+                                className="rounded-md border border-border bg-cream-200 px-4 py-2 text-sm font-semibold text-foreground hover:bg-cream-100"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setScoutRankBadge(permissionRankBadge.name);
+                                    setPermissionRankBadge(null);
+                                }}
+                                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                            >
+                                Keeper Agrees
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

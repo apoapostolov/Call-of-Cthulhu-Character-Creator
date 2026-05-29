@@ -48,6 +48,7 @@ export const SkillsTab: React.FC = () => {
     const [activeChoiceGroupIndex, setActiveChoiceGroupIndex] = useState<number | null>(null);
     const [isAiDistributionOpen, setIsAiDistributionOpen] = useState(false);
     const [aiDistributionDescription, setAiDistributionDescription] = useState('');
+    const isCampfireEra = selectedEra === 'campfire-tales';
 
     const allSkills = useMemo(() => {
         return allSkillsWithCalculatedBases.sort((a,b) => a.name.localeCompare(b.name));
@@ -188,7 +189,7 @@ export const SkillsTab: React.FC = () => {
         const pools: Array<{ key: 'archetype' | 'occupational' | 'personal' | 'experience'; points: any | null | undefined }> = [
             { key: 'archetype', points: archetypePoints },
             { key: 'occupational', points: occupationalSkillPoints },
-            { key: 'personal', points: personalSkillPoints },
+            ...(isCampfireEra ? [] : [{ key: 'personal' as const, points: personalSkillPoints }]),
             { key: 'experience', points: experiencePoints },
         ];
         // First, pools that are in-progress
@@ -205,7 +206,7 @@ export const SkillsTab: React.FC = () => {
             if (total > 0 && remaining > 0) return p.key;
         }
         return activeSkillPool; // default: don't change
-    }, [archetypePoints, occupationalSkillPoints, personalSkillPoints, experiencePoints, activeSkillPool]);
+    }, [archetypePoints, occupationalSkillPoints, personalSkillPoints, experiencePoints, activeSkillPool, isCampfireEra]);
 
     // On entering the tab (after occupation choices), default once per mount.
     const didInitPoolRef = React.useRef(false);
@@ -230,7 +231,7 @@ export const SkillsTab: React.FC = () => {
         const remainingByPool: Record<typeof activeSkillPool, number> = {
             archetype: archRemain,
             occupational: occRemain,
-            personal: perRemain,
+            personal: isCampfireEra ? 0 : perRemain,
             experience: expRemain,
         } as const;
 
@@ -239,7 +240,7 @@ export const SkillsTab: React.FC = () => {
             const best = chooseBestAvailablePool();
             if (best !== activeSkillPool) setActiveSkillPool(best);
         }
-    }, [activeSkillPool, archetypePoints?.remaining, occupationalSkillPoints?.remaining, personalSkillPoints?.remaining, experiencePoints?.remaining, allOccupationChoicesMade, chooseBestAvailablePool, setActiveSkillPool]);
+    }, [activeSkillPool, archetypePoints?.remaining, occupationalSkillPoints?.remaining, personalSkillPoints?.remaining, experiencePoints?.remaining, allOccupationChoicesMade, chooseBestAvailablePool, setActiveSkillPool, isCampfireEra]);
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto bg-card p-6 rounded-lg border border-border shadow-xl shadow-primary-900/15">
@@ -289,6 +290,7 @@ export const SkillsTab: React.FC = () => {
                     activeSkillPool={activeSkillPool}
                     onSkillPoolToggle={setActiveSkillPool}
                     onAiDistributionOpen={() => setIsAiDistributionOpen(true)}
+                    showPersonalPoints={!isCampfireEra}
                 />
             )}
 
