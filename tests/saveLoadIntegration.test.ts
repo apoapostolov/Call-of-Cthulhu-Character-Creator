@@ -138,7 +138,7 @@ describe('CoC Save/Load System - Data Serialization', () => {
     });
 
     it('should handle era-specific features', () => {
-        const eras = ['dark-ages-1000s', 'gaslight-1890s', '1920s', 'modern-2020s', 'pulp-1930s'];
+        const eras = ['dark-ages-1000s', 'gaslight-1890s', '1920s', 'modern-2020s', 'pulp-1930s', 'campfire-tales'];
         
         eras.forEach(era => {
             const characterData = {

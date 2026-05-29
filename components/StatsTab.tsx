@@ -19,6 +19,8 @@ import { ArchetypeInfoModal } from './ArchetypeInfoModal';
 import { ArchetypeCoreChoiceModal } from './ArchetypeCoreChoiceModal';
 import { LifeEventsDisplay } from './LifeEventsDisplay';
 import { ModifierPill } from './ModifierPill';
+import { CAMPFIRE_ERA_ID, CAMPFIRE_FAMILY_CREDIT, SCOUT_RANKS } from '../eras/campfire-tales/scout-rules';
+import type { FamilyCreditStatus } from '../eras/campfire-tales/scout-rules';
 
 const ATTRIBUTES: Attribute[] = ['STR', 'CON', 'SIZ', 'DEX', 'APP', 'INT', 'POW', 'EDU'];
 const ATTRIBUTE_MAP: Record<Attribute, string> = {
@@ -36,6 +38,7 @@ const DERIVED_STAT_MAP: Record<string, string> = {
 
 // Define the desired order for occupation groups
 const GROUP_ORDER: OccupationGroup[] = [
+    'Scout Hobby',
     'Lovecraftian',
     'War',
     'Crafts',
@@ -48,6 +51,42 @@ const GROUP_ORDER: OccupationGroup[] = [
     'Criminal',
     'Dilettante',
 ];
+
+const CampfireFamilyCreditSelector: React.FC = () => {
+    const {
+        familyCreditStatus,
+        setFamilyCreditStatus,
+        selectedOccupation,
+    } = useCharacterContext();
+
+    return (
+        <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
+                <div>
+                    <h4 className="text-lg font-bold text-primary">Family Credit Rating</h4>
+                    <p className="text-sm text-muted-foreground">Home life, pocket money, possessions, and social assumptions.</p>
+                </div>
+                <select
+                    value={familyCreditStatus || 'Average'}
+                    onChange={(event) => setFamilyCreditStatus(event.target.value as FamilyCreditStatus)}
+                    className="bg-background border border-border rounded-md px-3 py-2 text-sm font-semibold"
+                    aria-label="Family Credit Rating"
+                >
+                    {CAMPFIRE_FAMILY_CREDIT.map(entry => (
+                        <option key={entry.status} value={entry.status}>
+                            {entry.status} ({entry.pointAdjustment > 0 ? '+' : ''}{entry.pointAdjustment} points)
+                        </option>
+                    ))}
+                </select>
+            </div>
+            {selectedOccupation?.familyCreditRequirement && selectedOccupation.familyCreditRequirement !== familyCreditStatus && (
+                <p className="text-sm text-warning font-semibold">
+                    {selectedOccupation.name} requires {selectedOccupation.familyCreditRequirement} Family Credit Rating.
+                </p>
+            )}
+        </div>
+    );
+};
 
 
 interface StatsTabProps {
@@ -107,6 +146,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
     const isWesternEra = (selectedEra === 'western-1870s' || selectedEra === 'western-1880s');
     const isGaslightEra = selectedEra === 'gaslight-1890s';
     const isDarkAges = selectedEra === 'dark-ages-1000s';
+    const isCampfireEra = selectedEra === CAMPFIRE_ERA_ID;
     const hasOptionalRules = isWesternEra || isPulpEra; // Extend this as more eras get rules
     // Ensure Pulp era forces the switch ON and disabled
     useEffect(() => {
@@ -115,7 +155,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
         }
     }, [isPulpEra, pulpRulesEnabled, setPulpRulesEnabled]);
     
-    const ageConfig = AGE_CATEGORIES.find(c => c.label === selectedAgeCategory);
+    const ageConfig = isCampfireEra ? undefined : AGE_CATEGORIES.find(c => c.label === selectedAgeCategory);
     // FIX: Add explicit type to `val` in reduce function to prevent type error.
     const deductionsApplied = ageDeductions ? Object.values(ageDeductions.applied).reduce<number>((sum, val: number) => sum + val, 0) : 0;
     const deductionsRemaining = ageDeductions ? ageDeductions.required - deductionsApplied : 0;
@@ -221,7 +261,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
             <div className="text-center">
                 <button onClick={handleRoll} className="bg-primary hover:bg-opacity-80 disabled:bg-neutral-300 text-primary-foreground font-bold py-3 px-8 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center mx-auto gap-2 border-b-4 border-black/20">
                     <DiceIcon className="h-6 w-6"/>
-                    Roll Characteristics
+                    {isCampfireEra ? 'Roll Scout Characteristics' : 'Roll Characteristics'}
                 </button>
             </div>
             {attributes && derivedStats && (
@@ -281,12 +321,37 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                             )}
                         </div>
                     </div>
-                    <div>
-                        <h3 className="text-2xl font-bold font-lora text-primary mb-4 text-center">Select Age</h3>
-                        <div className="max-w-xl mx-auto">
-                            <AgeSelector selected={selectedAgeCategory} onSelect={handleSelectAgeCategory} disabled={!attributes} />
+                    {isCampfireEra ? (
+                        <div className="space-y-4">
+                            <h3 className="text-2xl font-bold font-lora text-primary mb-4 text-center">Select Scout Rank</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                {SCOUT_RANKS.map(rank => {
+                                    const selected = selectedAgeCategory === rank.id;
+                                    return (
+                                        <button
+                                            key={rank.id}
+                                            type="button"
+                                            onClick={() => handleSelectAgeCategory(rank.id)}
+                                            className={`text-left rounded-lg border-2 p-4 transition-colors ${selected ? 'border-primary bg-primary/10' : 'border-border bg-card hover:border-primary/60'}`}
+                                            aria-pressed={selected}
+                                        >
+                                            <div className="font-bold text-primary">{rank.name}</div>
+                                            <div className="text-sm text-muted-foreground">Ages {rank.ages}</div>
+                                            <div className="text-sm font-semibold mt-2">{rank.skillPoints} hobby points</div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                            <CampfireFamilyCreditSelector />
                         </div>
-                    </div>
+                    ) : (
+                        <div>
+                            <h3 className="text-2xl font-bold font-lora text-primary mb-4 text-center">Select Age</h3>
+                            <div className="max-w-xl mx-auto">
+                                <AgeSelector selected={selectedAgeCategory} onSelect={handleSelectAgeCategory} disabled={!attributes} />
+                            </div>
+                        </div>
+                    )}
                     <div>
                         <h3 className="text-2xl font-bold font-lora text-primary mb-4 text-center">Secondary Characteristics</h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-card p-4 rounded-lg border border-border">
@@ -308,7 +373,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                             </div>
                             {derivedStatOrder.map(key => {
                                 const value = derivedStats[key as keyof typeof derivedStats];
-                                const label = DERIVED_STAT_MAP[key] || key;
+                                const label = isCampfireEra && key === 'SAN' ? 'Cool' : (DERIVED_STAT_MAP[key] || key);
                                 const isSan = key === 'SAN';
                                 const hasLifeEventMod = isDarkAges && lifeEventModifiers.derivedStats?.[key as 'HP' | 'SAN' | 'MP' | 'MOV'] && lifeEventModifiers.derivedStats[key as 'HP' | 'SAN' | 'MP' | 'MOV'] !== 0;
                                 const lifeEventValue = hasLifeEventMod ? lifeEventModifiers.derivedStats![key as 'HP' | 'SAN' | 'MP' | 'MOV'] : 0;
@@ -447,7 +512,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
                         ) : (!isSelectingExperience && !isSelectingTalents) ? (
                             <>
                                 <div className="mb-6">
-                                    <h3 ref={selectionHeaderRef} className="text-2xl font-bold font-lora text-primary mb-2 text-center">Select Occupation</h3>
+                                    <h3 ref={selectionHeaderRef} className="text-2xl font-bold font-lora text-primary mb-2 text-center">{isCampfireEra ? 'Select Hobby' : 'Select Occupation'}</h3>
                                     <div className="grid grid-cols-3 items-center">
                                         <div />
                                         <div className="text-center">

@@ -72,11 +72,20 @@ import { PDF_FIELD_MAP as p_modern } from './modern-2000s/pdf-form-fields';
 import { ITEMS_FROM_PRICES as ip_modern } from './modern-2000s/items-from-prices';
 import { EQUIPMENT_KITS as ek_modern } from './modern-2000s/equipment-kits';
 import { WEALTH_DATA as w_modern } from './modern-2000s/prices-data';
+// Campfire Tales
+import { OCCUPATIONS as o_campfire } from './campfire-tales/hobbies-data';
+import { SKILLS as s_campfire } from './campfire-tales/skills-data';
+import { THEME as t_campfire } from './campfire-tales/theme';
+import { DECADES as d_campfire } from './campfire-tales/decades-data';
+import { PDF_FIELD_MAP as p_campfire } from './campfire-tales/pdf-form-fields';
+import { EQUIPMENT_KITS as ek_campfire } from './campfire-tales/equipment-kits';
+import { WEALTH_DATA as w_campfire } from './campfire-tales/prices-data';
 
 
 // --- Single Source of Truth for available eras ---
 export const ERAS: Era[] = [
     { id: 'classic-1920s', name: 'Classic 1920s', isDefault: true, publisher: 'Chaosium', theme: 'Lovecraftian Horror', setting: 'Roaring Twenties' },
+    { id: 'campfire-tales', name: 'Campfire Tales', publisher: 'Chaosium', theme: 'Kid Scout Mystery Horror', setting: 'Westhaven Scout Adventures' },
     { id: 'pulp-1930s', name: 'Pulp 1930s', publisher: 'Chaosium', theme: 'Action-Adventure Horror', setting: 'Pulp Cthulhu' },
     { id: 'modern-2000s', name: 'Modern Day', publisher: 'Chaosium', theme: 'Modern Horror', setting: 'Present Day' },
     { id: 'gaslight-1890s', name: 'Gaslight 1890s', publisher: 'Chaosium', theme: 'Victorian Horror', setting: 'Cthulhu by Gaslight' },
@@ -146,6 +155,7 @@ type InheritRule = {
 
 const RAW_PRICES: Record<EraID, any[]> = {
   'classic-1920s': [...(P1920_OFFICIAL as any[]), ...(P1920_HOMEBREW as any[])],
+  'campfire-tales': [],
   'pulp-1930s': [],
   'modern-2000s': [],
   'gaslight-1890s': [],
@@ -232,6 +242,7 @@ function resolvePriceItems(eraId: EraID, rule?: InheritRule): DGItem[] {
 // --- Declarative inheritance (prepared) ---
 const RAW_OCCUPATIONS: Record<EraID, Occupation[]> = {
   'classic-1920s': o_classic_1920s, 'pulp-1930s': o_pulp, 'modern-2000s': o_modern,
+  'campfire-tales': o_campfire,
   'gaslight-1890s': o_gaslight, 'dark-ages-1000s': o_dark_ages, 'western-1880s': o_western,
 };
 function resolveOccs(eraId: EraID, rule?: InheritRule): Occupation[] {
@@ -272,6 +283,7 @@ function resolveOccs(eraId: EraID, rule?: InheritRule): Occupation[] {
 // Skills inheritance (prepared)
 const RAW_SKILLS: Record<EraID, Skill[]> = {
   'classic-1920s': s_classic_1920s, 'pulp-1930s': s_pulp, 'modern-2000s': s_modern,
+  'campfire-tales': s_campfire,
   'gaslight-1890s': s_gaslight, 'dark-ages-1000s': s_dark_ages, 'western-1880s': s_western,
 };
 function resolveSkills(eraId: EraID, rule?: InheritRule): Skill[] {
@@ -295,6 +307,17 @@ export const thirdPartyData: Record<EraID, EraData> = {
         equipmentKits: ek_classic_1920s,
         wealthData: w_classic_1920s,
         pdfFieldMap: p_classic_1920s,
+    },
+    'campfire-tales': {
+        occupations: resolveOccs('campfire-tales'),
+        skills: resolveSkills('campfire-tales'),
+        theme: t_campfire,
+        nationalities: n_classic_1920s,
+        decades: d_campfire,
+        items: resolvePriceItems('campfire-tales', { base: 'classic-1920s' }),
+        equipmentKits: ek_campfire,
+        wealthData: w_campfire,
+        pdfFieldMap: p_campfire,
     },
   'pulp-1930s': {
     // Inherit Classic 1920s and overwrite by name; include all Pulp additions (no filters)

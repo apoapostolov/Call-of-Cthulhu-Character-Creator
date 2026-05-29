@@ -359,6 +359,216 @@ describe('skill distribution helpers', () => {
         expect(assignments['Fighting (Brawl)']?.occupational || 0).toBe(10);
     });
 
+    it('rewrites firearm allocations to a specialization when one exists on the sheet', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [{ skill: 'Firearms', points: 12 }],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Firearms',
+                    base: 20,
+                    current: 20,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Firearms (Handgun)',
+                    base: 20,
+                    current: 20,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 12,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Firearms'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+            },
+        );
+
+        expect(assignments.Firearms?.occupational || 0).toBe(0);
+        expect(assignments['Firearms (Handgun)']?.occupational || 0).toBe(12);
+    });
+
+    it('rewrites Language (Other) to a concrete language specialization', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [{ skill: 'Language (Other)', points: 8 }],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Language (Other)',
+                    base: 0,
+                    current: 0,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 8,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Language (Other)'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+                specializationsCatalog: {
+                    Language: ['French', 'German'],
+                },
+            },
+        );
+
+        expect(assignments['Language (Other)']?.occupational || 0).toBe(0);
+        expect((assignments['Language (French)']?.occupational || 0) + (assignments['Language (German)']?.occupational || 0)).toBe(8);
+    });
+
+    it('rewrites Pilot, Science, and Survival to concrete specializations', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [
+                    { skill: 'Pilot', points: 5 },
+                    { skill: 'Science', points: 5 },
+                    { skill: 'Survival', points: 5 },
+                ],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Pilot',
+                    base: 0,
+                    current: 0,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Science',
+                    base: 0,
+                    current: 0,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Survival',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 15,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Pilot', 'Science', 'Survival'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid'],
+                specializationsCatalog: {
+                    Pilot: ['Boat'],
+                    Science: ['Chemistry'],
+                    Survival: ['Plains'],
+                },
+            },
+        );
+
+        expect(assignments.Pilot?.occupational || 0).toBe(0);
+        expect(assignments.Science?.occupational || 0).toBe(0);
+        expect(assignments.Survival?.occupational || 0).toBe(0);
+        expect(assignments['Pilot (Boat)']?.occupational || 0).toBe(5);
+        expect(assignments['Science (Chemistry)']?.occupational || 0).toBe(5);
+        expect(assignments['Survival (Plains)']?.occupational || 0).toBe(5);
+    });
+
+    it('raises Credit Rating to the minimum lifestyle floor by rebalancing occupational points', () => {
+        const assignments = responseToSkillPointAssignments(
+            {
+                occupational: [
+                    { skill: 'Library Use', points: 20 },
+                    { skill: 'Persuade', points: 20 },
+                ],
+                personal: [],
+                experience: [],
+                archetype: [],
+            },
+            [
+                {
+                    name: 'Credit Rating',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Library Use',
+                    base: 25,
+                    current: 25,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+                {
+                    name: 'Persuade',
+                    base: 10,
+                    current: 10,
+                    occupationalEligible: true,
+                    personalEligible: true,
+                    experienceEligible: true,
+                    archetypeEligible: false,
+                },
+            ],
+            {
+                occupational: 40,
+                personal: 0,
+                experience: 0,
+                archetype: 0,
+            },
+            {
+                skillCap: 75,
+                occupationalSkillNames: ['Credit Rating', 'Library Use', 'Persuade'],
+                utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Credit Rating'],
+                minimumCreditRating: 30,
+            },
+        );
+
+        expect(assignments['Credit Rating']?.occupational || 0).toBe(20);
+        expect((assignments['Credit Rating']?.occupational || 0) + 10).toBeGreaterThanOrEqual(30);
+        expect((assignments['Library Use']?.occupational || 0) + (assignments.Persuade?.occupational || 0) + (assignments['Credit Rating']?.occupational || 0)).toBe(40);
+    });
+
     it('never fills a specialization family parent when a child specialization exists', () => {
         const assignments = responseToSkillPointAssignments(
             {

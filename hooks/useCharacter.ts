@@ -8,14 +8,34 @@ import { useAiRuntime } from './useAiRuntime';
 import { parseSkillPointFormula } from '../utils';
 import { AGE_CATEGORIES } from '../config/age.config';
 import {
+    CAMPFIRE_ABILITY_BADGES,
+    CAMPFIRE_ADVERSITY_BOXES,
+    CAMPFIRE_DISTRESS_BOXES,
+    CAMPFIRE_ERA_ID,
+    CAMPFIRE_RANK_BADGES,
+    getFamilyCreditStatus,
+    getScoutRank,
+    getScoutSkillPointTotal,
+    rollCampfireAttributes,
+    rollFamilyCreditStatus,
+} from '../eras/campfire-tales/scout-rules';
+import type { FamilyCreditStatus } from '../eras/campfire-tales/scout-rules';
+import {
     buildEraContext,
     buildSkillDistributionAnalysisPrompt,
     buildSkillDistributionPrompt,
     normalizeSkillDistributionAnalysis,
     normalizeSkillDistributionResponse,
+    rewriteSkillAllocationsToSpecializations,
     responseToSkillPointAssignments,
 } from '../lib/ai/skill-distribution';
-import type { SkillDistributionAnalysis, SkillDistributionPayload, SkillDistributionSkillSummary } from '../lib/ai/skill-distribution';
+import type {
+    SkillDistributionAllocation,
+    SkillDistributionAnalysis,
+    SkillDistributionPayload,
+    SkillDistributionResponse,
+    SkillDistributionSkillSummary,
+} from '../lib/ai/skill-distribution';
 
 const roll3d6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
 const roll2d6plus6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + 6;
@@ -35,7 +55,83 @@ const getDamageBonusAndBuild = (str: number, siz: number): { damageBonus: string
     return { damageBonus: '+5D6', build: 6 };
 };
 
+const getCampfireDamageBonusAndBuild = (str: number, siz: number): { damageBonus: string, build: number } => {
+    const total = str + siz;
+    if (total <= 64) return { damageBonus: '-2', build: -2 };
+    if (total <= 84) return { damageBonus: '-1', build: -1 };
+    if (total <= 124) return { damageBonus: 'None', build: 0 };
+    return { damageBonus: '+1D4', build: 1 };
+};
+
 type SkillPointAssignments = Record<string, { occupational: number; personal: number; experience?: number; archetype?: number }>;
+type AiDistributionStage = 'analyzing' | 'distributing' | null;
+type ScoutCheckState = Record<string, boolean>;
+type AiDistributionPreview = {
+    analysis: SkillDistributionAnalysis;
+    rationale?: string;
+    coreSkills: SkillDistributionAllocation[];
+    supplementalSkills: SkillDistributionAllocation[];
+    personalInterests: SkillDistributionAllocation[];
+};
+type PendingAiDistribution = {
+    preview: AiDistributionPreview;
+    transformedResponse: SkillDistributionResponse;
+    skillSummaries: SkillDistributionSkillSummary[];
+    poolTotals: Record<'occupational' | 'personal' | 'experience' | 'archetype', number>;
+    skillCap: number;
+    occupationalSkillNames: string[];
+    utilitySkills: string[];
+    specializationsCatalog: Record<string, string[]>;
+    minimumCreditRating: number;
+};
+
+const deriveMinimumCreditRating = (
+    occupation: Occupation,
+    description: string,
+    analysis?: SkillDistributionAnalysis,
+) => {
+    const text = [
+        occupation.name,
+        occupation.group,
+        occupation.description,
+        description,
+        analysis?.summary || '',
+        ...(analysis?.themes || []),
+        ...(analysis?.cautions || []),
+        analysis?.literacyNotes || '',
+    ].join(' ').toLowerCase();
+
+    const wealthy = /\b(wealthy|rich|luxury|luxurious|aristocrat|noble|heiress|banker|financier|executive|ceo|industrialist|socialite|elite|upper class|landed|lord|lady|millionaire|moneyed|well-to-do)\b/.test(text);
+    const comfortable = /\b(comfortable|respectable|established|successful|professional|well paid|well-paid|well off|middle class|well-connected|prestigious|senior|partner|director|owner)\b/.test(text);
+    const poor = /\b(poor|penniless|homeless|drifter|beggar|destitute|working class|laborer|manual labor|servant|maid|tenant|pauper|impoverished|down on (his|her|their) luck|struggling)\b/.test(text);
+    const lowStatus = occupation.group === 'Manual Labor' || occupation.group === 'Criminal';
+    const upperClass = occupation.group === 'Upper Class' || occupation.group === 'Dilettante';
+    const ordinaryProfessional = ['Academic', 'Professional', 'Investigative', 'Entertainer', 'Crafts', 'War', 'Lovecraftian'].includes(occupation.group);
+    const min = occupation.creditRatingRange.min;
+    const max = occupation.creditRatingRange.max;
+    const clamp = (value: number) => Math.max(min, Math.min(max, value));
+
+    let target = min;
+    if (wealthy || upperClass) {
+        target = clamp(min + 20);
+    } else if (comfortable || ordinaryProfessional) {
+        target = clamp(min + 10);
+    } else if (poor || lowStatus) {
+        target = clamp(min + 5);
+    } else {
+        target = clamp(min + 8);
+    }
+
+    if (occupation.group === 'Upper Class' || occupation.group === 'Dilettante') {
+        target = Math.max(target, clamp(min + Math.min(25, Math.max(10, Math.round((max - min) * 0.4)))));
+    }
+
+    if (wealthy && !poor) {
+        target = Math.max(target, clamp(Math.min(max, Math.max(min + 15, 50))));
+    }
+
+    return target;
+};
 
 export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastType) => void, aggregatedData: AggregatedData) => {
     const { selectedEra } = useEraContext();
@@ -64,6 +160,11 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     const [userCreatedSkills, setUserCreatedSkills] = useState<Skill[]>([]);
     const [activeSkillPool, setActiveSkillPool] = useState<'archetype' | 'occupational' | 'personal' | 'experience'>('occupational');
     const [occupationSkillChoices, setOccupationSkillChoices] = useState<Record<number, string[]>>({});
+    const [familyCreditStatus, setFamilyCreditStatus] = useState<FamilyCreditStatus | null>(null);
+    const [earnedScoutBadges, setEarnedScoutBadges] = useState<string[]>([]);
+    const [usedScoutBadges, setUsedScoutBadges] = useState<ScoutCheckState>({});
+    const [distressBoxes, setDistressBoxes] = useState<ScoutCheckState>({});
+    const [adversityBoxes, setAdversityBoxes] = useState<ScoutCheckState>({});
 
     // Experience package state (era-dependent)
     const [selectedExperiencePackage, setSelectedExperiencePackage] = useState<ExperiencePackage | null>(null);
@@ -99,6 +200,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         skills: Record<string, number>;
     }>({ attributes: {}, derivedStats: {}, skills: {} });
     // Max talents per era (default 3), can be overridden by Archetype rules
+    const isCampfireEra = selectedEra === CAMPFIRE_ERA_ID;
+
     const maxTalents = useMemo(() => {
         const isPulpEra = selectedEra === 'pulp-1930s';
         const isGaslightEra = selectedEra === 'gaslight-1890s';
@@ -134,7 +237,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     // Life Events: Calculate event count based on age
     const lifeEventCount = useMemo(() => {
         if (!selectedAgeCategory) return 1; // Default to 1
-        const ageConfig = AGE_CATEGORIES.find(c => c.label === selectedAgeCategory);
+        const ageConfig = isCampfireEra ? undefined : AGE_CATEGORIES.find(c => c.label === selectedAgeCategory);
         if (!ageConfig) return 1;
         
         // Youth (15-19) and Adult (20-39) get 1 event
@@ -374,7 +477,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
         setModifiedAttributes(tempAttrs);
 
-    }, [baseAttributes, selectedAgeCategory, ageDeductions, eduImprovementRolls, selectedEra, selectedArchetype, archetypeCoreChoice, coreCharacteristicRolls, lifeEventModifiers]);
+    }, [baseAttributes, selectedAgeCategory, ageDeductions, eduImprovementRolls, selectedEra, selectedArchetype, archetypeCoreChoice, coreCharacteristicRolls, lifeEventModifiers, isCampfireEra]);
 
     // When Archetype core is chosen, roll once per attribute and persist the result
     useEffect(() => {
@@ -459,19 +562,34 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         const baseSkills = [...aggregatedData.SKILLS, ...userCreatedSkills];
         if (!modifiedAttributes) return baseSkills;
 
+        const familyCredit = isCampfireEra ? getFamilyCreditStatus(familyCreditStatus) : null;
+        const badgeBonuses = isCampfireEra ? earnedScoutBadges.reduce<Record<string, number>>((acc, badgeName) => {
+            const badge = CAMPFIRE_ABILITY_BADGES.find(entry => entry.name === badgeName);
+            if (!badge) return acc;
+            acc[badge.skill] = (acc[badge.skill] || 0) + badge.increase;
+            return acc;
+        }, {}) : {};
+
         return baseSkills.map(skill => {
+            const badgeBonus = badgeBonuses[skill.name] || badgeBonuses[skill.name.split(' (')[0]] || 0;
             if (skill.name === 'Dodge') {
-                return { ...skill, base: Math.floor(modifiedAttributes.DEX / 2) };
+                return { ...skill, base: Math.floor(modifiedAttributes.DEX / 2) + badgeBonus };
             }
             if (skill.name === 'Language (Own)') {
-                return { ...skill, base: modifiedAttributes.EDU };
+                return { ...skill, base: modifiedAttributes.EDU + badgeBonus };
+            }
+            if (skill.name === 'Reassure') {
+                return { ...skill, base: Math.floor(modifiedAttributes.APP / 5) + badgeBonus };
+            }
+            if (skill.name === 'Family Credit Rating') {
+                return { ...skill, base: familyCredit?.base ?? skill.base };
             }
             if (skill.name === 'Credit Rating') {
                 return { ...skill, base: selectedOccupation?.creditRatingRange.min ?? 0 };
             }
-            return skill;
+            return badgeBonus ? { ...skill, base: skill.base + badgeBonus } : skill;
         });
-    }, [aggregatedData.SKILLS, userCreatedSkills, modifiedAttributes, selectedOccupation]);
+    }, [aggregatedData.SKILLS, userCreatedSkills, modifiedAttributes, selectedOccupation, isCampfireEra, familyCreditStatus, earnedScoutBadges]);
     
     const allOccupationChoicesMade = useMemo(() => {
         if (!selectedOccupation?.choiceGroups) return true;
@@ -497,19 +615,36 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         if (!selectedOccupation || !modifiedAttributes || !allOccupationChoicesMade) {
             return { total: 0, spent: 0, remaining: 0, formula: '', calculation: '' };
         }
+        if (isCampfireEra) {
+            const rank = getScoutRank(selectedAgeCategory);
+            const familyCredit = getFamilyCreditStatus(familyCreditStatus);
+            const total = getScoutSkillPointTotal(selectedAgeCategory, familyCredit.status);
+            const spent = Object.values(skillPointAssignments).reduce<number>((sum, s: { occupational: number; personal: number }) => sum + s.occupational, 0);
+            const adjustment = familyCredit.pointAdjustment === 0
+                ? 'no Family Credit adjustment'
+                : `${familyCredit.pointAdjustment > 0 ? '+' : ''}${familyCredit.pointAdjustment} Family Credit adjustment`;
+            return {
+                total,
+                spent,
+                remaining: total - spent,
+                formula: `${rank.name} hobby points`,
+                calculation: `${rank.skillPoints} rank points, ${adjustment}`,
+            };
+        }
         const { total, calculation } = parseSkillPointFormula(selectedOccupation.skillPoints, modifiedAttributes);
         const spent = Object.values(skillPointAssignments).reduce<number>((sum, s: { occupational: number; personal: number }) => sum + s.occupational, 0);
         return { total, spent, remaining: total - spent, formula: selectedOccupation.skillPoints, calculation };
-    }, [selectedOccupation, modifiedAttributes, skillPointAssignments, allOccupationChoicesMade]);
+    }, [selectedOccupation, modifiedAttributes, skillPointAssignments, allOccupationChoicesMade, isCampfireEra, selectedAgeCategory, familyCreditStatus]);
     
     const personalSkillPoints = useMemo(() => {
+        if (isCampfireEra) return { total: 0, spent: 0, remaining: 0, formula: 'No Personal Interest pool', calculation: 'Scout investigators spend starting points through their hobby.' };
         if (!modifiedAttributes) return { total: 0, spent: 0, remaining: 0, formula: 'INT × 2', calculation: '' };
         const total = modifiedAttributes.INT * 2;
         const spent = Object.values(skillPointAssignments).reduce<number>((sum, s: { occupational: number; personal: number }) => sum + s.personal, 0);
         const formula = 'INT × 2';
         const calculation = `INT (${modifiedAttributes.INT}) × 2 = ${total}`;
         return { total, spent, remaining: total - spent, formula, calculation };
-    }, [modifiedAttributes, skillPointAssignments]);
+    }, [modifiedAttributes, skillPointAssignments, isCampfireEra]);
 
     const skills = useMemo(() => {
         const result: Record<string, number> = {};
@@ -530,7 +665,9 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     
     const derivedStats = useMemo(() => {
         if (!modifiedAttributes) return null;
-        const { damageBonus, build } = getDamageBonusAndBuild(modifiedAttributes.STR, modifiedAttributes.SIZ);
+        const { damageBonus, build } = isCampfireEra
+            ? getCampfireDamageBonusAndBuild(modifiedAttributes.STR, modifiedAttributes.SIZ)
+            : getDamageBonusAndBuild(modifiedAttributes.STR, modifiedAttributes.SIZ);
         let mov = 8;
         if (modifiedAttributes.DEX < modifiedAttributes.SIZ && modifiedAttributes.STR < modifiedAttributes.SIZ) mov = 7;
         else if (modifiedAttributes.DEX > modifiedAttributes.SIZ && modifiedAttributes.STR > modifiedAttributes.SIZ) mov = 9;
@@ -557,7 +694,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             Build: build,
             MOV: mov + lifeEventMOV,
         };
-    }, [modifiedAttributes, experienceSanPenalty, optionalRules, selectedEra, lifeEventModifiers]);
+    }, [modifiedAttributes, experienceSanPenalty, optionalRules, selectedEra, lifeEventModifiers, isCampfireEra]);
     
     const ai = useAIGeneration(
         selectedOccupation?.name || 'Investigator',
@@ -566,6 +703,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     );
     const { generateText } = useAiRuntime();
     const [isAiDistributionRunning, setIsAiDistributionRunning] = useState(false);
+    const [pendingAiDistribution, setPendingAiDistribution] = useState<PendingAiDistribution | null>(null);
 
     // When occupation changes, update occupation notes from any special and suggestedContacts
     useEffect(() => {
@@ -614,8 +752,27 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         if (selectedOccupation?.suggestedContacts) {
             notes.push({ name: 'Suggested Contacts', description: selectedOccupation.suggestedContacts, source: selectedOccupation.source || 'Pulp 1930s' });
         }
+        if (selectedOccupation?.obligations) {
+            notes.push({ name: 'Obligations', description: selectedOccupation.obligations, source: selectedOccupation.source || 'Campfire Tales' });
+        }
+        if (selectedOccupation?.trustedAdult) {
+            notes.push({ name: 'Trusted Adult', description: selectedOccupation.trustedAdult, source: selectedOccupation.source || 'Campfire Tales' });
+        }
+        if (selectedOccupation?.startingBadges?.length) {
+            notes.push({ name: 'Starting Badges', description: selectedOccupation.startingBadges.join(', '), source: selectedOccupation.source || 'Campfire Tales' });
+        }
         setOccupationNotes(notes);
     }, [selectedOccupation]);
+
+    useEffect(() => {
+        if (!isCampfireEra || !selectedOccupation) return;
+        const rankBadge = getScoutRank(selectedAgeCategory).badge;
+        setEarnedScoutBadges([
+            'Wayfarer Scout Badge',
+            rankBadge,
+            ...(selectedOccupation.startingBadges || []),
+        ]);
+    }, [isCampfireEra, selectedAgeCategory, selectedOccupation]);
     
     const handleOccupationSkillChoice = useCallback((groupIndex: number, skillName: string) => {
         setOccupationSkillChoices(prev => {
@@ -688,7 +845,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             const isPulpEra = (selectedEra === 'pulp-1930s');
             const isGaslightEra = (selectedEra === 'gaslight-1890s');
             const traditionalCap = (pulpRulesEnabled || isPulpEra || isGaslightEra) ? 95 : 75;
-            const cap = (occupationMaxCR > 0) ? occupationMaxCR : traditionalCap;
+            const cap = isCampfireEra ? 99 : ((occupationMaxCR > 0) ? occupationMaxCR : traditionalCap);
 
             if (amount > 0) {
                 const maxAddable = cap - (baseSkillValue + newOccupational + newPersonal + newExperience + newArchetype);
@@ -735,7 +892,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             }
             return { ...prev, [skillName]: { occupational: newOccupational, personal: newPersonal, experience: newExperience, archetype: newArchetype } };
         });
-    }, [activeSkillPool, occupationalSkillPoints, personalSkillPoints, allSkillsWithCalculatedBases, effectiveOccupationalSkills, experiencePoints, experienceEligibleSkills, archetypePoints, archetypeEligibleSkills, pulpRulesEnabled, selectedEra]);
+    }, [activeSkillPool, occupationalSkillPoints, personalSkillPoints, allSkillsWithCalculatedBases, effectiveOccupationalSkills, experiencePoints, experienceEligibleSkills, archetypePoints, archetypeEligibleSkills, pulpRulesEnabled, selectedEra, isCampfireEra]);
     
     // Compute archetype points remaining by summing allocations on eligible skills
     useEffect(() => {
@@ -782,12 +939,15 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setActiveSkillPool('occupational');
     }, []);
 
-    const handleAiSkillDistribution = useCallback(async (description: string) => {
+    const handleAiSkillDistribution = useCallback(async (
+        description: string,
+        onStageChange?: (stage: AiDistributionStage) => void,
+    ) => {
         if (!selectedOccupation || !modifiedAttributes) {
-            throw new Error('Select a profession and generate attributes before using AI Distribution.');
+            throw new Error(`Select ${isCampfireEra ? 'a hobby' : 'a profession'} and generate attributes before using AI Distribution.`);
         }
         if (!allOccupationChoicesMade) {
-            throw new Error('Complete the occupation skill choices before asking AI to distribute points.');
+            throw new Error(`Complete the ${isCampfireEra ? 'hobby' : 'occupation'} skill choices before asking AI to distribute points.`);
         }
 
         const freshPoolSummary = (pool: { total: number; spent: number; remaining: number; formula: string; calculation: string }) => ({
@@ -817,6 +977,9 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 special: selectedOccupation.special || null,
                 suggestedContacts: selectedOccupation.suggestedContacts || null,
                 archetypicalClothing: selectedOccupation.archetypicalClothing || null,
+                obligations: selectedOccupation.obligations || null,
+                trustedAdult: selectedOccupation.trustedAdult || null,
+                startingBadges: selectedOccupation.startingBadges || [],
                 occupationalSkills: selectedOccupation.occupationalSkills,
                 choiceGroups: selectedOccupation.choiceGroups,
                 selectedChoices: occupationSkillChoices,
@@ -874,17 +1037,30 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
         setIsAiDistributionRunning(true);
         try {
+            onStageChange?.('analyzing');
             const analysisPrompt = buildSkillDistributionAnalysisPrompt(payload);
             const rawAnalysisResponse = await generateText({ prompt: analysisPrompt, json: true, purpose: 'creative' });
             const analysis = normalizeSkillDistributionAnalysis(rawAnalysisResponse);
+            const minimumCreditRating = deriveMinimumCreditRating(selectedOccupation, description, analysis);
             const analyzedPayload: SkillDistributionPayload = { ...payload, analysis };
+            analyzedPayload.distribution = {
+                ...analyzedPayload.distribution,
+                minimumCreditRating,
+            };
 
+            onStageChange?.('distributing');
             const prompt = buildSkillDistributionPrompt(analyzedPayload);
             const rawResponse = await generateText({ prompt, json: true, purpose: 'creative' });
             const normalizedResponse = normalizeSkillDistributionResponse(rawResponse);
             const skillSummaries: SkillDistributionSkillSummary[] = [...analyzedPayload.skills];
             const existingSkillNames = new Set(skillSummaries.map(skill => skill.name));
             const createdSpecializations: Skill[] = [];
+            const rewrittenResponse = rewriteSkillAllocationsToSpecializations(
+                normalizedResponse,
+                skillSummaries,
+                aggregatedData.SKILL_SPECIALIZATIONS,
+                existingSkillNames,
+            );
             const addMissingSpecialization = (skillName: string) => {
                 if (existingSkillNames.has(skillName)) return;
                 const match = skillName.match(/^(.*) \((.+)\)$/);
@@ -915,10 +1091,10 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 });
             };
             [
-                ...normalizedResponse.occupational,
-                ...normalizedResponse.personal,
-                ...normalizedResponse.experience,
-                ...normalizedResponse.archetype,
+                ...rewrittenResponse.occupational,
+                ...rewrittenResponse.personal,
+                ...rewrittenResponse.experience,
+                ...rewrittenResponse.archetype,
             ].forEach(entry => addMissingSpecialization(entry.skill));
             if (createdSpecializations.length > 0) {
                 setUserCreatedSkills(prev => {
@@ -926,42 +1102,56 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                     return [...prev, ...createdSpecializations.filter(skill => !existing.has(skill.name))];
                 });
             }
-            const assignments = responseToSkillPointAssignments(
-                normalizedResponse,
+            const transformedResponse = {
+                rationale: rewrittenResponse.rationale,
+                occupational: rewrittenResponse.occupational,
+                personal: rewrittenResponse.personal,
+                experience: rewrittenResponse.experience,
+                archetype: rewrittenResponse.archetype,
+            };
+            const occupationalSkillNames = selectedOccupation?.occupationalSkills || [];
+            const utilitySkills = [
+                'Spot Hidden',
+                'Listen',
+                'First Aid',
+                'Library Use',
+                'Psychology',
+                'Stealth',
+                'Dodge',
+                'Climb',
+                'Jump',
+                'Throw',
+                'Credit Rating',
+                'Fighting',
+                'Firearms',
+            ];
+            setPendingAiDistribution({
+                preview: {
+                    analysis,
+                    rationale: rewrittenResponse.rationale,
+                    coreSkills: transformedResponse.occupational,
+                    supplementalSkills: [...transformedResponse.experience, ...transformedResponse.archetype],
+                    personalInterests: transformedResponse.personal,
+                },
                 skillSummaries,
-                {
+                transformedResponse,
+                skillCap: isCampfireEra ? 99 : (selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75)),
+                occupationalSkillNames,
+                utilitySkills,
+                specializationsCatalog: aggregatedData.SKILL_SPECIALIZATIONS,
+                minimumCreditRating,
+                poolTotals: {
                     occupational: freshPools.occupational.total,
                     personal: freshPools.personal.total,
                     experience: freshPools.experience.total,
                     archetype: freshPools.archetype.total,
                 },
-                {
-                    skillCap: selectedOccupation?.creditRatingRange?.max ?? ((selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75),
-                    occupationalSkillNames: selectedOccupation?.occupationalSkills || [],
-                    utilitySkills: [
-                        'Spot Hidden',
-                        'Listen',
-                        'First Aid',
-                        'Library Use',
-                        'Psychology',
-                        'Stealth',
-                        'Dodge',
-                        'Climb',
-                        'Jump',
-                        'Throw',
-                        'Credit Rating',
-                        'Fighting',
-                        'Firearms',
-                    ],
-                },
-            );
-            setSkillPointAssignments(assignments);
-            setActiveSkillPool('occupational');
-            setToastMessage('AI skill distribution applied.', 'success');
+            });
         } catch (error) {
             console.error('AI skill distribution failed:', error);
             throw new Error(error instanceof Error ? error.message : 'Failed to apply AI skill distribution.');
         } finally {
+            onStageChange?.(null);
             setIsAiDistributionRunning(false);
         }
     }, [
@@ -978,10 +1168,34 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         occupationSkillChoices,
         occupationalSkillPoints,
         personalSkillPoints,
+        isCampfireEra,
         selectedEra,
         selectedOccupation,
-        setToastMessage,
     ]);
+
+    const applyPendingAiDistribution = useCallback(() => {
+        if (!pendingAiDistribution) return;
+        const assignments = responseToSkillPointAssignments(
+            pendingAiDistribution.transformedResponse,
+            pendingAiDistribution.skillSummaries,
+            pendingAiDistribution.poolTotals,
+            {
+                skillCap: pendingAiDistribution.skillCap,
+                occupationalSkillNames: pendingAiDistribution.occupationalSkillNames,
+                utilitySkills: pendingAiDistribution.utilitySkills,
+                specializationsCatalog: pendingAiDistribution.specializationsCatalog,
+                minimumCreditRating: pendingAiDistribution.minimumCreditRating,
+            },
+        );
+        setSkillPointAssignments(assignments);
+        setActiveSkillPool('occupational');
+        setPendingAiDistribution(null);
+        setToastMessage('AI skill distribution applied.', 'success');
+    }, [pendingAiDistribution, setToastMessage]);
+
+    const clearPendingAiDistribution = useCallback(() => {
+        setPendingAiDistribution(null);
+    }, []);
 
     const handleAddSpecialization = useCallback((displayName: string, specializationBase: string, subType: string) => {
         const name = `${specializationBase} (${subType})`;
@@ -1043,12 +1257,39 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         });
     }, []);
 
+    const handleFamilyCreditStatusChange = useCallback((status: FamilyCreditStatus) => {
+        setFamilyCreditStatus(status);
+        setWealth(null);
+        if (selectedOccupation?.familyCreditRequirement && selectedOccupation.familyCreditRequirement !== status) {
+            setSelectedOccupation(null);
+            handleSkillsReset();
+            setToastMessage(`${selectedOccupation.name} was cleared because it requires ${selectedOccupation.familyCreditRequirement} Family Credit Rating.`, 'info');
+        }
+    }, [selectedOccupation, handleSkillsReset, setToastMessage]);
+
+    const toggleScoutBadgeUsed = useCallback((badgeName: string) => {
+        setUsedScoutBadges(prev => ({ ...prev, [badgeName]: !prev[badgeName] }));
+    }, []);
+
+    const toggleDistressBox = useCallback((boxName: string) => {
+        setDistressBoxes(prev => ({ ...prev, [boxName]: !prev[boxName] }));
+    }, []);
+
+    const toggleAdversityBox = useCallback((boxName: string) => {
+        setAdversityBoxes(prev => ({ ...prev, [boxName]: !prev[boxName] }));
+    }, []);
+
     const aiReset = ai.reset;
     const reset = useCallback(() => {
         aiReset();
         setActiveKitName(null); setKitInventory([]); setInventory([]);
         setWealth(null); setPurchaseLedger({});
         handleSkillsReset();
+        setFamilyCreditStatus(null);
+        setEarnedScoutBadges([]);
+        setUsedScoutBadges({});
+        setDistressBoxes({});
+        setAdversityBoxes({});
         setSelectedTalents([]);
         setSelectedAgeCategory(null);
         setAgeDeductions({ required: 0, applied: {} });
@@ -1075,6 +1316,20 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         if (!baseAttributes) return;
         if (!category) {
             setAgeDeductions({ required: 0, applied: {} });
+            return;
+        }
+        if (isCampfireEra) {
+            setAgeDeductions({ required: 0, applied: {} });
+            setEduImprovementRolls([]);
+            setYouthLuckApplied(false);
+            if (category !== selectedAgeCategory) {
+                const nextAttributes = rollCampfireAttributes(category);
+                setBaseAttributes(nextAttributes);
+                setOriginalBaseLuck(nextAttributes.LUCK);
+                persistLuckForEra(selectedEra, nextAttributes.LUCK);
+                setSelectedOccupation(null);
+                handleSkillsReset();
+            }
             return;
         }
     
@@ -1122,11 +1377,24 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             persistLuckForEra(selectedEra, originalBaseLuck);
         }
 
-    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck]);
+    }, [baseAttributes, youthLuckApplied, setToastMessage, persistentAgeDeductions, originalBaseLuck, isCampfireEra, selectedAgeCategory, persistLuckForEra, selectedEra, handleSkillsReset]);
 
     const handleRoll = useCallback(() => {
         if (baseAttributes) setRollHistory(prev => [baseAttributes, ...prev].slice(0, 9));
         reset();
+        if (isCampfireEra) {
+            const rankId: AgeCategory = '11-12';
+            const newAttributes = rollCampfireAttributes(rankId);
+            const familyStatus = rollFamilyCreditStatus();
+            setFamilyCreditStatus(familyStatus);
+            setBaseAttributes(newAttributes);
+            setOriginalBaseLuck(newAttributes.LUCK);
+            persistLuckForEra(selectedEra, newAttributes.LUCK);
+            setSelectedOccupation(null);
+            ai.onGenerateRandomNationality();
+            setSelectedAgeCategory(rankId);
+            return;
+        }
         const rollLuckForEra = () => (selectedEra === 'pulp-1930s' ? roll2d6plus6() : roll3d6()) * 5;
         const newAttributes: AttributeSet = {
             STR: roll3d6() * 5, CON: roll3d6() * 5, DEX: roll3d6() * 5, APP: roll3d6() * 5, POW: roll3d6() * 5,
@@ -1139,7 +1407,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setSelectedOccupation(null);
         ai.onGenerateRandomNationality();
         handleSelectAgeCategory('20-39');
-    }, [ai, baseAttributes, reset, handleSelectAgeCategory, persistLuckForEra, selectedEra]);
+    }, [ai, baseAttributes, reset, handleSelectAgeCategory, persistLuckForEra, selectedEra, isCampfireEra]);
 
     const handleRestoreRoll = useCallback((rollToRestore: AttributeSet) => {
         reset();
@@ -1150,8 +1418,8 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setSelectedOccupation(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setToastMessage("Restored previous characteristic roll.", 'success');
-        handleSelectAgeCategory('20-39');
-    }, [reset, setToastMessage, handleSelectAgeCategory, persistLuckForEra, selectedEra]);
+        handleSelectAgeCategory(isCampfireEra ? '11-12' : '20-39');
+    }, [reset, setToastMessage, handleSelectAgeCategory, persistLuckForEra, selectedEra, isCampfireEra]);
 
     const handleAgeAttributeDeduct = useCallback((attr: 'STR' | 'CON' | 'DEX' | 'SIZ', action?: 'add' | 'remove') => {
         const totalApplied = Object.values(ageDeductions.applied).reduce<number>((sum, val: number) => sum + val, 0);
@@ -1237,18 +1505,31 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
 
     const setOccupation = useCallback((occupationName: string) => {
         const occupation = aggregatedData.OCCUPATIONS.find(p => p.name === occupationName) || null;
+        if (isCampfireEra && occupation?.familyCreditRequirement && familyCreditStatus !== occupation.familyCreditRequirement) {
+            setToastMessage(`${occupation.name} requires ${occupation.familyCreditRequirement} Family Credit Rating.`, 'warning');
+            return;
+        }
         
         handleSkillsReset();
         ai.reset();
         setSelectedOccupation(occupation);
         setWealth(null); setPurchaseLedger({}); setInventory([]); setActiveKitName(null); setKitInventory([]);
+        if (isCampfireEra && occupation) {
+            const rankBadge = getScoutRank(selectedAgeCategory).badge;
+            setEarnedScoutBadges([
+                'Wayfarer Scout Badge',
+                rankBadge,
+                ...(occupation.startingBadges || []),
+            ]);
+            setUsedScoutBadges({});
+        }
 
         if (occupation) {
             const newSpecializations: Skill[] = [];
             const specializationStrings = occupation.occupationalSkills.filter(s => s.includes('('));
             
             specializationStrings.forEach(specString => {
-                const match = specString.match(/(.+) \((\w+)\)$/);
+                const match = specString.match(/(.+) \((.+)\)$/);
                 if (match) {
                     const [, baseName, subType] = match;
                     
@@ -1273,7 +1554,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 setUserCreatedSkills(prev => [...prev, ...newSpecializations]);
             }
         }
-    }, [aggregatedData.OCCUPATIONS, aggregatedData.SKILLS, ai, handleSkillsReset]);
+    }, [aggregatedData.OCCUPATIONS, aggregatedData.SKILLS, ai, handleSkillsReset, isCampfireEra, familyCreditStatus, selectedAgeCategory, setToastMessage]);
 
     // Reset wealth when era/wealth data changes
     useEffect(() => {
@@ -1285,7 +1566,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         if (!wealth && selectedOccupation && modifiedAttributes) {
             // Dark Ages uses Status instead of Credit Rating
             const isDarkAges = selectedEra === 'dark-ages-1000s';
-            const wealthSkillName = isDarkAges ? 'Status' : 'Credit Rating';
+            const wealthSkillName = isDarkAges ? 'Status' : (isCampfireEra ? 'Family Credit Rating' : 'Credit Rating');
             
             const wealthSkillValue = ((): number => {
                 const result: Record<string, number> = {} as any;
@@ -1308,7 +1589,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 setWealth({ dailyCash: daily, totalCash: cash, assets });
             }
         }
-    }, [wealth, selectedOccupation, modifiedAttributes, aggregatedData.WEALTH_DATA, allSkillsWithCalculatedBases, skillPointAssignments, selectedEra]);
+    }, [wealth, selectedOccupation, modifiedAttributes, aggregatedData.WEALTH_DATA, allSkillsWithCalculatedBases, skillPointAssignments, selectedEra, isCampfireEra]);
     
     const setEquipmentKit = useCallback((kitName: string) => {
         const newKit = aggregatedData.EQUIPMENT_KITS.find(k => k.name === kitName);
@@ -1501,6 +1782,9 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         skills, occupationalSkillPoints, personalSkillPoints, skillPointAssignments, handleSkillPointChange,
         handleSkillsReset,
         handleAiSkillDistribution,
+        applyPendingAiDistribution,
+        clearPendingAiDistribution,
+        pendingAiDistribution,
         isAiDistributionRunning,
     activeSkillPool, setActiveSkillPool,
         userCreatedSkills, handleAddSpecialization, handleDeleteSpecialization,
@@ -1522,6 +1806,21 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
     selectedTalents, toggleTalent, randomizeTalentFrom, maxTalents,
         // Optional Rules
         optionalRules, setOptionalRuleEnabled,
+        // Campfire Tales exports
+        isCampfireEra,
+        familyCreditStatus,
+        setFamilyCreditStatus: handleFamilyCreditStatusChange,
+        earnedScoutBadges,
+        usedScoutBadges,
+        toggleScoutBadgeUsed,
+        distressBoxes,
+        adversityBoxes,
+        toggleDistressBox,
+        toggleAdversityBox,
+        campfireRankBadges: CAMPFIRE_RANK_BADGES,
+        campfireAbilityBadges: CAMPFIRE_ABILITY_BADGES,
+        campfireDistressBoxes: CAMPFIRE_DISTRESS_BOXES,
+        campfireAdversityBoxes: CAMPFIRE_ADVERSITY_BOXES,
         // Age related exports
         selectedAgeCategory, handleSelectAgeCategory,
         ageDeductions, handleAgeAttributeDeduct,

@@ -27,6 +27,9 @@ export const SkillsTab: React.FC = () => {
         aggregatedData,
         activeSkillPool,
         setActiveSkillPool,
+        pendingAiDistribution,
+        applyPendingAiDistribution,
+        clearPendingAiDistribution,
         allSkillsWithCalculatedBases,
         allOccupationChoicesMade,
         effectiveOccupationalSkills,
@@ -55,7 +58,7 @@ export const SkillsTab: React.FC = () => {
             <div className="space-y-6 max-w-4xl mx-auto bg-card p-6 rounded-lg border border-border shadow-xl shadow-primary-900/15">
                 <h2 className="text-3xl font-bold font-lora text-primary text-center">Skill Allocation</h2>
                 <p className="text-center text-lg text-muted-foreground py-8">
-                    Please select an occupation on the "Characteristics" tab to begin allocating skill points.
+                    Please select {selectedEra === 'campfire-tales' ? 'a hobby' : 'an occupation'} on the "Characteristics" tab to begin allocating skill points.
                 </p>
             </div>
         );
@@ -69,6 +72,13 @@ export const SkillsTab: React.FC = () => {
     const handleCloseChoiceModal = () => {
         setIsChoiceModalOpen(false);
         setActiveChoiceGroupIndex(null);
+    };
+
+    const handleAiDistributionDescriptionChange = (nextDescription: string) => {
+        setAiDistributionDescription(nextDescription);
+        if (pendingAiDistribution) {
+            clearPendingAiDistribution();
+        }
     };
     
     // If a parent specialty skill is occupational (e.g., Language (Other) or Science),
@@ -89,7 +99,7 @@ export const SkillsTab: React.FC = () => {
     const renderSkillRow = (skill: Skill) => {
         const assignment = skillPointAssignments[skill.name] || { occupational: 0, personal: 0, experience: 0, archetype: 0 };
         const totalValue = skill.base + assignment.occupational + assignment.personal + (assignment.experience || 0) + (assignment.archetype || 0);
-        const cap = (pulpRulesEnabled || selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75;
+        const cap = selectedEra === 'campfire-tales' ? 99 : ((pulpRulesEnabled || selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75);
         const baseName = skill.name.split(' (')[0];
         const isOccByParentStub = skill.name.includes('(') && occupationalParentStubs.has(baseName);
         const isOccupationalSkill = effectiveOccupationalSkills.has(skill.name) || effectiveOccupationalSkills.has(baseName) || isOccByParentStub;
@@ -237,9 +247,15 @@ export const SkillsTab: React.FC = () => {
                 open={isAiDistributionOpen}
                 occupationName={selectedOccupation?.name || 'Investigator'}
                 description={aiDistributionDescription}
-                onDescriptionChange={setAiDistributionDescription}
-                onClose={() => setIsAiDistributionOpen(false)}
-                onSubmit={handleAiSkillDistribution}
+                onDescriptionChange={handleAiDistributionDescriptionChange}
+                review={pendingAiDistribution ? pendingAiDistribution.preview : null}
+                onClose={() => {
+                    clearPendingAiDistribution();
+                    setIsAiDistributionOpen(false);
+                }}
+                onApply={applyPendingAiDistribution}
+                onSubmit={(description, onStageChange) => handleAiSkillDistribution(description, onStageChange)}
+                onRetry={(description, onStageChange) => handleAiSkillDistribution(description, onStageChange)}
              />
              {isChoiceModalOpen && activeChoiceGroup && (
                 <ChoiceSkillsModal

@@ -21,6 +21,7 @@ const formatChoiceOptions = (options: string[]): string => {
 export const OccupationInfoModal: React.FC<OccupationInfoModalProps> = ({ occupation, onClose }) => {
   if (!occupation) return null;
   const { aggregatedData } = useCharacterContext();
+  const isScoutHobby = occupation.group === 'Scout Hobby';
 
   const recommendedKits = useMemo(() => {
     const name = occupation.name.toLowerCase();
@@ -104,7 +105,11 @@ export const OccupationInfoModal: React.FC<OccupationInfoModalProps> = ({ occupa
                         <h3 className="font-bold text-lg text-primary-800 mb-2">Details</h3>
                         <ul className="list-disc list-inside space-y-1">
                             <li><strong>Skill Points:</strong> {occupation.skillPoints}</li>
-                            <li><strong>Credit Rating:</strong> {occupation.creditRatingRange.min}-{occupation.creditRatingRange.max}</li>
+                            <li><strong>{isScoutHobby ? 'Family Credit Rating' : 'Credit Rating'}:</strong> {occupation.creditRatingRange.min}-{occupation.creditRatingRange.max}</li>
+                            {occupation.familyCreditRequirement && <li><strong>Requires:</strong> {occupation.familyCreditRequirement} Family Credit Rating</li>}
+                            {occupation.obligations && <li><strong>Obligations:</strong> {occupation.obligations}</li>}
+                            {occupation.trustedAdult && <li><strong>Trusted Adult:</strong> {occupation.trustedAdult}</li>}
+                            {occupation.startingBadges?.length ? <li><strong>Starting Badge:</strong> {occupation.startingBadges.join(', ')}</li> : null}
                         </ul>
                     </div>
                     {recommendedKits.length > 0 && (

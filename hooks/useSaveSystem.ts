@@ -107,6 +107,11 @@ export const useSaveSystem = () => {
             optionalRules: charData.optionalRules,
             pulpRulesEnabled: charData.pulpRulesEnabled,
             selectedTalents: charData.selectedTalents,
+            familyCreditStatus: charData.familyCreditStatus || null,
+            earnedScoutBadges: charData.earnedScoutBadges || [],
+            usedScoutBadges: charData.usedScoutBadges || {},
+            distressBoxes: charData.distressBoxes || {},
+            adversityBoxes: charData.adversityBoxes || {},
             
             rolledLifeEvents: charData.rolledLifeEvents,
             lifeEventModifiers: charData.lifeEventModifiers,

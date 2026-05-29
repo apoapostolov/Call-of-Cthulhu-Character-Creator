@@ -5,7 +5,7 @@ export type Nationality = string;
 export type ExperienceLevel = 'New Recruit' | 'Experienced' | 'Veteran' | 'Legend';
 export type DamagedVeteranOption = 'Extreme Violence' | 'Captivity or Imprisonment' | 'Hard Experience' | 'Things Man Was Not Meant to Know';
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
-export type AgeCategory = '15-19' | '20-39' | '40-49' | '50-59' | '60-69' | '70-79' | '80-89';
+export type AgeCategory = '11-12' | '13-14' | '15-16' | '17-18' | '15-19' | '20-39' | '40-49' | '50-59' | '60-69' | '70-79' | '80-89';
 
 export interface Emotion {
   name: string;
@@ -160,7 +160,7 @@ export interface Skill {
   eraId?: EraID;
 }
 
-export type OccupationGroup = 'Lovecraftian' | 'War' | 'Crafts' | 'Academic' | 'Entertainer' | 'Manual Labor' | 'Investigative' | 'Professional' | 'Upper Class' | 'Criminal' | 'Dilettante';
+export type OccupationGroup = 'Scout Hobby' | 'Lovecraftian' | 'War' | 'Crafts' | 'Academic' | 'Entertainer' | 'Manual Labor' | 'Investigative' | 'Professional' | 'Upper Class' | 'Criminal' | 'Dilettante';
 // FIX: Added alias for ProfessionGroup.
 export type ProfessionGroup = OccupationGroup;
 
@@ -181,7 +181,11 @@ export interface Occupation {
     // Optional special rule/note to surface on Dossier (Tab 4)
     special?: string;
   // Pulp 1930s: attach a Suggested Contacts blurb (rendered as a Note on the Dossier tab)
-  suggestedContacts?: string;
+    suggestedContacts?: string;
+  obligations?: string;
+  trustedAdult?: string;
+  startingBadges?: string[];
+  familyCreditRequirement?: 'Penniless' | 'Poor' | 'Average' | 'Wealthy' | 'Rich';
   // UI hint: when added by Pulp and not present in Classic, mark as NEW
   isNew?: boolean;
 }
@@ -379,6 +383,11 @@ export interface CharacterSaveData {
   optionalRules: Record<string, boolean>;
   pulpRulesEnabled: boolean;
   selectedTalents: string[];
+  familyCreditStatus?: string | null;
+  earnedScoutBadges?: string[];
+  usedScoutBadges?: Record<string, boolean>;
+  distressBoxes?: Record<string, boolean>;
+  adversityBoxes?: Record<string, boolean>;
   
   // Life events
   rolledLifeEvents: any[];
@@ -416,4 +425,3 @@ export interface SaveSlot {
 // FIX: Added placeholder types to resolve compilation errors in utility files.
 export type SystemClass = any;
 export type SystemRace = any;
-

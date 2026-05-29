@@ -28,17 +28,21 @@ describe('OpenRouter model helpers', () => {
         id: '~google/gemini-flash-latest',
         name: 'Gemini Flash Latest',
         pricing: { prompt: '0.000001', completion: '0.000002' },
-        outputModalities: ['text'],
-        inputModalities: ['text', 'image'],
+        architecture: {
+          output_modalities: ['text'],
+          input_modalities: ['text', 'image'],
+        },
       },
       {
         id: 'google/gemini-3.1-flash-image-preview',
         name: 'Nano Banana 2',
         pricing: { prompt: '0.0000005', completion: '0.000003' },
-        outputModalities: ['text', 'image'],
-        inputModalities: ['text', 'image'],
+        architecture: {
+          output_modalities: ['text', 'image'],
+          input_modalities: ['text', 'image'],
+        },
       },
-    ].map(model => model as ReturnType<typeof normalizeOpenRouterModel>);
+    ].map(normalizeOpenRouterModel);
 
     const { textModels, imageModels } = splitModelsByModality(models);
 
@@ -52,24 +56,30 @@ describe('OpenRouter model helpers', () => {
         id: 'provider/creative-only',
         name: 'Creative Only',
         pricing: { prompt: '0.000001', completion: '0.000002' },
-        outputModalities: ['text'],
-        inputModalities: ['text'],
+        architecture: {
+          output_modalities: ['text'],
+          input_modalities: ['text'],
+        },
       },
       {
         id: 'provider/vision-capable',
         name: 'Vision Capable',
         pricing: { prompt: '0.000001', completion: '0.000002' },
-        outputModalities: ['text'],
-        inputModalities: ['text', 'image'],
+        architecture: {
+          output_modalities: ['text'],
+          input_modalities: ['text', 'image'],
+        },
       },
       {
         id: 'provider/image-gen',
         name: 'Image Gen',
         pricing: { prompt: '0.0000005', completion: '0.000003' },
-        outputModalities: ['image'],
-        inputModalities: ['text', 'image'],
+        architecture: {
+          output_modalities: ['image'],
+          input_modalities: ['text', 'image'],
+        },
       },
-    ].map(model => model as ReturnType<typeof normalizeOpenRouterModel>);
+    ].map(normalizeOpenRouterModel);
 
     const { creativeModels, visionModels, imageModels } = splitModelsByPromptType(models);
 
