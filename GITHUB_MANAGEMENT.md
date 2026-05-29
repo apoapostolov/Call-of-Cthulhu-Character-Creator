@@ -40,6 +40,7 @@ This file describes the default GitHub operating model for this repository.
 ## Release And Sync Policy
 
 - Use `RELEASE_CHECKLIST.md` before publishing a tag, sync, or release branch.
-- Confirm changelog entries match the user-visible story.
+- Confirm changelog entries match the user-visible story and are curated from
+  the Unreleased section using the overwrite-first rule before a release cut.
 - Verify the working tree is clean before pushing a release commit.
 - Record what was validated and what remains risky.

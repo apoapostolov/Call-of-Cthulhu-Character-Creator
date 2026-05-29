@@ -65,7 +65,10 @@ Use this order when instructions conflict:
 ### 5. Record
 
 - Update `DEVELOPMENT_LOG.md` for meaningful code, workflow, or docs changes.
-- Update `CHANGELOG.md` only for user-visible changes.
+- Update `CHANGELOG.md` only for user-visible changes, and apply the
+  overwrite-first rule from the shared defaults changelog guide when editing
+  `Unreleased` so related bullets are rewritten instead of duplicated before a
+  release is cut.
 - Keep decision records short and dated.
 
 ## When To Ask The User

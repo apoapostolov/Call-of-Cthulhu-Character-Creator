@@ -1,5 +1,51 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - AI Distribution changelog separation
+
+- Context: the 1.0.2 changelog grouped AI Distribution with Campfire Tales,
+  but the feature is era-agnostic and belongs in the release notes as a
+  separate cross-cutting addition.
+- Files changed: `CHANGELOG.md` and `DEVELOPMENT_LOG.md`.
+- Changes: removed AI Distribution from the Campfire Tales bullet list and
+  added it back as its own release note entry describing the era-aware,
+  specialization-aware workflow used across the app.
+- Validation: documentation-only update; no runtime validation was run.
+
+## 2026-05-29 - Restore non-Campfire 1.0.2 UX notes
+
+- Context: the 1.0.2 changelog rewrite over-compressed unrelated UI/UX polish
+  into the Campfire Tales launch story.
+- Files changed: `CHANGELOG.md` and `DEVELOPMENT_LOG.md`.
+- Changes: restored the general UI/UX bullets for wealth collapse behavior,
+  specialization dropdown width, era-aware birthdate handling, and the shared
+  skill label rename so 1.0.2 reflects both the new era and the broader app
+  improvements.
+- Validation: documentation-only update; no runtime validation was run.
+
+## 2026-05-29 - Campfire Tales 1.0.2 changelog curation
+
+- Context: reshape the 1.0.2 release notes so Campfire Tales reads like a full
+  era launch rather than a sequence of incremental Campfire-specific changes.
+- Files changed: `CHANGELOG.md` and `DEVELOPMENT_LOG.md`.
+- Changes: rewrote the 1.0.2 release entry into a launch-style `Added`
+  section with nested sub-bullets that present Campfire Tales as a complete
+  scout-investigator era, and removed the Campfire-specific `Changed`
+  narrative from that release block.
+- Validation: documentation-only update; no runtime validation was run.
+
+## 2026-05-29 - Changelog 1.0.2 curation and release metadata sync
+
+- Context: align the repository's changelog workflow with the shared defaults
+  overwrite-first guidance and promote the current unreleased user-facing
+  story into a 1.0.2 release entry.
+- Files changed: `AGENTS.md`, `CHANGELOG.md`, `RELEASE_CHECKLIST.md`,
+  `GITHUB_MANAGEMENT.md`, `README.md`, `package.json`, and `package-lock.json`.
+- Changes: rewrote the Unreleased changelog bullets into a curated 1.0.2
+  section, updated the local operating contract and release checklist notes
+  to mention overwrite-first changelog maintenance, and synced the visible
+  version badge plus package metadata to 1.0.2.
+- Validation: documentation-only update; no runtime validation was run.
+
 ## 2026-05-29 - UI polish and changelog sync
 
 - Context: document the latest visible UI adjustments and keep the release

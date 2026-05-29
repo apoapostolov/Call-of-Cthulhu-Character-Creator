@@ -5,8 +5,8 @@ Use this before publishing, tagging, or syncing a release.
 ## Preflight
 
 - [ ] Read `DEVELOPMENT_PLAN.md` and `DEVELOPMENT_LOG.md`
-- [ ] Confirm the changelog reflects the user-visible outcome, not just the
-  code churn
+- [ ] Confirm the changelog reflects the user-visible outcome, and curate the
+  Unreleased bullets with the overwrite-first rule before cutting the release
 - [ ] Run the narrowest relevant validation command
 - [ ] Run `npm test` if the change touches logic, data flow, or saved-state
   behavior
@@ -25,7 +25,8 @@ Use this before publishing, tagging, or syncing a release.
 ## Post-Release
 
 - [ ] Record the final validation result in `DEVELOPMENT_LOG.md`
-- [ ] Backfill any missing changelog notes while the work is fresh
+- [ ] Backfill any missing changelog notes while the work is fresh, then
+  overwrite or merge duplicate unreleased bullets instead of appending them
 - [ ] Note residual risk or follow-up work
 
 ## Notes
