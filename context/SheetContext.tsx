@@ -63,18 +63,21 @@ export const SheetProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const getSheetPath = (sourceId: EraID, isSpellcaster: boolean, sheetConfig: any): string => {
         const config = sheetConfig || DG_SHEET_CONFIG;
         
+        // Look up era-specific sheet, falling back to the default sheet
+        const eraSheet = config.sheets?.[sourceId]?.defaultSheet || config.defaultSheet;
+        
         switch (sourceType) {
             case 'external':
                 const urls = externalUrls[sourceId];
-                return urls?.defaultSheet || config.defaultSheet;
+                return urls?.defaultSheet || eraSheet;
             case 'self-hosted':
-                if (!selfHostedUrl) return config.defaultSheet;
+                if (!selfHostedUrl) return eraSheet;
                 const base = selfHostedUrl.endsWith('/') ? selfHostedUrl : `${selfHostedUrl}/`;
-                const filename = (config.defaultSheet as string).split('/').pop() || `${sourceId}_sheet.pdf`;
+                const filename = (eraSheet).split('/').pop() || `${sourceId}_sheet.pdf`;
                 return `${base}${filename}`;
             case 'internal':
             default:
-                return config.defaultSheet;
+                return eraSheet;
         }
     };
 

@@ -32,6 +32,357 @@ function inferOwnLanguageName(nationality: string | null | undefined): string {
   return 'English';
 }
 
+// ─── Campfire Tales PDF Filler ───────────────────────────────────────────────
+
+/**
+ * Fill the Campfire Tales child-friendly PDF form.
+ * The campfire PDF uses entirely different field naming (snake_case, skill_ prefix, etc.)
+ * so it gets its own dedicated fill function.
+ */
+async function fillCampfirePdf(
+  form: any,
+  pdfDoc: any,
+  data: {
+    characterName: string | null;
+    attributes: AttributeSet | null;
+    skills: Record<string, number>;
+    inventory: DGItem[];
+    portraitDataUrl?: string | null;
+    damageBonus?: string | null;
+    spendingLevel?: string | null;
+    nationality?: string | null;
+    cash?: string | null;
+    assets?: string | null;
+    gender?: string | null;
+    occupationName?: string | null;
+    dob?: string | null;
+  },
+) {
+  const setText = (id: string, val: string | number | null | undefined) => {
+    if (val == null) return;
+    try { const f = form.getTextField(id); if (f) f.setText(String(val)); } catch {}
+  };
+
+  const setCheck = (id: string, checked: boolean) => {
+    try { const f = form.getCheckBox(id); if (f) checked ? f.check() : f.uncheck(); } catch {}
+  };
+
+  // ── Identity ──
+  setText('investigator_name', data.characterName);
+  setText('investigator_hobby', data.occupationName);
+
+  // Age from DOB
+  if (data.dob) {
+    try {
+      const yr = new Date(data.dob).getFullYear();
+      if (isFinite(yr)) {
+        const cur = new Date().getFullYear();
+        const age = cur - yr;
+        if (age >= 0 && age < 200) setText('investigator_age', String(age));
+      }
+    } catch {}
+  }
+
+  // ── Characteristics ──
+  const attrs = data.attributes;
+  if (attrs) {
+    const charMap: Record<string, { field: string; val: number }> = {
+      STR: { field: 'characteristic_str', val: attrs.STR },
+      DEX: { field: 'characteristic_dex', val: attrs.DEX },
+      INT: { field: 'characteristic_int', val: attrs.INT },
+      CON: { field: 'characteristic_con', val: attrs.CON },
+      APP: { field: 'characteristic_app', val: attrs.APP },
+      POW: { field: 'characteristic_pow', val: attrs.POW },
+      SIZ: { field: 'characteristic_siz', val: attrs.SIZ },
+      EDU: { field: 'characteristic_edu', val: attrs.EDU },
+    };
+    for (const [, { field, val }] of Object.entries(charMap)) {
+      setText(field, String(val));
+      setText(`${field}_half`, String(Math.floor(val / 2)));
+      setText(`${field}_fifth`, String(Math.floor(val / 5)));
+    }
+
+    // Derived attributes
+    const siz = attrs.SIZ;
+    const con = attrs.CON;
+    const pow = attrs.POW;
+    const dex = attrs.DEX;
+    const str = attrs.STR;
+    const app = attrs.APP;
+
+    // HP = (SIZ + CON) / 10 rounded up
+    const maxHp = Math.ceil((siz + con) / 10);
+    setText('attribute_hit_point_max', String(maxHp));
+    setText('attribute_hit_point_current', String(maxHp));
+
+    // MP = POW / 5
+    const maxMp = Math.ceil(pow / 5);
+    setText('attribute_magic_points_max', String(maxMp));
+    setText('attribute_magic_points_current', String(maxMp));
+
+    // Cool = POW (starting, like sanity)
+    setText('attribute_cool', String(pow));
+
+    // Starting Luck (same as current luck for a fresh character)
+    setText('attribute_luck_starting', String(attrs.LUCK || 0));
+    setText('attribute_luck_current', String(attrs.LUCK || 0));
+
+    // MOV = DEX (scouts use default formula)
+    const mov = Math.ceil(dex / 10);
+    setText('attribute_move', String(mov));
+
+    // Build = based on SIZ+DEX threshold for scouts
+    const sizDex = siz + dex;
+    let build = -2;
+    if (sizDex >= 65) build = -1;
+    if (sizDex >= 85) build = 0;
+    if (sizDex >= 105) build = 1;
+    if (sizDex >= 125) build = 2;
+    setText('attribute_build', String(build));
+
+    // Damage Bonus
+    setText('attribute_damage_bonus', data.damageBonus || '-');
+  }
+
+  // ── Skills ──
+  const skillFieldMap: Record<string, string> = {
+    'Charm': 'charm',
+    'Climb': 'climb',
+    'Dodge': 'dodge',
+    'Fighting (Brawl)': 'fighting_brawl',
+    'First Aid': 'first_aid',
+    'Cthulhu Mythos': 'cthulhu_mythos',
+    'Family Credit Rating': 'family_credit_rtng',
+    'Fast Talk': 'fast_talk',
+    'Intimidate': 'intimidate',
+    'Jump': 'jump',
+    'Language (Other)': 'language_other',
+    'Language (Own)': 'language_own',
+    'Language (Signals)': 'language_signals',
+    'Library Use': 'library_use',
+    'Listen': 'listen',
+    'Natural World': 'natural_world',
+    'Navigate': 'navigate',
+    'Persuade': 'persuade',
+    'Psychology': 'psychology',
+    'Reassure': 'reassure',
+    'Ride (Bicycle)': 'ride_bicycle',
+    'Spot Hidden': 'spot_hidden',
+    'Stealth': 'stealth',
+    'Survival': 'survival',
+    'Swim': 'swim',
+    'Throw': 'throw',
+    'Track': 'track',
+  };
+
+  for (const [skillName, pdfSuffix] of Object.entries(skillFieldMap)) {
+    const val = data.skills[skillName];
+    if (typeof val !== 'number') continue;
+    setText(`skill_${pdfSuffix}`, String(val));
+    setText(`skill_${pdfSuffix}_half`, String(Math.floor(val / 2)));
+    setText(`skill_${pdfSuffix}_fifth`, String(Math.floor(val / 5)));
+  }
+
+  // Duplicate lower rows for Dodge and Fighting (Brawl)
+  const dodgeVal = data.skills['Dodge'];
+  if (typeof dodgeVal === 'number') {
+    setText('skill_dodge_lower', String(dodgeVal));
+    setText('skill_dodge_lower_half', String(Math.floor(dodgeVal / 2)));
+    setText('skill_dodge_lower_fifth', String(Math.floor(dodgeVal / 5)));
+  }
+  const fightVal = data.skills['Fighting (Brawl)'];
+  if (typeof fightVal === 'number') {
+    setText('skill_fighting_brawl_lower', String(fightVal));
+    setText('skill_fighting_brawl_lower_half', String(Math.floor(fightVal / 2)));
+    setText('skill_fighting_brawl_lower_fifth', String(Math.floor(fightVal / 5)));
+  }
+
+  // Language (Other) — name field
+  const langOtherVal = Object.entries(data.skills).find(([k]) => /^language\s*\([^)]+\)/i.test(k) && !/own/i.test(k) && !/signals/i.test(k) && !/other/i.test(k));
+  if (langOtherVal) {
+    const langName = langOtherVal[0].replace(/^language\s*\(/i, '').replace(/\)\s*$/, '');
+    setText('skill_language_other_name', langName);
+  }
+
+  // Language (Own) — name and value
+  const ownLangVal = data.skills['Language (Own)'];
+  if (typeof ownLangVal === 'number') {
+    setText('skill_language_own', String(ownLangVal));
+    setText('skill_language_own_half', String(Math.floor(ownLangVal / 2)));
+    setText('skill_language_own_fifth', String(Math.floor(ownLangVal / 5)));
+  }
+  setText('language_own_name', inferOwnLanguageName(data.nationality));
+
+  // Custom skills — find skills not in the standard field map and fill into custom slots
+  const knownSkillNames = new Set(Object.keys(skillFieldMap));
+  const customEntries = Object.entries(data.skills)
+    .filter(([k, v]) => typeof v === 'number')
+    .filter(([k]) => !knownSkillNames.has(k))
+    .filter(([k]) => !/^language\s*\(/i.test(k)) // Languages handled above
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 6);
+
+  for (let i = 0; i < customEntries.length; i++) {
+    const idx = i + 1;
+    const [name, val] = customEntries[i];
+    setText(`skill_custom_${idx}_name`, name);
+    setText(`skill_custom_${idx}`, String(val));
+    setText(`skill_custom_${idx}_half`, String(Math.floor(val / 2)));
+    setText(`skill_custom_${idx}_fifth`, String(Math.floor(val / 5)));
+  }
+
+  // ── Weapons (2 slots) ──
+  const parseDB = (dbRaw: string | null | undefined) => {
+    if (!dbRaw) return { flat: 0, dice: [] as number[] };
+    const s = dbRaw.trim();
+    if (/^none$/i.test(s)) return { flat: 0, dice: [] };
+    const out = { flat: 0, dice: [] as number[] };
+    const dice = s.match(/([+-]?\d+)D(\d+)/i);
+    if (dice) {
+      const sign = dice[1].startsWith('-') ? -1 : 1;
+      const cnt = Math.abs(parseInt(dice[1], 10));
+      const sides = parseInt(dice[2], 10);
+      for (let i = 0; i < cnt; i++) out.dice.push(sign * sides);
+    } else {
+      const flat = parseInt(s, 10);
+      if (!isNaN(flat)) out.flat = flat;
+    }
+    return out;
+  };
+  const db = parseDB(data.damageBonus || null);
+  const maxOfDamage = (expr: string | undefined): number => {
+    if (!expr) return 0;
+    let total = 0;
+    const parts = expr.toUpperCase().split('+').map(p => p.trim());
+    for (const p of parts) {
+      if (/^DB$/i.test(p)) {
+        total += db.dice.reduce((s, d) => s + Math.max(d, 0), 0) + db.flat;
+        continue;
+      }
+      const m = p.match(/^(\d+)D(\d+)$/);
+      if (m) { total += parseInt(m[1], 10) * parseInt(m[2], 10); continue; }
+      const n = parseInt(p, 10);
+      if (!isNaN(n)) total += n;
+    }
+    return total;
+  };
+  const isRanged = (skillName: string | undefined): boolean => {
+    if (!skillName) return false;
+    const s = skillName.toLowerCase();
+    return s.includes('firearms') || s.includes('handgun') || s.includes('rifle') || s.includes('shotgun') || s.includes('bow') || s.includes('throw');
+  };
+  const weaponItems = (data.inventory || []).filter(it => it && (it.damage || it.skill));
+  const scored = weaponItems.map(it => ({ it, ranged: isRanged(it.skill), score: maxOfDamage((it.damage || '').replace(/\bDB\b/i, 'DB')) }));
+  const rangedSorted = scored.filter(s => s.ranged).sort((a, b) => b.score - a.score);
+  const meleeSorted = scored.filter(s => !s.ranged).sort((a, b) => b.score - a.score);
+  const pick = [...rangedSorted, ...meleeSorted].slice(0, 2); // campfire has 2 weapon slots
+
+  const skillValFor = (skillLabel: string | undefined): number | null => {
+    if (!skillLabel) return null;
+    const exact = data.skills[skillLabel];
+    if (typeof exact === 'number') return exact;
+    const base = skillLabel.replace(/\s*\(.+\)\s*$/, '').trim();
+    const byBase = data.skills[base];
+    return typeof byBase === 'number' ? byBase : null;
+  };
+
+  pick.forEach((entry, i) => {
+    const w = entry.it;
+    const idx = i + 1; // 1, 2
+    setText(`weapon_${idx}_name`, w.name);
+    setText(`weapon_${idx}`, String(skillValFor(w.skill) || 0));
+    setText(`weapon_${idx}_half`, String(Math.floor((skillValFor(w.skill) || 0) / 2)));
+    setText(`weapon_${idx}_fifth`, String(Math.floor((skillValFor(w.skill) || 0) / 5)));
+    setText(`weapon_${idx}_damage`, w.damage || '-');
+    setText(`weapon_${idx}_number_of_attacks`, w.uses || '-');
+    setText(`weapon_${idx}_range`, w.range || '-');
+    setText(`weapon_${idx}_ammo`, w.ammoCapacity || '-');
+    setText(`weapon_${idx}_malfunction`, (w as any).armorPiercing || '-');
+  });
+
+  // ── Background ──
+  // Campfire sheet uses background_personal_description, background_trusted_adult,
+  // background_home, background_traits, background_obligations, background_fears.
+  // We don't have these from the standard print data, so leave them as-is (user can fill).
+
+  // ── Gear / Possessions ──
+  try {
+    const pickedNames = new Set(pick.map(entry => entry.it.name));
+    const isWeapon = (it: DGItem) => Boolean(it.damage) || /firearm|weapon|rifle|shotgun|pistol|handgun|bow|knife|sword/i.test(`${it.section || ''} ${it.name || ''}`);
+    const gear = (data.inventory || [])
+      .filter(it => it && (!isWeapon(it) || !pickedNames.has(it.name)))
+      .map(it => it.name)
+      .filter(Boolean);
+    const id1 = 'resources_gear_posessions_1';
+    const id2 = 'resources_gear_posessions_2';
+    const LINES_PER_COL = 5;
+    const PER_LINE = 18;
+    const packLines = (tokens: string[]) => {
+      const out: string[] = [];
+      let line = '';
+      for (const t of tokens) {
+        const candidate = line ? `${line}, ${t}` : t;
+        if (candidate.length <= PER_LINE) {
+          line = candidate;
+        } else {
+          out.push(line.replace(/,\s*$/, '').trim());
+          line = t;
+          if (out.length >= LINES_PER_COL) break;
+        }
+        if (out.length >= LINES_PER_COL) break;
+      }
+      if (out.length < LINES_PER_COL && line) out.push(line.replace(/,\s*$/, '').trim());
+      while (out.length < LINES_PER_COL) out.push('');
+      return out;
+    };
+    let current: string[] = [];
+    for (const t of gear) {
+      current.push(t);
+      const packed = packLines(current);
+      if (packed[LINES_PER_COL - 1] !== '') {
+        current.pop();
+        break;
+      }
+    }
+    const leftLines = packLines(current);
+    const remaining = gear.slice(current.length);
+    const rightLines = packLines(remaining);
+    setText(id1, leftLines.join('\n'));
+    setText(id2, rightLines.join('\n'));
+    // Set font size for campfire gear fields
+    try {
+      const helv = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      const da = (size: number) => `0 g\n/${helv.name} ${size.toFixed(2)} Tf`;
+      const size = 15.5 / 1.2;
+      try {
+        const tf1 = form.getTextField(id1);
+        const tf2 = form.getTextField(id2);
+        tf1?.acroField?.setDefaultAppearance?.(da(size));
+        tf1?.updateAppearances?.(helv);
+        tf2?.acroField?.setDefaultAppearance?.(da(size));
+        tf2?.updateAppearances?.(helv);
+      } catch {}
+    } catch {}
+  } catch {}
+
+  // ── Portrait ──
+  const portraitButton = form.getButton?.('investigator_portrait_af_image');
+  const durl = data.portraitDataUrl || null;
+  if (portraitButton && durl) {
+    try {
+      const ab = await (await fetch(durl)).arrayBuffer();
+      let img;
+      if (/^data:image\/png/i.test(durl)) img = await pdfDoc.embedPng(ab);
+      else img = await pdfDoc.embedJpg(ab);
+      portraitButton.setImage(img);
+    } catch (e) {
+      console.warn('Could not embed portrait image', e);
+    }
+  }
+}
+
+// ─── Classic 1920s PDF Filler (unchanged from original) ──────────────────────
+
 export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => void) => {
   const [isPrinting, setIsPrinting] = useState<boolean>(false);
   const { selectedEra } = useEraContext();
@@ -150,297 +501,314 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
       const pdfDoc = await PDFDocument.load(bytes);
       const form = pdfDoc.getForm();
 
-      // Identity
-      const nameFieldId = aggregated.PDF_FIELD_MAP?.characterName || 'Investigators_Name';
-      try { const nf = form.getTextField(nameFieldId); nf?.setText(data.characterName || ''); } catch {}
-      // Pronouns field: use Gender label (Male/Female/empty), not literal pronouns
-      try {
-        const pid = aggregated.PDF_FIELD_MAP?.pronouns || 'Pronouns';
-        const pf = form.getTextField(pid);
-        const pron = pronounForGender(data.gender || null);
-        pf?.setText(pron);
-      } catch {}
-      // Occupation
-      try {
-        const oid = aggregated.PDF_FIELD_MAP?.occupation || 'Occupation';
-        const of = form.getTextField(oid);
-        if (data.occupationName) of?.setText(String(data.occupationName));
-      } catch {}
-
-      // Attributes
-      const attrs = data.attributes;
-      if (attrs) {
-        const map: Record<string, number> = {
-          STR: attrs.STR, DEX: attrs.DEX, INT: attrs.INT, CON: attrs.CON,
-          APP: attrs.APP, POW: attrs.POW, SIZ: attrs.SIZ, EDU: attrs.EDU,
-        };
-        Object.entries(map).forEach(([k, v]) => {
-          const id = aggregated.PDF_FIELD_MAP?.[k] || k;
-          try { const tf = form.getTextField(id); tf?.setText(String(v)); } catch {}
+      // ── Campfire Tales uses a completely different PDF layout ──
+      if (selectedEra === 'campfire-tales') {
+        await fillCampfirePdf(form, pdfDoc, {
+          characterName: data.characterName,
+          attributes: data.attributes,
+          skills: data.skills,
+          inventory: data.inventory,
+          portraitDataUrl: data.portraitDataUrl,
+          damageBonus: data.damageBonus,
+          nationality: data.nationality,
+          occupationName: data.occupationName,
+          dob: data.dob,
         });
-        // Starting Sanity = POW
-        const sanId = aggregated.PDF_FIELD_MAP?.currentSanity || 'CurrentSanity';
-        try { const sf = form.getTextField(sanId); sf?.setText(String(attrs.POW)); } catch {}
-      }
-      // Age from DOB
-      const ageVal = calcAgeFromDob(data.dob || null);
-      if (ageVal != null) {
-        try { const af = form.getTextField(aggregated.PDF_FIELD_MAP?.age || 'Age'); af?.setText(String(ageVal)); } catch {}
-      }
+      } else {
+        // ── Original 1920s-style filling ──
 
-      // Spending Level (fill from character wealth summary if provided)
-      if (data.spendingLevel) {
-        try { const f = form.getTextField('SpendingLevel'); f?.setText(data.spendingLevel); } catch {}
-      }
-      // Cash / Assets
-      if (data.cash) {
-        try { const f = form.getTextField('Cash'); f?.setText(data.cash); } catch {}
-      }
-      if (data.assets) {
-        try { const f = form.getTextField('Assets1'); f?.setText(data.assets); } catch {}
-      }
-
-      // Skills
-      fillSkills(form, aggregated.SKILLS, data.skills);
-      // Language (Own) name based on nationality -> SkillDef_OwnLanguage
-      try {
-        const tf = form.getTextField('SkillDef_OwnLanguage');
-        const langName = inferOwnLanguageName(data.nationality);
-        tf?.setText(langName);
-      } catch {}
-
-      // Explicit CoC firearms fields: the sheet exposes 3 fields: Handguns, Rifles/Shotguns, and one generic Firearms specialization
-      try {
-        const setNum = (id: string, val: number | undefined | null) => {
-          if (typeof val !== 'number') return;
-          try { form.getTextField(id).setText(String(val)); } catch {}
-        };
-        const handgun = ((): number | undefined => {
-          const v = data.skills['Handgun'];
-          if (typeof v === 'number') return v;
-          const legacy = data.skills['Firearms (Handgun)'];
-          return typeof legacy === 'number' ? legacy : undefined;
-        })();
-        const rifle = ((): number | undefined => {
-          const v = data.skills['Rifle/Shotgun'];
-          if (typeof v === 'number') return v;
-          const legacy = data.skills['Firearms (Rifle/Shotgun)'];
-          return typeof legacy === 'number' ? legacy : undefined;
-        })();
-        setNum('Skill_FireArmsHandguns', handgun);
-        setNum('Skill_FireArmsRifles', rifle);
-        // Choose best remaining firearms specialization (not handgun or rifle/shotgun)
-        const entries = Object.entries(data.skills || {}) as [string, number][];
-        const candidates = entries
-          .filter(([k, v]) => typeof v === 'number')
-          .filter(([k]) => {
-            const s = k.toLowerCase();
-            const isFirearmsSpec = s.includes('firearm') || s.includes('machine gun') || s.includes('submachine') || s.includes('heavy weapon') || s.includes('explosive');
-            const isHandgun = s.includes('handgun');
-            const isRifleShotgun = s.includes('rifle') || s.includes('shotgun');
-            return isFirearmsSpec && !isHandgun && !isRifleShotgun;
-          });
-        let otherName: string | null = null;
-        let otherVal: number | null = null;
-        for (const [k, v] of candidates) {
-          if (otherVal === null || v > otherVal) { otherVal = v; otherName = k; }
-        }
-        if (otherName && typeof otherVal === 'number') {
-          // Derive a clean label: prefer inside of parentheses if present
-          const m = otherName.match(/^[^()]*\(([^)]+)\)/);
-          const label = m ? m[1] : otherName;
-          try { form.getTextField('SkillDef_Firearms').setText(label); } catch {}
-          setNum('Skill_Firearms', otherVal);
-        } else {
-          // Backwards-compatibility with older labels
-          const smg = data.skills['Submachine/Machine Guns'];
-          const heavy = data.skills['Heavy Weapons/Explosives'];
-          const useSmg = (typeof smg === 'number' ? smg : -1) >= (typeof heavy === 'number' ? heavy : -1);
-          const label = useSmg ? (typeof smg === 'number' ? 'Submachine/Machine Guns' : null)
-                               : (typeof heavy === 'number' ? 'Heavy Weapons/Explosives' : null);
-          const val = useSmg ? (typeof smg === 'number' ? smg : null)
-                             : (typeof heavy === 'number' ? heavy : null);
-          if (label && typeof val === 'number') {
-            try { form.getTextField('SkillDef_Firearms').setText(label); } catch {}
-            setNum('Skill_Firearms', val);
-          }
-        }
-      } catch {}
-
-      // Select and fill best weapons (ranged first, then melee), up to 3
-      const parseDB = (dbRaw: string | null | undefined) => {
-        if (!dbRaw) return { flat: 0, dice: [] as number[] };
-        const s = dbRaw.trim();
-        if (/^none$/i.test(s)) return { flat: 0, dice: [] };
-        const out = { flat: 0, dice: [] as number[] };
-        const dice = s.match(/([+-]?\d+)D(\d+)/i);
-        if (dice) {
-          const sign = dice[1].startsWith('-') ? -1 : 1;
-          const cnt = Math.abs(parseInt(dice[1], 10));
-          const sides = parseInt(dice[2], 10);
-          for (let i = 0; i < cnt; i++) out.dice.push(sign * sides);
-        } else {
-          const flat = parseInt(s, 10);
-          if (!isNaN(flat)) out.flat = flat;
-        }
-        return out;
-      };
-      const db = parseDB(data.damageBonus || null);
-      const maxOfDamage = (expr: string | undefined): number => {
-        if (!expr) return 0;
-        let total = 0;
-        const parts = expr.toUpperCase().split('+').map(p => p.trim());
-        for (const p of parts) {
-          if (/^DB$/i.test(p)) {
-            // add DB at max
-            total += db.dice.reduce((s, d) => s + Math.max(d, 0), 0) + db.flat;
-            continue;
-          }
-          const m = p.match(/^(\d+)D(\d+)$/);
-          if (m) { total += parseInt(m[1], 10) * parseInt(m[2], 10); continue; }
-          const n = parseInt(p, 10);
-          if (!isNaN(n)) total += n;
-        }
-        return total;
-      };
-      const isRanged = (skillName: string | undefined): boolean => {
-        if (!skillName) return false;
-        const s = skillName.toLowerCase();
-        return s.includes('firearms') || s.includes('handgun') || s.includes('rifle') || s.includes('shotgun') || s.includes('bow') || s.includes('throw');
-      };
-      // Weapons come from the agent's inventory (kit + personal), not from the era catalogue
-      const weaponItems = (data.inventory || []).filter(it => it && (it.damage || it.skill));
-      const scored = weaponItems.map(it => ({ it, ranged: isRanged(it.skill), score: maxOfDamage((it.damage || '').replace(/\bDB\b/i, 'DB')) }));
-      const ranged = scored.filter(s => s.ranged).sort((a, b) => b.score - a.score);
-      const melee = scored.filter(s => !s.ranged).sort((a, b) => b.score - a.score);
-      const pick = [...ranged, ...melee].slice(0, 3).map(s => s.it);
-      const skillValFor = (skillLabel: string | undefined): number | null => {
-        if (!skillLabel) return null;
-        const exact = data.skills[skillLabel];
-        if (typeof exact === 'number') return exact;
-        const base = skillLabel.replace(/\s*\(.+\)\s*$/, '').trim();
-        const byBase = data.skills[base];
-        return typeof byBase === 'number' ? byBase : null;
-      };
-      pick.forEach((w, i) => {
-        const idx = i + 1; // 1..3
-        const setText = (id: string, val: string | undefined) => { const f = form.getTextField?.(id); if (f && val) f.setText(String(val)); };
-        setText(`Weapon_Name${idx}`, w.name);
-        setText(`Weapon_Damage${idx}`, w.damage || '-');
-        setText(`Weapon_Attacks${idx}`, w.uses || '-');
-        setText(`Weapon_Ammo${idx}`, w.ammoCapacity || '-');
-        setText(`Weapon_Range${idx}`, w.range || '-');
-        setText(`Weapon_Malf${idx}`, (w as any).armorPiercing || '-');
-        // Regular from skill
-        const reg = skillValFor(w.skill) || 0;
-        const rf = form.getTextField?.(`Weapon_Regular${idx}`);
-        if (rf) rf.setText(String(reg));
-      });
-
-      // Weapon thresholds: Hard = 1/2 Regular, Extreme = 1/5 Regular
-      const parseNum = (s: string | undefined | null) => {
-        if (!s) return NaN;
-        const m = String(s).match(/\d+/);
-        return m ? parseInt(m[0], 10) : NaN;
-      };
-      for (let i = 0; i < 10; i++) {
-        const regId = `Weapon_Regular${i}`;
-        const hardId = `Weapon_Hard${i}`;
-        const extId = `Weapon_Extreme${i}`;
-        let regVal = NaN as number;
+        // Identity
+        const nameFieldId = aggregated.PDF_FIELD_MAP?.characterName || 'Investigators_Name';
+        try { const nf = form.getTextField(nameFieldId); nf?.setText(data.characterName || ''); } catch {}
+        // Pronouns field: use Gender label (Male/Female/empty), not literal pronouns
         try {
-          const rf = form.getTextField(regId);
-          const txt = rf.getText ? rf.getText() : '';
-          regVal = parseNum(txt);
-        } catch {
-          regVal = NaN;
-        }
-        if (!isNaN(regVal)) {
-          const hard = Math.floor(regVal / 2);
-          const ext = Math.floor(regVal / 5);
-          try { form.getTextField(hardId).setText(String(hard)); } catch {}
-          try { form.getTextField(extId).setText(String(ext)); } catch {}
-        }
-      }
+          const pid = aggregated.PDF_FIELD_MAP?.pronouns || 'Pronouns';
+          const pf = form.getTextField(pid);
+          const pron = pronounForGender(data.gender || null);
+          pf?.setText(pron);
+        } catch {}
+        // Occupation
+        try {
+          const oid = aggregated.PDF_FIELD_MAP?.occupation || 'Occupation';
+          const of = form.getTextField(oid);
+          if (data.occupationName) of?.setText(String(data.occupationName));
+        } catch {}
 
-      // Fill Gear/Possessions fields from agent inventory, excluding weapons already listed
-      try {
-        const pickedNames = new Set(pick.map(w => w.name));
-        const isWeapon = (it: DGItem) => Boolean(it.damage) || /firearm|weapon|rifle|shotgun|pistol|handgun|bow|knife|sword/i.test(`${it.section || ''} ${it.name || ''}`);
-        const gear = (data.inventory || [])
-          .filter(it => it && (!isWeapon(it) || !pickedNames.has(it.name)))
-          .map(it => it.name)
-          .filter(Boolean);
-        const id1 = 'Gear/Possessions';
-        const id2 = 'Gear/Possessions1';
-        // Line-aware packing to align to ruled rows: 5 lines × ~18 chars per line
-        const LINES_PER_COL = 5;
-        const PER_LINE = 18;
-        const packLines = (tokens: string[]) => {
-          const out: string[] = [];
-          let line = '';
-          for (const t of tokens) {
-            const candidate = line ? `${line}, ${t}` : t;
-            if (candidate.length <= PER_LINE) {
-              line = candidate;
-            } else {
-              // push current line (trim any trailing comma/space just in case)
-              out.push(line.replace(/,\s*$/,'').trim());
-              line = t;
-              if (out.length >= LINES_PER_COL) break;
-            }
-            if (out.length >= LINES_PER_COL) break;
+        // Attributes
+        const attrs = data.attributes;
+        if (attrs) {
+          const map: Record<string, number> = {
+            STR: attrs.STR, DEX: attrs.DEX, INT: attrs.INT, CON: attrs.CON,
+            APP: attrs.APP, POW: attrs.POW, SIZ: attrs.SIZ, EDU: attrs.EDU,
+          };
+          Object.entries(map).forEach(([k, v]) => {
+            const id = aggregated.PDF_FIELD_MAP?.[k] || k;
+            try { const tf = form.getTextField(id); tf?.setText(String(v)); } catch {}
+          });
+          // Starting Sanity = POW
+          const sanId = aggregated.PDF_FIELD_MAP?.currentSanity || 'CurrentSanity';
+          try { const sf = form.getTextField(sanId); sf?.setText(String(attrs.POW)); } catch {}
+        }
+        // Age from DOB
+        const ageVal = calcAgeFromDob(data.dob || null);
+        if (ageVal != null) {
+          try { const af = form.getTextField(aggregated.PDF_FIELD_MAP?.age || 'Age'); af?.setText(String(ageVal)); } catch {}
+        }
+
+        // Spending Level (fill from character wealth summary if provided)
+        if (data.spendingLevel) {
+          try { const f = form.getTextField('SpendingLevel'); f?.setText(data.spendingLevel); } catch {}
+        }
+        // Cash / Assets
+        if (data.cash) {
+          try { const f = form.getTextField('Cash'); f?.setText(data.cash); } catch {}
+        }
+        if (data.assets) {
+          try { const f = form.getTextField('Assets1'); f?.setText(data.assets); } catch {}
+        }
+
+        // Skills
+        fillSkills(form, aggregated.SKILLS, data.skills);
+        // Language (Own) name based on nationality -> SkillDef_OwnLanguage
+        try {
+          const tf = form.getTextField('SkillDef_OwnLanguage');
+          const langName = inferOwnLanguageName(data.nationality);
+          tf?.setText(langName);
+        } catch {}
+
+        // Explicit CoC firearms fields: the sheet exposes 3 fields: Handguns, Rifles/Shotguns, and one generic Firearms specialization
+        try {
+          const setNum = (id: string, val: number | undefined | null) => {
+            if (typeof val !== 'number') return;
+            try { form.getTextField(id).setText(String(val)); } catch {}
+          };
+          const handgun = ((): number | undefined => {
+            const v = data.skills['Handgun'];
+            if (typeof v === 'number') return v;
+            const legacy = data.skills['Firearms (Handgun)'];
+            return typeof legacy === 'number' ? legacy : undefined;
+          })();
+          const rifle = ((): number | undefined => {
+            const v = data.skills['Rifle/Shotgun'];
+            if (typeof v === 'number') return v;
+            const legacy = data.skills['Firearms (Rifle/Shotgun)'];
+            return typeof legacy === 'number' ? legacy : undefined;
+          })();
+          setNum('Skill_FireArmsHandguns', handgun);
+          setNum('Skill_FireArmsRifles', rifle);
+          // Choose best remaining firearms specialization (not handgun or rifle/shotgun)
+          const entries = Object.entries(data.skills || {}) as [string, number][];
+          const candidates = entries
+            .filter(([k, v]) => typeof v === 'number')
+            .filter(([k]) => {
+              const s = k.toLowerCase();
+              const isFirearmsSpec = s.includes('firearm') || s.includes('machine gun') || s.includes('submachine') || s.includes('heavy weapon') || s.includes('explosive');
+              const isHandgun = s.includes('handgun');
+              const isRifleShotgun = s.includes('rifle') || s.includes('shotgun');
+              return isFirearmsSpec && !isHandgun && !isRifleShotgun;
+            });
+          let otherName: string | null = null;
+          let otherVal: number | null = null;
+          for (const [k, v] of candidates) {
+            if (otherVal === null || v > otherVal) { otherVal = v; otherName = k; }
           }
-          if (out.length < LINES_PER_COL && line) out.push(line.replace(/,\s*$/,'').trim());
-          // pad with empty lines to exactly 5 for baseline alignment
-          while (out.length < LINES_PER_COL) out.push('');
+          if (otherName && typeof otherVal === 'number') {
+            // Derive a clean label: prefer inside of parentheses if present
+            const m = otherName.match(/^[^()]*\(([^)]+)\)/);
+            const label = m ? m[1] : otherName;
+            try { form.getTextField('SkillDef_Firearms').setText(label); } catch {}
+            setNum('Skill_Firearms', otherVal);
+          } else {
+            // Backwards-compatibility with older labels
+            const smg = data.skills['Submachine/Machine Guns'];
+            const heavy = data.skills['Heavy Weapons/Explosives'];
+            const useSmg = (typeof smg === 'number' ? smg : -1) >= (typeof heavy === 'number' ? heavy : -1);
+            const label = useSmg ? (typeof smg === 'number' ? 'Submachine/Machine Guns' : null)
+                                 : (typeof heavy === 'number' ? 'Heavy Weapons/Explosives' : null);
+            const val = useSmg ? (typeof smg === 'number' ? smg : null)
+                               : (typeof heavy === 'number' ? heavy : null);
+            if (label && typeof val === 'number') {
+              try { form.getTextField('SkillDef_Firearms').setText(label); } catch {}
+              setNum('Skill_Firearms', val);
+            }
+          }
+        } catch {}
+
+        // Select and fill best weapons (ranged first, then melee), up to 3
+        const parseDB = (dbRaw: string | null | undefined) => {
+          if (!dbRaw) return { flat: 0, dice: [] as number[] };
+          const s = dbRaw.trim();
+          if (/^none$/i.test(s)) return { flat: 0, dice: [] };
+          const out = { flat: 0, dice: [] as number[] };
+          const dice = s.match(/([+-]?\d+)D(\d+)/i);
+          if (dice) {
+            const sign = dice[1].startsWith('-') ? -1 : 1;
+            const cnt = Math.abs(parseInt(dice[1], 10));
+            const sides = parseInt(dice[2], 10);
+            for (let i = 0; i < cnt; i++) out.dice.push(sign * sides);
+          } else {
+            const flat = parseInt(s, 10);
+            if (!isNaN(flat)) out.flat = flat;
+          }
           return out;
         };
-        // Left column first
-        const leftLines: string[] = [];
-        const rightLines: string[] = [];
-        let current: string[] = [];
-        for (const t of gear) {
-          current.push(t);
-          const packed = packLines(current);
-          if (packed[LINES_PER_COL-1] !== '') {
-            // overflowed onto padding; move last token to next column
-            current.pop();
-            break;
+        const db = parseDB(data.damageBonus || null);
+        const maxOfDamage = (expr: string | undefined): number => {
+          if (!expr) return 0;
+          let total = 0;
+          const parts = expr.toUpperCase().split('+').map(p => p.trim());
+          for (const p of parts) {
+            if (/^DB$/i.test(p)) {
+              // add DB at max
+              total += db.dice.reduce((s, d) => s + Math.max(d, 0), 0) + db.flat;
+              continue;
+            }
+            const m = p.match(/^(\d+)D(\d+)$/);
+            if (m) { total += parseInt(m[1], 10) * parseInt(m[2], 10); continue; }
+            const n = parseInt(p, 10);
+            if (!isNaN(n)) total += n;
+          }
+          return total;
+        };
+        const isRanged = (skillName: string | undefined): boolean => {
+          if (!skillName) return false;
+          const s = skillName.toLowerCase();
+          return s.includes('firearms') || s.includes('handgun') || s.includes('rifle') || s.includes('shotgun') || s.includes('bow') || s.includes('throw');
+        };
+        // Weapons come from the agent's inventory (kit + personal), not from the era catalogue
+        const weaponItems = (data.inventory || []).filter(it => it && (it.damage || it.skill));
+        const scored = weaponItems.map(it => ({ it, ranged: isRanged(it.skill), score: maxOfDamage((it.damage || '').replace(/\bDB\b/i, 'DB')) }));
+        const ranged = scored.filter(s => s.ranged).sort((a, b) => b.score - a.score);
+        const melee = scored.filter(s => !s.ranged).sort((a, b) => b.score - a.score);
+        const pick = [...ranged, ...melee].slice(0, 3).map(s => s.it);
+        const skillValFor = (skillLabel: string | undefined): number | null => {
+          if (!skillLabel) return null;
+          const exact = data.skills[skillLabel];
+          if (typeof exact === 'number') return exact;
+          const base = skillLabel.replace(/\s*\(.+\)\s*$/, '').trim();
+          const byBase = data.skills[base];
+          return typeof byBase === 'number' ? byBase : null;
+        };
+        pick.forEach((w, i) => {
+          const idx = i + 1; // 1..3
+          const setText = (id: string, val: string | undefined) => { const f = form.getTextField?.(id); if (f && val) f.setText(String(val)); };
+          setText(`Weapon_Name${idx}`, w.name);
+          setText(`Weapon_Damage${idx}`, w.damage || '-');
+          setText(`Weapon_Attacks${idx}`, w.uses || '-');
+          setText(`Weapon_Ammo${idx}`, w.ammoCapacity || '-');
+          setText(`Weapon_Range${idx}`, w.range || '-');
+          setText(`Weapon_Malf${idx}`, (w as any).armorPiercing || '-');
+          // Regular from skill
+          const reg = skillValFor(w.skill) || 0;
+          const rf = form.getTextField?.(`Weapon_Regular${idx}`);
+          if (rf) rf.setText(String(reg));
+        });
+
+        // Weapon thresholds: Hard = 1/2 Regular, Extreme = 1/5 Regular
+        const parseNum = (s: string | undefined | null) => {
+          if (!s) return NaN;
+          const m = String(s).match(/\d+/);
+          return m ? parseInt(m[0], 10) : NaN;
+        };
+        for (let i = 0; i < 10; i++) {
+          const regId = `Weapon_Regular${i}`;
+          const hardId = `Weapon_Hard${i}`;
+          const extId = `Weapon_Extreme${i}`;
+          let regVal = NaN as number;
+          try {
+            const rf = form.getTextField(regId);
+            const txt = rf.getText ? rf.getText() : '';
+            regVal = parseNum(txt);
+          } catch {
+            regVal = NaN;
+          }
+          if (!isNaN(regVal)) {
+            const hard = Math.floor(regVal / 2);
+            const ext = Math.floor(regVal / 5);
+            try { form.getTextField(hardId).setText(String(hard)); } catch {}
+            try { form.getTextField(extId).setText(String(ext)); } catch {}
           }
         }
-        leftLines.push(...packLines(current));
-        const remaining = gear.slice(current.length);
-        rightLines.push(...packLines(remaining));
-        // Write into editable form fields (not fixed-drawn text)
-        let tf1: any = null;
-        let tf2: any = null;
-        try { tf1 = form.getTextField(id1); tf1?.setText(leftLines.join('\n')); } catch {}
-        try { tf2 = form.getTextField(id2); tf2?.setText(rightLines.join('\n')); } catch {}
-        // Set DA to force ~15.5pt line spacing (pdf-lib uses 1.2 * fontSize)
-        // 15.5 / 1.2 ≈ 12.9167
-        try {
-          const helv = await pdfDoc.embedFont(StandardFonts.Helvetica);
-          const da = (size: number) => `0 g\n/${helv.name} ${size.toFixed(2)} Tf`;
-          const size = 15.5 / 1.2; // ~12.92
-          try { tf1?.acroField?.setDefaultAppearance?.(da(size)); tf1?.updateAppearances?.(helv); } catch {}
-          try { tf2?.acroField?.setDefaultAppearance?.(da(size)); tf2?.updateAppearances?.(helv); } catch {}
-        } catch {}
-      } catch {}
 
-      // Portrait embedding (prefer headshot)
-      const portraitFieldId = aggregated.PDF_FIELD_MAP?.portrait || 'Portrait';
-      const portraitButton = form.getButton?.(portraitFieldId);
-      const durl = data.portraitDataUrl || null;
-      if (portraitButton && durl) {
+        // Fill Gear/Possessions fields from agent inventory, excluding weapons already listed
         try {
-          const ab = await (await fetch(durl)).arrayBuffer();
-          let img;
-          if (/^data:image\/png/i.test(durl)) img = await pdfDoc.embedPng(ab);
-          else img = await pdfDoc.embedJpg(ab);
-          portraitButton.setImage(img);
-        } catch (e) {
-          console.warn('Could not embed portrait image', e);
+          const pickedNames = new Set(pick.map(w => w.name));
+          const isWeapon = (it: DGItem) => Boolean(it.damage) || /firearm|weapon|rifle|shotgun|pistol|handgun|bow|knife|sword/i.test(`${it.section || ''} ${it.name || ''}`);
+          const gear = (data.inventory || [])
+            .filter(it => it && (!isWeapon(it) || !pickedNames.has(it.name)))
+            .map(it => it.name)
+            .filter(Boolean);
+          const id1 = 'Gear/Possessions';
+          const id2 = 'Gear/Possessions1';
+          // Line-aware packing to align to ruled rows: 5 lines × ~18 chars per line
+          const LINES_PER_COL = 5;
+          const PER_LINE = 18;
+          const packLines = (tokens: string[]) => {
+            const out: string[] = [];
+            let line = '';
+            for (const t of tokens) {
+              const candidate = line ? `${line}, ${t}` : t;
+              if (candidate.length <= PER_LINE) {
+                line = candidate;
+              } else {
+                // push current line (trim any trailing comma/space just in case)
+                out.push(line.replace(/,\s*$/,'').trim());
+                line = t;
+                if (out.length >= LINES_PER_COL) break;
+              }
+              if (out.length >= LINES_PER_COL) break;
+            }
+            if (out.length < LINES_PER_COL && line) out.push(line.replace(/,\s*$/,'').trim());
+            // pad with empty lines to exactly 5 for baseline alignment
+            while (out.length < LINES_PER_COL) out.push('');
+            return out;
+          };
+          // Left column first
+          const leftLines: string[] = [];
+          const rightLines: string[] = [];
+          let current: string[] = [];
+          for (const t of gear) {
+            current.push(t);
+            const packed = packLines(current);
+            if (packed[LINES_PER_COL-1] !== '') {
+              // overflowed onto padding; move last token to next column
+              current.pop();
+              break;
+            }
+          }
+          leftLines.push(...packLines(current));
+          const remaining = gear.slice(current.length);
+          rightLines.push(...packLines(remaining));
+          // Write into editable form fields (not fixed-drawn text)
+          let tf1: any = null;
+          let tf2: any = null;
+          try { tf1 = form.getTextField(id1); tf1?.setText(leftLines.join('\n')); } catch {}
+          try { tf2 = form.getTextField(id2); tf2?.setText(rightLines.join('\n')); } catch {}
+          // Set DA to force ~15.5pt line spacing (pdf-lib uses 1.2 * fontSize)
+          // 15.5 / 1.2 ≈ 12.9167
+          try {
+            const helv = await pdfDoc.embedFont(StandardFonts.Helvetica);
+            const da = (size: number) => `0 g\n/${helv.name} ${size.toFixed(2)} Tf`;
+            const size = 15.5 / 1.2; // ~12.92
+            try { tf1?.acroField?.setDefaultAppearance?.(da(size)); tf1?.updateAppearances?.(helv); } catch {}
+            try { tf2?.acroField?.setDefaultAppearance?.(da(size)); tf2?.updateAppearances?.(helv); } catch {}
+          } catch {}
+        } catch {}
+
+        // Portrait embedding (prefer headshot)
+        const portraitFieldId = aggregated.PDF_FIELD_MAP?.portrait || 'Portrait';
+        const portraitButton = form.getButton?.(portraitFieldId);
+        const durl = data.portraitDataUrl || null;
+        if (portraitButton && durl) {
+          try {
+            const ab = await (await fetch(durl)).arrayBuffer();
+            let img;
+            if (/^data:image\/png/i.test(durl)) img = await pdfDoc.embedPng(ab);
+            else img = await pdfDoc.embedJpg(ab);
+            portraitButton.setImage(img);
+          } catch (e) {
+            console.warn('Could not embed portrait image', e);
+          }
         }
       }
 
@@ -450,7 +818,7 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'coc_investigator.pdf';
+      a.download = selectedEra === 'campfire-tales' ? 'campfire_scout.pdf' : 'coc_investigator.pdf';
       document.body.appendChild(a);
       a.click();
       a.remove();
