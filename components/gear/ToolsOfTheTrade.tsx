@@ -54,7 +54,7 @@ export const ToolsOfTheTrade: React.FC<ToolsOfTheTradeProps> = ({ onSetKit, acti
                     className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary transition-colors py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     aria-expanded={isOpen}
                 >
-                    {isOpen ? 'Hide' : 'Show'} Kits
+                    {isOpen ? 'Hide' : 'Show'}
                     <i className={`fa-solid fa-chevron-down transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}></i>
                 </button>
             </div>

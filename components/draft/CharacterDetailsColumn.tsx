@@ -4,6 +4,7 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { useCharacterContext } from '../../context/CharacterContext';
 import { GenderSelector } from './GenderSelector';
 import { DiceIcon } from '../icons/DiceIcon';
+import { AiStarsIcon } from '../icons/AiStarsIcon';
 import { SpinnerIcon } from '../icons/SpinnerIcon';
 import { RefreshIcon } from '../icons/RefreshIcon';
 import type { Department } from '../../types';
@@ -77,11 +78,11 @@ export const CharacterDetailsColumn: React.FC<CharacterDetailsColumnProps> = ({ 
                         <button 
                             onClick={ai.onGenerateName} 
                             disabled={ai.isGeneratingName}
-                            className="w-10 h-10 p-2 rounded-lg bg-secondary hover:bg-opacity-80 disabled:bg-neutral-300 disabled:cursor-wait text-secondary-foreground transition-colors flex-shrink-0 flex items-center justify-center border-b-4 border-black/20"
+                        className="w-10 h-10 p-2 rounded-lg bg-secondary hover:bg-opacity-80 disabled:bg-neutral-300 disabled:cursor-wait text-secondary-foreground transition-colors flex-shrink-0 flex items-center justify-center border-b-4 border-black/20"
                             aria-label="Reroll Name"
                             title="Reroll Name"
                         >
-                            {ai.isGeneratingName ? <SpinnerIcon className="h-5 w-5"/> : <DiceIcon className="h-5 w-5" />}
+                            {ai.isGeneratingName ? <SpinnerIcon className="h-5 w-5"/> : <AiStarsIcon className="h-5 w-5" />}
                         </button>
                     </div>
                 </div>

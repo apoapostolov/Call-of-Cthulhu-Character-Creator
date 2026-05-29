@@ -238,25 +238,25 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
                             <h4 className="font-bold text-primary mb-2">Distress</h4>
                             <div className="grid grid-cols-3 gap-2">
                                 {campfireDistressBoxes.map((boxName: string) => (
-                                    <label key={boxName} className="flex min-h-10 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-center text-sm">
+                                    <label key={boxName} className="flex min-h-10 items-center justify-start gap-2 rounded-md border border-border px-3 py-2 text-left text-sm">
                                         <input type="checkbox" checked={!!distressBoxes?.[boxName]} onChange={() => toggleDistressBox(boxName)} />
                                         {boxName}
                                     </label>
                                 ))}
                             </div>
-                            <p className="text-xs text-muted-foreground mt-2">Failed Cool rolls check a box. At three boxes, the scout is distressed.</p>
+                            <p className="text-xs text-muted-foreground mt-2 text-left">Failed Cool rolls check a box. At three boxes, the scout is distressed.</p>
                         </div>
                         <div>
                             <h4 className="font-bold text-primary mb-2">Adversity</h4>
                             <div className="grid grid-cols-3 gap-2">
                                 {campfireAdversityBoxes.map((boxName: string) => (
-                                    <label key={boxName} className="flex min-h-10 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-center text-sm">
+                                    <label key={boxName} className="flex min-h-10 items-center justify-start gap-2 rounded-md border border-border px-3 py-2 text-left text-sm">
                                         <input type="checkbox" checked={!!adversityBoxes?.[boxName]} onChange={() => toggleAdversityBox(boxName)} />
                                         {boxName}
                                     </label>
                                 ))}
                             </div>
-                            <p className="text-xs text-muted-foreground mt-2">Three adversities add one penalty die to Cool; all five add two.</p>
+                            <p className="text-xs text-muted-foreground mt-2 text-left">Three adversities add one penalty die to Cool; all five add two.</p>
                         </div>
                     </div>
                     <div className="rounded-md border border-border p-3 text-sm text-muted-foreground">

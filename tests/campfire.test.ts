@@ -215,6 +215,26 @@ describe('Campfire Tales era', () => {
     expect(entries).toContain('Accounting');
   });
 
+  it('omits unchanged premade skills from Campfire PDF custom slots', () => {
+    const entries = getCampfireCustomSkillEntries(
+      {
+        'Ride (Bicycle)': 20,
+        'Language (Signals)': 1,
+        'Ride (Horse)': 10,
+        'Library Use': 20,
+        'Custom Field': 15,
+      },
+      [],
+      thirdPartyData['campfire-tales'].skills,
+    ).map(([name]) => name);
+
+    expect(entries).not.toContain('Ride (Bicycle)');
+    expect(entries).not.toContain('Language (Signals)');
+    expect(entries).not.toContain('Library Use');
+    expect(entries).toContain('Ride (Horse)');
+    expect(entries).toContain('Custom Field');
+  });
+
   it('caps Campfire skill totals at 80 percent', () => {
     const assignments = responseToSkillPointAssignments(
       {

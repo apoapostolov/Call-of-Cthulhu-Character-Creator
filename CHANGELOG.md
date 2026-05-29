@@ -21,6 +21,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Wealth now has a compact Hide/Show toggle in the upper-right corner so the
+  detailed cash and assets rows can collapse while keeping the wealth tier
+  summary visible.
+- Specialization dropdowns now stretch to a consistent width within the skill
+  row, so short options like Horse no longer render as tiny controls.
+- The shared skill group label changed from Physical & Locomotion to Physical
+  & Movement across all eras.
 - Campfire Tales rank changes now reuse the existing characteristic dice
   instead of rerolling attributes, and equipment wealth now reads Family Credit
   Rating.

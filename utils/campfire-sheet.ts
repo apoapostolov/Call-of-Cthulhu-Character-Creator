@@ -29,6 +29,9 @@ export const getCampfireCustomSkillEntries = (
   allSkills: Skill[] = [],
 ) => {
   const fixedKeys = new Set(Array.from(fixedSkillNames, normalizeSkillName));
+  const baseSkillByName = new Map(
+    allSkills.map(skill => [skill.name.toLowerCase(), skill.base] as const),
+  );
   const specialtyParents = new Set(
     allSkills
       .filter(skill => skill.specialty)
@@ -45,7 +48,11 @@ export const getCampfireCustomSkillEntries = (
     .filter(([, value]) => typeof value === 'number')
     .filter(([name]) => !fixedKeys.has(normalizeSkillName(name)))
     .filter(([name]) => !/^language\s*\(/i.test(name))
-    .filter(([name]) => {
+    .filter(([name, value]) => {
+      const normalizedName = name.toLowerCase();
+      const baseValue = baseSkillByName.get(normalizedName);
+      if (typeof baseValue === 'number' && value <= baseValue) return false;
+
       const isSpecialization = /\([^)]*\)/.test(name);
       if (isSpecialization) return true;
       const parentName = getParentSkillName(name).toLowerCase();

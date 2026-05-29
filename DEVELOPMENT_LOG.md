@@ -1,5 +1,17 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - UI polish and changelog sync
+
+- Context: document the latest visible UI adjustments and keep the release
+  notes aligned with the current app state.
+- Files changed: `components/gear/WealthDisplay.tsx`,
+  `components/skills/SkillRow.tsx`, `components/skills/skill-utils.ts`,
+  `CHANGELOG.md`, and `DEVELOPMENT_LOG.md`.
+- Changes: added a Hide/Show toggle to the Wealth card, widened
+  specialization dropdowns so short options like Horse fill the row more
+  consistently, renamed the shared skill group label to Physical & Movement,
+  and documented those UI refinements in the changelog.
+
 ## 2026-05-29 - Bio birthdate and Campfire Scout Sheet AI polish
 
 - Context: apply Bio feedback for era-aware birthdates, Campfire scout portrait
