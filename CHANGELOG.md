@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- AI Distribution now keeps the submitted character description with the saved
+  review and restores it when you reopen the modal or load a saved character.
+
 ## [1.0.2] - 2026-05-29
 
 ### Added

@@ -78,6 +78,7 @@ describe('CoC Save/Load System - Data Serialization', () => {
 
     it('preserves AI distribution review data in save JSON', () => {
         const aiDistribution = {
+            prompt: 'A curious scout from Westhaven who loves maps and strange local legends.',
             preview: {
                 rationale: 'Scout should be alert and practical.',
                 coreSkills: [{ skill: 'Spot Hidden', points: 40 }],
@@ -98,6 +99,7 @@ describe('CoC Save/Load System - Data Serialization', () => {
 
         const loaded = JSON.parse(JSON.stringify({ aiDistribution }));
 
+        expect(loaded.aiDistribution.prompt).toContain('curious scout');
         expect(loaded.aiDistribution.preview.coreSkills[0].skill).toBe('Spot Hidden');
         expect(loaded.aiDistribution.preview.rationale).toContain('Scout');
     });

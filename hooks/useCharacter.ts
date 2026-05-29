@@ -86,6 +86,7 @@ type AiDistributionPreview = {
     personalInterests: SkillDistributionAllocation[];
 };
 type PendingAiDistribution = {
+    prompt: string;
     preview: AiDistributionPreview;
     transformedResponse: SkillDistributionResponse;
     skillSummaries: SkillDistributionSkillSummary[];
@@ -1288,6 +1289,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             const occupationalSkillNames = selectedOccupation?.occupationalSkills || [];
             const utilitySkills = eraProfile.utilitySkills;
             setPendingAiDistribution({
+                prompt: description,
                 preview: {
                     analysis,
                     rationale: rewrittenResponse.rationale,

@@ -81,6 +81,13 @@ export const SkillsTab: React.FC = () => {
             clearPendingAiDistribution();
         }
     };
+
+    React.useEffect(() => {
+        if (!pendingAiDistribution) return;
+        if (aiDistributionDescription !== pendingAiDistribution.prompt) {
+            setAiDistributionDescription(pendingAiDistribution.prompt);
+        }
+    }, [aiDistributionDescription, pendingAiDistribution]);
     
     // If a parent specialty skill is occupational (e.g., Language (Other) or Science),
     // then all of its specializations should count as occupational.

@@ -1,5 +1,19 @@
 # DEVELOPMENT LOG
 
+## 2026-05-29 - AI Distribution prompt persistence
+
+- Context: keep the submitted character description attached to AI
+  Distribution results so reopening the review or loading a save restores the
+  exact prompt that was analyzed.
+- Files changed: `components/SkillsTab.tsx`, `hooks/useCharacter.ts`,
+  `tests/saveLoadIntegration.test.ts`, `CHANGELOG.md`, and
+  `DEVELOPMENT_LOG.md`.
+- Changes: stored the submitted distribution prompt alongside the saved AI
+  review state, restored the prompt into the modal textarea when a review is
+  already populated, and added a save/load regression check for the persisted
+  prompt text.
+- Validation: `npx tsc --noEmit` passed; `npm test` passed with 63 tests.
+
 ## 2026-05-29 - TODO template reset
 
 - Context: update the repository TODO file to match the shared defaults
