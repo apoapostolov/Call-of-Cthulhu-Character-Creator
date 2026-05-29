@@ -38,6 +38,27 @@
   with 57 tests; `cmd.exe /c npm run build` passed with the existing Vite
   large chunk warning.
 
+## 2026-05-29 - Campfire Bio, wealth, AI Distribution, save/load polish
+
+- Context: apply feedback for Bio ordering, Gear wealth initialization, Hobby
+  Points card width, retained AI Distribution outcomes, Campfire save/load, and
+  Badges tab completion.
+- Files changed: `App.tsx`, `components/DossierTab.tsx`,
+  `components/SkillsTab.tsx`, `components/skills/SkillsHeader.tsx`,
+  `hooks/ai/useNameGeneration.ts`, `hooks/ai/usePortraitGeneration.ts`,
+  `hooks/useAIGeneration.ts`, `hooks/useCharacter.ts`,
+  `hooks/useSaveSystem.ts`, `tests/saveLoadIntegration.test.ts`, `types.ts`,
+  `utils/save-data.ts`, `CHANGELOG.md`, and `DEVELOPMENT_LOG.md`.
+- Changes: moved Expressive Portraits above Hobby Notes, retained AI
+  Distribution reviews after close/apply until reset/reroll, added save/load
+  serialization for AI Distribution and Set-backed fields, implemented
+  character restore from save slots, initialized Campfire wealth from Family
+  Credit Rating without requiring a hobby, restored centered Hobby Points width,
+  and marked Badges complete once the additional ability badge quota is met.
+- Validation: `npx tsc --noEmit` passed in WSL; `cmd.exe /c npm test` passed
+  with 59 tests; `cmd.exe /c npm run build` passed with the existing Vite
+  large chunk warning.
+
 ## 2026-05-29 - Campfire Tales rank, skill pool, AI, and PDF audit
 
 - Context: apply Scout Rank, Skills, Badges, and Character Sheet feedback for

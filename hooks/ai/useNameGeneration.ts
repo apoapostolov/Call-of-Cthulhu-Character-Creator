@@ -141,6 +141,11 @@ export const useNameGeneration = (
         setCodename('');
     }, []);
 
+    const hydrate = useCallback((data: { name?: string | null; codename?: string | null } | null | undefined) => {
+        setCharacterName(data?.name || '');
+        setCodename(data?.codename || '');
+    }, []);
+
     return {
         characterName,
         isGeneratingName,
@@ -150,6 +155,7 @@ export const useNameGeneration = (
         generateName,
         generateCodename,
         generateBothAndReturn,
+        hydrate,
         reset,
     };
 };

@@ -118,6 +118,23 @@ export const useAIGeneration = (
         }
         portraitGen.onGeneratePortrait(portraitPrompt);
     }, [portraitGen, portraitPrompt, selectedProfession, showToast]);
+
+    const hydrate = useCallback((data: any) => {
+        nameGen.hydrate({ name: data?.name, codename: data?.codename });
+        setGender(data?.gender || null);
+        setNationality(data?.nationality || 'American (Unspecified/Mixed)');
+        _setDob(data?.dob || '');
+        setDobManuallyEdited(Boolean(data?.dob));
+        setDobOverwrittenByCareer(false);
+        setEducation(data?.education || '');
+        portraitGen.hydrate({
+            portrait: data?.portrait || null,
+            headshot: data?.headshot || null,
+            pdfPortraitSrc: data?.pdfPortraitSrc || null,
+            physicalDescription: data?.physicalDescription || null,
+            distinguishingFeatures: data?.distinguishingFeatures || null,
+        });
+    }, [nameGen, portraitGen]);
     
     // No dossier generation in CoC app
 
@@ -158,6 +175,7 @@ export const useAIGeneration = (
         onGeneratePortrait,
         portraitPrompt,
         // No dossier/career in CoC app
+        hydrate,
         reset,
         setDobFromCareer,
         setDobFromAgeCategory,

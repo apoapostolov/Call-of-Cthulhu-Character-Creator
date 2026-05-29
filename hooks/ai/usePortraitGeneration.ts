@@ -144,6 +144,24 @@ export const usePortraitGeneration = (
         setPhysicalDescription(null);
         setDistinguishingFeatures(null);
     }, [setPhysicalDescription, setDistinguishingFeatures]);
+
+    const hydrate = useCallback((data: {
+        portrait?: string | null;
+        headshot?: string | null;
+        pdfPortraitSrc?: string | null;
+        physicalDescription?: string | null;
+        distinguishingFeatures?: DistinguishingFeatures | null;
+    } | null | undefined) => {
+        setPortrait(data?.portrait || null);
+        setHeadshot(data?.headshot || null);
+        setPdfPortraitSrc(data?.pdfPortraitSrc || data?.headshot || data?.portrait || null);
+        setPortraitView(data?.headshot ? 'headshot' : 'full');
+        setPortraitError(null);
+        setEmotionalPortraits({});
+        setGeneratingEmotion(null);
+        setPhysicalDescription(data?.physicalDescription || null);
+        setDistinguishingFeatures(data?.distinguishingFeatures || null);
+    }, [setPhysicalDescription, setDistinguishingFeatures]);
     
     return {
         portrait,
@@ -160,6 +178,7 @@ export const usePortraitGeneration = (
         onCropHeadshot,
         onGenerateEmotionalPortrait,
         onSelectPdfPortrait,
+        hydrate,
         reset,
     };
 };

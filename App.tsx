@@ -34,8 +34,9 @@ const AppContent: React.FC = () => {
     const [viewingOccupation, setViewingOccupation] = useState<Occupation | null>(null);
     const [selectedExperiencePackageName, setSelectedExperiencePackageName] = useState<string | null>(null);
     
-    const { handleRoll, modifiedAttributes, derivedStats, setOccupation, selectedOccupation, rollHistory, handleRestoreRoll, ai, isDeceased, kitInventory, inventory, handleDrop, handleDeleteItem, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, skills, wealth, scoutBackstory, earnedScoutBadges, distressBoxes, adversityBoxes } = character;
+    const { handleRoll, modifiedAttributes, derivedStats, setOccupation, selectedOccupation, rollHistory, handleRestoreRoll, ai, isDeceased, kitInventory, inventory, handleDrop, handleDeleteItem, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, skills, wealth, scoutBackstory, earnedScoutBadges, distressBoxes, adversityBoxes, selectedScoutAbilityBadges, scoutHobbyAbilityBadges, scoutAdditionalAbilityBadgeAllowance } = character;
     const [shouldPrintButtonGlow, setShouldPrintButtonGlow] = useState(false);
+    const isCampfireEra = selectedEra === 'campfire-tales';
 
     useEffect(() => {
         document.body.dataset.era = selectedEra;
@@ -77,10 +78,19 @@ const AppContent: React.FC = () => {
             updated = true;
         }
         
-        const allPointsSpent = allOccupationChoicesMade && occupationalSkillPoints?.remaining === 0 && personalSkillPoints?.remaining === 0;
+        const allPointsSpent = allOccupationChoicesMade && occupationalSkillPoints?.remaining === 0 && (isCampfireEra || personalSkillPoints?.remaining === 0);
         if (uiState.completedTabs.has('stats') && allPointsSpent && !uiState.completedTabs.has('skills')) {
             newCompleted.add('skills');
             updated = true;
+        }
+
+        if (isCampfireEra && uiState.completedTabs.has('skills') && !uiState.completedTabs.has('badges')) {
+            const hobbyBadges = scoutHobbyAbilityBadges || [];
+            const selectedAdditional = (selectedScoutAbilityBadges || []).filter((badge: string) => !hobbyBadges.includes(badge)).length;
+            if (selectedAdditional >= (scoutAdditionalAbilityBadgeAllowance || 0)) {
+                newCompleted.add('badges');
+                updated = true;
+            }
         }
 
         if (ai.portrait && !uiState.completedTabs.has('dossier')) {
@@ -92,7 +102,7 @@ const AppContent: React.FC = () => {
         if (updated) {
             uiState.setCompletedTabs(newCompleted);
         }
-    }, [selectedOccupation, ai.portrait, uiState.completedTabs, uiState.setCompletedTabs, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade]);
+    }, [selectedOccupation, ai.portrait, uiState.completedTabs, uiState.setCompletedTabs, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, isCampfireEra, selectedScoutAbilityBadges, scoutHobbyAbilityBadges, scoutAdditionalAbilityBadgeAllowance]);
 
     const handleRollWrapper = useCallback(() => {
         handleRoll();
@@ -141,7 +151,6 @@ const AppContent: React.FC = () => {
 
     const shouldSkillsTabGlow = isStatsTabComplete && !isSkillsTabComplete && uiState.activeTab !== 'skills';
     const shouldGearTabGlow = isSkillsTabComplete && !uiState.completedTabs.has('gear') && uiState.activeTab !== 'gear';
-    const isCampfireEra = selectedEra === 'campfire-tales';
     
     return (
         <CharacterProvider character={character}>

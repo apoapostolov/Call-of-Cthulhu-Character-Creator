@@ -178,6 +178,17 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
                 </div>
             </div>
             
+            {showExpressivePortraits && (
+                <ExpressivePortraitsStudio
+                    pdfPortraitSrc={ai.pdfPortraitSrc}
+                    onSelectPdfPortrait={ai.onSelectPdfPortrait}
+                    emotionalPortraits={ai.emotionalPortraits}
+                    generatingEmotion={ai.generatingEmotion}
+                    onGenerateEmotionalPortrait={ai.onGenerateEmotionalPortrait}
+                    characterName={ai.characterName}
+                />
+            )}
+
             {selectedExperiencePackage && experienceNotes && experienceNotes.length > 0 && (
                 <div className="bg-card p-4 rounded-lg border border-border mb-8">
                     <h3 className="text-xl font-bold text-primary mb-2">Experience Notes{selectedExperiencePackage ? ` - ${selectedExperiencePackage.name}` : ''}</h3>
@@ -276,17 +287,6 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
                         })}
                     </ul>
                 </div>
-            )}
-
-            {showExpressivePortraits && (
-                <ExpressivePortraitsStudio
-                    pdfPortraitSrc={ai.pdfPortraitSrc}
-                    onSelectPdfPortrait={ai.onSelectPdfPortrait}
-                    emotionalPortraits={ai.emotionalPortraits}
-                    generatingEmotion={ai.generatingEmotion}
-                    onGenerateEmotionalPortrait={ai.onGenerateEmotionalPortrait}
-                    characterName={ai.characterName}
-                />
             )}
         </div>
     );

@@ -72,7 +72,7 @@ export const SkillsHeader: React.FC<SkillsHeaderProps> = ({ archetypePoints, occ
         ? 'grid-cols-4'
         : visiblePoolCount === 3 ? 'grid-cols-3' : 'grid-cols-2';
     const occupationalCenterClass = !showPersonalPoints && !showArchetype && !showExperience
-        ? 'col-span-2 w-1/2 justify-self-center'
+        ? 'col-span-2 w-[calc(50%-0.5rem)] justify-self-center'
         : '';
     return (
         <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">

@@ -251,7 +251,6 @@ export const SkillsTab: React.FC = () => {
                 onDescriptionChange={handleAiDistributionDescriptionChange}
                 review={pendingAiDistribution ? pendingAiDistribution.preview : null}
                 onClose={() => {
-                    clearPendingAiDistribution();
                     setIsAiDistributionOpen(false);
                 }}
                 onApply={applyPendingAiDistribution}

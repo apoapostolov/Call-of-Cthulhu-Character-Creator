@@ -49,6 +49,11 @@ All notable changes to this project will be documented in this file.
   background fields at 170 characters, allow Campfire Notes up to 510
   characters, calculate scout age against the era year, and avoid duplicating
   specialization parent skills in custom PDF skill slots.
+- Expressive Portraits now appear above Hobby Notes in Bio, Campfire wealth can
+  initialize from rolled Family Credit Rating before hobby selection, the
+  centered Hobby Points card keeps the normal pool-card width, AI Distribution
+  reviews remain available after closing/applying, Campfire saves restore full
+  era state, and Badges completion reflects the additional badge quota.
 
 ## [1.0.1] - 2026-05-28
 

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useCharacterContext } from '../context/CharacterContext';
 import { useEraContext } from '../context/SourceContext';
 import type { CharacterSaveData, SaveSlot } from '../types';
+import { saveSetAsArray } from '../utils/save-data';
 
 const SAVE_VERSION = '1.0.0';
 const MAX_SLOTS = 5;
@@ -93,12 +94,12 @@ export const useSaveSystem = () => {
             experienceSanPenalty: charData.experienceSanPenalty || 0,
             experienceRollCache: charData.experienceRollCache || {},
             experienceNotes: charData.experienceNotes,
-            experienceEligibleSkills: charData.experienceEligibleSkills,
+            experienceEligibleSkills: saveSetAsArray(charData.experienceEligibleSkills) as any,
             persistedExperiencePackageKey: charData.persistedExperiencePackageKey || null,
             occupationNotes: charData.occupationNotes,
             
             selectedArchetype: charData.selectedArchetype,
-            archetypeEligibleSkills: charData.archetypeEligibleSkills,
+            archetypeEligibleSkills: saveSetAsArray(charData.archetypeEligibleSkills) as any,
             archetypePoints: charData.archetypePoints,
             archetypeCoreChoice: charData.archetypeCoreChoice,
             coreCharacteristicRolls: charData.coreCharacteristicRolls || {},
@@ -114,6 +115,8 @@ export const useSaveSystem = () => {
             scoutBackstory: charData.scoutBackstory || null,
             distressBoxes: charData.distressBoxes || {},
             adversityBoxes: charData.adversityBoxes || {},
+            aiDistribution: charData.pendingAiDistribution || null,
+            campfireRawRolls: charData.campfireRawRolls || null,
             
             rolledLifeEvents: charData.rolledLifeEvents,
             lifeEventModifiers: charData.lifeEventModifiers,
@@ -126,10 +129,13 @@ export const useSaveSystem = () => {
                 gender: charData.ai.gender,
                 nationality: charData.ai.nationality,
                 distinguishingFeatures: charData.ai.distinguishingFeatures,
+                physicalDescription: charData.ai.physicalDescription,
                 beliefs: charData.ai.beliefs,
                 traits: charData.ai.traits,
                 backstory: charData.ai.backstory,
                 portrait: charData.ai.portrait,
+                headshot: charData.ai.headshot,
+                pdfPortraitSrc: charData.ai.pdfPortraitSrc,
                 personality: charData.ai.personality,
             }
         };
@@ -191,16 +197,15 @@ export const useSaveSystem = () => {
             throw new Error('Slot is empty');
         }
 
-        // TODO: Implement actual restoration
-        // For now, log the data and show info to user
-        console.log('Character data to restore:', slot.data);
-        alert(`Loading character "${slot.characterName}"...\n\nNote: Full restoration requires page refresh.\nThe data has been logged to console for now.`);
-        
         // Switch era if needed
         if (slot.data.era !== selectedEra) {
             setSelectedEra(slot.data.era);
         }
-    }, [slots, selectedEra, setSelectedEra]);
+        const loader = (character as any).loadFromSaveData;
+        if (typeof loader === 'function') {
+            window.setTimeout(() => loader(slot.data), 0);
+        }
+    }, [slots, selectedEra, setSelectedEra, character]);
 
     /**
      * Delete a save slot

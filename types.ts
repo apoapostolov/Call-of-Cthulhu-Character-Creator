@@ -390,6 +390,8 @@ export interface CharacterSaveData {
   scoutBackstory?: ScoutBackstoryFields | null;
   distressBoxes?: Record<string, boolean>;
   adversityBoxes?: Record<string, boolean>;
+  aiDistribution?: any | null;
+  campfireRawRolls?: any | null;
   
   // Life events
   rolledLifeEvents: any[];
@@ -408,6 +410,9 @@ export interface CharacterSaveData {
     gender: string;
     nationality: Nationality;
     distinguishingFeatures: string;
+    physicalDescription?: string | null;
+    headshot?: string | null;
+    pdfPortraitSrc?: string | null;
     beliefs: string;
     traits: string;
     backstory: string;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useEraContext } from '../context/SourceContext';
 import { parsePriceToCents } from '../utils/money';
-import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, AgeCategory, ExperiencePackage, ExperienceNote, Talent, Archetype, ScoutBackstoryFields } from '../types';
+import type { Occupation, AttributeSet, Attribute, ToastType, DGItem, Skill, AgeCategory, ExperiencePackage, ExperienceNote, Talent, Archetype, ScoutBackstoryFields, CharacterSaveData } from '../types';
 import type { AggregatedData } from './useAggregatedData';
 import { useAIGeneration } from './useAIGeneration';
 import { useAiRuntime } from './useAiRuntime';
@@ -39,6 +39,7 @@ import type {
     SkillDistributionResponse,
     SkillDistributionSkillSummary,
 } from '../lib/ai/skill-distribution';
+import { loadArrayAsSet } from '../utils/save-data';
 
 const roll3d6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
 const roll2d6plus6 = () => Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1 + 6;
@@ -1352,7 +1353,6 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         );
         setSkillPointAssignments(assignments);
         setActiveSkillPool('occupational');
-        setPendingAiDistribution(null);
         setToastMessage('AI skill distribution applied.', 'success');
     }, [isCampfireEra, pendingAiDistribution, setToastMessage]);
 
@@ -1452,6 +1452,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setScoutBackstory(EMPTY_SCOUT_BACKSTORY);
         setDistressBoxes({});
         setAdversityBoxes({});
+        setPendingAiDistribution(null);
         setSelectedTalents([]);
         setSelectedAgeCategory(null);
         setAgeDeductions({ required: 0, applied: {} });
@@ -1732,20 +1733,19 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         setWealth(null);
     }, [aggregatedData.WEALTH_DATA]);
 
+    useEffect(() => {
+        if (isCampfireEra) setWealth(null);
+    }, [isCampfireEra, skills['Family Credit Rating']]);
+
     // Initialize wealth from Credit Rating (or Status for Dark Ages)
     useEffect(() => {
-        if (!wealth && selectedOccupation && modifiedAttributes) {
+        if (!wealth && modifiedAttributes && (selectedOccupation || isCampfireEra)) {
             // Dark Ages uses Status instead of Credit Rating
             const isDarkAges = selectedEra === 'dark-ages-1000s';
             const wealthSkillName = isDarkAges ? 'Status' : (isCampfireEra ? 'Family Credit Rating' : 'Credit Rating');
             
             const wealthSkillValue = ((): number => {
-                const result: Record<string, number> = {} as any;
-                allSkillsWithCalculatedBases.forEach(s => {
-                    const assignment = (skillPointAssignments as any)[s.name] || { occupational: 0, personal: 0 };
-                    result[s.name] = s.base + assignment.occupational + assignment.personal;
-                });
-                return result[wealthSkillName] || 0;
+                return skills[wealthSkillName] || 0;
             })();
             const levels = aggregatedData.WEALTH_DATA?.levels || [];
             const level = levels.find(l => wealthSkillValue >= l.minCR && wealthSkillValue <= l.maxCR);
@@ -1760,7 +1760,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
                 setWealth({ dailyCash: daily, totalCash: cash, assets });
             }
         }
-    }, [wealth, selectedOccupation, modifiedAttributes, aggregatedData.WEALTH_DATA, allSkillsWithCalculatedBases, skillPointAssignments, selectedEra, isCampfireEra]);
+    }, [wealth, selectedOccupation, modifiedAttributes, aggregatedData.WEALTH_DATA, skills, selectedEra, isCampfireEra]);
     
     const setEquipmentKit = useCallback((kitName: string) => {
         const newKit = aggregatedData.EQUIPMENT_KITS.find(k => k.name === kitName);
@@ -1941,6 +1941,58 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         }
     }, [aggregatedData.EXPERIENCE_PACKAGES, selectedExperiencePackage, experienceSanPenalty, experienceNotes, activeSkillPool, persistedExperiencePackageKey, handleSelectExperiencePackage]);
 
+    const loadFromSaveData = useCallback((data: CharacterSaveData) => {
+        setBaseAttributes(data.baseAttributes || null);
+        setModifiedAttributes(data.modifiedAttributes || null);
+        setSelectedOccupation(data.selectedOccupation || null);
+        setRollHistory(data.rollHistory || []);
+        setSelectedAgeCategory(data.selectedAgeCategory || null);
+        setAgeDeductions(data.ageDeductions || { required: 0, applied: {} });
+        setPersistentAgeDeductions(data.persistentAgeDeductions || {});
+        setEduImprovementRolls(data.eduImprovementRolls || []);
+        setYouthLuckApplied(Boolean(data.youthLuckApplied));
+        setOriginalBaseLuck(data.originalBaseLuck ?? null);
+        setActiveKitName(data.activeKitName || null);
+        setKitInventory(data.kitInventory || []);
+        setInventory(data.inventory || []);
+        setWealth(data.wealth || null);
+        setPurchaseLedger(data.purchaseLedger || {});
+        setSkillPointAssignments((data.skillPointAssignments || {}) as SkillPointAssignments);
+        setUserCreatedSkills(data.userCreatedSkills || []);
+        setActiveSkillPool(data.activeSkillPool || 'occupational');
+        setOccupationSkillChoices(data.occupationSkillChoices || {});
+        setSelectedExperiencePackage(data.selectedExperiencePackage || null);
+        setExperienceSanPenalty(data.experienceSanPenalty || 0);
+        setExperienceRollCache(data.experienceRollCache || {});
+        setExperienceNotes(data.experienceNotes || []);
+        setExperienceEligibleSkills(loadArrayAsSet<string>(data.experienceEligibleSkills as any));
+        setPersistedExperiencePackageKey(data.persistedExperiencePackageKey || null);
+        setOccupationNotes(data.occupationNotes || []);
+        setSelectedArchetype(data.selectedArchetype || null);
+        setArchetypeEligibleSkills(loadArrayAsSet<string>(data.archetypeEligibleSkills as any));
+        setArchetypePoints(data.archetypePoints || null);
+        setArchetypeCoreChoice(data.archetypeCoreChoice || null);
+        setCoreCharacteristicRolls(data.coreCharacteristicRolls || {});
+        setOriginalCoreBaseValues(data.originalCoreBaseValues || {});
+        setOptionalRules(data.optionalRules || {});
+        setPulpRulesEnabled(Boolean(data.pulpRulesEnabled));
+        setSelectedTalents(data.selectedTalents || []);
+        setFamilyCreditStatus((data.familyCreditStatus as FamilyCreditStatus) || 'Average');
+        setSelectedScoutRankBadge(data.selectedScoutRankBadge || getScoutRank(data.selectedAgeCategory).badge);
+        setEarnedScoutBadges(data.earnedScoutBadges || []);
+        setSelectedScoutAbilityBadges(data.selectedScoutAbilityBadges || []);
+        setScoutBackstory(data.scoutBackstory || EMPTY_SCOUT_BACKSTORY);
+        setDistressBoxes(data.distressBoxes || {});
+        setAdversityBoxes(data.adversityBoxes || {});
+        setRolledLifeEvents(data.rolledLifeEvents || []);
+        setLifeEventModifiers(data.lifeEventModifiers || { attributes: {}, derivedStats: {}, skills: {} });
+        setPendingAiDistribution((data as any).aiDistribution || null);
+        const rawRolls = (data as any).campfireRawRolls || (data.baseAttributes && data.selectedAgeCategory ? deriveCampfireRawRollsFromAttributes(data.baseAttributes, data.selectedAgeCategory) : null);
+        setCampfireRawRolls(rawRolls);
+        ai.hydrate(data.ai || null);
+        setToastMessage('Character loaded.', 'success');
+    }, [ai, setToastMessage]);
+
     return {
         attributes: modifiedAttributes,
         modifiedAttributes,
@@ -1957,6 +2009,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         clearPendingAiDistribution,
         pendingAiDistribution,
         isAiDistributionRunning,
+        loadFromSaveData,
     activeSkillPool, setActiveSkillPool,
         userCreatedSkills, handleAddSpecialization, handleDeleteSpecialization,
         allSkillsWithCalculatedBases,
@@ -1980,6 +2033,7 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
         // Campfire Tales exports
         isCampfireEra,
         familyCreditStatus,
+        campfireRawRolls,
         setFamilyCreditStatus: handleFamilyCreditStatusChange,
         selectedScoutRankBadge,
         setScoutRankBadge: handleScoutRankBadgeChange,

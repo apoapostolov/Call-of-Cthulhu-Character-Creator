@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { loadArrayAsSet, saveSetAsArray } from '../utils/save-data';
 
 const createMockLocalStorage = () => {
     let store: Record<string, string> = {};
@@ -65,6 +66,42 @@ describe('CoC Save/Load System - Naming Priority', () => {
 });
 
 describe('CoC Save/Load System - Data Serialization', () => {
+    it('serializes Set-backed save fields as arrays and restores them as Sets', () => {
+        const eligibleSkills = new Set(['Fighting (Brawl)', 'Spot Hidden']);
+
+        const saved = JSON.stringify({ experienceEligibleSkills: saveSetAsArray(eligibleSkills) });
+        const loaded = JSON.parse(saved);
+
+        expect(loaded.experienceEligibleSkills).toEqual(['Fighting (Brawl)', 'Spot Hidden']);
+        expect(loadArrayAsSet<string>(loaded.experienceEligibleSkills).has('Spot Hidden')).toBe(true);
+    });
+
+    it('preserves AI distribution review data in save JSON', () => {
+        const aiDistribution = {
+            preview: {
+                rationale: 'Scout should be alert and practical.',
+                coreSkills: [{ skill: 'Spot Hidden', points: 40 }],
+                supplementalSkills: [],
+                personalInterests: [],
+                analysis: {
+                    summary: 'Curious scout.',
+                    themes: ['outdoors'],
+                    likelyCoreSkills: ['Spot Hidden'],
+                    likelySupportSkills: [],
+                    likelySpecializations: [],
+                    cautions: [],
+                    combatProfile: '',
+                    literacyNotes: '',
+                },
+            },
+        };
+
+        const loaded = JSON.parse(JSON.stringify({ aiDistribution }));
+
+        expect(loaded.aiDistribution.preview.coreSkills[0].skill).toBe('Spot Hidden');
+        expect(loaded.aiDistribution.preview.rationale).toContain('Scout');
+    });
+
     it('should serialize complete character data', () => {
         const fullCharacterData = {
             // Core Attributes
