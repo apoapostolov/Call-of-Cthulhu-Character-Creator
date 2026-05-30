@@ -1,5 +1,17 @@
 # DEVELOPMENT LOG
 
+## 2026-05-30 - Release v1.0.3 metadata sync
+
+- Context: move the current unreleased notes into the `1.0.3` release and
+  align the visible version surfaces with the tag that will be cut.
+- Root cause: `1.0.2` was already released, but the top-of-file release notes
+  and package metadata still pointed at the previous version.
+- Files changed: `CHANGELOG.md`, `package.json`, `package-lock.json`,
+  `README.md`, and this log entry.
+- Validation: `npm test` passed with 69 tests; `npm run build` passed with the
+  existing Vite chunk-size warning; markdown lint passed for the edited docs.
+- Follow-up risk: the release tag still needs to be created after validation.
+
 ## 2026-05-30 - Regency occupations and skill list implementation
 
 - Context: replace the Regency placeholder data with the chapter's actual
