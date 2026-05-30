@@ -33,7 +33,7 @@ export const WealthDisplay: React.FC = () => {
     const wealthSkillName = isDarkAges ? 'Status' : isCampfireTales ? 'Family Credit Rating' : 'Credit Rating';
     const wealthSkill = skills[wealthSkillName] || 0;
     
-    const currencySymbol = selectedEra === 'gaslight-1890s' ? '£' : isDarkAges ? 'd' : '$';
+    const currencySymbol = selectedEra === 'gaslight-1890s' || selectedEra === 'regency' ? '£' : isDarkAges ? 'd' : '$';
     
     // Dark Ages: cents represent pence directly (no division needed)
     // Other eras: cents represent 1/100 of currency unit

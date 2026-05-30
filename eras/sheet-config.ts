@@ -19,6 +19,7 @@ export const SHEET_CONFIG: SheetConfig = {
   // Era-specific sheet paths
   sheets: {
     'classic-1920s': { defaultSheet: '/sheets/coc1920s.pdf' },
+    'regency': { defaultSheet: '/sheets/coc1920s.pdf' },
     'campfire-tales': { defaultSheet: '/sheets/campfiretales.pdf' },
   },
 };

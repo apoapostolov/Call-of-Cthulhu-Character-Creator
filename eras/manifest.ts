@@ -72,6 +72,15 @@ import { PDF_FIELD_MAP as p_modern } from './modern-2000s/pdf-form-fields';
 import { ITEMS_FROM_PRICES as ip_modern } from './modern-2000s/items-from-prices';
 import { EQUIPMENT_KITS as ek_modern } from './modern-2000s/equipment-kits';
 import { WEALTH_DATA as w_modern } from './modern-2000s/prices-data';
+// Regency
+import { OCCUPATIONS as o_regency } from './regency/occupations-data';
+import { SKILLS as s_regency } from './regency/skills-data';
+import { THEME as t_regency } from './regency/theme';
+import { DECADES as d_regency } from './regency/decades-data';
+import { PDF_FIELD_MAP as p_regency } from './regency/pdf-form-fields';
+import { EQUIPMENT_KITS as ek_regency } from './regency/equipment-kits';
+import { WEALTH_DATA as w_regency } from './regency/prices-data';
+import { ITEMS_FROM_PRICES as ip_regency } from './regency/items-from-prices';
 // Campfire Tales
 import { OCCUPATIONS as o_campfire } from './campfire-tales/hobbies-data';
 import { SKILLS as s_campfire } from './campfire-tales/skills-data';
@@ -91,6 +100,7 @@ export const ERAS: Era[] = [
     // Swap positions: Western 1870s appears before Dark Ages 1000s
     { id: 'western-1880s', name: 'Western 1870s', publisher: 'Chaosium', theme: 'Weird West Horror', setting: 'Down Darker Trails' },
     { id: 'dark-ages-1000s', name: 'Dark Ages 1000s', publisher: 'Chaosium', theme: 'Medieval Horror', setting: 'Cthulhu Dark Ages' },
+    { id: 'regency', name: 'Regency Cthulhu', publisher: 'Chaosium', theme: 'Regency Horror', setting: 'Regency England' },
     { id: 'campfire-tales', name: 'Campfire Tales', publisher: 'Chaosium', theme: 'Kid Scout Mystery Horror', setting: 'Westhaven Scout Adventures' },
 ];
 
@@ -242,6 +252,7 @@ function resolvePriceItems(eraId: EraID, rule?: InheritRule): DGItem[] {
 // --- Declarative inheritance (prepared) ---
 const RAW_OCCUPATIONS: Record<EraID, Occupation[]> = {
   'classic-1920s': o_classic_1920s, 'pulp-1930s': o_pulp, 'modern-2000s': o_modern,
+  'regency': o_regency,
   'campfire-tales': o_campfire,
   'gaslight-1890s': o_gaslight, 'dark-ages-1000s': o_dark_ages, 'western-1880s': o_western,
 };
@@ -283,6 +294,7 @@ function resolveOccs(eraId: EraID, rule?: InheritRule): Occupation[] {
 // Skills inheritance (prepared)
 const RAW_SKILLS: Record<EraID, Skill[]> = {
   'classic-1920s': s_classic_1920s, 'pulp-1930s': s_pulp, 'modern-2000s': s_modern,
+  'regency': s_regency,
   'campfire-tales': s_campfire,
   'gaslight-1890s': s_gaslight, 'dark-ages-1000s': s_dark_ages, 'western-1880s': s_western,
 };
@@ -352,4 +364,15 @@ export const thirdPartyData: Record<EraID, EraData> = {
     'western-1880s': { occupations: o_western, skills: resolveSkills('western-1880s', { base: 'classic-1920s', includeNames: ['Drive Wagon/Coach', 'Electrical Repair', 'Natural World', 'Psychology', 'Language (Own)', 'Ride', 'Gambling', 'Language (Indian)', 'Rope Use', 'Trap'], excludeNames: ['Drive Auto', 'Electrical Repair', 'Natural World', 'Psychology', 'Language (Own)', 'Ride'] }), theme: t_western, nationalities: n_western, decades: d_western, items: ip_western, equipmentKits: ek_western, wealthData: w_western, pdfFieldMap: p_western, experiencePackages: xp_western, talents: talents_western },
     // Modern occupations inherit 1920s + include modern additions (e.g., Hacker)
     'modern-2000s': { occupations: resolveOccs('modern-2000s', { base: 'classic-1920s', includeNames: ['Hacker'] }), skills: resolveSkills('modern-2000s', { base: 'classic-1920s', includeNames: ['Computer Use', 'Electronics'] }), theme: t_modern, nationalities: n_modern, decades: d_modern, items: ip_modern, equipmentKits: ek_modern, wealthData: w_modern, pdfFieldMap: p_modern },
+    'regency': {
+        occupations: o_regency,
+        skills: s_regency,
+        theme: t_regency,
+        nationalities: n_classic_1920s,
+        decades: d_regency,
+        items: ip_regency,
+        equipmentKits: ek_regency,
+        wealthData: w_regency,
+        pdfFieldMap: p_regency,
+    },
 };

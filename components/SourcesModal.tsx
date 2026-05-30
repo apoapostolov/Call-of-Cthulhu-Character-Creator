@@ -23,7 +23,7 @@ export const ErasModal: React.FC<ErasModalProps> = ({ onClose }) => {
             aria-labelledby="eras-modal-title"
         >
             <div
-                className="bg-card border-2 border-primary/50 rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col"
+                className="bg-card border-2 border-primary/50 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
             >
                 <header className="flex items-center justify-between p-4 border-b border-border bg-cream-100 rounded-t-lg">
@@ -42,7 +42,7 @@ export const ErasModal: React.FC<ErasModalProps> = ({ onClose }) => {
                 <div className="p-6 overflow-y-auto">
                     <p className="text-muted-foreground mb-6">Select which historical era to use. This will change the available content and visual theme of the application.</p>
                     
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {ERAS.map(era => {
                             const isSelected = selectedEra === era.id;
 
@@ -50,7 +50,7 @@ export const ErasModal: React.FC<ErasModalProps> = ({ onClose }) => {
                                 <button
                                     key={era.id}
                                     onClick={() => handleSelectEra(era.id)}
-                                    className={`w-full flex items-center text-left p-3 rounded-md border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-card focus:ring-ring
+                                    className={`w-full h-full flex items-center text-left p-3 rounded-md border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-card focus:ring-ring
                                         ${isSelected 
                                             ? 'bg-primary/10 border-primary' 
                                             : 'border-border hover:bg-background hover:border-secondary'

@@ -3,6 +3,7 @@ import type { Occupation, Skill, ThemeConfig, EraID, Nationality, WeightedNation
 import { thirdPartyData } from '../eras/manifest';
 import { getWeaponsForEra } from '../weapons/to-dgitems';
 import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
+import { SKILL_SPECIALIZATIONS as REGENCY_SKILL_SPECIALIZATIONS } from '../eras/regency/skill-specializations-data';
 
 export interface AggregatedData {
     OCCUPATIONS: Occupation[];
@@ -61,7 +62,7 @@ export const useAggregatedData = (selectedEra: EraID): AggregatedData => {
             ARCHETYPES: (eraData as any).archetypes || [],
             LIFE_EVENTS: (eraData as any).lifeEvents || [],
             // Global Data
-            SKILL_SPECIALIZATIONS: SKILL_SPECIALIZATIONS,
+            SKILL_SPECIALIZATIONS: selectedEra === 'regency' ? REGENCY_SKILL_SPECIALIZATIONS : SKILL_SPECIALIZATIONS,
         };
     }, [selectedEra]);
 

@@ -11,6 +11,7 @@ export const getYearFromDecade = (decade: string): number => {
     '1950s': 1955,
     '1920s': 1925,
     '1920s-pulp': 1925,
+    '1810s': 1815,
     '1890s': 1895,
     '1880s': 1885,
     '1000s': 1000,
@@ -21,6 +22,7 @@ export const getYearFromDecade = (decade: string): number => {
 export const getEraReferenceYear = (eraId: string | null | undefined, decade?: string | null): number => {
   const eraYearMap: Record<string, number> = {
     'classic-1920s': 1925,
+    'regency': 1815,
     'campfire-tales': 1925,
     'pulp-1930s': 1935,
     'gaslight-1890s': 1895,

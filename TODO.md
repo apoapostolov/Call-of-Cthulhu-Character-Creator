@@ -8,8 +8,10 @@ Each TODO file should usually represent one active epic. In this template,
 
 ## Current Focus
 
-- next epic name and one-sentence mission
-- explicit canonical file or system owner
+- Regency Cthulhu era implementation and ruleset wiring
+- canonical files: `docs/regency-cthulhu/`, `eras/regency/`,
+  `eras/manifest.ts`, `hooks/useCharacter.ts`, `components/StatsTab.tsx`,
+  `components/DossierTab.tsx`, and `hooks/usePdfPrinting.ts`
 
 ## Scope And Boundaries
 
@@ -18,8 +20,151 @@ Each TODO file should usually represent one active epic. In this template,
 
 ## Active Prompt Queue
 
-Start active entries at `Prompt 1`. Add `Prompt 1A`, `Prompt 1B`, etc. only
-when a single deliverable needs to be split without hiding partial completion.
+### [x] Prompt 1 — Era scaffold and manifest order
+
+Create the Regency era folder and register it in the era manifest ahead of
+Campfire Tales.
+
+Context:
+
+- `docs/regency-cthulhu/02-chapter-1-creating-a-regency-investigator.md`
+  defines the core Regency character-creation rules
+- existing era structure lives under `eras/classic-1920s/`,
+  `eras/gaslight-1890s/`, and `eras/campfire-tales/`
+- the Regency era should inherit Classic 1920s where the book does not
+  override behavior
+
+Inputs:
+
+- manifest and era data files in `eras/`
+- Regency chapter 1 rules and the existing shared era patterns
+
+Outputs:
+
+- new `regency` era entry in the picker
+- new `eras/regency/` data scaffold with theme, decades, occupations, skills,
+  prices, equipment, and PDF mapping placeholders
+
+Validation:
+
+- `npm test`
+- `npm run build`
+- manual check that the era list shows Regency before Campfire Tales
+
+Delegation notes:
+
+- keep the first pass focused on structure, inheritance, and ordering; deeper
+  Regency rule details can land in later prompts
+- Regency is now the active implementation target; continue into the next
+  prompt only after the era is selectable and the scaffold files exist
+
+### [x] Prompt 2 — Occupations, skills, and social class rules
+
+Implement Regency occupations, occupational bands, skills, and social-class
+credit handling.
+
+Context:
+
+- Regency uses landed-gentry assumptions by default but still allows servants,
+  professionals, and lower-class characters
+- occupation bands and skill availability are defined in the chapter 1 text
+- `Ride` is flat in Regency, `Drive Carriage/Cart` is its own skill, and
+  `Natural Philosophy` replaces Science for the era
+
+Inputs:
+
+- Regency occupation and skill sections from chapter 1
+- current occupation/skill UI and era inheritance patterns
+
+Outputs:
+
+- Regency occupation data with band-aware credit ranges and hobby-style cases
+- Regency skill data with the new/adjusted skill list and specialization rules
+
+Validation:
+
+- `npm test`
+- targeted smoke test for selecting a Regency occupation and seeing the
+  expected skills and credit caps
+
+Delegation notes:
+
+- keep the occupational-band rules authoritative and do not invent new social
+  bands beyond the book’s Regency structure
+
+### [ ] Prompt 3 — Reputation, equipment, and export support
+
+Add Regency reputation, equipment tables, and export behavior.
+
+Context:
+
+- Regency adds optional Reputation plus special living-standard and estate
+  assumptions
+- Appendix B contains the equipment, weapons, firearms, and carriage/chase
+  material for the era
+- the app should remain usable even if a dedicated Regency PDF is not yet
+  present
+
+Inputs:
+
+- Regency reputation sections from chapter 1
+- Appendix B equipment tables
+- current wealth, equipment, and export code
+
+Outputs:
+
+- Regency reputation state in the character sheet
+- Regency equipment, prices, weapons, and carriage/chase data wired into the
+  gear flow
+- export mapping support that falls back cleanly if a dedicated sheet asset is
+  not yet available
+
+Subtasks:
+
+- [x] Regency period price list, old-money parsing, and currency display
+- [x] Regency equipment kits with male/female high-society variants and
+  class-specific archetypes
+- [ ] Regency reputation state and export mapping
+
+Validation:
+
+- `npm test`
+- `npm run build`
+- manual save/load and export smoke test on a Regency character
+
+Delegation notes:
+
+- use the chapter appendix as the canonical equipment source when building the
+  era’s item list and kits
+- preserve current era behavior for non-Regency characters
+
+### [ ] Prompt 4 — Regency polish and documentation
+
+Finish the era with tests, UI polish, and docs.
+
+Context:
+
+- the Regency era will be the latest addition before Campfire Tales in the era
+  picker
+- the implementation should be discoverable through TODO, plan, log, and
+  changelog updates
+
+Inputs:
+
+- current Regency implementation files
+- existing docs and release notes
+
+Outputs:
+
+- regression tests covering Regency-specific rules
+- updated development log and changelog notes
+- any small UI text or tab adjustments needed for the era
+
+Validation:
+
+- `npm test`
+- `npm run build`
+- markdown lint for edited docs
 
 ## Working Rules
 
@@ -96,8 +241,8 @@ when a single deliverable needs to be split without hiding partial completion.
 
 ## Risks And Blockers
 
-- open risk
-- explicit blocker if present
+- Regency equipment and reputation details are still pending implementation
+- no dedicated Regency PDF asset is present in the repository yet
 
 ## Template
 

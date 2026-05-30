@@ -5,6 +5,7 @@ import { WEAPONS_1920S } from '../eras/classic-1920s/weapons-data';
 import { WEAPONS_WESTERN_1870S } from '../eras/western-1870s/weapons-data';
 import { WEAPONS_GASLIGHT } from '../eras/gaslight-1890s/weapons-data';
 import { WEAPONS_DARK_AGES, SHIELDS_DARK_AGES, ARMOR_DARK_AGES } from '../eras/dark-ages-1000s/weapons-data';
+import { WEAPONS_REGENCY } from '../eras/regency/weapons-data';
 
 type WeaponRec = {
   name: string;
@@ -171,6 +172,9 @@ export function getWeaponsForEra(eraId: EraID): DGItem[] {
   }
   if (eraId === 'classic-1920s' || eraId === 'pulp-1930s') {
     return (WEAPONS_1920S as WeaponRec[]).map(w => mapWeaponToDGItem(w, '1920s'));
+  }
+  if (eraId === 'regency') {
+    return WEAPONS_REGENCY;
   }
   if (eraId === 'modern-2000s') {
     return (WEAPONS_MODERN as WeaponRec[]).map(w => mapWeaponToDGItem(w, 'modern'));

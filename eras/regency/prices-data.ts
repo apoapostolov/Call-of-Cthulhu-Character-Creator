@@ -1,0 +1,60 @@
+import type { EraWealthData } from '../../types';
+
+export const WEALTH_DATA: EraWealthData = {
+  levels: [
+    {
+      name: 'Penniless',
+      minCR: 0,
+      maxCR: 0,
+      description: 'No reliable income, no estate, and little protection from bad weather or bad fortune. Travel is on foot, by borrowed ride, or by charity.',
+      spendingLevel: () => 0.5,
+      cash: () => 0.5,
+      assets: () => 'None',
+    },
+    {
+      name: 'Poor',
+      minCR: 1,
+      maxCR: 9,
+      description: 'A narrow life of wages, lodgings, and careful thrift. Keeps few possessions and must think twice before hiring transport or replacing worn goods.',
+      spendingLevel: () => 2,
+      cash: (cr) => cr * 1,
+      assets: (cr) => cr * 10,
+    },
+    {
+      name: 'Average',
+      minCR: 10,
+      maxCR: 49,
+      description: 'Respectable comfort without luxury. Can maintain a small household, travel in modest style, and keep decent clothing and furnishings.',
+      spendingLevel: () => 10,
+      cash: (cr) => cr * 2,
+      assets: (cr) => cr * 50,
+    },
+    {
+      name: 'Wealthy',
+      minCR: 50,
+      maxCR: 89,
+      description: 'Lives with servants, secure transport, and the assumptions of the gentry. A town house, an estate, or both may be within reach.',
+      spendingLevel: () => 50,
+      cash: (cr) => cr * 5,
+      assets: (cr) => cr * 500,
+    },
+    {
+      name: 'Rich',
+      minCR: 90,
+      maxCR: 98,
+      description: 'Aristocratic or near-aristocratic wealth with extensive land, influence, and staff. Can fund travel, patronage, and an impressive household at will.',
+      spendingLevel: () => 250,
+      cash: (cr) => cr * 20,
+      assets: (cr) => cr * 2000,
+    },
+    {
+      name: 'Super Rich',
+      minCR: 99,
+      maxCR: 99,
+      description: 'One of the great fortunes of the age. Money, servants, and social reach are effectively no obstacle.',
+      spendingLevel: () => 500,
+      cash: () => 10000,
+      assets: () => 1000000,
+    },
+  ],
+};

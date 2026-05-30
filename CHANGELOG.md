@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Regency Cthulhu now appears in the era picker as a full Regency England
+  era, with a distinct period skin, Regency reference-year handling,
+  Regency equipment and weapon tables, and a complete manifest/data pathway
+  for the era's occupations and skills.
+  - Use Regency's landed-gentry social structure, servant careers, and hobby-
+    styled occupations with period-aware credit ranges.
+  - Build characters from the Regency skill list, including Driving Carriage/
+    Cart, Astronomy, Etiquette, Fashion, Gaming, Mesmerism, Natural
+    Philosophy, Reassure, Religion, and the era's limited specialization
+    families.
+  - Play with Regency-era flat Ride, Pilot (Boat), and other skill
+    adjustments that replace Classic 1920s assumptions.
+  - Shop from a Regency price list written in period currency, using pounds,
+    shillings, pence, and guineas instead of the Classic 1920s dollar catalog.
+  - Equip Regency investigators with class-aware kits, including separate
+    high-society gentleman and gentlewoman loadouts alongside country and
+    household archetypes.
+
 ### Fixed
 
 - AI Distribution now keeps the submitted character description with the saved

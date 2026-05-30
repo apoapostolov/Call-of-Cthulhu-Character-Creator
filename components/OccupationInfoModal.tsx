@@ -28,6 +28,13 @@ export const OccupationInfoModal: React.FC<OccupationInfoModalProps> = ({ occupa
     const group = occupation.group;
     const pick = (kitName: string) => aggregatedData.EQUIPMENT_KITS.find(k => k.name.toLowerCase() === kitName.toLowerCase());
     const picks: string[] = [];
+    // Regency-specific kits
+    if (name.includes('gentlewoman')) picks.push('GENTLEWOMAN OF THE TON KIT', 'COUNTRY GENTLEWOMAN KIT');
+    if (name.includes('gentleman') && !name.includes('gentlewoman')) picks.push('GENTLEMAN OF THE TON KIT', 'COUNTRY GENTLEMAN KIT');
+    if (name.includes('servant') || name.includes('butler') || name.includes('valet') || name.includes('maid')) picks.push('ESTATE HOUSEHOLD KIT');
+    if (name.includes('driver') || name.includes('coachman') || name.includes('groom')) picks.push('COACHMAN / GROOM KIT');
+    if (name.includes('clergy') || name.includes('scholar') || name.includes('researcher') || name.includes('librarian') || name.includes('author') || name.includes('antiquarian')) picks.push('SCHOLAR / CLERGY KIT');
+
     // Core classic kits
     if (name.includes('doctor') || name.includes('physician') || name.includes('medicine') || name.includes('nurse')) picks.push("DOCTOR'S BAG");
     if (name.includes('police') || name.includes('detective') || name.includes('constable')) picks.push('POLICE CONSTABLE KIT');

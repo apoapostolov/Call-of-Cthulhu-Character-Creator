@@ -175,6 +175,15 @@ const getEraSkillDistributionProfile = (eraId: string, isCampfireEra: boolean) =
                 'Avoid modern technical assumptions and prefer period-appropriate transport and research methods.',
             ],
         },
+        'regency': {
+            activePools: basePools,
+            utilitySkills: [...commonUtility, 'Etiquette', 'Ride', 'Dancing', 'Natural Philosophy', 'Drive Carriage/Cart', 'Fashion', 'Gaming', 'Religion', 'Reassure', 'Pilot (Boat)'],
+            guidance: [
+                'Account for Regency hierarchy, inherited status, strict manners, coaching travel, and the constraints of polite society.',
+                'Credit Rating, etiquette, social skills, riding, dancing, carriage travel, and scholarly skills often carry more setting weight.',
+                'Avoid modern technology and modern assumptions about mobility, communication, and social freedom.',
+            ],
+        },
         'dark-ages-1000s': {
             activePools: ['occupational', 'personal', 'experience'],
             utilitySkills: ['Spot Hidden', 'Listen', 'First Aid', 'Natural World', 'Track', 'Dodge', 'Climb', 'Jump', 'Throw', 'Fighting', 'Ride', 'Survival'],
@@ -716,6 +725,12 @@ export const useCharacter = (setToastMessage: (msg: string | null, type?: ToastT
             const badgeBonus = badgeBonuses[skill.name] || badgeBonuses[skill.name.split(' (')[0]] || 0;
             if (skill.name === 'Dodge') {
                 return { ...skill, base: Math.floor(modifiedAttributes.DEX / 2) + badgeBonus };
+            }
+            if (selectedEra === 'regency' && skill.name === 'Dancing') {
+                return { ...skill, base: Math.floor(modifiedAttributes.DEX / 5) + badgeBonus };
+            }
+            if (selectedEra === 'regency' && skill.name === 'Etiquette') {
+                return { ...skill, base: Math.floor(modifiedAttributes.INT / 5) + badgeBonus };
             }
             if (skill.name === 'Language (Own)') {
                 return { ...skill, base: modifiedAttributes.EDU + badgeBonus };

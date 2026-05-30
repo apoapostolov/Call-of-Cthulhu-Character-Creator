@@ -3,6 +3,7 @@
 // Parses price strings like:
 // - USD: "$4.50", "98¢", "$9.95-$35.00", "$1,200.00+"
 // - UK Pounds: "£5.10"
+// - Regency / Georgian: "1 guinea", "45 guineas", "half a guinea"
 // - Victorian/Dark Ages: "24d" (pence), "12s" (shillings), "£1" (pounds)
 // - Complex Victorian: "£2/6s" (£2 and 6 shillings), "£2/6s/3d" (£2, 6s, 3d)
 // - Ranges: "12-15d", "£5–£7" (returns lower bound)
@@ -11,7 +12,62 @@
 export const parsePriceToCents = (price?: string | null): number | null => {
   if (!price) return 0;
   const s = price.replace(/\s+/g, '').replace(/,/g, '');
-  
+
+  // Regency / Georgian guineas. 1 guinea = 21 shillings = 252 old pence.
+  if (/^halfaguinea$/i.test(s)) {
+    return 126;
+  }
+  const guineaMatch = s.match(/^(\d+(?:\.\d+)?)guineas?$/i);
+  if (guineaMatch) {
+    const guineas = parseFloat(guineaMatch[1]);
+    if (!isNaN(guineas)) {
+      return Math.round(guineas * 252);
+    }
+  }
+
+  // Explicit old-money formats with slashes and unit markers.
+  const poundsShillingsPenceMatch = s.match(/^£?(\d+)\/(\d+)s\/(\d+)d$/i);
+  if (poundsShillingsPenceMatch) {
+    const pounds = parseInt(poundsShillingsPenceMatch[1], 10);
+    const shillings = parseInt(poundsShillingsPenceMatch[2], 10);
+    const pence = parseInt(poundsShillingsPenceMatch[3], 10);
+    const totalPence = pounds * 240 + shillings * 12 + pence;
+    if (totalPence > 0) return totalPence;
+  }
+
+  const pureSlashPoundsShillingsPenceMatch = s.match(/^£?(\d+)\/(\d+)\/(\d+)$/i);
+  if (pureSlashPoundsShillingsPenceMatch) {
+    const pounds = parseInt(pureSlashPoundsShillingsPenceMatch[1], 10);
+    const shillings = parseInt(pureSlashPoundsShillingsPenceMatch[2], 10);
+    const pence = parseInt(pureSlashPoundsShillingsPenceMatch[3], 10);
+    const totalPence = pounds * 240 + shillings * 12 + pence;
+    if (totalPence > 0) return totalPence;
+  }
+
+  const poundsShillingsMatch = s.match(/^£?(\d+)\/(\d+)s$/i);
+  if (poundsShillingsMatch) {
+    const pounds = parseInt(poundsShillingsMatch[1], 10);
+    const shillings = parseInt(poundsShillingsMatch[2], 10);
+    const totalPence = pounds * 240 + shillings * 12;
+    if (totalPence > 0) return totalPence;
+  }
+
+  const pureSlashPoundsShillingsMatch = s.match(/^£?(\d+)\/(\d+)$/i);
+  if (pureSlashPoundsShillingsMatch) {
+    const pounds = parseInt(pureSlashPoundsShillingsMatch[1], 10);
+    const shillings = parseInt(pureSlashPoundsShillingsMatch[2], 10);
+    const totalPence = pounds * 240 + shillings * 12;
+    if (totalPence > 0) return totalPence;
+  }
+
+  const shillingsPenceMatch = s.match(/^(\d+)s\/(\d+)d$/i);
+  if (shillingsPenceMatch) {
+    const shillings = parseInt(shillingsPenceMatch[1], 10);
+    const pence = parseInt(shillingsPenceMatch[2], 10);
+    const totalPence = shillings * 12 + pence;
+    if (totalPence > 0) return totalPence;
+  }
+
   // Complex Victorian format: "£2/6s/3d" or "£2/6s" or "6s/3d"
   const victorianMatch = s.match(/(?:£(\d+))?(?:\/)?(?:(\d+)s)?(?:\/)?(?:(\d+)d)?/);
   if (victorianMatch && (victorianMatch[1] || victorianMatch[2] || victorianMatch[3])) {

@@ -1,5 +1,65 @@
 # DEVELOPMENT LOG
 
+## 2026-05-30 - Regency occupations and skill list implementation
+
+- Context: replace the Regency placeholder data with the chapter's actual
+  occupation bands, social-class framing, and adjusted skill list.
+- Files changed: `CHANGELOG.md`, `DEVELOPMENT_LOG.md`, `TODO.md`,
+  `components/skills/SkillRow.tsx`, `hooks/useAggregatedData.ts`,
+  `hooks/useCharacter.ts`, `eras/regency/occupations-data.ts`,
+  `eras/regency/skill-specializations-data.ts`, `eras/regency/skills-data.ts`,
+  and `tests/regency.test.ts`.
+- Changes: added the Regency occupation roster with band-aware credit ranges
+  and hobby-style cases, replaced the placeholder Regency skill list with the
+  chapter's allowed skills and era-only adjustments, wired Regency-specific
+  specialization catalogs into the aggregated data flow, made Regency Dancing
+  and Etiquette derive from DEX/5 and INT/5, and taught the UI to treat Pilot
+  (Boat) as a flat skill.
+- Validation: `npx tsc --noEmit` passed; `npm test` passed with 68 tests;
+  `npm run build` passed with the existing Vite chunk-size warning.
+
+## 2026-05-30 - Regency equipment and price list overhaul
+
+- Context: replace the inherited Classic 1920s Regency placeholder catalog
+  with period-appropriate Regency England prices, old-money parsing, and
+  class/gender-aware equipment kits.
+- Files changed: `CHANGELOG.md`, `DEVELOPMENT_LOG.md`, `TODO.md`,
+  `components/OccupationInfoModal.tsx`, `components/gear/WealthDisplay.tsx`,
+  `eras/manifest.ts`, `eras/regency/equipment-kits.ts`,
+  `eras/regency/items-from-prices.ts`, `tests/regency.test.ts`, and
+  `utils/money.ts`.
+- Changes: replaced the Regency equipment catalog with a Regency-specific
+  price list built from the appendix's representative food, clothing, travel,
+  leisure, and household costs; switched the Regency manifest to use that
+  era-specific catalog instead of inheriting the Classic 1920s price list;
+  added old-money parsing for guineas and slash-form pounds/shillings/pence;
+  gave Regency the £ display in the wealth card; and rebuilt the equipment
+  kits around Regency high-society male/female distinctions plus country,
+  household, coachman, and scholarly archetypes.
+- Validation: `npx tsc --noEmit` passed; `npm test` passed with 69 tests;
+  `npm run build` passed with the existing Vite chunk-size warning.
+
+## 2026-05-30 - Regency era scaffold and manifest ordering
+
+- Context: introduce Regency Cthulhu as the next era epic, with the new era
+  positioned before Campfire Tales and the implementation queue preserved in
+  `TODO.md`.
+- Files changed: `TODO.md`, `CHANGELOG.md`, `DEVELOPMENT_LOG.md`,
+  `eras/manifest.ts`, `eras/regency/theme.ts`, `eras/regency/decades-data.ts`,
+  `eras/regency/occupations-data.ts`, `eras/regency/skills-data.ts`,
+  `eras/regency/prices-data.ts`, `eras/regency/equipment-kits.ts`,
+  `eras/regency/pdf-form-fields.ts`, `eras/sheet-config.ts`,
+  `hooks/useCharacter.ts`, `index.html`, `tests/regency.test.ts`, and
+  `utils/date.ts`.
+- Changes: added a Regency era scaffold with its own theme, decade data,
+  wealth structure, Regency equipment and weapon tables, placeholder
+  occupation/skill modules, classic PDF fallback, era ordering ahead of
+  Campfire Tales, Regency-aware AI guidance, and a regression test covering
+  the new manifest entry and gear data.
+- Validation: `npx tsc --noEmit` passed; `npx -y markdownlint-cli2 --fix
+  TODO.md` passed with 0 errors; `npm test` passed with 67 tests; `npm run
+  build` passed with the existing Vite chunk-size warning.
+
 ## 2026-05-29 - AI Distribution prompt persistence
 
 - Context: keep the submitted character description attached to AI
@@ -182,7 +242,8 @@
 - Changes: Campfire Gear now has three subtabs: Scout Equipment, All
   Equipment, and Prices. All Equipment uses the Classic 1920s equipment/weapon
   list, while Prices uses the Classic 1920s price catalog.
-- Validation: `npx tsc --noEmit` and `cmd.exe /c npm run build` passed; build retains the existing Vite large chunk warning.
+- Validation: `npx tsc --noEmit` and `cmd.exe /c npm run build` passed; build
+  retains the existing Vite large chunk warning.
 
 ## 2026-05-29 - Campfire Tales badge rule polish
 

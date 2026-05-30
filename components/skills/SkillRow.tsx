@@ -27,7 +27,7 @@ export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupati
     const { aggregatedData, allSkillsWithCalculatedBases, effectiveOccupationalSkills } = useCharacterContext();
     const [isSpecializing, setIsSpecializing] = useState(false);
     const [selectedSubType, setSelectedSubType] = useState('');
-    const flatParentheticalSkills = new Set(['Language (Own)', 'Language (Signals)', 'Ride (Bicycle)']);
+    const flatParentheticalSkills = new Set(['Language (Own)', 'Language (Signals)', 'Ride (Bicycle)', 'Pilot (Boat)']);
 
     // Only apply life event modifier if it's non-zero (which means it's Dark Ages era)
     const totalValue = baseValue + assignedPoints.occupational + assignedPoints.personal + (assignedPoints.experience || 0) + (assignedPoints.archetype || 0) + ((lifeEventChange && lifeEventChange !== 0) ? lifeEventChange : 0);

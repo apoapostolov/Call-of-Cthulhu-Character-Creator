@@ -25,9 +25,9 @@ fi
 
 # Default: run dev server
 echo "[run] Starting Call of Cthulhu: New Dhole House dev server..."
-echo "[run] Opening browser at http://localhost:3000/"
+echo "[run] Opening browser at http://localhost:3001/"
 sleep 2
 if command -v xdg-open &> /dev/null; then
-    xdg-open http://localhost:3000/
+    xdg-open http://localhost:3001/
 fi
 npm run dev
