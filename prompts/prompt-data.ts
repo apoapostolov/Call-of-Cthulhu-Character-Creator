@@ -18,12 +18,17 @@ const getDescriptorsForAttributes = (attributes: AttributeSet): string => {
 
 // --- Name Generation ---
 export const getNameAndCodenamePrompt = (gender: string, characterConcept: string, nationality: Nationality, decadeConfig: DecadeConfig | undefined): string => {
-    const decadeInfo = decadeConfig 
+    const decadeInfo = decadeConfig
         ? `The codename should evoke the mood of the ${decadeConfig.displayName}. This was an era defined by: ${decadeConfig.prompt.politicsAndMood}`
         : "The codename should feel appropriate for the modern era.";
+    const eraName = decadeConfig?.displayName || 'the setting';
+    const regencyAddendum = eraName.includes('Regency')
+        ? `Treat this as Regency England social reality: rank, polite forms, and period naming should feel like early 19th-century Britain. Prefer names that fit the Season, country houses, military service, clergy, servants, or the landed gentry as appropriate.`
+        : '';
 
     return `Generate a single, plausible-sounding ${nationality} name and a clandestine codename for a ${gender} ${characterConcept}.
 ${decadeInfo}
+${regencyAddendum}
 The codename must be a single, memorable, all-caps word. It should be inspired by military, intelligence, or mythological terms, but should not be a common, overused one (e.g., VIPER, GHOST).
 Provide the output in JSON format with two keys: "name" and "codename".
 
@@ -34,8 +39,12 @@ Example response:
 }`;
 };
 
-export const getNamePrompt = (gender: string, characterConcept: string, nationality: Nationality): string => {
+export const getNamePrompt = (gender: string, characterConcept: string, nationality: Nationality, decadeConfig?: DecadeConfig): string => {
+    const regencyAddendum = decadeConfig?.displayName.includes('Regency')
+        ? 'If the setting is Regency England, favor names that sound natural for the early 1800s and fit the character\'s rank, household role, military background, or social class.'
+        : '';
     return `Generate a single, plausible-sounding ${nationality} name for a ${gender} ${characterConcept}.
+${regencyAddendum}
 Provide the output in JSON format with one key: "name".
 
 Example response:
@@ -45,12 +54,16 @@ Example response:
 };
 
 export const getCodenamePrompt = (characterConcept: string, decadeConfig: DecadeConfig | undefined): string => {
-    const decadeInfo = decadeConfig 
+    const decadeInfo = decadeConfig
         ? `The codename should evoke the mood of the ${decadeConfig.displayName}. This was an era defined by: ${decadeConfig.prompt.politicsAndMood}`
         : "The codename should feel appropriate for the modern era.";
+    const regencyAddendum = decadeConfig?.displayName.includes('Regency')
+        ? 'For Regency England, make the alias feel discreet enough for letters, salons, and private correspondence, but still memorable.'
+        : '';
 
     return `Generate a clandestine codename for a ${characterConcept}.
 ${decadeInfo}
+${regencyAddendum}
 The codename must be a single, memorable, all-caps word. It should be inspired by military, intelligence, or mythological terms, but should not be a common, overused one (e.g., VIPER, GHOST).
 Provide the output in JSON format with one key: "codename".
 
@@ -95,8 +108,11 @@ Provide a plausible educational background and a realistic starting age for this
 };
 
 // --- Portrait & Description Generation ---
-export const getPhysicalDescriptionPrompt = (): string => {
-    return `Analyze the provided full-body portrait of a character. Provide a brief, evocative physical description focusing on their build, posture, clothing, and overall demeanor. The description must be a single paragraph and no more than 170 characters.`;
+export const getPhysicalDescriptionPrompt = (eraName?: string): string => {
+    const regencyAddendum = eraName && eraName.includes('Regency')
+        ? ' If the portrait is Regency England, mention period-true silhouettes, coats, gowns, shawls, gloves, riding boots, or other early 19th-century clothing cues rather than modern styling.'
+        : '';
+    return `Analyze the provided full-body portrait of a character. Provide a brief, evocative physical description focusing on their build, posture, clothing, and overall demeanor. The description must be a single paragraph and no more than 170 characters.${regencyAddendum}`;
 };
 
 export const getDistinguishingFeaturesPrompt = (description: string): string => {
@@ -170,6 +186,7 @@ ${getDescriptorsForAttributes(attributes)}` : '**Visual Cues:** Not specified.';
 -   **Fashion & Appearance:** ${decadeConfig.prompt.fashion}. ${decadeConfig.prompt.looks}.
 -   **Mannerisms & Posture:** ${decadeConfig.prompt.mannerisms}.
 -   **Technology:** The investigator may be interacting with or surrounded by technology of the era: ${decadeConfig.prompt.technology}.
+${decadeConfig.displayName.includes('Regency') ? '-   **Regency Cue:** Favor Regency social rank, the Season, townhouses, country estates, coaching inns, servants, gentry, officers, and carefully regulated polite society. Keep the silhouette and accessories strictly early 19th century.' : ''}
 ` : '**Era Specifics:** Not specified. Assume modern day.';
 
     const veteranProfileSection = damagedVeteranOption ? `

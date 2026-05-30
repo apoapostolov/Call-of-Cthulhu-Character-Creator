@@ -40,7 +40,7 @@ export const useAIGeneration = (
     const nameGen = useNameGeneration(showToast, aggregatedData);
 
     // Portrait Generation
-    const portraitGen = usePortraitGeneration(showToast, setPhysicalDescription, setDistinguishingFeatures);
+    const portraitGen = usePortraitGeneration(showToast, setPhysicalDescription, setDistinguishingFeatures, decadeConfig);
     
     // No career simulation or dossier generation in CoC app
 
@@ -168,7 +168,7 @@ export const useAIGeneration = (
         isGeneratingName: nameGen.isGeneratingName,
         codename: nameGen.codename,
         isGeneratingCodename: nameGen.isGeneratingCodename,
-        onGenerateName: () => nameGen.generateName(gender, characterConcept, nationality),
+        onGenerateName: () => nameGen.generateName(gender, characterConcept, nationality, decadeConfig),
         onGenerateCodename: () => nameGen.generateCodename(characterConcept, decadeConfig),
         onGenerateRandomNationality,
         ...portraitGen,

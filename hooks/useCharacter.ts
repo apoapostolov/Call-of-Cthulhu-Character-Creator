@@ -177,11 +177,12 @@ const getEraSkillDistributionProfile = (eraId: string, isCampfireEra: boolean) =
         },
         'regency': {
             activePools: basePools,
-            utilitySkills: [...commonUtility, 'Etiquette', 'Ride', 'Dancing', 'Natural Philosophy', 'Drive Carriage/Cart', 'Fashion', 'Gaming', 'Religion', 'Reassure', 'Pilot (Boat)'],
+            utilitySkills: [...commonUtility, 'Etiquette', 'Ride', 'Dancing', 'Natural Philosophy', 'Drive Carriage/Cart', 'Fashion', 'Gaming', 'Religion', 'Reassure', 'Pilot (Boat)', 'Accounting', 'Persuade', 'Appraise'],
             guidance: [
-                'Account for Regency hierarchy, inherited status, strict manners, coaching travel, and the constraints of polite society.',
-                'Credit Rating, etiquette, social skills, riding, dancing, carriage travel, and scholarly skills often carry more setting weight.',
-                'Avoid modern technology and modern assumptions about mobility, communication, and social freedom.',
+                'Treat the era as Regency England, roughly 1811-1820, with the Prince Regent, the London Season, country houses, balls, assemblies, chaperones, and strict social rank.',
+                'Account for inherited status, patronage, household service, militia and officer culture, coaching travel, letters, and the constraints of polite society.',
+                'Credit Rating, etiquette, social skills, riding, dancing, carriage travel, and scholarly or polite-accomplishment skills often carry more setting weight than modern technical skills.',
+                'Avoid modern technology, modern women\'s autonomy assumptions, and modern transportation or communications. Keep the character plausibly situated in a horse-drawn, paper-letter world.',
             ],
         },
         'dark-ages-1000s': {

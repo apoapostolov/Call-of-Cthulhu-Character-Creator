@@ -1,5 +1,21 @@
 # DEVELOPMENT LOG
 
+## 2026-05-30 - Regency AI prompt period grounding
+
+- Context: tighten the Regency-era AI payloads so name, portrait, and skill
+  distribution prompts explicitly reflect Regency England rather than generic
+  19th-century British flavor.
+- Root cause: the Regency data scaffold existed, but the AI helpers still left
+  too much room for modern or vague historical assumptions.
+- Files changed: `prompts/prompt-data.ts`, `hooks/useCharacter.ts`,
+  `hooks/useAIGeneration.ts`, `hooks/ai/useNameGeneration.ts`,
+  `hooks/ai/usePortraitGeneration.ts`, `eras/regency/theme.ts`,
+  `eras/regency/decades-data.ts`, and `tests/regency.test.ts`.
+- Validation: `npx tsc --noEmit` passed; `npm test` passed with 71 tests.
+- Follow-up risk: if the Regency prompt still feels too broad in practice, the
+  next refinement should tune the period-specific naming and portrait cues
+  further rather than changing the era data model.
+
 ## 2026-05-30 - Release v1.0.3 metadata sync
 
 - Context: move the current unreleased notes into the `1.0.3` release and

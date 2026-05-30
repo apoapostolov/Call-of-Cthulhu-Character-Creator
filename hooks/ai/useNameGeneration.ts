@@ -88,7 +88,8 @@ export const useNameGeneration = (
     const generateName = useCallback(async (
         gender: 'male' | 'female' | null,
         characterConcept: string,
-        nationality: Nationality
+        nationality: Nationality,
+        decadeConfig: DecadeConfig | undefined
     ) => {
         if (!characterConcept) {
             showToast("A character profession is needed to generate details.", 'warning');
@@ -103,7 +104,7 @@ export const useNameGeneration = (
                 finalNationality = 'American';
             }
 
-            const prompt = getNamePrompt(selectedGender, characterConcept, finalNationality);
+            const prompt = getNamePrompt(selectedGender, characterConcept, finalNationality, decadeConfig);
             const result = parseJsonLike(await generateText({ prompt, json: true, purpose: 'simple' }));
             setCharacterName(result.name);
         } catch (e) {

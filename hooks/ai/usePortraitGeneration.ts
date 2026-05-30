@@ -8,7 +8,8 @@ import { parseJsonLike } from '../../lib/ai/json';
 export const usePortraitGeneration = (
     showToast: (msg: string, type?: ToastType) => void,
     setPhysicalDescription: (desc: string | null) => void,
-    setDistinguishingFeatures: (features: DistinguishingFeatures | null) => void
+    setDistinguishingFeatures: (features: DistinguishingFeatures | null) => void,
+    decadeConfig?: DecadeConfig,
 ) => {
     const [portrait, setPortrait] = useState<string | null>(null);
     const [headshot, setHeadshot] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export const usePortraitGeneration = (
 
     const generateDescriptionAndFeatures = useCallback(async (portraitBase64: string) => {
         try {
-            const descriptionPrompt = getPhysicalDescriptionPrompt();
+            const descriptionPrompt = getPhysicalDescriptionPrompt(decadeConfig?.displayName);
             const descriptionText = await analyzeImage({ prompt: descriptionPrompt, imageDataUrl: portraitBase64 });
             setPhysicalDescription(descriptionText);
 

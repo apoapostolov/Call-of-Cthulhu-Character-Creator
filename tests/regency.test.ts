@@ -4,6 +4,8 @@ import { SKILL_SPECIALIZATIONS as REGENCY_SKILL_SPECIALIZATIONS } from '../eras/
 import { SHEET_CONFIG } from '../eras/sheet-config';
 import { getWeaponsForEra } from '../weapons/to-dgitems';
 import { parsePriceToCents } from '../utils/money';
+import { buildEraContext, buildSkillDistributionPrompt } from '../lib/ai/skill-distribution';
+import { getNamePrompt, getPhysicalDescriptionPrompt, getPortraitPrompt } from '../prompts/prompt-data';
 
 describe('Regency era scaffold', () => {
   it('is registered before Campfire Tales in the era manifest', () => {
@@ -71,5 +73,113 @@ describe('Regency era scaffold', () => {
     expect(parsePriceToCents('half a guinea')).toBe(126);
     expect(parsePriceToCents('50 guineas')).toBe(12600);
     expect(parsePriceToCents('£3/13s/6d')).toBe(882);
+  });
+
+  it('pushes Regency context into the bio prompts', () => {
+    const regency = thirdPartyData['regency'];
+    const decade = regency.decades[0];
+
+    expect(getNamePrompt('female', 'gentlewoman investigator', 'British', decade)).toContain('Regency England');
+    expect(getPhysicalDescriptionPrompt(decade?.displayName)).toContain('early 19th-century clothing cues');
+
+    const portraitPrompt = getPortraitPrompt(
+      'gentlewoman investigator',
+      'female',
+      'British',
+      'Lady Investigator',
+      'empire-waist gown and pelisse',
+      regency.theme,
+      decade,
+      null,
+      null,
+      null,
+      null,
+      26,
+    );
+
+    expect(portraitPrompt).toContain('Regency Cue');
+    expect(portraitPrompt).toContain('Season');
+    expect(portraitPrompt).toContain('townhouses');
+  });
+
+  it('pushes Regency context into the skill distribution prompt', () => {
+    const regency = thirdPartyData['regency'];
+    const decade = regency.decades[0];
+    const prompt = buildSkillDistributionPrompt({
+      era: {
+        id: 'regency',
+        name: decade?.name || '1810s',
+        displayName: decade?.displayName || 'Regency England',
+      },
+      eraContext: buildEraContext(regency.decades, decade?.name || '1810s'),
+      occupation: {
+        name: 'Gentleman',
+        description: 'A landed gentleman of means.',
+        group: 'Upper Class',
+        skillPoints: 'EDU × 2 + APP × 2',
+        selectedChoices: {},
+        occupationalSkills: ['Accounting', 'Etiquette', 'Persuade'],
+      },
+      description: 'A polite heir with horses, letters, and a place in society.',
+      distribution: {
+        signatureSkillTarget: '1-2 core skills around 50-70%',
+        secondarySkillTarget: '2-4 supporting skills around 20-40%',
+        supportSkillTarget: 'several 5-10 point adjacent skills where the concept supports them',
+        supportPointBand: { min: 5, max: 10 },
+        maxHighSkillCount: 2,
+        utilitySkills: ['Etiquette', 'Ride', 'Dancing'],
+        eraSpecificGuidance: ['Treat the era as Regency England, roughly 1811-1820, with the Prince Regent, the London Season, country houses, balls, assemblies, chaperones, and strict social rank.'],
+      },
+      rules: {
+        untrainedMax: 19,
+        trainedMin: 20,
+        professionalMin: 50,
+        expertMin: 70,
+      },
+      pools: {
+        occupational: {
+          total: 120,
+          spent: 0,
+          remaining: 120,
+          formula: 'EDU × 2 + APP × 2',
+          calculation: '120',
+        },
+        personal: {
+          total: 40,
+          spent: 0,
+          remaining: 40,
+          formula: 'Personal',
+          calculation: '40',
+        },
+      },
+      activePools: ['occupational', 'personal'],
+      skills: [
+        {
+          name: 'Etiquette',
+          base: 10,
+          current: 10,
+          occupationalEligible: true,
+          personalEligible: true,
+          experienceEligible: false,
+          archetypeEligible: false,
+          description: 'Manners.',
+        },
+        {
+          name: 'Ride',
+          base: 5,
+          current: 5,
+          occupationalEligible: true,
+          personalEligible: true,
+          experienceEligible: false,
+          archetypeEligible: false,
+          description: 'Horse riding.',
+        },
+      ],
+      specializations: REGENCY_SKILL_SPECIALIZATIONS,
+    });
+
+    expect(prompt).toContain('Regency England');
+    expect(prompt).toContain('London Season');
+    expect(prompt).toContain('chaperones');
   });
 });
