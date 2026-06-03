@@ -1,6 +1,12 @@
-import type { AiProviderId } from '../../context/AiSettingsContext';
+import type { AiProviderId } from './provider-options';
 
 export const getBuildTimeApiKeyForProvider = (provider: AiProviderId) => {
+    if (provider === 'openai') {
+        return String(process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY || '');
+    }
+    if (provider === 'anthropic') {
+        return String(process.env.ANTHROPIC_API_KEY || process.env.VITE_ANTHROPIC_API_KEY || '');
+    }
     if (provider === 'openrouter') {
         return String(process.env.OPENROUTER_API_KEY || process.env.VITE_OPENROUTER_API_KEY || '');
     }

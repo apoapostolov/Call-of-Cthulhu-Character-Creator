@@ -3,11 +3,14 @@ import { ensureModelPresent, fetchOpenRouterModels, sortOpenRouterModels, splitM
 import { fetchGeminiModels, getGeminiModelCacheSummaries, splitGeminiModelsByPromptType, sortGeminiModels } from '../lib/ai/gemini';
 import { fetchOpenCodeGoModels, getOpenCodeGoModelCacheSummaries, splitOpenCodeGoModelsByPromptType } from '../lib/ai/opencode-go';
 import { fetchDeepSeekModels, getDeepSeekModelCacheSummaries, splitDeepSeekModelsByPromptType } from '../lib/ai/deepseek';
+import { fetchOpenAiModels, getOpenAiModelCacheSummaries, splitOpenAiModelsByPromptType } from '../lib/ai/openai';
+import { fetchAnthropicModels, getAnthropicModelCacheSummaries, splitAnthropicModelsByPromptType } from '../lib/ai/anthropic';
 import { getBuildTimeApiKeyForProvider } from '../lib/ai/provider-keys';
+import { getAiProviderLabel, type AiProviderId } from '../lib/ai/provider-options';
 import { OPENROUTER_MODEL_CACHE } from '../data/openrouter-model-cache';
 import { GEMINI_MODEL_CACHE } from '../data/gemini-model-cache';
 
-export type AiProviderId = 'openrouter' | 'gemini' | 'opencode-go' | 'deepseek';
+export type { AiProviderId };
 
 export interface AiSettingsContextType {
     provider: AiProviderId;
@@ -33,6 +36,8 @@ export interface AiSettingsContextType {
 
 const STORAGE_KEYS = {
     provider: 'ai.provider',
+    openAiApiKey: 'ai.openai.apiKey',
+    anthropicApiKey: 'ai.anthropic.apiKey',
     openRouterApiKey: 'ai.openrouter.apiKey',
     geminiApiKey: 'ai.gemini.apiKey',
     openCodeGoApiKey: 'ai.opencode-go.apiKey',
@@ -53,10 +58,20 @@ const STORAGE_KEYS = {
     deepSeekSimpleModelId: 'ai.deepseek.simpleModelId',
     deepSeekVisionModelId: 'ai.deepseek.visionModelId',
     deepSeekImageModelId: 'ai.deepseek.imageModelId',
+    openAiTextModelId: 'ai.openai.textModelId',
+    openAiSimpleModelId: 'ai.openai.simpleModelId',
+    openAiVisionModelId: 'ai.openai.visionModelId',
+    openAiImageModelId: 'ai.openai.imageModelId',
+    anthropicTextModelId: 'ai.anthropic.textModelId',
+    anthropicSimpleModelId: 'ai.anthropic.simpleModelId',
+    anthropicVisionModelId: 'ai.anthropic.visionModelId',
+    anthropicImageModelId: 'ai.anthropic.imageModelId',
     openRouterModelCatalog: 'ai.openrouter.modelCatalog',
     geminiModelCatalog: 'ai.gemini.modelCatalog',
     openCodeGoModelCatalog: 'ai.opencode-go.modelCatalog',
     deepSeekModelCatalog: 'ai.deepseek.modelCatalog',
+    openAiModelCatalog: 'ai.openai.modelCatalog',
+    anthropicModelCatalog: 'ai.anthropic.modelCatalog',
 };
 
 const FALLBACK_OPENROUTER_TEXT_MODEL: OpenRouterModelSummary = {
@@ -123,6 +138,8 @@ const DEFAULT_GEMINI_MODELS = getGeminiModelCacheSummaries().length > 0
 
 const DEFAULT_OPENCODE_GO_MODELS = getOpenCodeGoModelCacheSummaries();
 const DEFAULT_DEEPSEEK_MODELS = getDeepSeekModelCacheSummaries();
+const DEFAULT_OPENAI_MODELS = getOpenAiModelCacheSummaries();
+const DEFAULT_ANTHROPIC_MODELS = getAnthropicModelCacheSummaries();
 
 const FALLBACK_GEMINI_SIMPLE_MODEL: OpenRouterModelSummary = {
     id: 'gemini-3.1-flash-live-preview',
@@ -212,6 +229,72 @@ const FALLBACK_DEEPSEEK_TEXT_MODEL: OpenRouterModelSummary = {
     priceLabel: '$0.65',
 };
 
+const FALLBACK_OPENAI_SIMPLE_MODEL: OpenRouterModelSummary = {
+    id: 'gpt-4o-mini',
+    baseName: 'GPT-4o Mini',
+    name: 'GPT-4o Mini — $0.75 / 1M mixed',
+    description: 'Fast, affordable multimodal model for everyday writing and vision tasks.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 0.75,
+    priceLabel: '$0.75',
+};
+
+const FALLBACK_OPENAI_TEXT_MODEL: OpenRouterModelSummary = {
+    id: 'gpt-4.1',
+    baseName: 'GPT-4.1',
+    name: 'GPT-4.1 — $5.00 / 1M mixed',
+    description: 'High-capability model for creative writing and complex reasoning.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 5,
+    priceLabel: '$5.00',
+};
+
+const FALLBACK_OPENAI_VISION_MODEL: OpenRouterModelSummary = {
+    id: 'gpt-4o',
+    baseName: 'GPT-4o',
+    name: 'GPT-4o — $6.25 / 1M mixed',
+    description: 'Flagship multimodal model for vision analysis and advanced text generation.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 6.25,
+    priceLabel: '$6.25',
+};
+
+const FALLBACK_ANTHROPIC_SIMPLE_MODEL: OpenRouterModelSummary = {
+    id: 'claude-haiku-4-5',
+    baseName: 'Claude Haiku 4.5',
+    name: 'Claude Haiku 4.5 — $1.25 / 1M mixed',
+    description: 'Fast, economical Claude model for simple writing and high-volume tasks.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 1.25,
+    priceLabel: '$1.25',
+};
+
+const FALLBACK_ANTHROPIC_TEXT_MODEL: OpenRouterModelSummary = {
+    id: 'claude-sonnet-4-5',
+    baseName: 'Claude Sonnet 4.5',
+    name: 'Claude Sonnet 4.5 — $6.00 / 1M mixed',
+    description: 'Balanced Claude model for creative writing, analysis, and vision.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 6,
+    priceLabel: '$6.00',
+};
+
+const FALLBACK_ANTHROPIC_VISION_MODEL: OpenRouterModelSummary = {
+    id: 'claude-sonnet-4-5',
+    baseName: 'Claude Sonnet 4.5',
+    name: 'Claude Sonnet 4.5 — $6.00 / 1M mixed',
+    description: 'Balanced Claude model for creative writing, analysis, and vision.',
+    outputModalities: ['text'],
+    inputModalities: ['text', 'image'],
+    mixedPricePerMillionUsd: 6,
+    priceLabel: '$6.00',
+};
+
 const DEFAULT_GEMINI_TEXT_MODELS = ensureModelPresent(
     ensureModelPresent(DEFAULT_GEMINI_MODELS.filter(model => model.outputModalities.includes('text')), FALLBACK_GEMINI_TEXT_MODEL),
     FALLBACK_GEMINI_TEXT_MODEL,
@@ -275,12 +358,14 @@ const getBuildTimeGeminiApiKey = () => String(process.env.API_KEY || process.env
 
 const getInitialProvider = (): AiProviderId => {
     const stored = typeof window !== 'undefined' ? readStorage(window.localStorage, STORAGE_KEYS.provider) : null;
-    if (stored === 'openrouter' || stored === 'gemini' || stored === 'opencode-go' || stored === 'deepseek') return stored;
-    if (getBuildTimeOpenRouterApiKey()) return 'openrouter';
+    if (stored === 'openai' || stored === 'anthropic' || stored === 'openrouter' || stored === 'gemini' || stored === 'opencode-go' || stored === 'deepseek') return stored;
+    if (getBuildTimeApiKeyForProvider('openai')) return 'openai';
+    if (getBuildTimeApiKeyForProvider('anthropic')) return 'anthropic';
     if (getBuildTimeGeminiApiKey()) return 'gemini';
-    if (getBuildTimeApiKeyForProvider('opencode-go')) return 'opencode-go';
+    if (getBuildTimeOpenRouterApiKey()) return 'openrouter';
     if (getBuildTimeApiKeyForProvider('deepseek')) return 'deepseek';
-    return 'openrouter';
+    if (getBuildTimeApiKeyForProvider('opencode-go')) return 'opencode-go';
+    return 'openai';
 };
 
 const getInitialOpenRouterModels = (): OpenRouterModelSummary[] => {
@@ -387,11 +472,63 @@ const getInitialDeepSeekModels = (): OpenRouterModelSummary[] => {
     }
 };
 
+const parseStoredModelCatalog = (cached: string | null, fallback: OpenRouterModelSummary[]) => {
+    if (!cached) return fallback;
+    try {
+        const parsed = JSON.parse(cached);
+        if (!Array.isArray(parsed)) return fallback;
+        const models = parsed.map((item: unknown) => {
+            const model = item as OpenRouterModelSummary;
+            return {
+                id: String(model?.id || ''),
+                baseName: String(model?.baseName || model?.name || model?.id || 'Unknown model'),
+                name: String(model?.name || model?.displayName || model?.id || 'Unknown model'),
+                description: typeof model?.description === 'string' ? model.description : undefined,
+                outputModalities: Array.isArray(model?.outputModalities) ? model.outputModalities : [],
+                inputModalities: Array.isArray(model?.inputModalities) ? model.inputModalities : [],
+                mixedPricePerMillionUsd: Number(model?.mixedPricePerMillionUsd ?? 0),
+                priceLabel: String(model?.priceLabel || '$0.00'),
+            } as OpenRouterModelSummary;
+        }).filter((model: OpenRouterModelSummary) => Boolean(model.id));
+        return models.length > 0 ? models : fallback;
+    } catch {
+        return fallback;
+    }
+};
+
+const getInitialOpenAiModels = (): OpenRouterModelSummary[] => {
+    if (typeof window === 'undefined') return DEFAULT_OPENAI_MODELS;
+    return sortOpenRouterModels(parseStoredModelCatalog(
+        readStorage(window.localStorage, STORAGE_KEYS.openAiModelCatalog),
+        DEFAULT_OPENAI_MODELS,
+    ));
+};
+
+const getInitialAnthropicModels = (): OpenRouterModelSummary[] => {
+    if (typeof window === 'undefined') return DEFAULT_ANTHROPIC_MODELS;
+    return sortOpenRouterModels(parseStoredModelCatalog(
+        readStorage(window.localStorage, STORAGE_KEYS.anthropicModelCatalog),
+        DEFAULT_ANTHROPIC_MODELS,
+    ));
+};
+
 const AiSettingsContext = createContext<AiSettingsContextType | null>(null);
 
 export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [provider, setProviderState] = useState<AiProviderId>(getInitialProvider);
 
+    const [openAiApiKey, setOpenAiApiKeyState] = useState<string>(() => {
+        if (typeof window === 'undefined') return getBuildTimeApiKeyForProvider('openai');
+        const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.openAiApiKey);
+        const localKey = readStorage(window.localStorage, STORAGE_KEYS.openAiApiKey);
+        return sessionKey || localKey || '';
+    });
+    const [anthropicApiKey, setAnthropicApiKeyState] = useState<string>(() => {
+        if (typeof window === 'undefined') return getBuildTimeApiKeyForProvider('anthropic');
+        const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.anthropicApiKey);
+        const localKey = readStorage(window.localStorage, STORAGE_KEYS.anthropicApiKey);
+        return sessionKey || localKey || '';
+    });
     const [openRouterApiKey, setOpenRouterApiKeyState] = useState<string>(() => {
         if (typeof window === 'undefined') return getBuildTimeOpenRouterApiKey();
         const sessionKey = readStorage(window.sessionStorage, STORAGE_KEYS.openRouterApiKey);
@@ -418,10 +555,18 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         return sessionKey || localKey || '';
     });
 
+    const [openAiModels, setOpenAiModels] = useState<OpenRouterModelSummary[]>(getInitialOpenAiModels);
+    const [anthropicModels, setAnthropicModels] = useState<OpenRouterModelSummary[]>(getInitialAnthropicModels);
     const [openRouterModels, setOpenRouterModels] = useState<OpenRouterModelSummary[]>(getInitialOpenRouterModels);
     const [geminiModels, setGeminiModels] = useState<OpenRouterModelSummary[]>(getInitialGeminiModels);
     const [openCodeGoModels, setOpenCodeGoModels] = useState<OpenRouterModelSummary[]>(getInitialOpenCodeGoModels);
     const [deepSeekModels, setDeepSeekModels] = useState<OpenRouterModelSummary[]>(getInitialDeepSeekModels);
+    const [openAiModelCatalogState, setOpenAiModelCatalogState] = useState<'idle' | 'loading' | 'ready' | 'error'>(
+        openAiModels.length > 0 ? 'ready' : 'idle',
+    );
+    const [anthropicModelCatalogState, setAnthropicModelCatalogState] = useState<'idle' | 'loading' | 'ready' | 'error'>(
+        anthropicModels.length > 0 ? 'ready' : 'idle',
+    );
     const [openRouterModelCatalogState, setOpenRouterModelCatalogState] = useState<'idle' | 'loading' | 'ready' | 'error'>(
         openRouterModels.length > 0 ? 'ready' : 'idle',
     );
@@ -434,6 +579,8 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [deepSeekModelCatalogState, setDeepSeekModelCatalogState] = useState<'idle' | 'loading' | 'ready' | 'error'>(
         deepSeekModels.length > 0 ? 'ready' : 'idle',
     );
+    const [openAiModelCatalogError, setOpenAiModelCatalogError] = useState<string | null>(null);
+    const [anthropicModelCatalogError, setAnthropicModelCatalogError] = useState<string | null>(null);
     const [openRouterModelCatalogError, setOpenRouterModelCatalogError] = useState<string | null>(null);
     const [geminiModelCatalogError, setGeminiModelCatalogError] = useState<string | null>(null);
     const [openCodeGoModelCatalogError, setOpenCodeGoModelCatalogError] = useState<string | null>(null);
@@ -515,7 +662,45 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         return getStoredModelId(window.localStorage, STORAGE_KEYS.deepSeekImageModelId, '');
     });
 
-    const providerApiKey = provider === 'openrouter'
+    const [openAiTextModelId, setOpenAiTextModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_OPENAI_TEXT_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.openAiTextModelId, FALLBACK_OPENAI_TEXT_MODEL.id);
+    });
+    const [openAiSimpleModelId, setOpenAiSimpleModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_OPENAI_SIMPLE_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.openAiSimpleModelId, FALLBACK_OPENAI_SIMPLE_MODEL.id);
+    });
+    const [openAiVisionModelId, setOpenAiVisionModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_OPENAI_VISION_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.openAiVisionModelId, FALLBACK_OPENAI_VISION_MODEL.id);
+    });
+    const [openAiImageModelId, setOpenAiImageModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return '';
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.openAiImageModelId, '');
+    });
+
+    const [anthropicTextModelId, setAnthropicTextModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_ANTHROPIC_TEXT_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.anthropicTextModelId, FALLBACK_ANTHROPIC_TEXT_MODEL.id);
+    });
+    const [anthropicSimpleModelId, setAnthropicSimpleModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_ANTHROPIC_SIMPLE_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.anthropicSimpleModelId, FALLBACK_ANTHROPIC_SIMPLE_MODEL.id);
+    });
+    const [anthropicVisionModelId, setAnthropicVisionModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return FALLBACK_ANTHROPIC_VISION_MODEL.id;
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.anthropicVisionModelId, FALLBACK_ANTHROPIC_VISION_MODEL.id);
+    });
+    const [anthropicImageModelId, setAnthropicImageModelIdState] = useState<string>(() => {
+        if (typeof window === 'undefined') return '';
+        return getStoredModelId(window.localStorage, STORAGE_KEYS.anthropicImageModelId, '');
+    });
+
+    const providerApiKey = provider === 'openai'
+        ? openAiApiKey
+        : provider === 'anthropic'
+            ? anthropicApiKey
+            : provider === 'openrouter'
         ? openRouterApiKey
         : provider === 'gemini'
             ? geminiApiKey
@@ -523,14 +708,22 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 ? openCodeGoApiKey
                 : deepSeekApiKey;
     const providerResolvedApiKey = providerApiKey || getBuildTimeApiKeyForProvider(provider);
-    const providerModelCatalogState = provider === 'openrouter'
+    const providerModelCatalogState = provider === 'openai'
+        ? openAiModelCatalogState
+        : provider === 'anthropic'
+            ? anthropicModelCatalogState
+            : provider === 'openrouter'
         ? openRouterModelCatalogState
         : provider === 'gemini'
             ? geminiModelCatalogState
             : provider === 'opencode-go'
                 ? openCodeGoModelCatalogState
                 : deepSeekModelCatalogState;
-    const providerModelCatalogError = provider === 'openrouter'
+    const providerModelCatalogError = provider === 'openai'
+        ? openAiModelCatalogError
+        : provider === 'anthropic'
+            ? anthropicModelCatalogError
+            : provider === 'openrouter'
         ? openRouterModelCatalogError
         : provider === 'gemini'
             ? geminiModelCatalogError
@@ -560,28 +753,56 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const deepSeekVisionModels = useMemo(() => deepSeekPromptModelSets.visionModels, [deepSeekPromptModelSets]);
     const deepSeekImageModels = useMemo(() => deepSeekPromptModelSets.imageModels, [deepSeekPromptModelSets]);
 
-    const providerSimpleModels = provider === 'openrouter'
+    const openAiPromptModelSets = useMemo(() => splitOpenAiModelsByPromptType(openAiModels), [openAiModels]);
+    const openAiSimpleModels = useMemo(() => sortModelsByPrice(openAiPromptModelSets.creativeModels), [openAiPromptModelSets]);
+    const openAiCreativeModels = useMemo(() => openAiPromptModelSets.creativeModels, [openAiPromptModelSets]);
+    const openAiVisionModels = useMemo(() => openAiPromptModelSets.visionModels, [openAiPromptModelSets]);
+    const openAiImageModels = useMemo(() => openAiPromptModelSets.imageModels, [openAiPromptModelSets]);
+
+    const anthropicPromptModelSets = useMemo(() => splitAnthropicModelsByPromptType(anthropicModels), [anthropicModels]);
+    const anthropicSimpleModels = useMemo(() => sortModelsByPrice(anthropicPromptModelSets.creativeModels), [anthropicPromptModelSets]);
+    const anthropicCreativeModels = useMemo(() => anthropicPromptModelSets.creativeModels, [anthropicPromptModelSets]);
+    const anthropicVisionModels = useMemo(() => anthropicPromptModelSets.visionModels, [anthropicPromptModelSets]);
+    const anthropicImageModels = useMemo(() => anthropicPromptModelSets.imageModels, [anthropicPromptModelSets]);
+
+    const providerSimpleModels = provider === 'openai'
+        ? openAiSimpleModels
+        : provider === 'anthropic'
+            ? anthropicSimpleModels
+            : provider === 'openrouter'
         ? openRouterSimpleModels
         : provider === 'gemini'
             ? geminiSimpleModels
             : provider === 'opencode-go'
                 ? openCodeGoSimpleModels
                 : deepSeekSimpleModels;
-    const providerCreativeModels = provider === 'openrouter'
+    const providerCreativeModels = provider === 'openai'
+        ? openAiCreativeModels
+        : provider === 'anthropic'
+            ? anthropicCreativeModels
+            : provider === 'openrouter'
         ? openRouterCreativeModels
         : provider === 'gemini'
             ? geminiCreativeModels
             : provider === 'opencode-go'
                 ? openCodeGoCreativeModels
                 : deepSeekCreativeModels;
-    const providerVisionModels = provider === 'openrouter'
+    const providerVisionModels = provider === 'openai'
+        ? openAiVisionModels
+        : provider === 'anthropic'
+            ? anthropicVisionModels
+            : provider === 'openrouter'
         ? openRouterVisionModels
         : provider === 'gemini'
             ? geminiVisionModels
             : provider === 'opencode-go'
                 ? openCodeGoVisionModels
                 : deepSeekVisionModels;
-    const providerImageModels = provider === 'openrouter'
+    const providerImageModels = provider === 'openai'
+        ? openAiImageModels
+        : provider === 'anthropic'
+            ? anthropicImageModels
+            : provider === 'openrouter'
         ? openRouterImageModels
         : provider === 'gemini'
             ? geminiImageModels
@@ -589,28 +810,44 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 ? openCodeGoImageModels
                 : deepSeekImageModels;
 
-    const providerSimpleModelId = provider === 'openrouter'
+    const providerSimpleModelId = provider === 'openai'
+        ? openAiSimpleModelId
+        : provider === 'anthropic'
+            ? anthropicSimpleModelId
+            : provider === 'openrouter'
         ? openRouterSimpleModelId
         : provider === 'gemini'
             ? geminiSimpleModelId
             : provider === 'opencode-go'
                 ? openCodeGoSimpleModelId
                 : deepSeekSimpleModelId;
-    const providerTextModelId = provider === 'openrouter'
+    const providerTextModelId = provider === 'openai'
+        ? openAiTextModelId
+        : provider === 'anthropic'
+            ? anthropicTextModelId
+            : provider === 'openrouter'
         ? openRouterTextModelId
         : provider === 'gemini'
             ? geminiTextModelId
             : provider === 'opencode-go'
                 ? openCodeGoTextModelId
                 : deepSeekTextModelId;
-    const providerVisionModelId = provider === 'openrouter'
+    const providerVisionModelId = provider === 'openai'
+        ? openAiVisionModelId
+        : provider === 'anthropic'
+            ? anthropicVisionModelId
+            : provider === 'openrouter'
         ? openRouterVisionModelId
         : provider === 'gemini'
             ? geminiVisionModelId
             : provider === 'opencode-go'
                 ? openCodeGoVisionModelId
                 : deepSeekVisionModelId;
-    const providerImageModelId = provider === 'openrouter'
+    const providerImageModelId = provider === 'openai'
+        ? openAiImageModelId
+        : provider === 'anthropic'
+            ? anthropicImageModelId
+            : provider === 'openrouter'
         ? openRouterImageModelId
         : provider === 'gemini'
             ? geminiImageModelId
@@ -622,6 +859,18 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (typeof window === 'undefined') return;
         writeStorage(window.localStorage, STORAGE_KEYS.provider, provider);
     }, [provider]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.sessionStorage, STORAGE_KEYS.openAiApiKey, openAiApiKey || null);
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiApiKey, openAiApiKey || null);
+    }, [openAiApiKey]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.sessionStorage, STORAGE_KEYS.anthropicApiKey, anthropicApiKey || null);
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicApiKey, anthropicApiKey || null);
+    }, [anthropicApiKey]);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -729,6 +978,56 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiTextModelId, openAiTextModelId);
+    }, [openAiTextModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiSimpleModelId, openAiSimpleModelId);
+    }, [openAiSimpleModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiVisionModelId, openAiVisionModelId);
+    }, [openAiVisionModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiImageModelId, openAiImageModelId);
+    }, [openAiImageModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicTextModelId, anthropicTextModelId);
+    }, [anthropicTextModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicSimpleModelId, anthropicSimpleModelId);
+    }, [anthropicSimpleModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicVisionModelId, anthropicVisionModelId);
+    }, [anthropicVisionModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicImageModelId, anthropicImageModelId);
+    }, [anthropicImageModelId]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.openAiModelCatalog, JSON.stringify(openAiModels));
+    }, [openAiModels]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        writeStorage(window.localStorage, STORAGE_KEYS.anthropicModelCatalog, JSON.stringify(anthropicModels));
+    }, [anthropicModels]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
         writeStorage(window.localStorage, STORAGE_KEYS.openRouterModelCatalog, JSON.stringify(openRouterModels));
     }, [openRouterModels]);
 
@@ -753,35 +1052,45 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     const setProviderApiKey = useCallback((apiKey: string) => {
         const trimmed = apiKey.trim();
-        if (provider === 'openrouter') setOpenRouterApiKeyState(trimmed);
+        if (provider === 'openai') setOpenAiApiKeyState(trimmed);
+        else if (provider === 'anthropic') setAnthropicApiKeyState(trimmed);
+        else if (provider === 'openrouter') setOpenRouterApiKeyState(trimmed);
         else if (provider === 'gemini') setGeminiApiKeyState(trimmed);
         else if (provider === 'opencode-go') setOpenCodeGoApiKeyState(trimmed);
         else setDeepSeekApiKeyState(trimmed);
     }, [provider]);
 
     const setProviderTextModelId = useCallback((modelId: string) => {
-        if (provider === 'openrouter') setOpenRouterTextModelIdState(modelId);
+        if (provider === 'openai') setOpenAiTextModelIdState(modelId);
+        else if (provider === 'anthropic') setAnthropicTextModelIdState(modelId);
+        else if (provider === 'openrouter') setOpenRouterTextModelIdState(modelId);
         else if (provider === 'gemini') setGeminiTextModelIdState(modelId);
         else if (provider === 'opencode-go') setOpenCodeGoTextModelIdState(modelId);
         else setDeepSeekTextModelIdState(modelId);
     }, [provider]);
 
     const setProviderVisionModelId = useCallback((modelId: string) => {
-        if (provider === 'openrouter') setOpenRouterVisionModelIdState(modelId);
+        if (provider === 'openai') setOpenAiVisionModelIdState(modelId);
+        else if (provider === 'anthropic') setAnthropicVisionModelIdState(modelId);
+        else if (provider === 'openrouter') setOpenRouterVisionModelIdState(modelId);
         else if (provider === 'gemini') setGeminiVisionModelIdState(modelId);
         else if (provider === 'opencode-go') setOpenCodeGoVisionModelIdState(modelId);
         else setDeepSeekVisionModelIdState(modelId);
     }, [provider]);
 
     const setProviderImageModelId = useCallback((modelId: string) => {
-        if (provider === 'openrouter') setOpenRouterImageModelIdState(modelId);
+        if (provider === 'openai') setOpenAiImageModelIdState(modelId);
+        else if (provider === 'anthropic') setAnthropicImageModelIdState(modelId);
+        else if (provider === 'openrouter') setOpenRouterImageModelIdState(modelId);
         else if (provider === 'gemini') setGeminiImageModelIdState(modelId);
         else if (provider === 'opencode-go') setOpenCodeGoImageModelIdState(modelId);
         else setDeepSeekImageModelIdState(modelId);
     }, [provider]);
 
     const setProviderSimpleModelId = useCallback((modelId: string) => {
-        if (provider === 'openrouter') setOpenRouterSimpleModelIdState(modelId);
+        if (provider === 'openai') setOpenAiSimpleModelIdState(modelId);
+        else if (provider === 'anthropic') setAnthropicSimpleModelIdState(modelId);
+        else if (provider === 'openrouter') setOpenRouterSimpleModelIdState(modelId);
         else if (provider === 'gemini') setGeminiSimpleModelIdState(modelId);
         else if (provider === 'opencode-go') setOpenCodeGoSimpleModelIdState(modelId);
         else setDeepSeekSimpleModelIdState(modelId);
@@ -789,9 +1098,47 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     const refreshProviderModels = useCallback(async () => {
         if (!providerResolvedApiKey) {
-            throw new Error(`Add a ${provider === 'openrouter' ? 'OpenRouter' : provider === 'gemini' ? 'Gemini' : provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} API key before refreshing models.`);
+            throw new Error(`Add a ${getAiProviderLabel(provider)} API key before refreshing models.`);
         }
         try {
+            if (provider === 'openai') {
+                setOpenAiModelCatalogState('loading');
+                setOpenAiModelCatalogError(null);
+                const models = await fetchOpenAiModels(providerResolvedApiKey);
+                const refreshedModels = models.length > 0 ? models : DEFAULT_OPENAI_MODELS;
+                setOpenAiModels(refreshedModels);
+                if (!refreshedModels.some(model => model.id === openAiSimpleModelId)) {
+                    setOpenAiSimpleModelIdState(FALLBACK_OPENAI_SIMPLE_MODEL.id);
+                }
+                if (!refreshedModels.some(model => model.id === openAiTextModelId)) {
+                    setOpenAiTextModelIdState(FALLBACK_OPENAI_TEXT_MODEL.id);
+                }
+                if (!refreshedModels.some(model => model.id === openAiVisionModelId)) {
+                    setOpenAiVisionModelIdState(FALLBACK_OPENAI_VISION_MODEL.id);
+                }
+                setOpenAiModelCatalogState('ready');
+                return;
+            }
+
+            if (provider === 'anthropic') {
+                setAnthropicModelCatalogState('loading');
+                setAnthropicModelCatalogError(null);
+                const models = await fetchAnthropicModels(providerResolvedApiKey);
+                const refreshedModels = models.length > 0 ? models : DEFAULT_ANTHROPIC_MODELS;
+                setAnthropicModels(refreshedModels);
+                if (!refreshedModels.some(model => model.id === anthropicSimpleModelId)) {
+                    setAnthropicSimpleModelIdState(FALLBACK_ANTHROPIC_SIMPLE_MODEL.id);
+                }
+                if (!refreshedModels.some(model => model.id === anthropicTextModelId)) {
+                    setAnthropicTextModelIdState(FALLBACK_ANTHROPIC_TEXT_MODEL.id);
+                }
+                if (!refreshedModels.some(model => model.id === anthropicVisionModelId)) {
+                    setAnthropicVisionModelIdState(FALLBACK_ANTHROPIC_VISION_MODEL.id);
+                }
+                setAnthropicModelCatalogState('ready');
+                return;
+            }
+
             if (provider === 'openrouter') {
                 setOpenRouterModelCatalogState('loading');
                 setOpenRouterModelCatalogError(null);
@@ -850,27 +1197,44 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             }
             setDeepSeekModelCatalogState('ready');
         } catch (error) {
+            const message = error instanceof Error ? error.message : 'Failed to refresh models.';
+            if (provider === 'openai') {
+                setOpenAiModelCatalogState('error');
+                setOpenAiModelCatalogError(message);
+                return;
+            }
+            if (provider === 'anthropic') {
+                setAnthropicModelCatalogState('error');
+                setAnthropicModelCatalogError(message);
+                return;
+            }
             if (provider === 'openrouter') {
                 setOpenRouterModelCatalogState('error');
-                setOpenRouterModelCatalogError(error instanceof Error ? error.message : 'Failed to refresh models.');
+                setOpenRouterModelCatalogError(message);
                 return;
             }
             if (provider === 'gemini') {
                 setGeminiModelCatalogState('error');
-                setGeminiModelCatalogError(error instanceof Error ? error.message : 'Failed to refresh models.');
+                setGeminiModelCatalogError(message);
                 return;
             }
             if (provider === 'opencode-go') {
                 setOpenCodeGoModelCatalogState('error');
-                setOpenCodeGoModelCatalogError(error instanceof Error ? error.message : 'Failed to refresh models.');
+                setOpenCodeGoModelCatalogError(message);
                 return;
             }
             setDeepSeekModelCatalogState('error');
-            setDeepSeekModelCatalogError(error instanceof Error ? error.message : 'Failed to refresh models.');
+            setDeepSeekModelCatalogError(message);
         }
     }, [
+        anthropicSimpleModelId,
+        anthropicTextModelId,
+        anthropicVisionModelId,
         deepSeekSimpleModelId,
         deepSeekTextModelId,
+        openAiSimpleModelId,
+        openAiTextModelId,
+        openAiVisionModelId,
         openCodeGoSimpleModelId,
         openCodeGoTextModelId,
         openRouterImageModelId,
@@ -923,22 +1287,38 @@ export const AiSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setProviderVisionModelId,
         providerImageModelId,
         setProviderImageModelId,
+        openAiApiKey,
+        anthropicApiKey,
         openRouterApiKey,
         geminiApiKey,
         openCodeGoApiKey,
         deepSeekApiKey,
+        openAiModels,
+        anthropicModels,
         openRouterModels,
         geminiModels,
         openCodeGoModels,
         deepSeekModels,
+        openAiModelCatalogState,
+        anthropicModelCatalogState,
         openRouterModelCatalogState,
         geminiModelCatalogState,
         openCodeGoModelCatalogState,
         deepSeekModelCatalogState,
+        openAiModelCatalogError,
+        anthropicModelCatalogError,
         openRouterModelCatalogError,
         geminiModelCatalogError,
         openCodeGoModelCatalogError,
         deepSeekModelCatalogError,
+        openAiSimpleModelId,
+        openAiTextModelId,
+        openAiVisionModelId,
+        openAiImageModelId,
+        anthropicSimpleModelId,
+        anthropicTextModelId,
+        anthropicVisionModelId,
+        anthropicImageModelId,
         openRouterSimpleModelId,
         openRouterTextModelId,
         openRouterVisionModelId,

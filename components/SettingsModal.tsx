@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useSheetContext, SheetSourceType } from '../context/SheetContext';
 import { useAiSettings } from '../context/AiSettingsContext';
+import { AI_PROVIDER_OPTIONS, isAiProviderId } from '../lib/ai/provider-options';
 import { ERAS } from '../eras/manifest';
 import { RefreshIcon } from './icons/RefreshIcon';
 
@@ -300,13 +301,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
                                     <SelectInput
                                         label="Provider"
                                         value={provider}
-                                        onChange={(value) => setProvider(value as 'openrouter' | 'gemini' | 'opencode-go' | 'deepseek')}
-                                        options={[
-                                            { value: 'openrouter', label: 'OpenRouter' },
-                                            { value: 'gemini', label: 'Google Gemini' },
-                                            { value: 'opencode-go', label: 'OpenCode Go' },
-                                            { value: 'deepseek', label: 'DeepSeek' },
-                                        ]}
+                                        onChange={(value) => {
+                                            if (isAiProviderId(value)) setProvider(value);
+                                        }}
+                                        options={AI_PROVIDER_OPTIONS.map(option => ({
+                                            value: option.value,
+                                            label: option.label,
+                                        }))}
                                     />
                                     <UrlInput
                                         label="Provider API Key"

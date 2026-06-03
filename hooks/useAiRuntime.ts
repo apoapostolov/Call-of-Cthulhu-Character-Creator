@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 import { GoogleGenAI, Modality } from '@google/genai';
 import { useAiSettings } from '../context/AiSettingsContext';
 import { fetchOpenRouterChatCompletion } from '../lib/ai/openrouter';
+import { fetchAnthropicChatCompletion } from '../lib/ai/anthropic';
 import { fetchOpenAiCompatibleChatCompletion } from '../lib/ai/openai-compatible';
+import { OPENAI_API_BASE } from '../lib/ai/openai';
 import { getBuildTimeApiKeyForProvider } from '../lib/ai/provider-keys';
 
 const OPENCODE_GO_API_BASE = 'https://opencode.ai/zen/go/v1';
@@ -56,8 +58,10 @@ export const useAiRuntime = () => {
         providerImageModelId,
     } = useAiSettings();
     const resolvedProviderApiKey = providerApiKey || getBuildTimeApiKeyForProvider(provider);
-    const geminiApiKey = resolvedProviderApiKey || getBuildTimeGeminiApiKey();
-    const isOpenAiCompatibleProvider = provider === 'opencode-go' || provider === 'deepseek';
+    const geminiApiKey = provider === 'gemini'
+        ? (resolvedProviderApiKey || getBuildTimeGeminiApiKey())
+        : getBuildTimeGeminiApiKey();
+    const isTextOnlyProvider = provider === 'opencode-go' || provider === 'deepseek';
 
     const generateText = useCallback(async (params: {
         prompt: string;
@@ -94,6 +98,39 @@ export const useAiRuntime = () => {
             }
 
             const result = await fetchOpenRouterChatCompletion({
+                apiKey: resolvedProviderApiKey,
+                model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
+                messages,
+                responseFormat: params.json ? { type: 'json_object' } : undefined,
+                temperature: params.temperature,
+                maxTokens: params.maxTokens,
+            });
+            return result.content;
+        }
+
+        if (provider === 'openai') {
+            if (!resolvedProviderApiKey) {
+                throw new Error('Add an OpenAI API key in Settings.');
+            }
+
+            const result = await fetchOpenAiCompatibleChatCompletion({
+                baseUrl: OPENAI_API_BASE,
+                apiKey: resolvedProviderApiKey,
+                model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
+                messages,
+                responseFormat: params.json ? { type: 'json_object' } : undefined,
+                temperature: params.temperature,
+                maxTokens: params.maxTokens,
+            });
+            return result.content;
+        }
+
+        if (provider === 'anthropic') {
+            if (!resolvedProviderApiKey) {
+                throw new Error('Add an Anthropic API key in Settings.');
+            }
+
+            const result = await fetchAnthropicChatCompletion({
                 apiKey: resolvedProviderApiKey,
                 model: params.modelOverride || (params.imageDataUrl ? providerVisionModelId : selectedTextModelId),
                 messages,
@@ -178,8 +215,15 @@ export const useAiRuntime = () => {
             return image;
         }
 
-        if (isOpenAiCompatibleProvider) {
-            throw new Error(`Image generation is not available with the ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} provider.`);
+        if (isTextOnlyProvider || provider === 'openai' || provider === 'anthropic') {
+            const label = provider === 'openai'
+                ? 'OpenAI'
+                : provider === 'anthropic'
+                    ? 'Anthropic'
+                    : provider === 'opencode-go'
+                        ? 'OpenCode Go'
+                        : 'DeepSeek';
+            throw new Error(`Image generation is not available with the ${label} provider.`);
         }
 
         const ai = getGeminiClient(geminiApiKey);
@@ -214,7 +258,7 @@ export const useAiRuntime = () => {
         }
 
         return `data:image/png;base64,${response.generatedImages[0].image.imageBytes}`;
-    }, [geminiApiKey, provider, providerImageModelId, isOpenAiCompatibleProvider, providerApiKey, resolvedProviderApiKey]);
+    }, [geminiApiKey, provider, providerImageModelId, isTextOnlyProvider, providerApiKey, resolvedProviderApiKey]);
 
     const analyzeImage = useCallback(async (params: {
         prompt: string;
@@ -244,7 +288,52 @@ export const useAiRuntime = () => {
             return result.content;
         }
 
-        if (isOpenAiCompatibleProvider) {
+        if (provider === 'openai') {
+            if (!resolvedProviderApiKey) {
+                throw new Error('Add an OpenAI API key in Settings.');
+            }
+
+            const result = await fetchOpenAiCompatibleChatCompletion({
+                baseUrl: OPENAI_API_BASE,
+                apiKey: resolvedProviderApiKey,
+                model: params.modelOverride || providerVisionModelId,
+                messages: [
+                    {
+                        role: 'user',
+                        content: [
+                            { type: 'text', text: params.prompt },
+                            { type: 'image_url', image_url: { url: params.imageDataUrl } },
+                        ],
+                    },
+                ],
+                responseFormat: params.json ? { type: 'json_object' } : undefined,
+            });
+            return result.content;
+        }
+
+        if (provider === 'anthropic') {
+            if (!resolvedProviderApiKey) {
+                throw new Error('Add an Anthropic API key in Settings.');
+            }
+
+            const result = await fetchAnthropicChatCompletion({
+                apiKey: resolvedProviderApiKey,
+                model: params.modelOverride || providerVisionModelId,
+                messages: [
+                    {
+                        role: 'user',
+                        content: [
+                            { type: 'text', text: params.prompt },
+                            { type: 'image_url', image_url: { url: params.imageDataUrl } },
+                        ],
+                    },
+                ],
+                responseFormat: params.json ? { type: 'json_object' } : undefined,
+            });
+            return result.content;
+        }
+
+        if (isTextOnlyProvider) {
             throw new Error(`Image analysis is not available with the ${provider === 'opencode-go' ? 'OpenCode Go' : 'DeepSeek'} provider.`);
         }
 
@@ -258,7 +347,7 @@ export const useAiRuntime = () => {
         });
 
         return extractText(response);
-    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId, isOpenAiCompatibleProvider, resolvedProviderApiKey]);
+    }, [geminiApiKey, provider, providerApiKey, providerVisionModelId, isTextOnlyProvider, resolvedProviderApiKey]);
 
     return {
         provider,
