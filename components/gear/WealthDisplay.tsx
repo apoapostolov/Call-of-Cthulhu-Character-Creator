@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterGear, useCharacterSkills } from '../../context/CharacterContext';
 import { Tooltip } from '../Tooltip';
 import { QuestionIcon } from '../icons/QuestionIcon';
 import { formatCentsUSD } from '../../utils/money';
@@ -24,7 +24,9 @@ const DetailRow: React.FC<{ label: string; value: string; tooltip: string; }> = 
 import { useEraContext } from '../../context/SourceContext';
 
 export const WealthDisplay: React.FC = () => {
-    const { skills, aggregatedData, wealth, convertAssetsToCash } = useCharacterContext();
+    const { aggregatedData, wealth, convertAssetsToCash } = useCharacterGear();
+    // Credit Rating skill totals live on the skills slice.
+    const { skills } = useCharacterSkills();
     const { selectedEra } = useEraContext();
     
     // Some eras rename the wealth/social standing skill.

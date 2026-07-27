@@ -1,7 +1,7 @@
 
 
 import React, { useMemo, useEffect, useState } from 'react';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterIdentity } from '../../context/CharacterContext';
 import { GenderSelector } from './GenderSelector';
 import { DiceIcon } from '../icons/DiceIcon';
 import { AiStarsIcon } from '../icons/AiStarsIcon';
@@ -49,7 +49,7 @@ const NationalitySelector: React.FC<{
 
 
 export const CharacterDetailsColumn: React.FC<CharacterDetailsColumnProps> = ({ selectedDepartment, dob, setDob, dobOverwrittenByCareer }) => {
-    const { ai, aggregatedData } = useCharacterContext();
+    const { ai, aggregatedData } = useCharacterIdentity();
 
     return (
         <div className="space-y-6">

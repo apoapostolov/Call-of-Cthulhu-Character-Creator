@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import type { Occupation } from '../types';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterGear } from '../context/CharacterContext';
 
 interface OccupationInfoModalProps {
   occupation: Occupation | null;
@@ -20,7 +20,7 @@ const formatChoiceOptions = (options: string[]): string => {
 
 export const OccupationInfoModal: React.FC<OccupationInfoModalProps> = ({ occupation, onClose }) => {
   if (!occupation) return null;
-  const { aggregatedData } = useCharacterContext();
+  const { aggregatedData } = useCharacterGear();
   const isScoutHobby = occupation.group === 'Scout Hobby';
 
   const recommendedKits = useMemo(() => {

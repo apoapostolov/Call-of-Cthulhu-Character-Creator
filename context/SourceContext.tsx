@@ -14,6 +14,8 @@ const getInitialEra = (): EraID => {
         if (item) {
             // Back-compat: migrate old era ids
             if (item === 'classic-1920s-pulp') return 'pulp-1930s' as EraID;
+            // Folder is western-1870s; canonical selectedEra id is western-1880s
+            if (item === 'western-1870s') return 'western-1880s' as EraID;
             return item as EraID;
         }
     } catch (error) {

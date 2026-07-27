@@ -9,7 +9,7 @@ This is an unofficial fan project, not affiliated with Chaosium Inc. All tradema
 ## Badges
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-1.0.3-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Node](https://img.shields.io/badge/node-18%2B-339933)
 ![Vite](https://img.shields.io/badge/vite-6.x-646CFF)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-3178C6)
@@ -83,6 +83,21 @@ Finalize identity details, optionally generate a portrait, then use PRINT to exp
   <img src="images/SCREENSHOT_10.png" width="32%" />
 </p>
 
+### 9) Multi-Provider AI Settings (v1.1)
+
+Open **Settings → AI** to configure four independent slots:
+
+| Slot | Typical use |
+|------|-------------|
+| Creative writing | Bio, backstory, skill distribution analysis |
+| Simple writing | Names, short JSON helpers |
+| Vision | Portrait analysis / crop helpers |
+| Image | Portraits and expressive images |
+
+Each slot picks its own **provider**, **remembered API key**, and **model**. Supported providers include OpenAI, Anthropic, Google Gemini, OpenRouter, **xAI Grok** (API key or SuperGrok OAuth), **Z.ai GLM Coding Plan**, DeepSeek, and OpenCode Go.
+
+xAI OAuth shows a **device code** and opens the browser for approval — no API key field for that mode.
+
 ## Getting Started
 
 ### Prerequisites
@@ -113,32 +128,38 @@ You can switch between internal, external, and self-hosted PDF sources in the in
 
 ## Environment Variables
 
-AI features can use either Google Gemini or OpenRouter.
+AI keys are optional. Paste keys in **Settings** (remembered per provider) or
+bake them into the dev build via `.env`:
 
-- Copy `.env.example` to `.env`
-- Set `VITE_GEMINI_API_KEY` or `GEMINI_API_KEY` for the Gemini provider
-- Set `VITE_OPENROUTER_API_KEY` or `OPENROUTER_API_KEY` for OpenRouter
+| Variable | Provider |
+|----------|----------|
+| `VITE_GEMINI_API_KEY` / `GEMINI_API_KEY` | Google Gemini |
+| `VITE_OPENROUTER_API_KEY` / `OPENROUTER_API_KEY` | OpenRouter |
+| `VITE_OPENAI_API_KEY` / `OPENAI_API_KEY` | OpenAI |
+| `VITE_ANTHROPIC_API_KEY` / `ANTHROPIC_API_KEY` | Anthropic |
+| `VITE_DEEPSEEK_API_KEY` / `DEEPSEEK_API_KEY` | DeepSeek |
+| `VITE_OPENCODE_GO_API_KEY` / `OPENCODE_GO_API_KEY` | OpenCode Go |
+| `VITE_ZHIPU_API_KEY` / `VITE_ZAI_API_KEY` | Z.ai GLM Coding Plan |
+| `VITE_XAI_API_KEY` / `XAI_API_KEY` | xAI Grok (API key mode) |
 
 ```bash
 cp .env.example .env
 ```
 
-If you do not set a key, the app will still work; AI features will be disabled
-until you add one in Settings or provide it through the environment.
+Without keys the app still runs; AI features unlock when you add a key or complete
+xAI OAuth in Settings. For SuperGrok OAuth, use `npm run dev` (device login needs
+the Vite OAuth proxy).
 
 ## Development Docs
-
-This repo now includes a local defaults-style operating set for future work:
 
 - `AGENTS.md` - project operating contract
 - `TODO.md` - active work queue
 - `DEVELOPMENT_PLAN.md` - forward-looking plan
 - `DEVELOPMENT_LOG.md` - dated engineering log
+- `docs/OPTIMIZATION_PROPOSAL.md` - v1.1 performance program (complete)
+- `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md` - multi-slot AI + Zhipu/xAI (shared)
 - `RELEASE_CHECKLIST.md` - publish and sync checklist
 - `SECURITY.md` - repository security defaults
-- `GITHUB_MANAGEMENT.md` - branch, review, and release workflow guidance
-- `HARD_PROBLEMS.md` - recurring blocker memory
-- `SELF_REVIEW.md` - mistakes and durable lessons
 
 ## Scripts
 
@@ -147,6 +168,7 @@ This repo now includes a local defaults-style operating set for future work:
 - `npm run preview` - preview the production build
 - `npm test` - run tests
 - `npm run test:watch` - run Vitest in watch mode
+- `npm run typecheck` - TypeScript check
 
 ## Legal
 

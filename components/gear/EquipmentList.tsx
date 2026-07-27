@@ -132,7 +132,7 @@ export const EquipmentList: React.FC<EquipmentListProps> = ({ items, filterText,
 
     const weaponPriority = useMemo(() => {
         let order: string[];
-        if (selectedEra === 'western-1870s' || selectedEra === 'western-1880s') {
+        if (selectedEra === 'western-1880s') {
             order = WESTERN_SECTION_ORDER;
         } else if (selectedEra === 'dark-ages-1000s') {
             order = DARK_AGES_SECTION_ORDER;
@@ -382,7 +382,7 @@ export const EquipmentList: React.FC<EquipmentListProps> = ({ items, filterText,
                     // Special handling for Hand-to-Hand Weapons in non-Dark Ages eras (1920s, Modern, Gaslight, Western)
                     // These don't need Range, Mag, or Malf columns since they're mostly melee
                     if ((selectedEra === 'classic-1920s' || selectedEra === 'pulp-1930s' || selectedEra === 'modern-2000s' || 
-                         selectedEra === 'gaslight-1890s' || selectedEra === 'western-1870s' || selectedEra === 'western-1880s') && 
+                         selectedEra === 'gaslight-1890s' || selectedEra === 'western-1880s') && 
                         section === 'Hand-to-Hand Weapons') {
                         return (
                             <div key={section}>

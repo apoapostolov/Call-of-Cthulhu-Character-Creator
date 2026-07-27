@@ -8,7 +8,7 @@ import {
     responseToSkillPointAssignments,
 } from '../lib/ai/skill-distribution';
 import { SKILL_SPECIALIZATIONS } from '../data/skill-specializations-data';
-import { thirdPartyData } from '../eras/manifest';
+import { loadEraData } from '../eras/manifest';
 
 describe('skill distribution helpers', () => {
     const payload = {
@@ -704,10 +704,13 @@ describe('skill distribution helpers', () => {
         expect(assignments['Fighting (Brawl)']?.occupational || 0).toBe(5);
     });
 
-    it('treats Ride as a horse specialization with one dropdown option', () => {
+    it('treats Ride as a horse specialization with one dropdown option', async () => {
         expect(SKILL_SPECIALIZATIONS.Ride).toEqual(['Horse']);
-        expect(thirdPartyData['classic-1920s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
-        expect(thirdPartyData['gaslight-1890s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
-        expect(thirdPartyData['western-1880s'].skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
+        const classic = await loadEraData('classic-1920s');
+        const gaslight = await loadEraData('gaslight-1890s');
+        const western = await loadEraData('western-1880s');
+        expect(classic.skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
+        expect(gaslight.skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
+        expect(western.skills.find(skill => skill.name === 'Ride')?.specialty).toBe(true);
     });
 });

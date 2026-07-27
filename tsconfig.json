@@ -28,6 +28,9 @@
     "noEmit": true
   },
   "exclude": [
-    "vitest.config.ts"
+    "vitest.config.ts",
+    "node_modules",
+    "dist",
+    ".kilo"
   ]
 }

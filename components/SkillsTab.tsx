@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterSkills } from '../context/CharacterContext';
 import { useEraContext } from '../context/SourceContext';
 import { SkillsHeader } from './skills/SkillsHeader';
 import { SkillRow } from './skills/SkillRow';
@@ -8,6 +8,8 @@ import type { Skill } from '../types';
 import { ChoiceSkillsSelector } from './skills/ChoiceSkillsSelector';
 import { ChoiceSkillsModal } from './skills/ChoiceSkillsModal';
 import { AiDistributionModal } from './skills/AiDistributionModal';
+
+const EMPTY_ASSIGNMENT = { occupational: 0, personal: 0, experience: 0, archetype: 0 };
 
 export const SkillsTab: React.FC = () => {
     const { selectedEra } = useEraContext();
@@ -40,7 +42,7 @@ export const SkillsTab: React.FC = () => {
         pulpRulesEnabled,
         lifeEventModifiers,
         rolledLifeEvents,
-    } = useCharacterContext();
+    } = useCharacterSkills();
 
     const [skillPointStep, setSkillPointStep] = useState(1);
     const [groupSkills, setGroupSkills] = useState(false);
@@ -51,7 +53,8 @@ export const SkillsTab: React.FC = () => {
     const isCampfireEra = selectedEra === 'campfire-tales';
 
     const allSkills = useMemo(() => {
-        return allSkillsWithCalculatedBases.sort((a,b) => a.name.localeCompare(b.name));
+        // Copy before sort — never mutate the shared calculated-bases array.
+        return [...allSkillsWithCalculatedBases].sort((a, b) => a.name.localeCompare(b.name));
     }, [allSkillsWithCalculatedBases]);
 
     if (!selectedOccupation || !attributes) {
@@ -105,7 +108,7 @@ export const SkillsTab: React.FC = () => {
     }, [aggregatedData.SKILLS, effectiveOccupationalSkills]);
 
     const renderSkillRow = (skill: Skill) => {
-        const assignment = skillPointAssignments[skill.name] || { occupational: 0, personal: 0, experience: 0, archetype: 0 };
+        const assignment = skillPointAssignments[skill.name] || EMPTY_ASSIGNMENT;
         const totalValue = skill.base + assignment.occupational + assignment.personal + (assignment.experience || 0) + (assignment.archetype || 0);
         const cap = selectedEra === 'campfire-tales' ? 99 : ((pulpRulesEnabled || selectedEra === 'pulp-1930s' || selectedEra === 'gaslight-1890s') ? 95 : 75);
         const baseName = skill.name.split(' (')[0];
@@ -146,7 +149,7 @@ export const SkillsTab: React.FC = () => {
                     baseValue={skill.base}
                     isOccupational={isOccupationalSkill}
                     assignedPoints={assignment}
-                    onPointChange={(amount) => handleSkillPointChange(skill.name, amount)}
+                    onPointChange={handleSkillPointChange}
                     canIncrement={canIncrement}
                     canDecrement={assignment.occupational > 0 || assignment.personal > 0 || (assignment.experience || 0) > 0 || (assignment.archetype || 0) > 0}
                     availableSpecializations={availableSubTypes}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import type { Skill as SkillType } from '../../types';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterSkills } from '../../context/CharacterContext';
 import { Tooltip } from '../Tooltip';
 import { CheckIcon } from '../icons/CheckIcon';
 import { ModifierPill } from '../ModifierPill';
@@ -10,7 +10,8 @@ interface SkillRowProps {
     baseValue: number;
     isOccupational: boolean;
     assignedPoints: { occupational: number; personal: number; experience?: number; archetype?: number };
-    onPointChange: (amount: number) => void;
+    /** Stable parent callback — pass skill name + amount (do not wrap per row). */
+    onPointChange: (skillName: string, amount: number) => void;
     canIncrement: boolean;
     canDecrement: boolean;
     availableSpecializations: string[];
@@ -23,8 +24,8 @@ interface SkillRowProps {
     lifeEventSource?: string;
 }
 
-export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupational, assignedPoints, onPointChange, canIncrement, canDecrement, availableSpecializations, onAddSpecialization, onDeleteSpecialization, pointStep, activeSkillPool, isEligibleForActivePool, lifeEventChange, lifeEventSource }) => {
-    const { aggregatedData, allSkillsWithCalculatedBases, effectiveOccupationalSkills } = useCharacterContext();
+const SkillRowInner: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupational, assignedPoints, onPointChange, canIncrement, canDecrement, availableSpecializations, onAddSpecialization, onDeleteSpecialization, pointStep, activeSkillPool, isEligibleForActivePool, lifeEventChange, lifeEventSource }) => {
+    const { aggregatedData, effectiveOccupationalSkills } = useCharacterSkills();
     const [isSpecializing, setIsSpecializing] = useState(false);
     const [selectedSubType, setSelectedSubType] = useState('');
     const flatParentheticalSkills = new Set(['Language (Own)', 'Language (Signals)', 'Ride (Bicycle)', 'Pilot (Boat)']);
@@ -78,8 +79,8 @@ export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupati
                     </div>
                     {showPointButtons && (
                         <>
-                            <button onClick={() => onPointChange(-pointStep)} disabled={!canDecrement} className="w-8 h-8 bg-card hover:bg-danger-200/50 rounded text-danger-700 font-bold text-xl disabled:bg-neutral-100 disabled:text-neutral-400 disabled:cursor-not-allowed flex items-center justify-center shadow-sm border border-border">-</button>
-                            <button onClick={() => onPointChange(pointStep)} disabled={!canIncrement} className="w-8 h-8 bg-card hover:bg-success-200/50 rounded text-success-700 font-bold text-xl disabled:bg-neutral-100 disabled:text-neutral-400 disabled:cursor-not-allowed flex items-center justify-center shadow-sm border border-border">+</button>
+                            <button onClick={() => onPointChange(skill.name, -pointStep)} disabled={!canDecrement} className="w-8 h-8 bg-card hover:bg-danger-200/50 rounded text-danger-700 font-bold text-xl disabled:bg-neutral-100 disabled:text-neutral-400 disabled:cursor-not-allowed flex items-center justify-center shadow-sm border border-border">-</button>
+                            <button onClick={() => onPointChange(skill.name, pointStep)} disabled={!canIncrement} className="w-8 h-8 bg-card hover:bg-success-200/50 rounded text-success-700 font-bold text-xl disabled:bg-neutral-100 disabled:text-neutral-400 disabled:cursor-not-allowed flex items-center justify-center shadow-sm border border-border">+</button>
                         </>
                     )}
                 </div>
@@ -117,3 +118,6 @@ export const SkillRow: React.FC<SkillRowProps> = ({ skill, baseValue, isOccupati
         </div>
     );
 };
+
+/** Memoized so unchanged rows skip re-render when another skill's points change. */
+export const SkillRow = memo(SkillRowInner);

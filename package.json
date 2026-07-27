@@ -1,14 +1,15 @@
 {
   "name": "call-of-cthulhu-character-creator",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "react": "18.2.0",

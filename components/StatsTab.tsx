@@ -12,7 +12,7 @@ import { ExperiencePackageInfoModal } from './ExperiencePackageInfoModal';
 import { QuestionIcon } from './icons/QuestionIcon';
 import { CheckIcon } from './icons/CheckIcon';
 import { useEraContext } from '../context/SourceContext';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterContext, useCharacterExtras, useCharacterIdentity } from '../context/CharacterContext';
 import { TalentSelector } from './TalentSelector';
 import { ArchetypeCard } from './ArchetypeCard';
 import { ArchetypeInfoModal } from './ArchetypeInfoModal';
@@ -53,11 +53,11 @@ const GROUP_ORDER: OccupationGroup[] = [
 ];
 
 const CampfireFamilyCreditSelector: React.FC = () => {
+    const { selectedOccupation } = useCharacterIdentity();
     const {
         familyCreditStatus,
         setFamilyCreditStatus,
-        selectedOccupation,
-    } = useCharacterContext();
+    } = useCharacterExtras();
 
     return (
         <div className="bg-card border border-border rounded-lg p-4">
@@ -143,7 +143,7 @@ export const StatsTab: React.FC<StatsTabProps> = ({
     const { selectedEra } = useEraContext();
     const { pulpRulesEnabled, setPulpRulesEnabled, aggregatedData, optionalRules, setOptionalRuleEnabled, selectedArchetype, handleSelectArchetype, archetypeCoreChoice, setArchetypeCoreChoice, coreCharacteristicInfo, rolledLifeEvents, handleRollLifeEvents, handleLifeEventSpecialization, lifeEventCount, lifeEventModifiers, familyCreditStatus, occupationalSkillPoints } = useCharacterContext();
     const isPulpEra = selectedEra === 'pulp-1930s';
-    const isWesternEra = (selectedEra === 'western-1870s' || selectedEra === 'western-1880s');
+    const isWesternEra = selectedEra === 'western-1880s';
     const isGaslightEra = selectedEra === 'gaslight-1890s';
     const isDarkAges = selectedEra === 'dark-ages-1000s';
     const isCampfireEra = selectedEra === CAMPFIRE_ERA_ID;

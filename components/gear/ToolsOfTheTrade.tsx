@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterGear } from '../../context/CharacterContext';
 import { Tooltip } from '../Tooltip';
 
 interface ToolsOfTheTradeProps {
@@ -38,7 +38,7 @@ const getDisplayName = (name: string): string => {
 };
 
 export const ToolsOfTheTrade: React.FC<ToolsOfTheTradeProps> = ({ onSetKit, activeKitName }) => {
-    const { aggregatedData } = useCharacterContext();
+    const { aggregatedData } = useCharacterGear();
     const [isOpen, setIsOpen] = useState(!activeKitName);
 
     const availableKits = aggregatedData.EQUIPMENT_KITS

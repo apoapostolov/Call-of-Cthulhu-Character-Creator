@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { AiSettingsProvider } from './context/AiSettingsContext';
 import { EraProvider, useEraContext } from './context/SourceContext';
 import { CharacterProvider } from './context/CharacterContext';
@@ -8,22 +8,30 @@ import { useCharacter } from './hooks/useCharacter';
 import { useAggregatedData } from './hooks/useAggregatedData';
 import { usePdfPrinting } from './hooks/usePdfPrinting';
 import { Toast } from './components/Toast';
-import { DossierTab } from './components/DossierTab';
-import { BadgesTab } from './components/BadgesTab';
-import { GearTab } from './components/gear/GearTab';
 import { StatsTab } from './components/StatsTab';
-import { SkillsTab } from './components/SkillsTab';
-import { PromptInfoModal } from './components/PromptInfoModal';
 import { getEraReferenceYear } from './utils/date';
-import { ErasModal } from './components/SourcesModal';
-import { SettingsModal } from './components/SettingsModal';
-import { OccupationInfoModal } from './components/OccupationInfoModal';
 import { SaveSlotDrawer } from './components/SaveSlotDrawer';
 import { PlaceholderLogo } from './components/icons/PlaceholderLogo';
 import { PrintIcon } from './components/icons/PrintIcon';
 import { GearIcon } from './components/icons/GearIcon';
 import { TabButton } from './components/TabButton';
 import type { Occupation, AttributeSet } from './types';
+
+// Lazy-load tabs and modals that are not needed for first paint on Characteristics.
+const SkillsTab = lazy(() => import('./components/SkillsTab').then(m => ({ default: m.SkillsTab })));
+const GearTab = lazy(() => import('./components/gear/GearTab').then(m => ({ default: m.GearTab })));
+const DossierTab = lazy(() => import('./components/DossierTab').then(m => ({ default: m.DossierTab })));
+const BadgesTab = lazy(() => import('./components/BadgesTab').then(m => ({ default: m.BadgesTab })));
+const PromptInfoModal = lazy(() => import('./components/PromptInfoModal').then(m => ({ default: m.PromptInfoModal })));
+const ErasModal = lazy(() => import('./components/SourcesModal').then(m => ({ default: m.ErasModal })));
+const SettingsModal = lazy(() => import('./components/SettingsModal').then(m => ({ default: m.SettingsModal })));
+const OccupationInfoModal = lazy(() => import('./components/OccupationInfoModal').then(m => ({ default: m.OccupationInfoModal })));
+
+const TabSuspenseFallback: React.FC = () => (
+    <div className="max-w-4xl mx-auto bg-card p-8 rounded-lg border border-border text-center text-muted-foreground">
+        Loading…
+    </div>
+);
 
 const AppContent: React.FC = () => {
     const { selectedEra } = useEraContext();
@@ -37,6 +45,7 @@ const AppContent: React.FC = () => {
     const { handleRoll, modifiedAttributes, derivedStats, setOccupation, selectedOccupation, rollHistory, handleRestoreRoll, ai, isDeceased, kitInventory, inventory, handleDrop, handleDeleteItem, occupationalSkillPoints, personalSkillPoints, allOccupationChoicesMade, skills, wealth, scoutBackstory, earnedScoutBadges, distressBoxes, adversityBoxes, selectedScoutAbilityBadges, scoutHobbyAbilityBadges, scoutAdditionalAbilityBadgeAllowance } = character;
     const [shouldPrintButtonGlow, setShouldPrintButtonGlow] = useState(false);
     const isCampfireEra = selectedEra === 'campfire-tales';
+    const eraStillLoading = aggregatedData.isLoading && aggregatedData.OCCUPATIONS.length === 0;
 
     useEffect(() => {
         document.body.dataset.era = selectedEra;
@@ -161,10 +170,12 @@ const AppContent: React.FC = () => {
                     type={uiState.toast?.type ?? 'error'} 
                     onDismiss={() => uiState.setToastMessage(null)} 
                 />
-                {viewingOccupation && <OccupationInfoModal occupation={viewingOccupation} onClose={() => setViewingOccupation(null)} />}
-                {uiState.isPromptModalVisible && <PromptInfoModal title="Full Portrait AI Prompt" prompt={ai.portraitPrompt || "Generate a portrait to see the full AI prompt here."} onClose={() => uiState.setIsPromptModalVisible(false)} />}
-                {uiState.isErasModalVisible && <ErasModal onClose={() => uiState.setIsErasModalVisible(false)} />}
-                {uiState.isSettingsModalVisible && <SettingsModal onClose={() => uiState.setIsSettingsModalVisible(false)} />}
+                <Suspense fallback={null}>
+                    {viewingOccupation && <OccupationInfoModal occupation={viewingOccupation} onClose={() => setViewingOccupation(null)} />}
+                    {uiState.isPromptModalVisible && <PromptInfoModal title="Full Portrait AI Prompt" prompt={ai.portraitPrompt || "Generate a portrait to see the full AI prompt here."} onClose={() => uiState.setIsPromptModalVisible(false)} />}
+                    {uiState.isErasModalVisible && <ErasModal onClose={() => uiState.setIsErasModalVisible(false)} />}
+                    {uiState.isSettingsModalVisible && <SettingsModal onClose={() => uiState.setIsSettingsModalVisible(false)} />}
+                </Suspense>
                 
                 <div className="max-w-7xl mx-auto">
                     <header className="text-center mb-4"><PlaceholderLogo className="w-full max-w-lg mx-auto h-auto px-4" /></header>
@@ -195,6 +206,18 @@ const AppContent: React.FC = () => {
                     </div>
 
                     <main id="main-content">
+                        {eraStillLoading ? (
+                            <div className="max-w-4xl mx-auto bg-card p-10 rounded-lg border border-border text-center space-y-3">
+                                <p className="text-xl font-lora text-primary">Loading era data…</p>
+                                <p className="text-muted-foreground text-sm">
+                                    Fetching occupations, skills, and gear for this setting.
+                                </p>
+                                {aggregatedData.loadError && (
+                                    <p className="text-red-600 text-sm">{aggregatedData.loadError}</p>
+                                )}
+                            </div>
+                        ) : (
+                            <>
                         {uiState.activeTab === 'stats' && (
                             <StatsTab 
                                 handleRoll={handleRollWrapper}
@@ -224,25 +247,29 @@ const AppContent: React.FC = () => {
                                 handleEduImprovementCheck={character.handleEduImprovementCheck}
                             />
                         )}
-                        {uiState.activeTab === 'skills' && (
-                           <SkillsTab />
-                        )}
-                        {uiState.activeTab === 'badges' && isCampfireEra && (
-                           <BadgesTab />
-                        )}
-                        {uiState.activeTab === 'gear' && <GearTab 
-                            kitInventory={kitInventory}
-                            inventory={inventory}
-                            onDrop={handleDrop}
-                            onDeleteItem={handleDeleteItem}
-                        />}
-                        {uiState.activeTab === 'dossier' && (
-                            <DossierTab 
-                                onShowPromptInfo={() => uiState.setIsPromptModalVisible(true)}
-                                dob={ai.dob}
-                                setDob={ai.setDob}
-                                dobOverwrittenByCareer={ai.dobOverwrittenByCareer}
-                            />
+                        <Suspense fallback={<TabSuspenseFallback />}>
+                            {uiState.activeTab === 'skills' && (
+                               <SkillsTab />
+                            )}
+                            {uiState.activeTab === 'badges' && isCampfireEra && (
+                               <BadgesTab />
+                            )}
+                            {uiState.activeTab === 'gear' && <GearTab 
+                                kitInventory={kitInventory}
+                                inventory={inventory}
+                                onDrop={handleDrop}
+                                onDeleteItem={handleDeleteItem}
+                            />}
+                            {uiState.activeTab === 'dossier' && (
+                                <DossierTab 
+                                    onShowPromptInfo={() => uiState.setIsPromptModalVisible(true)}
+                                    dob={ai.dob}
+                                    setDob={ai.setDob}
+                                    dobOverwrittenByCareer={ai.dobOverwrittenByCareer}
+                                />
+                            )}
+                        </Suspense>
+                            </>
                         )}
                     </main>
                     {/* Experience selection is inline in StatsTab now */}

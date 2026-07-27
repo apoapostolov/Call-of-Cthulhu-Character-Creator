@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-27
+
+Theme: **performance overhaul** + **much stronger AI provider control**.
+
+### Added
+
+- **Per-task AI setup in Settings.** Creative writing, simple writing, vision,
+  and image generation each have their own provider, remembered API key, and
+  model — mix vendors freely (e.g. OpenAI for names, Gemini for portraits).
+- **Z.ai GLM (Coding Plan).** Use a Z.ai Coding Plan key for text generation
+  through the Coding endpoint.
+- **xAI Grok (API key).** Point any slot at Grok with a standard xAI key.
+- **xAI Grok (SuperGrok / OAuth).** Log in with a device code and browser
+  approval — no API key field. Optional advanced token paste if you already
+  have a session token.
+- Keys stay remembered per provider when you switch slots or reopen Settings.
+
+### Improved
+
+- **Much faster first load.** Era data and heavy AI catalogs load when needed
+  instead of up front; print tooling loads only when you print.
+- **Snappier skill editing.** Changing one skill’s points no longer thrash the
+  whole sheet UI; gear and bio stay calm while you allocate.
+- **Cleaner era handling.** Western uses a single consistent era id; older
+  saves migrate automatically.
+- **Leaner Settings model lists.** Catalogs hydrate in the background or when
+  you hit Refresh, so opening Settings stays quick.
+
+### Notes for power users
+
+- Prefer **dev server** (`npm run dev`) for xAI OAuth; static file hosts need a
+  reverse proxy for the OAuth device path (see Settings help text).
+- Optional env keys for new providers: `VITE_ZHIPU_API_KEY` / `VITE_ZAI_API_KEY`,
+  `VITE_XAI_API_KEY` (in addition to existing Gemini / OpenRouter / OpenAI /
+  Anthropic / DeepSeek keys).
+- Engineering background: `docs/OPTIMIZATION_PROPOSAL.md` and
+  `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md`.
+
 ## [1.0.3] - 2026-05-30
 
 ### Added

@@ -206,5 +206,9 @@ output/
 downloads/
 .cache/
 CHANGELOG_TEMPLATE.md
-docs/
+.kilo/
+# OCR / sourcebook dumps stay local; keep engineering docs trackable
+docs/**
+!docs/OPTIMIZATION_PROPOSAL.md
+!docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md
 dist/

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterExtras, useCharacterIdentity } from '../context/CharacterContext';
 import { SCOUT_RANKS, getScoutRank } from '../eras/campfire-tales/scout-rules';
 
 type Badge = {
@@ -44,9 +44,8 @@ const BadgeCard: React.FC<{
 );
 
 export const BadgesTab: React.FC = () => {
+    const { selectedOccupation, selectedAgeCategory } = useCharacterIdentity();
     const {
-        selectedOccupation,
-        selectedAgeCategory,
         earnedScoutBadges,
         selectedScoutRankBadge,
         setScoutRankBadge,
@@ -57,7 +56,7 @@ export const BadgesTab: React.FC = () => {
         scoutHobbyAbilityBadges,
         campfireRankBadges,
         campfireAbilityBadges,
-    } = useCharacterContext();
+    } = useCharacterExtras();
     const [permissionRankBadge, setPermissionRankBadge] = React.useState<Badge | null>(null);
 
     const currentRank = getScoutRank(selectedAgeCategory);

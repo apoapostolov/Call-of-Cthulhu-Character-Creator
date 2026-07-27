@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { ERAS, thirdPartyData } from '../eras/manifest';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { ERAS, loadEraData } from '../eras/manifest';
+import type { EraData } from '../eras/load-era';
 import {
   CAMPFIRE_ABILITY_BADGES,
   CAMPFIRE_RANK_BADGES,
@@ -23,14 +24,20 @@ import {
 } from '../utils/campfire-sheet';
 
 describe('Campfire Tales era', () => {
+  let campfire: EraData;
+
+  beforeAll(async () => {
+    campfire = await loadEraData('campfire-tales');
+  });
+
   it('is registered and resolves through the era manifest', () => {
     expect(ERAS.some(era => era.id === 'campfire-tales' && era.name === 'Campfire Tales')).toBe(true);
-    expect(thirdPartyData['campfire-tales']).toBeTruthy();
-    expect(thirdPartyData['campfire-tales'].theme.displayName).toBe('Campfire Tales');
+    expect(campfire).toBeTruthy();
+    expect(campfire.theme.displayName).toBe('Campfire Tales');
   });
 
   it('uses scout-specific skills instead of adult Credit Rating', () => {
-    const skillNames = thirdPartyData['campfire-tales'].skills.map(skill => skill.name);
+    const skillNames = campfire.skills.map(skill => skill.name);
 
     expect(skillNames).toContain('Family Credit Rating');
     expect(skillNames).toContain('Reassure');
@@ -106,7 +113,7 @@ describe('Campfire Tales era', () => {
   });
 
   it('gates Upstate League behind Rich Family Credit Rating', () => {
-    const upstateLeague = thirdPartyData['campfire-tales'].occupations.find(occupation => occupation.name === 'Upstate League');
+    const upstateLeague = campfire.occupations.find(occupation => occupation.name === 'Upstate League');
 
     expect(upstateLeague?.group).toBe('Scout Hobby');
     expect(upstateLeague?.familyCreditRequirement).toBe('Rich');
@@ -114,7 +121,7 @@ describe('Campfire Tales era', () => {
   });
 
   it('keeps Campfire hobby choice groups resolvable to existing skills or specialization families', () => {
-    const campfireData = thirdPartyData['campfire-tales'];
+    const campfireData = campfire;
     const skillNames = new Set(campfireData.skills.map(skill => skill.name));
     const specializationParents = new Set(Object.keys(SKILL_SPECIALIZATIONS));
 
@@ -137,7 +144,7 @@ describe('Campfire Tales era', () => {
 
   it('uses selectable concrete badges for Ability Badge of Choice hobbies', () => {
     const badgeNames = new Set(CAMPFIRE_ABILITY_BADGES.map(badge => badge.name));
-    const abilityChoiceHobbies = thirdPartyData['campfire-tales'].occupations.filter(occupation => (
+    const abilityChoiceHobbies = campfire.occupations.filter(occupation => (
       occupation.startingBadges || []
     ).includes('Ability Badge of Choice'));
 
@@ -156,8 +163,8 @@ describe('Campfire Tales era', () => {
   });
 
   it('inherits Classic 1920s prices and adds scout badge equipment', () => {
-    const itemNames = thirdPartyData['campfire-tales'].items.map(item => item.name);
-    const kitNames = thirdPartyData['campfire-tales'].equipmentKits.map(kit => kit.name);
+    const itemNames = campfire.items.map(item => item.name);
+    const kitNames = campfire.equipmentKits.map(kit => kit.name);
 
     expect(itemNames).toContain('Bicycle');
     expect(itemNames).toContain('Pocket First Aid Kit');
@@ -169,9 +176,9 @@ describe('Campfire Tales era', () => {
   });
 
   it('builds Campfire equipment kits only from available item names', () => {
-    const itemNames = new Set(thirdPartyData['campfire-tales'].items.map(item => item.name));
+    const itemNames = new Set(campfire.items.map(item => item.name));
 
-    for (const kit of thirdPartyData['campfire-tales'].equipmentKits) {
+    for (const kit of campfire.equipmentKits) {
       for (const itemName of kit.items) {
         expect(itemNames.has(itemName), `${kit.name} references missing item ${itemName}`).toBe(true);
       }
@@ -202,7 +209,7 @@ describe('Campfire Tales era', () => {
         Accounting: 55,
       },
       ['Fighting (Brawl)'],
-      thirdPartyData['campfire-tales'].skills,
+      campfire.skills,
     ).map(([name]) => name);
 
     expect(entries).not.toContain('Fighting');
@@ -225,7 +232,7 @@ describe('Campfire Tales era', () => {
         'Custom Field': 15,
       },
       [],
-      thirdPartyData['campfire-tales'].skills,
+      campfire.skills,
     ).map(([name]) => name);
 
     expect(entries).not.toContain('Ride (Bicycle)');

@@ -1,4 +1,13 @@
-export type AiProviderId = 'openai' | 'anthropic' | 'openrouter' | 'gemini' | 'opencode-go' | 'deepseek';
+export type AiProviderId =
+  | 'openai'
+  | 'anthropic'
+  | 'openrouter'
+  | 'gemini'
+  | 'opencode-go'
+  | 'deepseek'
+  | 'zhipu'
+  | 'xai'
+  | 'xai-oauth';
 
 export interface AiProviderOption {
     value: AiProviderId;
@@ -11,6 +20,9 @@ export const AI_PROVIDER_OPTIONS: AiProviderOption[] = [
     { value: 'anthropic', label: 'Anthropic' },
     { value: 'gemini', label: 'Google Gemini' },
     { value: 'openrouter', label: 'OpenRouter' },
+    { value: 'xai', label: 'xAI Grok (API Key)' },
+    { value: 'xai-oauth', label: 'xAI Grok (OAuth / SuperGrok)' },
+    { value: 'zhipu', label: 'Z.ai GLM (Coding Plan)' },
     { value: 'deepseek', label: 'DeepSeek' },
     { value: 'opencode-go', label: 'OpenCode Go' },
 ];
@@ -23,4 +35,11 @@ export const isAiProviderId = (value: string): value is AiProviderId => (
 
 export const getAiProviderLabel = (provider: AiProviderId) => (
     AI_PROVIDER_OPTIONS.find(option => option.value === provider)?.label || provider
+);
+
+/** Text-only providers (no native image gen in our runtime). */
+export const isTextOnlyAiProvider = (provider: AiProviderId) => (
+    provider === 'opencode-go'
+    || provider === 'deepseek'
+    || provider === 'zhipu'
 );

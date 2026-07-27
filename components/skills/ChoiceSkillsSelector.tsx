@@ -2,9 +2,6 @@ import React from 'react';
 import type { Occupation } from '../../types';
 import { ResetIcon } from '../icons/ResetIcon';
 import { CheckCircleIcon } from '../icons/CheckCircleIcon';
-import { useEraContext } from '../../context/SourceContext';
-import { useCharacterContext } from '../../context/CharacterContext';
-
 interface ChoiceSkillsSelectorProps {
     occupation: Occupation;
     selectedChoices: Record<number, string[]>;
@@ -13,11 +10,6 @@ interface ChoiceSkillsSelectorProps {
 }
 
 export const ChoiceSkillsSelector: React.FC<ChoiceSkillsSelectorProps> = ({ occupation, selectedChoices, onOpenModal, onReset }) => {
-    const { selectedEra } = useEraContext();
-    const { pulpRulesEnabled, setPulpRulesEnabled } = useCharacterContext();
-    const isPulpEra = selectedEra === 'pulp-1930s';
-    const isWesternEra = (selectedEra === 'western-1870s' || selectedEra === 'western-1880s');
-
     return (
         <div>
              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 mb-4">

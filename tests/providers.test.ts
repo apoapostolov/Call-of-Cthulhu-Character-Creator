@@ -16,6 +16,9 @@ describe('provider options', () => {
             'anthropic',
             'gemini',
             'openrouter',
+            'xai',
+            'xai-oauth',
+            'zhipu',
             'deepseek',
             'opencode-go',
         ]);

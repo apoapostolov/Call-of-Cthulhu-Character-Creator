@@ -36,9 +36,29 @@ project.
 3. Verify whether GitHub secret scanning or push protection caught it.
 4. Record the incident in `DEVELOPMENT_LOG.md` if the repo keeps one.
 
+## New Providers (Zhipu / xAI OAuth)
+
+- Z.ai Coding Plan keys and xAI API keys follow the same rules as other
+  provider keys (Settings storage, optional dev-only Vite `define`).
+- **xAI OAuth access/refresh tokens** are session secrets: prefer
+  `sessionStorage`, never log them, never commit them, never put them in
+  CHANGELOG or issue templates.
+- See `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md`.
+
+## AI Keys And Public Builds
+
+- Prefer runtime keys entered in Settings (stored in the browser only).
+- `vite.config.ts` can inject `VITE_*` / provider env vars via `define` for
+  local convenience. **Do not bake production secrets into public builds** —
+  anything passed through Vite `define` is readable in the shipped JS.
+- For public deploy: leave provider env vars unset at build time, or strip
+  baked keys unless an explicit opt-in is documented for a private host.
+- Treat `localStorage` API keys as XSS-sensitive; do not log them.
+
 ## Notes
 
 - This repository is a public fan project, so keep legal and privacy-sensitive
   material out of release artifacts.
 - Pair this file with branch protection or CODEOWNERS when stricter review
   control is needed.
+- Engineering proposal: `docs/OPTIMIZATION_PROPOSAL.md`.

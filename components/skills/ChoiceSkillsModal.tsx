@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import type { Occupation, Skill } from '../../types';
 import { SKILL_SPECIALIZATIONS } from '../../data/skill-specializations-data';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterSkills } from '../../context/CharacterContext';
 
 interface ChoiceSkillsModalProps {
   group: NonNullable<Occupation['choiceGroups']>[0];
@@ -15,7 +15,7 @@ interface ChoiceSkillsModalProps {
 
 export const ChoiceSkillsModal: React.FC<ChoiceSkillsModalProps> = ({ group, groupIndex, selectedSkills, onToggleSkill, onClose, allSkills, fixedOccupationalSkills }) => {
     const isConfirmDisabled = selectedSkills.length !== group.count;
-    const { occupationSkillChoices } = useCharacterContext();
+    const { occupationSkillChoices } = useCharacterSkills();
 
     const availableOptions = useMemo(() => {
         if (group.options[0] !== '*') {

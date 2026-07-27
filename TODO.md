@@ -8,10 +8,12 @@ Each TODO file should usually represent one active epic. In this template,
 
 ## Current Focus
 
-- Regency Cthulhu era implementation and ruleset wiring
-- canonical files: `docs/regency-cthulhu/`, `eras/regency/`,
-  `eras/manifest.ts`, `hooks/useCharacter.ts`, `components/StatsTab.tsx`,
-  `components/DossierTab.tsx`, and `hooks/usePdfPrinting.ts`
+- **Optimization program COMPLETE** (`docs/OPTIMIZATION_PROPOSAL.md`)
+- **Shared AI wave COMPLETE** (multi-slot + Zhipu + xAI OAuth in CoC + Delta Green;
+  `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md`)
+- Product track: Regency Cthulhu reputation/export (Prompts 3–4 below)
+- canonical Regency files: `docs/regency-cthulhu/`, `eras/regency/`,
+  `hooks/usePdfPrinting.ts`
 
 ## Scope And Boundaries
 

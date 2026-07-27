@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterIdentity } from '../context/CharacterContext';
 import type { Talent } from '../types';
 import { DiceIcon } from './icons/DiceIcon';
 import { ShieldIcon } from './icons/ShieldIcon';
@@ -58,7 +58,7 @@ const TalentRow: React.FC<{ talent: Talent; selected: boolean; onToggle: () => v
 };
 
 export const TalentSelector: React.FC<TalentSelectorProps> = ({ onDone }) => {
-  const { aggregatedData, selectedTalents, toggleTalent, randomizeTalentFrom, maxTalents, selectedArchetype } = useCharacterContext();
+  const { aggregatedData, selectedTalents, toggleTalent, randomizeTalentFrom, maxTalents, selectedArchetype } = useCharacterIdentity();
   const allTalents = aggregatedData.TALENTS || [];
   const suggestedTalentNames = new Set((selectedArchetype?.talentRules?.suggested || []).map(n => n.trim()));
 

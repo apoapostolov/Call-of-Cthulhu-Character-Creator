@@ -1,5 +1,144 @@
 # DEVELOPMENT LOG
 
+## 2026-07-27 - Release v1.1.0
+
+- Version bump 1.0.3 → **1.1.0** (performance overhaul + multi-slot AI /
+  Zhipu / xAI).
+- User-facing CHANGELOG + README; `.env.example` for new providers.
+- Tag `v1.1.0` + GitHub release after test/build green.
+
+## 2026-07-27 - Shared AI wave complete (DG port)
+
+- Ported multi-slot AI + Zhipu + xAI OAuth modules and Settings UX into
+  `Delta-Green-AI-Dossier-Generator` per `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md`.
+- Optimization later-wave checklist closed for both reference apps.
+
+## 2026-07-27 - Fix xAI OAuth “Could not reach auth server”
+
+- Root cause: first OAuth pass used wrong host/paths (`accounts.x.ai/api/auth/*`,
+  client_id `grok-cli`) and the browser hits CORS on direct `auth.x.ai` calls.
+- Fix: real OIDC device endpoints on `https://auth.x.ai/oauth2/device/code` +
+  `/oauth2/token`, public Grok CLI client UUID, full scopes; browser traffic via
+  same-origin `/__xai_oauth` Vite proxy → `auth.x.ai`; detect HTML proxy-miss;
+  advanced token paste fallback in Settings; docs corrected.
+- Validation: proxy POST returns `user_code` live; unit tests for proxy URLs +
+  HTML rejection; typecheck clean.
+- User action: hard-refresh `http://localhost:10001` after `npm run dev` so the
+  proxy and new module load (HMR often failed on AiSettingsContext).
+
+## 2026-07-27 - Multi-slot AI UI + xAI device OAuth
+
+- Context: rework Settings so each model use type has its own provider/key/model
+  block; xAI OAuth must show device code + browser auth, not an API key.
+- Changes: `lib/ai/ai-slots.ts`, `load-provider-models.ts`; rewritten
+  `AiSettingsContext` (multi-slot + key vault + OAuth device state);
+  `SettingsModal` four `SlotProviderBlock`s; `useAiRuntime` routes by slot;
+  `xai-oauth.ts` device-code start/poll/open-browser; shared proposal updated
+  and copied to Delta Green docs.
+- Validation: `npm run typecheck`; `npm test` 90 green.
+- Port: Delta Green still needs the multi-slot UI port from the shared doc.
+
+## 2026-07-27 - Zhipu Coding Plan + xAI Grok providers (shared epic start)
+
+- Context: post-optimization later wave — multi-repo AI provider expansion.
+- Docs: `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md` (canonical port checklist);
+  optimization proposal links this wave; copy also under Delta Green `docs/`.
+- CoC implementation: providers `zhipu`, `xai`, `xai-oauth`; modules
+  `lib/ai/zhipu.ts`, `xai.ts`, `xai-oauth.ts`; caches; Settings OAuth paste;
+  runtime OpenAI-compat chat routing; tests.
+- Validation: `npm test`, `npm run typecheck`, `npm run build`.
+- Follow-up: port identical modules to Delta Green; P1 device-code OAuth.
+
+## 2026-07-27 - Optimization program complete (finish pass)
+
+- Context: close the optimization epic after slices landed — extract remaining
+  pure helpers, fix skill-row memo stability, mark proposal complete.
+- Changes: `domain/scout-badges.ts`, `domain/skill-distribution-profile.ts`;
+  `useCharacter` imports them; `SkillRow`/`SkillsTab` use stable
+  `handleSkillPointChange(skillName, amount)` + `EMPTY_ASSIGNMENT` + non-
+  mutating sort; `tests/domain-rolls.test.ts`; proposal status COMPLETE.
+- Validation: `npm test`, `npm run typecheck`, `npm run build`.
+- Residual (non-blocking): large `useCharacter` orchestrator still stateful;
+  Regency reputation product TODO separate.
+
+## 2026-07-27 - Wave C character context slices
+
+- Context: skill allocation was re-rendering gear/bio because one fat
+  CharacterContext value changed on every point click.
+- Changes: `context/CharacterContext.tsx` now provides four memoized slices
+  (identity, skills, gear, extras) plus full `useCharacterContext` for
+  save/load; consumers on skills/gear/dossier/badges/talent paths use narrow
+  hooks; `SkillRow` wrapped in `React.memo`.
+- Validation: `npm run typecheck` clean; `npm test` 79 green; build OK;
+  :10001 HMR still up.
+- Follow-up: further pure-domain extraction from `useCharacter`; optional
+  store if slices grow awkward.
+
+## 2026-07-27 - AI catalog deferral + domain/rolls (Wave B/C)
+
+- Context: keep proceeding on optimization after era lazy-load; strip AI
+  payload from first paint and begin Wave C pure-domain extraction.
+- Changes: `AiSettingsContext` no longer static-imports model caches; starts
+  on fallback models and background-hydrates bundles; `refreshProviderModels`
+  dynamic-imports provider modules; `useAiRuntime` dynamic-imports
+  `@google/genai` and chat clients; `domain/rolls.ts` extracted from
+  `useCharacter`.
+- Validation: `npm test` 79 green; `tsc` clean; build main **~430 KB**
+  (gzip ~130 KB); `openrouter-models` + `google-genai` only as async chunks;
+  :10001 still 200.
+- Follow-up: more Wave C context splits (skills/gear/identity); optional
+  JSON-on-disk for model caches.
+
+## 2026-07-27 - Hot reload on :10001 + Wave B era lazy-load
+
+- Context: restart the long-lived Vite on port 10001 with WSL polling HMR so
+  live edits show immediately; continue Wave B with per-era dynamic imports.
+- Server: killed stale Jul-20 process; `npm run dev -- --port 10001 --host
+  0.0.0.0 --strictPort` with `server.watch.usePolling` in `vite.config.ts`.
+- Files: `eras/load-era.ts` (new), slim `eras/manifest.ts`, async
+  `weapons/to-dgitems.ts`, `hooks/useAggregatedData.ts`, `App.tsx` loading
+  gate, `components/gear/GearTab.tsx`, tests updated to `await loadEraData`,
+  docs/changelog.
+- Validation: `npm test` 79 green; `tsc --noEmit` clean; `npm run build`
+  main **~450 KB** (gzip ~133 KB) with per-era chunks; `http://localhost:10001/`
+  returns 200 with Vite client.
+- Follow-up: defer OpenRouter model catalog / AI settings off first paint;
+  Wave C character context split.
+
+## 2026-07-27 - Optimization Wave B partial (lazy tabs + pdf-lib)
+
+- Context: continue optimization after Wave A; cut first-paint critical path.
+- Changes: `React.lazy` for Skills/Gear/Bio/Badges and settings/era modals in
+  `App.tsx`; dynamic `import('pdf-lib')` on print in `usePdfPrinting.ts`;
+  Vite `manualChunks` for pdf-lib, genai, openrouter models, price catalogs.
+- Validation: `npm test` 7/79 green; `npm run typecheck` clean; `npm run build`
+  main chunk **913 KB** (was ~2.18 MB single file); separate chunks for
+  pdf-lib (~440 KB, print-only), openrouter-models, google-genai, prices,
+  and lazy tabs. Main still large until era data is lazy-loaded.
+- Follow-up: Wave B era lazy-load of `thirdPartyData` + JSON model/price
+  catalogs (biggest remaining payload).
+
+## 2026-07-27 - Optimization Wave A (tooling + context stabilize)
+
+- Context: start `docs/OPTIMIZATION_PROPOSAL.md` Wave A after a full codebase
+  audit (bundle size, god-hook, test pollution, dual western ids).
+- Root cause: vitest collected `.kilo/worktrees/**` tests; `useCharacter`
+  returned a new object every render; western era id mixed folder name and
+  manifest id; dead DG UI stubs remained in tree.
+- Files changed: `docs/OPTIMIZATION_PROPOSAL.md`, `vitest.config.ts`,
+  `tsconfig.json`, `.gitignore`, `package.json`, `SECURITY.md`,
+  `context/SourceContext.tsx`, `hooks/useCharacter.ts`,
+  `components/StatsTab.tsx`, `components/skills/ChoiceSkillsSelector.tsx`,
+  `components/gear/EquipmentList.tsx`, `weapons/to-dgitems.ts`,
+  removed `components/DepartmentCard.tsx`, `DepartmentInfoModal.tsx`,
+  `ManageTab.tsx`, `DraftTab.tsx`, `AlphonseAxioms.tsx`, plus this log and
+  `CHANGELOG.md` / `TODO.md` / `DEVELOPMENT_PLAN.md`.
+- Validation: `npm test` → 7 files / 79 tests in ~16s (was 14/148 ~61s);
+  `npm run typecheck` clean; `npm run build` ok (~2.1 MB single chunk before
+  Wave B splits).
+- Follow-up: Wave B era lazy-load + JSON catalogs; Wave C split character
+  context (see proposal).
+
 ## 2026-05-30 - Regency AI prompt period grounding
 
 - Context: tighten the Regency-era AI payloads so name, portrait, and skill

@@ -4,7 +4,6 @@ import { useAggregatedData } from './useAggregatedData';
 import { useSheetContext } from '../context/SheetContext';
 import { SHEET_CONFIG } from '../eras/sheet-config';
 import type { ToastType, Skill, AttributeSet, DGItem } from '../types';
-import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { getEraReferenceYear } from '../utils/date';
 import {
   CAMPFIRE_NOTES_TEXT_LIMIT,
@@ -13,6 +12,15 @@ import {
   getCampfireCustomSkillEntries,
   limitCampfireSheetText,
 } from '../utils/campfire-sheet';
+
+/** Load pdf-lib only when printing — keeps it out of the initial app chunk. */
+let pdfLibModule: typeof import('pdf-lib') | null = null;
+async function getPdfLib() {
+  if (!pdfLibModule) {
+    pdfLibModule = await import('pdf-lib');
+  }
+  return pdfLibModule;
+}
 
 function getBaseSkillName(name: string): string {
   const m = name.match(/^(.*?)(?:\s*\(|$)/);
@@ -403,6 +411,7 @@ async function fillCampfirePdf(
     setText(id2, rightLines.join('\n'));
     // Set font size for campfire gear fields
     try {
+      const { StandardFonts } = await getPdfLib();
       const helv = await pdfDoc.embedFont(StandardFonts.Helvetica);
       const da = (size: number) => `0 g\n/${helv.name} ${size.toFixed(2)} Tf`;
       const size = 15.5 / 1.2;
@@ -566,6 +575,7 @@ export const usePdfPrinting = (showToast: (msg: string, type?: ToastType) => voi
   const printSheet = useCallback(async (data: PrintData) => {
     try {
       setIsPrinting(true);
+      const { PDFDocument, StandardFonts } = await getPdfLib();
       const sheetUrl = getSheetPath(selectedEra, false, SHEET_CONFIG);
       const res = await fetch(sheetUrl);
       if (!res.ok) throw new Error(`Failed to fetch sheet: ${res.status}`);

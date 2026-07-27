@@ -2,16 +2,17 @@
 
 ## Current Focus
 
-- ready the repository for the next epic and keep the forward plan aligned
-  with the current release state
-- canonical implementation areas will be defined by the next epic and should
-  be listed here before work begins
+- **Optimization epic complete** (2026-07-27) — see
+  `docs/OPTIMIZATION_PROPOSAL.md` outcome table
+- Product: finish Regency reputation + export (TODO Prompts 3–4)
+- Optional polish only (not planned): full `strict` TS, ESLint package,
+  further shrinking of `useCharacter` orchestration
 
 ## Scope And Boundaries
 
-- what this pass owns: the next defined epic once it is scoped in this file
-- what this pass does not own: unrelated feature work, release curation, or
-  broad workflow changes without an explicit plan
+- what this pass owns: performance, architecture hygiene, and test graph
+  cleanliness described in the optimization proposal
+- what this pass does not own: new eras, full UI redesign, replacing pdf-lib
 
 ## Working Rules
 
@@ -30,9 +31,11 @@
   Rating, Cool, badges, Distress, Adversity, and scout backstory state.
 - 2026-05-29: reset the plan to a next-epic landing zone after Campfire Tales
   1.0.2 shipped.
+- 2026-07-27: start optimization epic from `docs/OPTIMIZATION_PROPOSAL.md`.
+  Canonical western selectedEra id is `western-1880s` (data folder remains
+  `eras/western-1870s/`). Prefer pure React memo/context before adding a store.
 
 ## Risks And Blockers
 
-- no active blockers
-- the next epic has not yet been defined, so scope, owners, and validation
-  still need to be populated
+- Wave B lazy-load must not break offline/save-load or PDF field maps
+- Portrait/API key UX must stay settings-driven for public builds

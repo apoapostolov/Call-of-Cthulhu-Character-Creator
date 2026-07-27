@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useCharacterContext } from '../../context/CharacterContext';
+import { useCharacterGear } from '../../context/CharacterContext';
 import type { DGItem } from '../../types';
 import { EquipmentList } from './EquipmentList';
 import { InvestigatorInventory } from './InvestigatorInventory';
@@ -10,8 +10,6 @@ import { CustomItemCreator } from './CustomItemCreator';
 import { PromptInfoModal } from '../PromptInfoModal';
 import { AssignPriceModal } from './AssignPriceModal';
 import { useEraContext } from '../../context/SourceContext';
-import { getWeaponsForEra } from '../../weapons/to-dgitems';
-import { thirdPartyData } from '../../eras/manifest';
 import { useAiRuntime } from '../../hooks/useAiRuntime';
 import { parseJsonLike } from '../../lib/ai/json';
 
@@ -23,7 +21,7 @@ interface GearTabProps {
 }
 
 export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDrop, onDeleteItem }) => {
-    const { attributes, setEquipmentKit, activeKitName, aggregatedData, derivedStats, handleAssignPrice } = useCharacterContext();
+    const { attributes, setEquipmentKit, activeKitName, aggregatedData, derivedStats, handleAssignPrice } = useCharacterGear();
     const [filterText, setFilterText] = useState('');
     const { selectedEra } = useEraContext();
     const [equipmentSubtab, setEquipmentSubtab] = useState<'equipment' | 'prices' | 'scout' | 'all'>('equipment');
@@ -50,11 +48,11 @@ export const GearTab: React.FC<GearTabProps> = ({ kitInventory, inventory, onDro
         setMobileTab('inventory');
     }, [onDrop]);
 
-    const weaponItems = useMemo(() => getWeaponsForEra(selectedEra), [selectedEra]);
-    const priceOnlyItems = useMemo(() => (thirdPartyData as any)[selectedEra]?.items ?? [], [selectedEra]);
+    const weaponItems = aggregatedData.WEAPON_ITEMS;
+    const priceOnlyItems = aggregatedData.PRICE_ITEMS;
     const isCampfireEra = selectedEra === 'campfire-tales';
-    const classicItems = useMemo(() => (thirdPartyData as any)['classic-1920s']?.items ?? [], []);
-    const classicEquipmentItems = useMemo(() => getWeaponsForEra('classic-1920s'), []);
+    const classicItems = aggregatedData.CLASSIC_PRICE_ITEMS;
+    const classicEquipmentItems = aggregatedData.CLASSIC_WEAPON_ITEMS;
     const scoutItems = useMemo(() => {
         const scoutSections = new Set([
             'Scout Uniforms & Packs',

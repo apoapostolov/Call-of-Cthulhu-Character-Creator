@@ -1,13 +1,20 @@
-import { describe, expect, it } from 'vitest';
-import { ERAS, thirdPartyData } from '../eras/manifest';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { ERAS, loadEraData } from '../eras/manifest';
+import type { EraData } from '../eras/load-era';
 import { SKILL_SPECIALIZATIONS as REGENCY_SKILL_SPECIALIZATIONS } from '../eras/regency/skill-specializations-data';
 import { SHEET_CONFIG } from '../eras/sheet-config';
-import { getWeaponsForEra } from '../weapons/to-dgitems';
+import { loadWeaponsForEra } from '../weapons/to-dgitems';
 import { parsePriceToCents } from '../utils/money';
 import { buildEraContext, buildSkillDistributionPrompt } from '../lib/ai/skill-distribution';
 import { getNamePrompt, getPhysicalDescriptionPrompt, getPortraitPrompt } from '../prompts/prompt-data';
 
 describe('Regency era scaffold', () => {
+  let regency: EraData;
+
+  beforeAll(async () => {
+    regency = await loadEraData('regency');
+  });
+
   it('is registered before Campfire Tales in the era manifest', () => {
     const regencyIndex = ERAS.findIndex(era => era.id === 'regency');
     const campfireIndex = ERAS.findIndex(era => era.id === 'campfire-tales');
@@ -18,9 +25,7 @@ describe('Regency era scaffold', () => {
   });
 
   it('resolves through the era manifest with Regency-specific theme and decade data', () => {
-    const regency = thirdPartyData['regency'];
-
-    expect(regency).toBeTruthy();
+        expect(regency).toBeTruthy();
     expect(regency.theme.displayName).toBe('Regency Cthulhu');
     expect(regency.decades[0]?.name).toBe('1810s');
     expect(regency.decades[0]?.displayName).toContain('Regency');
@@ -50,8 +55,8 @@ describe('Regency era scaffold', () => {
     expect(regency.wealthData.levels[0]?.name).toBe('Penniless');
   });
 
-  it('exposes a Regency equipment list in the Gear tab weapon table', () => {
-    const weapons = getWeaponsForEra('regency');
+  it('exposes a Regency equipment list in the Gear tab weapon table', async () => {
+    const weapons = await loadWeaponsForEra('regency');
 
     expect(weapons.length).toBeGreaterThan(0);
     expect(weapons.some(item => item.name === 'Rapier')).toBe(true);
@@ -76,7 +81,7 @@ describe('Regency era scaffold', () => {
   });
 
   it('pushes Regency context into the bio prompts', () => {
-    const regency = thirdPartyData['regency'];
+    
     const decade = regency.decades[0];
 
     expect(getNamePrompt('female', 'gentlewoman investigator', 'British', decade)).toContain('Regency England');
@@ -103,7 +108,7 @@ describe('Regency era scaffold', () => {
   });
 
   it('pushes Regency context into the skill distribution prompt', () => {
-    const regency = thirdPartyData['regency'];
+    
     const decade = regency.decades[0];
     const prompt = buildSkillDistributionPrompt({
       era: {

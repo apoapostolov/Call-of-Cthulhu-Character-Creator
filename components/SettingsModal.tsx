@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useSheetContext, SheetSourceType } from '../context/SheetContext';
-import { useAiSettings } from '../context/AiSettingsContext';
+import {
+    AI_MODEL_SLOTS,
+    AI_SLOT_DESCRIPTIONS,
+    AI_SLOT_LABELS,
+    useAiSettings,
+} from '../context/AiSettingsContext';
+import type { AiModelSlot } from '../lib/ai/ai-slots';
 import { AI_PROVIDER_OPTIONS, isAiProviderId } from '../lib/ai/provider-options';
 import { ERAS } from '../eras/manifest';
 import { RefreshIcon } from './icons/RefreshIcon';
@@ -184,49 +190,215 @@ const SearchableSelect: React.FC<{
     );
 };
 
+const SlotProviderBlock: React.FC<{ slot: AiModelSlot }> = ({ slot }) => {
+    const {
+        slots,
+        setSlotProvider,
+        setSlotModelId,
+        setProviderApiKey,
+        refreshProviderModels,
+        xaiOauthDevice,
+        startXaiOauthDeviceFlow,
+        openXaiOauthBrowser,
+        cancelXaiOauthDeviceFlow,
+        disconnectXaiOauth,
+        pasteXaiOauthToken,
+        xaiOauthConnected,
+    } = useAiSettings();
+    const view = slots[slot];
+    const isOauth = view.provider === 'xai-oauth';
+    const [showAdvancedPaste, setShowAdvancedPaste] = useState(false);
+    const [pasteToken, setPasteToken] = useState('');
+    const modelOptions = useMemo(
+        () => view.models.map(model => ({ value: model.id, label: formatModelOptionLabel(model) })),
+        [view.models],
+    );
+
+    const devicePending =
+        xaiOauthDevice.status === 'pending' || xaiOauthDevice.status === 'polling'
+            ? xaiOauthDevice.pending
+            : null;
+
+    return (
+        <section className="space-y-3 bg-cream-200 p-4 rounded-lg border border-border">
+            <div>
+                <h3 className="text-lg font-bold text-foreground">{AI_SLOT_LABELS[slot]}</h3>
+                <p className="text-sm text-muted-foreground">{AI_SLOT_DESCRIPTIONS[slot]}</p>
+            </div>
+            <SelectInput
+                label="Provider"
+                value={view.provider}
+                onChange={(value) => {
+                    if (isAiProviderId(value)) setSlotProvider(slot, value);
+                }}
+                options={AI_PROVIDER_OPTIONS.map(option => ({
+                    value: option.value,
+                    label: option.label,
+                }))}
+            />
+
+            {isOauth ? (
+                <div className="space-y-3 rounded-md border border-border bg-cream-100 p-3">
+                    <p className="text-sm text-muted-foreground">
+                        SuperGrok / X Premium OAuth — no API key. Authorize in the browser with a device code.
+                        Requires the Vite dev server (or a reverse proxy for <code>/__xai_oauth</code>).
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">
+                        Status:{' '}
+                        {xaiOauthConnected || xaiOauthDevice.status === 'connected'
+                            ? 'Connected'
+                            : xaiOauthDevice.status === 'starting'
+                                ? 'Starting…'
+                                : xaiOauthDevice.status === 'pending' || xaiOauthDevice.status === 'polling'
+                                    ? 'Waiting for browser approval…'
+                                    : xaiOauthDevice.status === 'error'
+                                        ? `Error — ${xaiOauthDevice.message}`
+                                        : 'Not connected'}
+                    </p>
+                    {devicePending && (
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-muted-foreground">Device code</label>
+                            <input
+                                readOnly
+                                value={devicePending.userCode}
+                                className="w-full bg-card border-2 border-primary/40 rounded-md p-3 mt-1 text-center text-2xl font-mono font-bold tracking-widest text-foreground"
+                                aria-label="xAI device code"
+                            />
+                            <p className="text-xs text-muted-foreground break-all">
+                                Open: {devicePending.verificationUriComplete || devicePending.verificationUri}
+                            </p>
+                        </div>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            className="bg-primary text-primary-foreground font-bold py-2 px-3 rounded-md text-sm"
+                            onClick={() => void startXaiOauthDeviceFlow()}
+                            disabled={xaiOauthDevice.status === 'starting' || xaiOauthDevice.status === 'polling'}
+                        >
+                            {devicePending ? 'Restart device login' : 'Start device login'}
+                        </button>
+                        <button
+                            type="button"
+                            className="bg-secondary text-secondary-foreground font-bold py-2 px-3 rounded-md text-sm"
+                            onClick={() => openXaiOauthBrowser()}
+                            disabled={!devicePending}
+                        >
+                            Open browser to authorize
+                        </button>
+                        {devicePending && (
+                            <button
+                                type="button"
+                                className="border border-border font-bold py-2 px-3 rounded-md text-sm"
+                                onClick={() => cancelXaiOauthDeviceFlow()}
+                            >
+                                Cancel
+                            </button>
+                        )}
+                        {(xaiOauthConnected || xaiOauthDevice.status === 'connected') && (
+                            <button
+                                type="button"
+                                className="border border-border font-bold py-2 px-3 rounded-md text-sm text-danger-800"
+                                onClick={() => disconnectXaiOauth()}
+                            >
+                                Disconnect
+                            </button>
+                        )}
+                        <button
+                            type="button"
+                            className="border border-border font-bold py-2 px-3 rounded-md text-sm text-muted-foreground"
+                            onClick={() => setShowAdvancedPaste(v => !v)}
+                        >
+                            {showAdvancedPaste ? 'Hide advanced paste' : 'Advanced: paste token'}
+                        </button>
+                    </div>
+                    {showAdvancedPaste && (
+                        <div className="space-y-2 border-t border-border pt-3">
+                            <p className="text-xs text-muted-foreground">
+                                Paste a bearer access token only if you already obtained one outside this app
+                                (e.g. from Grok CLI). Prefer device login when the proxy is available.
+                            </p>
+                            <UrlInput
+                                label="Access token"
+                                value={pasteToken}
+                                onChange={setPasteToken}
+                                type="password"
+                            />
+                            <button
+                                type="button"
+                                className="bg-secondary text-secondary-foreground font-bold py-2 px-3 rounded-md text-sm"
+                                onClick={() => {
+                                    pasteXaiOauthToken(pasteToken);
+                                    setPasteToken('');
+                                    setShowAdvancedPaste(false);
+                                }}
+                                disabled={!pasteToken.trim()}
+                            >
+                                Save token
+                            </button>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <UrlInput
+                    label={
+                        view.provider === 'zhipu'
+                            ? 'Z.ai Coding Plan API Key (remembered)'
+                            : view.provider === 'xai'
+                                ? 'xAI API Key (remembered)'
+                                : 'API Key (remembered for this provider)'
+                    }
+                    value={view.apiKey}
+                    onChange={(key) => setProviderApiKey(view.provider, key)}
+                    type="password"
+                />
+            )}
+
+            {view.provider === 'zhipu' && (
+                <p className="text-xs text-muted-foreground">
+                    Coding Plan endpoint only: <code>api.z.ai/api/coding/paas/v4</code>
+                </p>
+            )}
+
+            <div className="flex items-end gap-2">
+                <div className="flex-1 min-w-0">
+                    {modelOptions.length > 0 ? (
+                        <SearchableSelect
+                            key={`${slot}-${view.provider}-model`}
+                            label="Model"
+                            value={view.modelId}
+                            onChange={(id) => setSlotModelId(slot, id)}
+                            options={modelOptions}
+                        />
+                    ) : (
+                        <div className="mt-2 rounded-md border border-dashed border-border bg-cream-100 p-3 text-sm text-muted-foreground">
+                            No models loaded for this provider yet.
+                        </div>
+                    )}
+                </div>
+                <button
+                    type="button"
+                    onClick={() => void refreshProviderModels(view.provider)}
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm font-semibold text-foreground hover:bg-cream-100 disabled:opacity-60 mb-0.5"
+                    disabled={view.catalogState === 'loading'}
+                    title="Refresh model list"
+                    aria-label={`Refresh models for ${view.provider}`}
+                >
+                    <RefreshIcon className="h-4 w-4" />
+                    Refresh
+                </button>
+            </div>
+            <div className="text-xs text-muted-foreground">
+                Catalog: {view.catalogState}
+                {view.catalogError ? ` — ${view.catalogError}` : ''}
+            </div>
+        </section>
+    );
+};
+
 export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
     const { sourceType, setSourceType, externalUrls, setExternalUrl, selfHostedUrl, setSelfHostedUrl } = useSheetContext();
-    const {
-        provider,
-        setProvider,
-        providerApiKey,
-        setProviderApiKey,
-        providerSimpleModels,
-        providerCreativeModels,
-        providerVisionModels,
-        providerImageModels,
-        providerModelCatalogState,
-        providerModelCatalogError,
-        refreshProviderModels,
-        providerSimpleModelId,
-        setProviderSimpleModelId,
-        providerTextModelId,
-        setProviderTextModelId,
-        providerVisionModelId,
-        setProviderVisionModelId,
-        providerImageModelId,
-        setProviderImageModelId,
-    } = useAiSettings();
     const [activeTab, setActiveTab] = useState<'sheet' | 'ai'>('sheet');
-    const simpleModelOptions = useMemo(() => providerSimpleModels.map(model => ({
-        value: model.id,
-        label: formatModelOptionLabel(model),
-    })), [providerSimpleModels]);
-
-    const creativeModelOptions = useMemo(() => providerCreativeModels.map(model => ({
-        value: model.id,
-        label: formatModelOptionLabel(model),
-    })), [providerCreativeModels]);
-
-    const visionModelOptions = useMemo(() => providerVisionModels.map(model => ({
-        value: model.id,
-        label: formatModelOptionLabel(model),
-    })), [providerVisionModels]);
-
-    const imageModelOptions = useMemo(() => providerImageModels.map(model => ({
-        value: model.id,
-        label: formatModelOptionLabel(model),
-    })), [providerImageModels]);
 
     return (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
@@ -295,91 +467,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
 
                     {activeTab === 'ai' && (
                         <>
-                            <section>
-                                <h3 className="text-lg font-bold text-foreground mb-3">Provider</h3>
-                                <div className="space-y-4 bg-cream-200 p-4 rounded-lg border border-border">
-                                    <SelectInput
-                                        label="Provider"
-                                        value={provider}
-                                        onChange={(value) => {
-                                            if (isAiProviderId(value)) setProvider(value);
-                                        }}
-                                        options={AI_PROVIDER_OPTIONS.map(option => ({
-                                            value: option.value,
-                                            label: option.label,
-                                        }))}
-                                    />
-                                    <UrlInput
-                                        label="Provider API Key"
-                                        value={providerApiKey}
-                                        onChange={setProviderApiKey}
-                                        type="password"
-                                    />
-                                </div>
-                            </section>
-
-                            <section>
-                                <div className="flex items-center justify-between gap-3 mb-3">
-                                    <h3 className="text-lg font-bold text-foreground">Prompting Models</h3>
-                                    <button
-                                        type="button"
-                                        onClick={() => void refreshProviderModels()}
-                                        className="inline-flex items-center gap-2 rounded-md border border-border bg-cream-200 px-3 py-2 text-sm font-semibold text-foreground hover:bg-cream-100 disabled:cursor-not-allowed disabled:opacity-60"
-                                        aria-label={`Refresh ${provider} model list`}
-                                        title="Refresh model list"
-                                        disabled={providerModelCatalogState === 'loading'}
-                                    >
-                                        <RefreshIcon className="h-4 w-4" />
-                                        Refresh
-                                    </button>
-                                </div>
-                                <div className="space-y-4 bg-cream-200 p-4 rounded-lg border border-border">
-                                    <SearchableSelect
-                                        key={`${provider}-simple`}
-                                        label="Simple Writing"
-                                        value={providerSimpleModelId}
-                                        onChange={setProviderSimpleModelId}
-                                        options={simpleModelOptions}
-                                    />
-                                    <SearchableSelect
-                                        key={`${provider}-creative`}
-                                        label="Creative Writing"
-                                        value={providerTextModelId}
-                                        onChange={setProviderTextModelId}
-                                        options={creativeModelOptions}
-                                    />
-                                    {visionModelOptions.length > 0 ? (
-                                        <SearchableSelect
-                                            key={`${provider}-vision`}
-                                            label="Vision Analysis"
-                                            value={providerVisionModelId}
-                                            onChange={setProviderVisionModelId}
-                                            options={visionModelOptions}
-                                        />
-                                    ) : (
-                                        <div className="mt-2 rounded-md border border-dashed border-border bg-cream-100 p-3 text-sm text-muted-foreground">
-                                            No vision-capable models are available for this provider.
-                                        </div>
-                                    )}
-                                    {imageModelOptions.length > 0 ? (
-                                        <SearchableSelect
-                                            key={`${provider}-image`}
-                                            label="Image Generation"
-                                            value={providerImageModelId}
-                                            onChange={setProviderImageModelId}
-                                            options={imageModelOptions}
-                                        />
-                                    ) : (
-                                        <div className="mt-2 rounded-md border border-dashed border-border bg-cream-100 p-3 text-sm text-muted-foreground">
-                                            No image-generation models are available for this provider.
-                                        </div>
-                                    )}
-                                    <div className="text-sm text-muted-foreground">
-                                        Status: {providerModelCatalogState}
-                                        {providerModelCatalogError ? ` - ${providerModelCatalogError}` : ''}
-                                    </div>
-                                </div>
-                            </section>
+                            <p className="text-sm text-muted-foreground">
+                                Each use type has its own provider, remembered API key (shared when the same
+                                provider appears on multiple slots), and model. Keys are stored in this browser only.
+                            </p>
+                            {AI_MODEL_SLOTS.map(slot => (
+                                <SlotProviderBlock key={slot} slot={slot} />
+                            ))}
                         </>
                     )}
                 </div>

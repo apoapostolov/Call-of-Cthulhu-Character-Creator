@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCharacterContext } from '../context/CharacterContext';
+import { useCharacterExtras, useCharacterIdentity } from '../context/CharacterContext';
 import { useAiRuntime } from '../hooks/useAiRuntime';
 import { getScoutRank } from '../eras/campfire-tales/scout-rules';
 import { ExpressivePortraitsStudio } from './draft/ExpressivePortraitsStudio';
@@ -30,6 +30,9 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
         selectedTalents,
         occupationNotes,
         selectedOccupation,
+        selectedAgeCategory,
+    } = useCharacterIdentity();
+    const {
         isCampfireEra,
         familyCreditStatus,
         scoutBackstory,
@@ -40,8 +43,7 @@ export const DossierTab: React.FC<DossierTabProps> = ({ onShowPromptInfo, dob, s
         toggleAdversityBox,
         campfireDistressBoxes,
         campfireAdversityBoxes,
-        selectedAgeCategory,
-    } = useCharacterContext();
+    } = useCharacterExtras();
     const { generateText } = useAiRuntime();
     const [generatingScoutField, setGeneratingScoutField] = useState<keyof ScoutBackstoryFields | null>(null);
     const [scoutFieldError, setScoutFieldError] = useState<string | null>(null);
