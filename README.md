@@ -1,4 +1,4 @@
-# Call of Cthulhu Character Creator (The New Dhole's House)
+# Call of Cthulhu Character Creator
 
 <!-- markdownlint-disable MD013 MD033 MD045 -->
 
