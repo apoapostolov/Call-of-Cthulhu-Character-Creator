@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSaveSystem } from '../hooks/useSaveSystem';
 import { useCharacterContext } from '../context/CharacterContext';
-import { useEraContext } from '../context/SourceContext';
-import type { SaveSlot } from '../types';
 
 export const SaveSlotDrawer: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,12 +11,13 @@ export const SaveSlotDrawer: React.FC = () => {
     const [exportCurrentModalOpen, setExportCurrentModalOpen] = useState(false);
     const [importData, setImportData] = useState('');
     const [exportData, setExportData] = useState<string | null>(null);
+    const importFileInputRef = useRef<HTMLInputElement | null>(null);
     const [currentCharacterExportData, setCurrentCharacterExportData] = useState<string | null>(null);
     const [copiedSlot, setCopiedSlot] = useState<number | null>(null);
     
     const character = useCharacterContext();
-    const { selectedEra } = useEraContext();
     const { slots, saveCharacter, loadCharacter, deleteSlot, exportSlot, importSlot, exportCurrentCharacter } = useSaveSystem();
+    const isModalOpen = customNameModalOpen || importModalOpen || !!exportData || exportCurrentModalOpen;
 
     const copyTextToClipboard = async (text: string) => {
         if (!text) return false;
@@ -73,7 +72,12 @@ export const SaveSlotDrawer: React.FC = () => {
 
     const handleLoad = (slotIndex: number) => {
         if (window.confirm('Loading will replace your current character. Continue?')) {
-            loadCharacter(slotIndex);
+            try {
+                loadCharacter(slotIndex);
+                setIsOpen(false);
+            } catch (error) {
+                alert('Failed to load character: ' + (error instanceof Error ? error.message : String(error)));
+            }
         }
     };
 
@@ -106,6 +110,39 @@ export const SaveSlotDrawer: React.FC = () => {
             setImportData('');
         } catch (error) {
             alert('Failed to import character: ' + (error as Error).message);
+        }
+    };
+
+    const handleImportFilePick = () => {
+        importFileInputRef.current?.click();
+    };
+
+    const handleImportFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            setImportData(typeof reader.result === 'string' ? reader.result : '');
+        };
+        reader.onerror = () => alert('Failed to read file. Please try again.');
+        reader.readAsText(file);
+        event.target.value = '';
+    };
+
+    const handlePasteFromClipboard = async () => {
+        try {
+            if (!navigator.clipboard || !window.isSecureContext) {
+                alert('Clipboard access is not available. Please paste manually.');
+                return;
+            }
+            const text = await navigator.clipboard.readText();
+            if (!text) {
+                alert('Clipboard is empty.');
+                return;
+            }
+            setImportData(text);
+        } catch {
+            alert('Failed to read from clipboard. Please paste manually.');
         }
     };
 
@@ -161,7 +198,7 @@ export const SaveSlotDrawer: React.FC = () => {
             {/* Drawer Handle */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="save-drawer-handle"
+                className={`save-drawer-handle ${isModalOpen ? 'dimmed' : ''}`}
                 aria-label={isOpen ? 'Close save menu' : 'Open save menu'}
                 title={isOpen ? 'Close save menu' : 'Open save menu'}
             >
@@ -375,6 +412,21 @@ export const SaveSlotDrawer: React.FC = () => {
                             </button>
                         </div>
                         <div className="modal-body">
+                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+                                <button type="button" onClick={handlePasteFromClipboard} className="btn-secondary">
+                                    <i className="fas fa-clipboard"></i> Paste from Clipboard
+                                </button>
+                                <button type="button" onClick={handleImportFilePick} className="btn-secondary">
+                                    <i className="fas fa-folder-open"></i> Load from File
+                                </button>
+                                <input
+                                    ref={importFileInputRef}
+                                    type="file"
+                                    accept="application/json,.json"
+                                    onChange={handleImportFileChange}
+                                    style={{ display: 'none' }}
+                                />
+                            </div>
                             <textarea
                                 value={importData}
                                 onChange={(e) => setImportData(e.target.value)}
@@ -382,7 +434,7 @@ export const SaveSlotDrawer: React.FC = () => {
                                 className="import-textarea"
                                 rows={15}
                             />
-                            <p className="input-hint">Paste the exported JSON data to restore a character</p>
+                            <p className="input-hint">Paste or load exported JSON to restore a character into an empty slot</p>
                         </div>
                         <div className="modal-footer">
                             <button onClick={() => setImportModalOpen(false)} className="btn-secondary">
@@ -461,6 +513,12 @@ export const SaveSlotDrawer: React.FC = () => {
 
                 .save-drawer-handle:active {
                     transform: scale(0.95);
+                }
+
+                .save-drawer-handle.dimmed {
+                    opacity: 0.35;
+                    filter: grayscale(1);
+                    pointer-events: none;
                 }
 
                 .save-drawer {

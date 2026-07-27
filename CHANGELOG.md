@@ -28,6 +28,9 @@ Theme: **performance overhaul** + **much stronger AI provider control**.
   instead of up front; print tooling loads only when you print.
 - **Snappier skill editing.** Changing one skill’s points no longer thrash the
   whole sheet UI; gear and bio stay calm while you allocate.
+- **Save drawer reliability.** Import from file or clipboard, load errors surface
+  instead of silent no-ops, export can download JSON, and the drawer handle dims
+  while modals are open.
 - **Cleaner era handling.** Western uses a single consistent era id; older
   saves migrate automatically.
 - **Leaner Settings model lists.** Catalogs hydrate in the background or when
