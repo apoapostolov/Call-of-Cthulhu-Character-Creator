@@ -1,18 +1,20 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD033 -->
 
-# Call of Cthulhu Character Creator
+<div align="center">
 
-Build the investigator your next mystery needs, from the first characteristic
-roll to a filled Call of Cthulhu 7e sheet. Choose an era, follow its occupation
-and equipment rules, and keep optional AI details out of the way until you want
-them.
+  <h1>Call of Cthulhu Character Creator</h1>
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
-![Node](https://img.shields.io/badge/node-18%2B-339933)
-![React](https://img.shields.io/badge/react-18.2-61DAFB)
-![Vite](https://img.shields.io/badge/vite-6.x-646CFF)
-![TypeScript](https://img.shields.io/badge/typescript-5.8-3178C6)
-![License](https://img.shields.io/badge/license-MIT-green)
+  <p>Build an investigator from the first roll to a filled 7e sheet.</p>
+
+  <p>
+    <a href="#what-you-can-do"><img src="https://img.shields.io/badge/Type-Web%20app-555" alt="Type: Web app"></a>
+    <a href="./package.json"><img src="https://img.shields.io/badge/Language-TypeScript-555" alt="Language: TypeScript"></a>
+    <a href="https://github.com/apoapostolov/Call-of-Cthulhu-Character-Creator/releases/latest"><img src="https://img.shields.io/github/v/release/apoapostolov/Call-of-Cthulhu-Character-Creator" alt="Latest stable release version"></a>
+    <a href="https://github.com/apoapostolov/Call-of-Cthulhu-Character-Creator/releases/latest"><img src="https://img.shields.io/github/release-date/apoapostolov/Call-of-Cthulhu-Character-Creator?display_date=published_at&amp;label=last%20release" alt="Published date of latest stable release"></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT"></a>
+  </p>
+
+</div>
 
 This React app turns investigator creation into a guided four-part workflow: characteristics, skills, gear, and bio. Each supported era supplies its own occupations, rules, prices, equipment, visual theme, and sheet mapping where available. Core creation works without an AI account; provider-backed names, portraits, and skill-allocation help are optional.
 
