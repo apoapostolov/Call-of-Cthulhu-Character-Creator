@@ -7,44 +7,29 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.0] - 2026-07-27
 
-Theme: **performance overhaul** + **much stronger AI provider control**.
+Investigator creation asks less of your browser and gives you more choice
+about which AI provider handles each optional task.
 
 ### Added
 
-- **Per-task AI setup in Settings.** Creative writing, simple writing, vision,
-  and image generation each have their own provider, remembered API key, and
-  model — mix vendors freely (e.g. OpenAI for names, Gemini for portraits).
-- **Z.ai GLM (Coding Plan).** Use a Z.ai Coding Plan key for text generation
-  through the Coding endpoint.
-- **xAI Grok (API key).** Point any slot at Grok with a standard xAI key.
-- **xAI Grok (SuperGrok / OAuth).** Log in with a device code and browser
-  approval — no API key field. Optional advanced token paste if you already
-  have a session token.
-- Keys stay remembered per provider when you switch slots or reopen Settings.
+- Choose a provider and model separately for creative writing, short text,
+  vision, and images. Settings remember each provider's key when you switch.
+- Z.ai GLM Coding Plan and xAI Grok join the available providers. SuperGrok
+  can use device-code sign-in when the local OAuth proxy is available.
 
-### Improved
+### Changed
 
-- **Much faster first load.** Era data and heavy AI catalogs load when needed
-  instead of up front; print tooling loads only when you print.
-- **Snappier skill editing.** Changing one skill’s points no longer thrash the
-  whole sheet UI; gear and bio stay calm while you allocate.
-- **Save drawer reliability.** Import from file or clipboard, load errors surface
-  instead of silent no-ops, export can download JSON, and the drawer handle dims
-  while modals are open.
-- **Cleaner era handling.** Western uses a single consistent era id; older
-  saves migrate automatically.
-- **Leaner Settings model lists.** Catalogs hydrate in the background or when
-  you hit Refresh, so opening Settings stays quick.
+- Era data, model catalogs, and print tools load when you need them, so the
+  first visit is lighter and skill allocation stays responsive.
+- Character saves can be imported from a file or the clipboard and exported
+  as downloadable JSON. Load errors are shown instead of failing silently.
+- Older Western-era saves migrate to the current era identifier.
 
-### Notes for power users
+### For local hosts
 
-- Prefer **dev server** (`npm run dev`) for xAI OAuth; static file hosts need a
-  reverse proxy for the OAuth device path (see Settings help text).
-- Optional env keys for new providers: `VITE_ZHIPU_API_KEY` / `VITE_ZAI_API_KEY`,
-  `VITE_XAI_API_KEY` (in addition to existing Gemini / OpenRouter / OpenAI /
-  Anthropic / DeepSeek keys).
-- Engineering background: `docs/OPTIMIZATION_PROPOSAL.md` and
-  `docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md`.
+SuperGrok device-code sign-in needs the OAuth proxy used by `npm run dev`.
+See the [AI setup notes](docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md) for provider
+keys and static-host requirements.
 
 ## [1.0.3] - 2026-05-30
 

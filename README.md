@@ -2,7 +2,10 @@
 
 # Call of Cthulhu Character Creator
 
-Create era-aware Call of Cthulhu 7e investigators, manage skills and gear, add optional AI details, and export filled character sheets.
+Build the investigator your next mystery needs, from the first characteristic
+roll to a filled Call of Cthulhu 7e sheet. Choose an era, follow its occupation
+and equipment rules, and keep optional AI details out of the way until you want
+them.
 
 ![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Node](https://img.shields.io/badge/node-18%2B-339933)
@@ -14,6 +17,9 @@ Create era-aware Call of Cthulhu 7e investigators, manage skills and gear, add o
 This React app turns investigator creation into a guided four-part workflow: characteristics, skills, gear, and bio. Each supported era supplies its own occupations, rules, prices, equipment, visual theme, and sheet mapping where available. Core creation works without an AI account; provider-backed names, portraits, and skill-allocation help are optional.
 
 ![Call of Cthulhu investigator bio editor with generated portrait and print controls](images/SCREENSHOT_10.png)
+
+The final bio brings identity, portrait, and print controls together before
+you export the sheet.
 
 ## What's New in v1.1.0
 
