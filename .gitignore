@@ -212,3 +212,8 @@ docs/**
 !docs/OPTIMIZATION_PROPOSAL.md
 !docs/SHARED_AI_PROVIDERS_ZHIPU_GROK.md
 dist/
+
+# Local agent and log files
+AGENTS.md
+DEVELOPMENT_LOG.md
+TODO.md
